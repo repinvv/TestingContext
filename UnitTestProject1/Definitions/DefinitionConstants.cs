@@ -2,6 +2,6 @@
 {
     public class DefinitionConstants
     {
-        public const string NameOrEmpty = @"(?:(.*)\s|())";
+        public const string NameOrEmpty = @"(?:\s)?(.*)";
     }
 }

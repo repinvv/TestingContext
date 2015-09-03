@@ -39,15 +39,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContextCore.cs" />
-    <Compile Include="ForImpl.cs" />
-    <Compile Include="IFor.cs" />
-    <Compile Include="IRegistration.cs" />
+    <Compile Include="Extensions\RegistrationExtension.cs" />
+    <Compile Include="Implementation\EntityDefinition.cs" />
+    <Compile Include="Implementation\Filters\Filter1.cs" />
+    <Compile Include="Implementation\Filters\IFilter.cs" />
+    <Compile Include="Implementation\Registrations\BaseRegistration.cs" />
+    <Compile Include="Implementation\ContextCore.cs" />
+    <Compile Include="Implementation\Registrations\DoesNotExistRegistration.cs" />
+    <Compile Include="Implementation\Registrations\ExistsRegistration.cs" />
+    <Compile Include="Implementation\Filters\Filter2.cs" />
+    <Compile Include="Interfaces\IFor.cs" />
+    <Compile Include="Interfaces\IRegistration.cs" />
+    <Compile Include="Interfaces\IResolutionContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Registration.cs" />
-    <Compile Include="ResolutionContext.cs" />
+    <Compile Include="Implementation\Registrations\IndependentRegistration.cs" />
+    <Compile Include="Implementation\ResolutionContext.cs" />
     <Compile Include="TestingContext.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

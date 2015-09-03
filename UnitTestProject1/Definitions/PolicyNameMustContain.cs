@@ -12,7 +12,7 @@
         }
 
         [Then(@"policy (.*)name must contain (.*)")]
-        public void ThenPolicyANameMustContainNaem(string key, string namepart)
+        public void ThenPolicyNameMustContain(string key, string namepart)
         {
             //Assert.IsTrue(policyItems[key].Value.Name.Contains(namepart));
         }

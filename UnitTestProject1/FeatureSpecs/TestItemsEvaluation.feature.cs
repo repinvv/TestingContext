@@ -78,7 +78,7 @@ namespace UnitTestProject1.FeatureSpecs
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line 7
- testRunner.Given("Policy is taken from policiesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("Policy A is taken from policiesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
    testRunner.And("policy A is created before year 2013", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 9

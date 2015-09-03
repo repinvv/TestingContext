@@ -15,7 +15,7 @@
             this.testingContext = testingContext;
         }
 
-        [Given(@"Policy "+ DefinitionConstants.NameOrEmpty + "is taken from policiesSource")]
+        [Given(@"Policy(?:\s)?(.*) is taken from policiesSource")]
         public void GivenPolicyIsTakenFromPoliciesSource(string key)
         {
             testingContext
