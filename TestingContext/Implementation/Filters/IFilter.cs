@@ -2,5 +2,6 @@
 {
     internal interface IFilter
     {
+        EntityDefinition[] EntityDefinitions { get; }
     }
 }

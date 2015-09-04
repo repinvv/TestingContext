@@ -2,20 +2,24 @@
 {
     using System;
     using System.Collections.Generic;
+    using TestingContextCore.Implementation.ContextStore;
 
-    internal class ExistsRegistration<T> : BaseRegistration<T>
+    internal class ExistsRegistration<TDepend> : BaseRegistration<TDepend>
     {
-        private readonly string key;
+        private readonly string dependKey;
+        private readonly ContextStore store;
 
-        public ExistsRegistration(string key)
+        public ExistsRegistration(string dependKey, ContextStore store)
+            : base(store)
         {
-            this.key = key;
+            this.dependKey = dependKey;
+            this.store = store;
         }
 
-        public override void Source<T1>(string key, Func<IEnumerable<T1>> func)
-        { }
-
-        public override void Source<T1>(string key, Func<T, IEnumerable<T1>> func)
-        { }
+        public override void Source<T1>(string key, Func<TDepend, IEnumerable<T1>> func)
+        {
+            base.Source(key, func);
+            store.RegisterDependency(new EntityDefinition(typeof(TDepend), dependKey), this);
+        }
     }
 }

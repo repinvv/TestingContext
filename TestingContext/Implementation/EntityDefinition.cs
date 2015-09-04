@@ -29,8 +29,7 @@
         {
             unchecked
             {
-                return ((Type != null ? Type.GetHashCode() : 0) * 397)
-                       ^ (Key != null ? Key.GetHashCode() : 0);
+                return (Type.GetHashCode() * 397) ^ Key.GetHashCode();
             }
         }
 

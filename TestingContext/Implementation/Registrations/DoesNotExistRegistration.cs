@@ -2,18 +2,19 @@
 {
     using System;
     using System.Collections.Generic;
+    using TestingContextCore.Implementation.ContextStore;
 
-    public class DoesNotExistRegistration<T> : BaseRegistration<T>
+    internal class DoesNotExistRegistration<T> : BaseRegistration<T> 
     {
-        private readonly string key;
+        private readonly string dependKey;
+        private readonly ContextStore store;
 
-        public DoesNotExistRegistration(string key)
+        public DoesNotExistRegistration(string dependKey, ContextStore store)
+            : base(store)
         {
-            this.key = key;
+            this.dependKey = dependKey;
+            this.store = store;
         }
-
-        public override void Source<T1>(string key, Func<IEnumerable<T1>> func)
-        { }
 
         public override void Source<T1>(string key, Func<T, IEnumerable<T1>> func)
         { }
