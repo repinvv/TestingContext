@@ -14,7 +14,10 @@
                 return new List<IFilter>();
             }
 
-            return filtersList.Where(x => x.EntityDefinitions.Where(y => !Equals(y, definition)).All(y => !store.IsChildOf(y, definition)));
+            return filtersList
+                .Where(x => x.EntityDefinitions
+                             .Where(y => !Equals(y, definition))
+                             .All(y => !store.IsChildOf(y, definition)));
         }
 
         private static bool IsChildOf(this ContextStore store, EntityDefinition filterDefinition, EntityDefinition sourceDefinition)

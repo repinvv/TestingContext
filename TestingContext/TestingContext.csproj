@@ -49,16 +49,19 @@
     <Compile Include="Implementation\Filters\IFilter.cs" />
     <Compile Include="Implementation\Registrations\BaseRegistration.cs" />
     <Compile Include="Implementation\ContextStore\ContextStore.cs" />
+    <Compile Include="Implementation\Registrations\DependentRegistration.cs" />
     <Compile Include="Implementation\Registrations\DoesNotExistRegistration.cs" />
+    <Compile Include="Implementation\Registrations\EachRegistration.cs" />
     <Compile Include="Implementation\Registrations\ExistsRegistration.cs" />
     <Compile Include="Implementation\Filters\Filter2.cs" />
     <Compile Include="Implementation\Registrations\ISource.cs" />
+    <Compile Include="Implementation\Resolution\IResolution.cs" />
     <Compile Include="Interfaces\IFor.cs" />
     <Compile Include="Interfaces\IRegistration.cs" />
     <Compile Include="Interfaces\IResolutionContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Implementation\Registrations\IndependentRegistration.cs" />
-    <Compile Include="Implementation\ResolutionContext.cs" />
+    <Compile Include="Implementation\Resolution\ResolutionContext.cs" />
     <Compile Include="TestingContext.cs" />
   </ItemGroup>
   <ItemGroup />

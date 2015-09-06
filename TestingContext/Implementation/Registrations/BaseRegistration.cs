@@ -5,26 +5,25 @@
     using TestingContextCore.Implementation.ContextStore;
     using TestingContextCore.Interfaces;
 
-    internal abstract class BaseRegistration<T> : IRegistration<T>, ISource
+    internal abstract class BaseRegistration<TDepend> : IRegistration<TDepend>, ISource
     {
-        private readonly ContextStore store;
         private bool registered;
 
-        protected BaseRegistration(ContextStore store)
-        {
-            this.store = store;
-        }
-
-        public virtual void Source<T1>(string key, Func<T, IEnumerable<T1>> func)
+        protected void EnsureRegisteredOnce()
         {
             if (registered)
             {
                 throw new Exception("This object is already registered");
             }
-            EntityDefinition = new EntityDefinition(typeof(T1), key);
-            store.RegisterSource(this);
+
             registered = true;
         }
+
+        public abstract EntityDefinition EntityDefinition { get; }
+
+        public abstract IEnumerable<IResolutionContext<T1>> Resolve<T1>(string key);
+
+        public abstract void Source<T1>(string key, Func<TDepend, IEnumerable<T1>> func);
 
         public void Source<T1>(string key, Func<IEnumerable<T1>> func)
         {
@@ -33,16 +32,13 @@
 
         public void Source<T1>(string key, Func<T1> func)
         {
-            Source(key, d => new[] { func() } as IEnumerable<T>);
+            Source(key, d => new[] { func() } as IEnumerable<TDepend>);
         }
 
-        public void Source<T1>(string key, Func<T, T1> func)
+        public void Source<T1>(string key, Func<TDepend, T1> func)
         {
-            Source(key, d => new[] { func(d) } as IEnumerable<T>);
+            Source(key, d => new[] { func(d) } as IEnumerable<TDepend>);
         }
 
-        public EntityDefinition EntityDefinition { get; private set; }
-        
-        public virtual ISource Parent { get { return null; } }
     }
 }

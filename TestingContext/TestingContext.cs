@@ -7,6 +7,7 @@
     using TestingContextCore.Implementation.ContextStore;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Registrations;
+    using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Interfaces;
 
     public class TestingContext
@@ -38,7 +39,12 @@
             return new DoesNotExistRegistration<T>(key, store);
         }
 
-        public IEnumerable<ResolutionContext<T>> All<T>(string key)
+        public IRegistration<T> EachFor<T>(string key)
+        {
+            return new EachRegistration<T>(key, store);
+        }
+
+        public IEnumerable<IResolutionContext<T>> All<T>(string key)
         {
             return store.Resolve<T>(key);
         }
