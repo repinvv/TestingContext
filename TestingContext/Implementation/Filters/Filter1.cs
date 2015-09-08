@@ -1,7 +1,7 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
     using System;
-    using TestingContextCore.Implementation.ContextStore;
+    using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Interfaces;
 
     internal class Filter1<T1> : IFor<T1>, IFilter

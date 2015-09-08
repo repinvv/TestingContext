@@ -2,29 +2,17 @@
 {
     using System;
     using System.Collections.Generic;
-    using TestingContextCore.Implementation.ContextStore;
+    using System.Linq;
+    using TestingContextCore.Implementation.ContextStorage;
+    using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.Sources;
     using TestingContextCore.Interfaces;
 
-    internal abstract class BaseRegistration<TDepend> : IRegistration<TDepend>, ISource
+    internal abstract class Registration<TDepend> : IRegistration<TDepend>
     {
-        private bool registered;
-
-        protected void EnsureRegisteredOnce()
-        {
-            if (registered)
-            {
-                throw new Exception("This object is already registered");
-            }
-
-            registered = true;
-        }
-
-        public abstract EntityDefinition EntityDefinition { get; }
-
-        public abstract IEnumerable<IResolutionContext<T1>> Resolve<T1>(string key);
-
         public abstract void Source<T1>(string key, Func<TDepend, IEnumerable<T1>> func);
 
+        #region redirection methods
         public void Source<T1>(string key, Func<IEnumerable<T1>> func)
         {
             Source(key, d => func());
@@ -39,6 +27,6 @@
         {
             Source(key, d => new[] { func(d) } as IEnumerable<TDepend>);
         }
-
+        #endregion
     }
 }

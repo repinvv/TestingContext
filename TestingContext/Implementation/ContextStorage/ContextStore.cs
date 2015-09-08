@@ -1,8 +1,8 @@
-﻿namespace TestingContextCore.Implementation.ContextStore
+﻿namespace TestingContextCore.Implementation.ContextStorage
 {
     using System.Collections.Generic;
     using TestingContextCore.Implementation.Filters;
-    using TestingContextCore.Implementation.Registrations;
+    using TestingContextCore.Implementation.Sources;
 
     internal class ContextStore
     {

@@ -14,6 +14,11 @@
 
         public string Key { get; set; }
 
+        public bool Is(Type type, string key)
+        {
+            return Type == type && key == Key;
+        }
+
         public override bool Equals(object obj)
         {
             return Equals(obj as EntityDefinition);

@@ -40,21 +40,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\RegistrationExtension.cs" />
-    <Compile Include="Implementation\ContextStore\FiltersExtension.cs" />
-    <Compile Include="Implementation\ContextStore\RegistrationExtension.cs" />
-    <Compile Include="Implementation\ContextStore\ResolutionExtension.cs" />
+    <Compile Include="Implementation\ContextStorage\FiltersExtension.cs" />
+    <Compile Include="Implementation\ContextStorage\RegistrationExtension.cs" />
+    <Compile Include="Implementation\ContextStorage\ResolutionExtension.cs" />
     <Compile Include="Implementation\DictionaryExtension.cs" />
     <Compile Include="Implementation\EntityDefinition.cs" />
+    <Compile Include="Implementation\Exceptions\SourceRegistrationException.cs" />
     <Compile Include="Implementation\Filters\Filter1.cs" />
     <Compile Include="Implementation\Filters\IFilter.cs" />
-    <Compile Include="Implementation\Registrations\BaseRegistration.cs" />
-    <Compile Include="Implementation\ContextStore\ContextStore.cs" />
+    <Compile Include="Implementation\Registrations\Registration.cs" />
+    <Compile Include="Implementation\ContextStorage\ContextStore.cs" />
     <Compile Include="Implementation\Registrations\DependentRegistration.cs" />
+    <Compile Include="Implementation\Filters\Filter2.cs" />
     <Compile Include="Implementation\Registrations\DoesNotExistRegistration.cs" />
     <Compile Include="Implementation\Registrations\EachRegistration.cs" />
     <Compile Include="Implementation\Registrations\ExistsRegistration.cs" />
-    <Compile Include="Implementation\Filters\Filter2.cs" />
-    <Compile Include="Implementation\Registrations\ISource.cs" />
+    <Compile Include="Implementation\Sources\DoesNotExistSource.cs" />
+    <Compile Include="Implementation\Sources\EachSource.cs" />
+    <Compile Include="Implementation\Sources\ExistsSource.cs" />
+    <Compile Include="Implementation\Sources\Source.cs" />
+    <Compile Include="Implementation\Sources\DependentSource.cs" />
+    <Compile Include="Implementation\Sources\IndependentSource.cs" />
+    <Compile Include="Implementation\Sources\ISource.cs" />
     <Compile Include="Implementation\Resolution\IResolution.cs" />
     <Compile Include="Interfaces\IFor.cs" />
     <Compile Include="Interfaces\IRegistration.cs" />

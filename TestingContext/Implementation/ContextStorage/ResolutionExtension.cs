@@ -1,9 +1,6 @@
-﻿namespace TestingContextCore.Implementation.ContextStore
+﻿namespace TestingContextCore.Implementation.ContextStorage
 {
     using System.Collections.Generic;
-    using System.Linq;
-    using TestingContextCore.Implementation.Registrations;
-    using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Interfaces;
 
     internal static class ResolutionExtension

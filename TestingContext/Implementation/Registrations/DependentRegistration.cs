@@ -2,36 +2,28 @@
 {
     using System;
     using System.Collections.Generic;
-    using TestingContextCore.Implementation.ContextStore;
+    using TestingContextCore.Implementation.ContextStorage;
+    using TestingContextCore.Implementation.Sources;
     using TestingContextCore.Interfaces;
 
-    internal class DependentRegistration <TDepend> : BaseRegistration<TDepend>
+    internal abstract class DependentRegistration <TDepend> : Registration<TDepend>
     {
         private readonly string dependKey;
         private readonly ContextStore store;
-        private EntityDefinition entityDefinition;
 
-        public DependentRegistration(string dependKey, ContextStore store)
+        protected DependentRegistration(string dependKey, ContextStore store)
         {
             this.dependKey = dependKey;
             this.store = store;
         }
 
-        public override void Source<T>(string key, Func<TDepend, IEnumerable<T>> func)
+        public override void Source<T>(string key, Func<TDepend, IEnumerable<T>> sourceFunc)
         {
-            EnsureRegisteredOnce();
-            entityDefinition = new EntityDefinition(typeof(T), key);
-            store.RegisterSource(this);
-            store.RegisterDependency(new EntityDefinition(typeof(TDepend), dependKey), this);
+            var source = CreateSource(store, dependKey, key, sourceFunc);
+            store.RegisterSource(source);
+            store.RegisterDependency(new EntityDefinition(typeof(TDepend), dependKey), source);
         }
 
-        public override EntityDefinition EntityDefinition => entityDefinition;
-
-        private ISource Parent => store.GetSource(new EntityDefinition(typeof(TDepend), dependKey));
-
-        public override IEnumerable<IResolutionContext<T>> Resolve<T>(string key)
-        {
-            return Parent.Resolve<T>(key);
-        }
+        protected abstract ISource CreateSource<T>(ContextStore store, string dependKey, string key, Func<TDepend, IEnumerable<T>> sourceFunc);
     }
 }

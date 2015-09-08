@@ -1,33 +1,28 @@
 ﻿namespace TestingContextCore.Implementation.Registrations
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
-    using TestingContextCore.Implementation.ContextStore;
+    using System.Linq;
+    using TestingContextCore.Implementation.ContextStorage;
+    using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.Sources;
     using TestingContextCore.Interfaces;
 
-    internal class IndependentRegistration : BaseRegistration<TestingContext>
+    internal class IndependentRegistration : Registration<TestingContext>
     {
         private readonly ContextStore store;
-        private EntityDefinition entityDefinition;
+        private readonly TestingContext context;
 
-        public IndependentRegistration(ContextStore store)
+        public IndependentRegistration(ContextStore store, TestingContext context)
         {
             this.store = store;
+            this.context = context;
         }
 
-        public override void Source<T>(string key, Func<TestingContext, IEnumerable<T>> func)
+        public override void Source<T>(string key, Func<TestingContext, IEnumerable<T>> srcFunc)
         {
-            EnsureRegisteredOnce();
-            entityDefinition = new EntityDefinition(typeof(T), key);
-            store.RegisterSource(this);
-        }
-
-        public override EntityDefinition EntityDefinition => entityDefinition;
-
-        public override IEnumerable<IResolutionContext<T>> Resolve<T>(string key)
-        {
-            // root resolve
-            return null;
+            store.RegisterSource(new IndependentSource<T>(store, context, key, srcFunc));
         }
     }
 }

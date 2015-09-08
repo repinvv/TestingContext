@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation;
-    using TestingContextCore.Implementation.ContextStore;
+    using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
@@ -26,7 +26,7 @@
 
         public IRegistration<TestingContext> Independent()
         {
-            return new IndependentRegistration(store);
+            return new IndependentRegistration(store, this);
         }
 
         public IRegistration<T> ExistsFor<T>(string key)

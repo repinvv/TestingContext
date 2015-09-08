@@ -1,7 +1,8 @@
-﻿namespace TestingContextCore.Implementation.ContextStore
+﻿namespace TestingContextCore.Implementation.ContextStorage
 {
+    using TestingContextCore.Implementation.Exceptions;
     using TestingContextCore.Implementation.Filters;
-    using TestingContextCore.Implementation.Registrations;
+    using TestingContextCore.Implementation.Sources;
 
     internal static class RegistrationExtension
     {
@@ -15,6 +16,11 @@
 
         public static void RegisterSource(this ContextStore store, ISource source)
         {
+            if (store.Sources.ContainsKey(source.EntityDefinition))
+            {
+                throw new SourceRegistrationException($"Source for {source.EntityDefinition.Type.Name} with key {source.EntityDefinition.Key} already registered");
+            }
+
             store.Sources.Add(source.EntityDefinition, source);
         }
 
