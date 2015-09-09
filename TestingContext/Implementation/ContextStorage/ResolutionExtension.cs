@@ -7,7 +7,7 @@
     {
         public static IEnumerable<IResolutionContext<T>> Resolve<T>(this ContextStore store, string key)
         {
-            return store.Sources[new EntityDefinition(typeof(T), key)].Resolve<T>(key);
+            return store.Sources[new EntityDefinition(typeof(T), key)].RootResolve<T>(key);
         }
     }
 }

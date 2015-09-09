@@ -5,41 +5,38 @@
     using System.Linq;
     using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Registrations;
+    using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Interfaces;
 
     internal class IndependentSource<T> : Source<TestingContext, T>
+        where T : class
     {
         private readonly TestingContext context;
         private object resolveCache;
 
         public IndependentSource(ContextStore store, TestingContext context, string key, Func<TestingContext, IEnumerable<T>> sourceFunc)
-            : base(store, key, sourceFunc)
+            : base(store, key, sourceFunc, ResolutionType.Independent)
         {
             this.context = context;
         }
 
-        public override IEnumerable<IResolutionContext<T1>> Resolve<T1>(string key)
+        public override IEnumerable<IResolutionContext<T1>> RootResolve<T1>(string key)
         {
-            var resolve = resolveCache as IEnumerable<IResolutionContext<T1>>;
-            if (resolve == null)
+            var resolved = resolveCache as IEnumerable<IResolutionContext<T>>;
+            if (resolved == null)
             {
-               resolveCache = resolve = Resolve<T1>();
+               resolveCache = resolved = Resolve<T>(context);
             }
 
-            if (EntityDefinition.Is(typeof(T), key))
+            if (EntityDefinition.Is(typeof(T1), key))
             {
-                return resolve;
+                return resolved as IEnumerable<IResolutionContext<T1>>;
             }
 
-            var first = resolve.FirstOrDefault();
+            var first = resolved.FirstOrDefault();
 
             // root resolve
             return null;
-        }
-
-        private IEnumerable<IResolutionContext<T1>> Resolve<T1>()
-        {
-            throw new NotImplementedException();
         }
 
         public override bool IsChildOf(ISource source)

@@ -2,6 +2,7 @@
 {
     using System;
     using TestingContextCore.Implementation.ContextStorage;
+    using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Interfaces;
 
     internal class Filter2<T1, T2> : IFor<T1, T2>, IFilter
@@ -30,6 +31,11 @@
             {
                 return new[] { new EntityDefinition(typeof(T1), key1), new EntityDefinition(typeof(T2), key2) };
             }
+        }
+
+        public bool MeetsCondition(IResolve resolve)
+        {
+            return false;
         }
     }
 }

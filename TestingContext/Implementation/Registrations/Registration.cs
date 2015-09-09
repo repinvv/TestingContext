@@ -9,21 +9,22 @@
     using TestingContextCore.Interfaces;
 
     internal abstract class Registration<TDepend> : IRegistration<TDepend>
+        where TDepend : class
     {
-        public abstract void Source<T1>(string key, Func<TDepend, IEnumerable<T1>> func);
+        public abstract void Source<T>(string key, Func<TDepend, IEnumerable<T>> func) where T : class;
 
         #region redirection methods
-        public void Source<T1>(string key, Func<IEnumerable<T1>> func)
+        public void Source<T>(string key, Func<IEnumerable<T>> func) where T : class
         {
             Source(key, d => func());
         }
 
-        public void Source<T1>(string key, Func<T1> func)
+        public void Source<T>(string key, Func<T> func) where T : class
         {
             Source(key, d => new[] { func() } as IEnumerable<TDepend>);
         }
 
-        public void Source<T1>(string key, Func<TDepend, T1> func)
+        public void Source<T>(string key, Func<TDepend, T> func) where T : class
         {
             Source(key, d => new[] { func(d) } as IEnumerable<TDepend>);
         }

@@ -29,19 +29,19 @@
             return new IndependentRegistration(store, this);
         }
 
-        public IRegistration<T> ExistsFor<T>(string key)
+        public IRegistration<T> ExistsFor<T>(string key) where T : class
         {
-            return new ExistsRegistration<T>(key, store);
+            return new DependentRegistration<T>(key, store, ResolutionType.Exists);
         }
 
-        public IRegistration<T> DoesNotExistFor<T>(string key)
+        public IRegistration<T> DoesNotExistFor<T>(string key) where T : class
         {
-            return new DoesNotExistRegistration<T>(key, store);
+            return new DependentRegistration<T>(key, store, ResolutionType.DoesNotExist);
         }
 
-        public IRegistration<T> EachFor<T>(string key)
+        public IRegistration<T> EachFor<T>(string key) where T : class
         {
-            return new EachRegistration<T>(key, store);
+            return new DependentRegistration<T>(key, store, ResolutionType.Each);
         }
 
         public IEnumerable<IResolutionContext<T>> All<T>(string key)

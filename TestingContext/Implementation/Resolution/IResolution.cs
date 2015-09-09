@@ -1,10 +1,14 @@
 ﻿namespace TestingContextCore.Implementation.Resolution
 {
-    using System.Collections;
     using System.Collections.Generic;
+    using TestingContextCore.Interfaces;
 
     internal interface IResolution
     {
-        IEnumerable<IResolution> GetChildResolution(EntityDefinition entityDefinition);
+        bool MeetsConditions { get; }
+    }
+
+    internal interface IResolution<T> : IEnumerable<IResolutionContext<T>>, IResolution
+    {
     }
 }
