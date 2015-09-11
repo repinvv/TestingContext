@@ -2,6 +2,7 @@
 {
     using TestingContextCore.Implementation.Exceptions;
     using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Sources;
 
     internal static class RegistrationExtension
@@ -14,30 +15,30 @@
             }
         }
 
-        public static void RegisterSource(this ContextStore store, ISource source)
+        public static void RegisterNode(this ContextStore store, Definition definition, INode node)
         {
-            if (store.Sources.ContainsKey(source.Definition))
+            if (store.Nodes.ContainsKey(definition))
             {
-                throw new SourceRegistrationException($"Source for {source.Definition.Type.Name} with key {source.Definition.Key} already registered");
+                throw new SourceRegistrationException($"Source for {definition} already registered");
             }
 
-            store.Sources.Add(source.Definition, source);
+            store.Nodes.Add(definition, node);
         }
 
-        public static void RegisterDependency(this ContextStore store, Definition definition, ISource source)
+        public static void RegisterDependency(this ContextStore store, Definition definition, INode node)
         {
-            store.Dependencies.GetList(definition).Add(source);
+            store.Dependencies.GetList(definition).Add(node);
         }
 
-        public static ISource GetSource(this ContextStore store, Definition definition)
+        public static INode GetNode(this ContextStore store, Definition definition)
         {
-            ISource source;
-            if (!store.Sources.TryGetValue(definition, out source))
+            INode node;
+            if (!store.Nodes.TryGetValue(definition, out node))
             {
                 throw new SourceRegistrationException($"Source for {definition} is not registered");
             }
 
-            return source;
+            return node;
         }
     }
 }

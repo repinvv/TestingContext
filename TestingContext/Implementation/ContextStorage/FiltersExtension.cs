@@ -14,11 +14,11 @@
 
         private static List<IFilter> GetValidatedFilters(ContextStore store, Definition definition)
         {
-            var definitionSource = store.GetSource(definition);
+            var definitionNode = store.GetNode(definition);
 
             var filters = store.AllFilters
                                .SafeGet(definition, () => new List<IFilter>())
-                               .Where(x => x.Definitions.All(y => !store.GetSource(y).IsChildOf(definitionSource)))
+                               .Where(x => x.Definitions.All(y => !store.GetNode(y).IsChildOf(definitionNode)))
                                .ToList();
             filters.ForEach(x=>ValidateFilter(store, x));
             store.ValidatedFilters[definition] = filters;
@@ -38,11 +38,11 @@
 
         private static void ValidateDefinitions(ContextStore store, Definition definition, Definition definition1)
         {
-            var source = store.GetSource(definition);
-            var source1 = store.GetSource(definition1);
-            if (source.Root == source1.Root)
+            var node = store.GetNode(definition);
+            var node1 = store.GetNode(definition1);
+            if (node.Root == node1.Root)
             {
-                if (!source.IsChildOf(source1) && !source1.IsChildOf(source))
+                if (!node.IsChildOf(node1) && !node1.IsChildOf(node))
                 {
                     throw new FilterRegistrationException($"filter, includes {definition} and {definition1} which have the same root, but in different branches. " +
                                                           $"Definitions in the filter should belong to the same branch or be in different independent hierarchies.");

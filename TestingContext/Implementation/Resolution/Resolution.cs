@@ -9,10 +9,9 @@ namespace TestingContextCore.Implementation.Resolution
     using System.Collections;
     using TestingContextCore.Interfaces;
 
-    internal abstract class Resolution<T> : IResolution<T>, IResolution
+    internal class Resolution<T> : IResolution<T>, IResolution
     {
         private readonly Definition definition;
-        
 
         protected Resolution(Definition definition)
         {
@@ -25,12 +24,12 @@ namespace TestingContextCore.Implementation.Resolution
 
         IEnumerator IEnumerable.GetEnumerator() => Source.GetEnumerator();
 
-        public IResolution Resolve(Definition definition)
+        public IResolution Resolve(Definition def)
         {
-            return this.definition.Equals(definition) ? this : null;
+            return definition.Equals(def) ? this : null;
         }
 
-        public abstract bool MeetsConditions { get; }
+        public bool MeetsConditions => false;
 
         protected IEnumerable<IResolutionContext<T>> Source { get; set; }
     }

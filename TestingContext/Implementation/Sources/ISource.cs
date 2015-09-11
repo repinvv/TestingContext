@@ -6,12 +6,6 @@
 
     internal interface ISource
     {
-        Definition Definition { get; }
-
-        ISource Root { get; }
-
-        bool IsChildOf(ISource source);
-
         IResolution Resolve(IResolutionContext parentContext);
     }
 }
