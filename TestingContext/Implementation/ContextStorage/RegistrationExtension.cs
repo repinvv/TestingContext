@@ -8,30 +8,36 @@
     {
         public static void RegisterFilter(this ContextStore store, IFilter filter)
         {
-            foreach (var entityDefinition in filter.EntityDefinitions)
+            foreach (var entityDefinition in filter.Definitions)
             {
-                store.Filters.GetList(entityDefinition).Add(filter);
+                store.AllFilters.GetList(entityDefinition).Add(filter);
             }
         }
 
         public static void RegisterSource(this ContextStore store, ISource source)
         {
-            if (store.Sources.ContainsKey(source.EntityDefinition))
+            if (store.Sources.ContainsKey(source.Definition))
             {
-                throw new SourceRegistrationException($"Source for {source.EntityDefinition.Type.Name} with key {source.EntityDefinition.Key} already registered");
+                throw new SourceRegistrationException($"Source for {source.Definition.Type.Name} with key {source.Definition.Key} already registered");
             }
 
-            store.Sources.Add(source.EntityDefinition, source);
+            store.Sources.Add(source.Definition, source);
         }
 
-        public static void RegisterDependency(this ContextStore store, EntityDefinition definition, ISource source)
+        public static void RegisterDependency(this ContextStore store, Definition definition, ISource source)
         {
             store.Dependencies.GetList(definition).Add(source);
         }
 
-        public static ISource GetSource(this ContextStore store, EntityDefinition definition)
+        public static ISource GetSource(this ContextStore store, Definition definition)
         {
-            return store.Sources[definition];
+            ISource source;
+            if (!store.Sources.TryGetValue(definition, out source))
+            {
+                throw new SourceRegistrationException($"Source for {definition} is not registered");
+            }
+
+            return source;
         }
     }
 }

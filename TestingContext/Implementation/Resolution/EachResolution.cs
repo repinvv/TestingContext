@@ -6,20 +6,18 @@
     using TestingContextCore.CachingEnumerable;
     using TestingContextCore.Interfaces;
 
-    internal class EachIndependentResolution<T> : IResolution<T>
+    internal class EachResolution<T> : Resolution<T>
     {
-        private readonly IEnumerable<IResolutionContext<T>> source;
 
-        public EachIndependentResolution(IEnumerable<IResolutionContext<T>> source)
+        public EachResolution(IEnumerable<IResolutionContext<T>> source, Definition definition)
+            : base(definition)
         {
-            this.source = source.ToList();
-            MeetsConditions = this.source.All(x => x.MeetsConditions);
+            var list = source.ToArray();
+            //MeetsConditions = list.All(x => (x as IResolutionContext).MeetsConditions);
+            Source = list;
         }
 
-        public IEnumerator<IResolutionContext<T>> GetEnumerator() => source.GetEnumerator();
-
-        IEnumerator IEnumerable.GetEnumerator() => source.GetEnumerator();
-
-        public bool MeetsConditions { get; }
+        public override bool MeetsConditions { get; }
     }
+    
 }

@@ -11,20 +11,17 @@
         where T : class
     {
         private readonly ContextStore store;
-        private readonly EntityDefinition parentDefinition;
+        private readonly Definition parentDefinition;
         private ISource parent;
 
         public DependentSource(ContextStore store, string dependKey, string key, Func<TDepend, IEnumerable<T>> sourceFunc, ResolutionType resolutionType)
             : base(store, key, sourceFunc, resolutionType)
         {
             this.store = store;
-            parentDefinition = new EntityDefinition(typeof(TDepend), dependKey);
+            parentDefinition = new Definition(typeof(TDepend), dependKey);
         }
 
-        public override IEnumerable<IResolutionContext<T1>> RootResolve<T1>(string key)
-        {
-            return Parent.RootResolve<T1>(key);
-        }
+        public override ISource Root => Parent.Root;
 
         public override bool IsChildOf(ISource source)
         {

@@ -35,15 +35,9 @@
             return new Filter2<T1, T2>(key1, key2, store);
         }
 
-        public EntityDefinition[] EntityDefinitions
-        {
-            get
-            {
-                return new[] { new EntityDefinition(typeof(T1), key1) };
-            }
-        }
+        public Definition[] Definitions => new[] { new Definition(typeof(T1), key1) };
 
-        public bool MeetsCondition(IResolve resolve)
+        public bool MeetsCondition(IResolutionContext resolve)
         {
             return false;
         }

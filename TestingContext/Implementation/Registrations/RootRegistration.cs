@@ -9,20 +9,18 @@
     using TestingContextCore.Implementation.Sources;
     using TestingContextCore.Interfaces;
 
-    internal class IndependentRegistration : Registration<TestingContext>
+    internal class RootRegistration : Registration<TestingContext>
     {
         private readonly ContextStore store;
-        private readonly TestingContext context;
 
-        public IndependentRegistration(ContextStore store, TestingContext context)
+        public RootRegistration(ContextStore store)
         {
             this.store = store;
-            this.context = context;
         }
 
         public override void Source<T>(string key, Func<TestingContext, IEnumerable<T>> srcFunc)
         {
-            store.RegisterSource(new IndependentSource<T>(store, context, key, srcFunc));
+            store.RegisterSource(new RootSource<T>(store, key, srcFunc));
         }
     }
 }

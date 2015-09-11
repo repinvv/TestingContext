@@ -25,15 +25,9 @@
             store.RegisterFilter(this);
         }
 
-        public EntityDefinition[] EntityDefinitions
-        {
-            get
-            {
-                return new[] { new EntityDefinition(typeof(T1), key1), new EntityDefinition(typeof(T2), key2) };
-            }
-        }
+        public Definition[] Definitions => new[] { new Definition(typeof(T1), key1), new Definition(typeof(T2), key2) };
 
-        public bool MeetsCondition(IResolve resolve)
+        public bool MeetsCondition(IResolutionContext resolve)
         {
             return false;
         }

@@ -1,11 +1,12 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
     using TestingContextCore.Implementation.Resolution;
+    using TestingContextCore.Interfaces;
 
     internal interface IFilter
     {
-        EntityDefinition[] EntityDefinitions { get; }
+        Definition[] Definitions { get; }
 
-        bool MeetsCondition(IResolve resolve);
+        bool MeetsCondition(IResolutionContext resolve);
     }
 }

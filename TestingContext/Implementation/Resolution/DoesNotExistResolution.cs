@@ -6,19 +6,18 @@
     using TestingContextCore.CachingEnumerable;
     using TestingContextCore.Interfaces;
 
-    internal class DoesNotExistIndependentResolution<T> : IResolution<T>
+    internal class DoesNotExistResolution<T> : Resolution<T>
     {
         private readonly IEnumerable<IResolutionContext<T>> source;
 
-        public DoesNotExistIndependentResolution(IEnumerable<IResolutionContext<T>> source)
+        public DoesNotExistResolution(IEnumerable<IResolutionContext<T>> source, Definition definition)
+            : base(definition)
         {
-            this.source = source.Where(x => x.MeetsConditions).Cache();
+            //this.source = source.Where(x => x.MeetsConditions).Cache();
         }
 
         public IEnumerator<IResolutionContext<T>> GetEnumerator() => source.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => source.GetEnumerator();
-
-        public bool MeetsConditions => !source.Any();
+        public override bool MeetsConditions => !source.Any();
     }
 }

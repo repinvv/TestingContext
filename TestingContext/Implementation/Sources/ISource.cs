@@ -6,12 +6,12 @@
 
     internal interface ISource
     {
-        EntityDefinition EntityDefinition { get; }
+        Definition Definition { get; }
+
+        ISource Root { get; }
 
         bool IsChildOf(ISource source);
 
-        IEnumerable<IResolutionContext<T>> RootResolve<T>(string key);
-
-        IResolution Resolve(object parentValue);
+        IResolution Resolve(IResolutionContext parentContext);
     }
 }

@@ -2,9 +2,9 @@
 {
     using System;
 
-    internal class EntityDefinition
+    internal class Definition
     {
-        public EntityDefinition(Type type, string key)
+        public Definition(Type type, string key)
         {
             Type = type;
             Key = key;
@@ -21,10 +21,10 @@
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as EntityDefinition);
+            return Equals(obj as Definition);
         }
 
-        protected bool Equals(EntityDefinition other)
+        protected bool Equals(Definition other)
         {
             return Type == other.Type 
                 && string.Equals(Key, other.Key);
@@ -38,5 +38,9 @@
             }
         }
 
+        public override string ToString()
+        {
+            return Type.Name + $" \"{Key}\"";
+        }
     }
 }

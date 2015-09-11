@@ -25,7 +25,7 @@
         {
             var source = new DependentSource<TDepend, T>(store, dependKey, key, sourceFunc, resolutionType);
             store.RegisterSource(source);
-            store.RegisterDependency(new EntityDefinition(typeof(TDepend), dependKey), source);
+            store.RegisterDependency(new Definition(typeof(TDepend), dependKey), source);
         }
         
     }
