@@ -19,11 +19,12 @@
         public void GivenPolicyIsTakenFromPoliciesSource(string key)
         {
             testingContext
-                .Independent()
-                .Source(key, () => PoliciesSource.Policies);
+                .Root()
+                .Provide(key, () => PoliciesSource.Policies);
             testingContext
                 .DoesNotExistFor<Policy>(key)
-                .Source(key, p => p.Covered);
+                .TakesSourceFrom<Policy>(key)
+                .Provide(key, p => p.Covered);
 
             testingContext
                 .For<Policy>(key)

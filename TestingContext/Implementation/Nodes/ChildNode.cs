@@ -1,7 +1,7 @@
 ﻿namespace TestingContextCore.Implementation.Nodes
 {
     using TestingContextCore.Implementation.ContextStorage;
-    using TestingContextCore.Implementation.Sources;
+    using TestingContextCore.Implementation.Providers;
 
     internal class ChildNode : INode
     {
@@ -9,14 +9,14 @@
         private readonly ContextStore store;
         private INode parent;
 
-        public ChildNode(ISource source, Definition definition, Definition parentDefinition, ContextStore store)
+        public ChildNode(IProvider provider, Definition definition, Definition parentDefinition, ContextStore store)
         {
-            Source = source;
+            Provider = provider;
             this.parentDefinition = parentDefinition;
             this.store = store;
         }
 
-        public ISource Source { get; }
+        public IProvider Provider { get; }
 
         public INode Root => Parent.Root;
 

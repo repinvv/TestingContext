@@ -1,10 +1,9 @@
-﻿namespace TestingContextCore.Implementation.Sources
+﻿namespace TestingContextCore.Implementation.Providers
 {
-    using System.Collections.Generic;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Interfaces;
 
-    internal interface ISource
+    internal interface IProvider
     {
         IResolution Resolve(IResolutionContext parentContext);
     }

@@ -1,15 +1,15 @@
 ﻿namespace TestingContextCore.Implementation.Nodes
 {
-    using TestingContextCore.Implementation.Sources;
+    using TestingContextCore.Implementation.Providers;
 
     internal class RootNode : INode
     {
-        public RootNode(ISource source, Definition definition)
+        public RootNode(IProvider provider, Definition definition)
         {
-            this.Source = source;
+            this.Provider = provider;
         }
 
-        public ISource Source { get; }
+        public IProvider Provider { get; }
 
         public INode Root => this;
 

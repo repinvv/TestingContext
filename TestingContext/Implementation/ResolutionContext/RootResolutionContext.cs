@@ -4,6 +4,7 @@
     using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Interfaces;
+    using static TestingContextCore.Implementation.Definition;
 
     internal class RootResolutionContext : IResolutionContext<TestingContext>, IResolutionContext
     {
@@ -19,12 +20,12 @@
 
         public IEnumerable<IResolutionContext<TChild>> Resolve<TChild>(string key)
         {
-            return Resolve(new Definition(typeof(TChild), key)) as IEnumerable<IResolutionContext<TChild>>;
+            return Resolve(Define<TChild>(key)) as IEnumerable<IResolutionContext<TChild>>;
         }
 
         public IResolution Resolve(Definition definition)
         {
-            return store.GetSource(definition).Root.Resolve(this).Resolve(definition);
+            return store.GetNode(definition).Root.Provider.Resolve(this).Resolve(definition);
         }
 
         public bool MeetsConditions => true;

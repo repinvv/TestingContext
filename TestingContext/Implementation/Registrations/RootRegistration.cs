@@ -7,23 +7,27 @@
     using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
+    using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Resolution.ResolutionStrategy;
-    using TestingContextCore.Implementation.Sources;
     using TestingContextCore.Interfaces;
+    using static TestingContextCore.Implementation.Definition;
 
-    internal class RootRegistration : Registration<TestingContext>
+    internal class RootRegistration<TSource> : Registration<TSource> 
+        where TSource : class
     {
         private readonly ContextStore store;
+        private Definition sourceDef;
 
-        public RootRegistration(ContextStore store)
+        public RootRegistration(ContextStore store, Definition sourceDef)
         {
             this.store = store;
+            this.sourceDef = sourceDef;
         }
 
-        public override void Source<T>(string key, Func<TestingContext, IEnumerable<T>> srcFunc)
+        public override void Provide<T>(string key, Func<TSource, IEnumerable<T>> srcFunc)
         {
-            var definition = new Definition(typeof(T), key);
-            var source = new Source<TestingContext, T>(store, definition, srcFunc, ResolutionStrategyFactory.Root());
+            var definition = Define<T>(key);
+            var source = new Provider<TSource, T>(store, definition, srcFunc, ResolutionStrategyFactory.Root());
             var node = new RootNode(source, definition);
             store.RegisterNode(definition, node);
         }

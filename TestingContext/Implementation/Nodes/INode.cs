@@ -1,10 +1,10 @@
 ﻿namespace TestingContextCore.Implementation.Nodes
 {
-    using TestingContextCore.Implementation.Sources;
+    using TestingContextCore.Implementation.Providers;
 
     internal interface INode
     {
-        ISource Source { get; }
+        IProvider Provider { get; }
 
         INode Root { get; }
 

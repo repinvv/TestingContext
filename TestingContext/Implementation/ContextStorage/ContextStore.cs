@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
-    using TestingContextCore.Implementation.Sources;
 
     internal class ContextStore
     {

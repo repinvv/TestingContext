@@ -1,4 +1,4 @@
-﻿namespace TestingContextCore.Implementation.Sources
+﻿namespace TestingContextCore.Implementation.Providers
 {
     using System;
     using System.Collections.Generic;
@@ -10,7 +10,7 @@
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Interfaces;
 
-    internal class Source<TDepend, T> : ISource
+    internal class Provider<TDepend, T> : IProvider
         where T : class 
         where TDepend : class
     {
@@ -19,7 +19,7 @@
         private readonly IResolutionStrategy strategy;
         private readonly Definition definition;
 
-        public Source(ContextStore store, Definition definition, Func<TDepend, IEnumerable<T>> sourceFunc, IResolutionStrategy strategy)
+        public Provider(ContextStore store, Definition definition, Func<TDepend, IEnumerable<T>> sourceFunc, IResolutionStrategy strategy)
         {
             this.store = store;
             this.definition = definition;
@@ -38,17 +38,8 @@
         {
             var filters = store.GetFilters(definition);
             var dependencies = store.Dependencies.SafeGet(definition, new List<INode>());
-            var source = sourceFunc(parentContext.Value)
-                .Select(x=> new ResolutionContext<T>(x, parentContext as IResolutionContext, filters, dependencies));
-            switch (resolutionType)
-            {
-                case ResolutionType.Each:
-                    return new EachResolution<T>(source, definition);
-                case ResolutionType.DoesNotExist:
-                    return new DoesNotExistResolution<T>(source, definition);
-                default:
-                    return new ExistsResolution<T>(source, definition);
-            }
+            var source = sourceFunc(parentContext.Value);
+            return null;
         }
     }
 }

@@ -2,8 +2,8 @@
 {
     using System;
     using TestingContextCore.Implementation.ContextStorage;
-    using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Interfaces;
+    using static TestingContextCore.Implementation.Definition;
 
     internal class Filter2<T1, T2> : IFor<T1, T2>, IFilter
     {
@@ -25,7 +25,7 @@
             store.RegisterFilter(this);
         }
 
-        public Definition[] Definitions => new[] { new Definition(typeof(T1), key1), new Definition(typeof(T2), key2) };
+        public Definition[] Definitions => new[] { Define<T1>(key1), Define<T2>(key2) };
 
         public bool MeetsCondition(IResolutionContext resolve)
         {

@@ -9,8 +9,10 @@
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
+    using TestingContextCore.Implementation.Resolution.ResolutionStrategy;
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Interfaces;
+    using static TestingContextCore.Implementation.Definition;
 
     public class TestingContext
     {
@@ -28,34 +30,43 @@
             return new Filter1<T>(key, store);
         }
 
-        public IRegistration<TestingContext> Independent()
+        public IRegistration<TestingContext> Root()
         {
             CheckResolutionStarted();
-            return new RootRegistration(store);
+            return new RootRegistration<TestingContext>(store, Define<TestingContext>(string.Empty));
         }
 
-        public IRegistration<T> ExistsFor<T>(string key) where T : class
+        public IRegistration<TSource> RootResolve<TSource>(string key) where TSource : class
         {
             CheckResolutionStarted();
-            return new DependentRegistration<T>(key, store, ResolutionType.Exists);
+            return new RootRegistration<TSource>(store, Define<TSource>(key));
         }
 
-        public IRegistration<T> DoesNotExistFor<T>(string key) where T : class
+        public IChildRegistration<T> ExistsFor<T>(string key) where T : class
         {
             CheckResolutionStarted();
-            return new DependentRegistration<T>(key, store, ResolutionType.DoesNotExist);
+            var def = Define<T>(key);
+            return new DependentRegistration<T>(def, def, store, ResolutionStrategyFactory.Exists());
         }
 
-        public IRegistration<T> EachFor<T>(string key) where T : class
+        public IChildRegistration<T> DoesNotExistFor<T>(string key) where T : class
         {
             CheckResolutionStarted();
-            return new DependentRegistration<T>(key, store, ResolutionType.Each);
+            var def = Define<T>(key);
+            return new DependentRegistration<T>(def, def, store, ResolutionStrategyFactory.DoesNotExist());
+        }
+
+        public IChildRegistration<T> EachFor<T>(string key) where T : class
+        {
+            CheckResolutionStarted();
+            var def = Define<T>(key);
+            return new DependentRegistration<T>(def, def, store, ResolutionStrategyFactory.Each());
         }
 
         public IEnumerable<IResolutionContext<T>> All<T>(string key)
         {
             rootContext = rootContext ?? new RootResolutionContext(this, store);
-            return rootContext.Resolve(new Definition(typeof(T), key)) as IEnumerable<IResolutionContext<T>>;
+            return rootContext.Resolve(Define<T>(key)) as IEnumerable<IResolutionContext<T>>;
         }
 
         public T Value<T>(string key)

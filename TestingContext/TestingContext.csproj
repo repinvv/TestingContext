@@ -65,8 +65,9 @@
     <Compile Include="Implementation\Resolution\ResolutionStrategy\ExistsResolutionStrategy.cs" />
     <Compile Include="Implementation\Resolution\ResolutionStrategy\IResolutionStrategy.cs" />
     <Compile Include="Implementation\Resolution\ResolutionStrategy\ResolutionStrategyFactory.cs" />
-    <Compile Include="Implementation\Sources\Source.cs" />
-    <Compile Include="Implementation\Sources\ISource.cs" />
+    <Compile Include="Implementation\Providers\Provider.cs" />
+    <Compile Include="Implementation\Providers\IProvider.cs" />
+    <Compile Include="Interfaces\IDependentRegistration.cs" />
     <Compile Include="Interfaces\IFor.cs" />
     <Compile Include="Interfaces\IRegistration.cs" />
     <Compile Include="Interfaces\IResolutionContext.cs" />

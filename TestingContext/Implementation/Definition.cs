@@ -4,7 +4,12 @@
 
     internal class Definition
     {
-        public Definition(Type type, string key)
+        public static Definition Define<T>(string key)
+        {
+            return new Definition(typeof(T), key);
+        }
+
+        private Definition(Type type, string key)
         {
             Type = type;
             Key = key;

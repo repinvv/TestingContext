@@ -2,8 +2,8 @@
 {
     using System;
     using TestingContextCore.Implementation.ContextStorage;
-    using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Interfaces;
+    using static TestingContextCore.Implementation.Definition;
 
     internal class Filter1<T1> : IFor<T1>, IFilter
     {
@@ -35,7 +35,7 @@
             return new Filter2<T1, T2>(key1, key2, store);
         }
 
-        public Definition[] Definitions => new[] { new Definition(typeof(T1), key1) };
+        public Definition[] Definitions => new[] { Define<T1>(key1) };
 
         public bool MeetsCondition(IResolutionContext resolve)
         {
