@@ -6,19 +6,19 @@
     using UnitTestProject1.Entities;
 
     [Binding]
-    public class PolicyMustHaveId
+    public class PolicyMustExist
     {
         private readonly TestingContext testingContext;
 
-        public PolicyMustHaveId(TestingContext testingContext)
+        public PolicyMustExist(TestingContext testingContext)
         {
             this.testingContext = testingContext;
         }
 
-        [Then(@"policy(?:\s)?(.*) must have id (.*)")]
-        public void ThenPolicyMustHaveId(string key, int id)
+        [Then(@"policy(?:\s)?(.*) must exist")]
+        public void ThenPolicyAMustExist(string key)
         {
-            Assert.AreEqual(id, testingContext.Value<Policy>(key).Id);
+            Assert.IsNotNull(testingContext.Value<Policy>(key));
         }
     }
 }

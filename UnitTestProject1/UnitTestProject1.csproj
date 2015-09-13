@@ -59,6 +59,7 @@
     <Compile Include="Definitions\PolicyHasCoveredRows.cs" />
     <Compile Include="Definitions\PolicyIsCreatedBeforeYear.cs" />
     <Compile Include="Definitions\PolicyIsTakenFromPolicySource.cs" />
+    <Compile Include="Definitions\PolicyMustExist.cs" />
     <Compile Include="Definitions\PolicyMustHaveId.cs" />
     <Compile Include="Definitions\PolicyNameMustContain.cs" />
     <Compile Include="Entities\Covered.cs" />

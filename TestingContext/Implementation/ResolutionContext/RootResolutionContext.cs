@@ -11,6 +11,7 @@
     {
         private readonly Definition rootDefinition;
         private readonly ContextStore store;
+        private readonly Dictionary<Definition, IResolution> roots = new Dictionary<Definition, IResolution>();
 
         public RootResolutionContext(Definition rootDefinition, TestingContext context, ContextStore store)
         {
@@ -30,7 +31,8 @@
         {
             var node = store.GetNode(definition);
             var rootProvider = node.Root.Provider;
-            var resolution = rootProvider.Resolve(this);
+            var resolution = roots.SafeGet(rootProvider.Definition, () => rootProvider.Resolve(this));
+            
             foreach (var nodeDef in node.DefinitionChain)
             {
                 resolution = resolution?.FirstOrDefault()?.Resolve(nodeDef);

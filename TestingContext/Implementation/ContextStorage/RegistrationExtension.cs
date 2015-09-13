@@ -8,6 +8,7 @@
     {
         public static void RegisterFilter(this ContextStore store, IFilter filter)
         {
+            store.CheckResolutionStarted();
             foreach (var entityDefinition in filter.Definitions)
             {
                 store.Filters.GetList(entityDefinition).Add(filter);
@@ -16,6 +17,7 @@
 
         public static void RegisterNode(this ContextStore store, Definition definition, INode node)
         {
+            store.CheckResolutionStarted();
             if (store.Nodes.ContainsKey(definition))
             {
                 throw new SourceRegistrationException($"Source for {definition} already registered");
@@ -38,6 +40,14 @@
             }
 
             return node;
+        }
+
+        private static void CheckResolutionStarted(this ContextStore store)
+        {
+            if (store.ResolutionStarted)
+            {
+                throw new ResolutionStartedException("Resolutions are already started, can't add more registrations");
+            }
         }
     }
 }

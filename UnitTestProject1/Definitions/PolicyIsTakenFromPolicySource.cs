@@ -20,24 +20,24 @@
         {
             testingContext
                 .Root()
-                .Provide(key, () => PoliciesSource.Policies);
-            testingContext
-                .DoesNotExistFor<Policy>(key)
-                .TakesSourceFrom<Policy>(key)
-                .Provide(key, p => p.Covered);
+                .Provide<Policy>(key, () => PoliciesSource.Policies);
+            //testingContext
+            //    .DoesNotExistFor<Policy>(key)
+            //    .TakesSourceFrom<Policy>(key)
+            //    .Provide(key, p => p.Covered);
 
-            testingContext
-                .For<Policy>(key)
-                .Filter(p => p.Created.Year > 2014);
-            testingContext
-                .For<Covered>(key)
-                .For<Policy>(key)
-                .Filter((c, p) => c.Amount > p.Created.Year);
+            //testingContext
+            //    .For<Policy>(key)
+            //    .Filter(p => p.Created.Year > 2014);
+            //testingContext
+            //    .For<Covered>(key)
+            //    .For<Policy>(key)
+            //    .Filter((c, p) => c.Amount > p.Created.Year);
 
-            var a = testingContext
-                .All<Covered>(key);
-            var b = testingContext
-                .Value<Covered>(key);
+            //var a = testingContext
+            //    .All<Covered>(key);
+            //var b = testingContext
+            //    .Value<Covered>(key);
         }
     }
 }

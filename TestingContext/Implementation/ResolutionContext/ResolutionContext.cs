@@ -12,12 +12,12 @@
     {
         private readonly Definition definition;
         private readonly IResolutionContext parentContext;
-        private Dictionary<Definition, IResolution> resolutions = new Dictionary<Definition, IResolution>();
+        private readonly Dictionary<Definition, IResolution> resolutions = new Dictionary<Definition, IResolution>();
 
         public ResolutionContext(T value,
             Definition definition,
             IResolutionContext parentContext,
-            List<IFilter> filters, 
+            List<IFilter> filters,
             List<IProvider> childProviders)
         {
             Value = value;
@@ -28,7 +28,7 @@
 
         private void TestConditions(List<IFilter> filters, List<IProvider> childProviders)
         {
-            if (filters.Any(x => !x.MeetsCondition(this)))
+            if (filters.Any(filter => !filter.MeetsCondition(this)))
             {
                 return;
             }
