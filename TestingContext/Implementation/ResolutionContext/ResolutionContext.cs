@@ -6,59 +6,66 @@
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Interfaces;
+    using static Definition;
 
     internal class ResolutionContext<T> : IResolutionContext<T>, IResolutionContext
     {
-        private readonly IEnumerable<IFilter> filters;
-        private readonly List<IProvider> dependentSources;
-        private readonly T value;
+        private readonly Definition definition;
         private readonly IResolutionContext parentContext;
         private Dictionary<Definition, IResolution> resolutions = new Dictionary<Definition, IResolution>();
 
-        public ResolutionContext(T value, IResolutionContext parentContext, IEnumerable<IFilter> filters, List<IProvider> dependentSources)
+        public ResolutionContext(T value,
+            Definition definition,
+            IResolutionContext parentContext,
+            List<IFilter> filters, 
+            List<IProvider> childProviders)
         {
-            this.value = value;
+            Value = value;
+            this.definition = definition;
             this.parentContext = parentContext;
-            this.filters = filters;
-            this.dependentSources = dependentSources;
+            TestConditions(filters, childProviders);
         }
 
-        public T Value => default(T);
+        private void TestConditions(List<IFilter> filters, List<IProvider> childProviders)
+        {
+            if (filters.Any(x => !x.MeetsCondition(this)))
+            {
+                return;
+            }
+
+            foreach (var childProvider in childProviders)
+            {
+                var resolution = childProvider.Resolve(this);
+                if (!resolution.MeetsConditions)
+                {
+                    MeetsConditions = false;
+                    resolutions.Clear();
+                    return;
+                }
+
+                resolutions.Add(childProvider.Definition, resolution);
+            }
+
+            MeetsConditions = true;
+        }
+
+        public T Value { get; }
+
+        public bool MeetsConditions { get; private set; }
 
         public IEnumerable<IResolutionContext<TChild>> Resolve<TChild>(string key)
         {
-            yield break;
+            return resolutions[Define<TChild>(key)] as IEnumerable<IResolutionContext<TChild>>;
         }
 
-        public IResolution Resolve(Definition definition)
+        public IResolution Resolve(Definition childDef)
         {
-            return null;
+            return resolutions[childDef];
         }
 
-        public bool MeetsConditions
+        public IResolutionContext GetContext(Definition sourceDef)
         {
-            get
-            {
-                return false;
-                //var meets = filters.All(x => x.MeetsCondition(this));
-                //if (!meets)
-                //{
-                //    return false;
-                //}
-
-                //foreach (var source in dependentSources)
-                //{
-                //    var resolution = source.Resolve(this);
-                //    if (!resolution.MeetsConditions)
-                //    {
-                //        return false;
-                //    }
-
-                //    resolutions.Add(source.Definition, resolution); 
-                //}
-
-                //return true;
-            }
+            return definition.Equals(sourceDef) ? this : parentContext.GetContext(sourceDef);
         }
     }
 }

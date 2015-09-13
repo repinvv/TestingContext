@@ -1,9 +1,9 @@
 ﻿namespace UnitTestProject1.Definitions
 {
     using TechTalk.SpecFlow;
+    using TestingContextCore;
     using UnitTestProject1.Entities;
     using UnitTestProject1.TestSource;
-    using TestingContextCore;
 
     [Binding]
     public class PolicyIsTakenFromPolicySource

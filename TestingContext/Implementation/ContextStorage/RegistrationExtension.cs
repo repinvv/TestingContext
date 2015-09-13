@@ -10,7 +10,7 @@
         {
             foreach (var entityDefinition in filter.Definitions)
             {
-                store.AllFilters.GetList(entityDefinition).Add(filter);
+                store.Filters.GetList(entityDefinition).Add(filter);
             }
         }
 

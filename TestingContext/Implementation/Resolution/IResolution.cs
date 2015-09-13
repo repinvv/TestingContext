@@ -6,11 +6,5 @@
     internal interface IResolution : IEnumerable<IResolutionContext>
     {
         bool MeetsConditions { get; }
-
-        IResolution Resolve(Definition definition);
-    }
-
-    internal interface IResolution<T> : IEnumerable<IResolutionContext<T>>
-    {
     }
 }

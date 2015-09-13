@@ -1,5 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Nodes
 {
+    using System.Collections.Generic;
     using TestingContextCore.Implementation.Providers;
 
     internal interface INode
@@ -9,5 +10,7 @@
         INode Root { get; }
 
         bool IsChildOf(INode node);
+
+        List<Definition> DefinitionChain { get; }
     }
 }

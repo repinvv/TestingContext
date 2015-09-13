@@ -1,8 +1,6 @@
 ﻿namespace UnitTestProject1.Definitions
 {
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;
-    using UnitTestProject1.Entities;
 
     [Binding]
     public class PolicyNameMustContain

@@ -1,21 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TestingContextCore.Implementation.Resolution
+﻿namespace TestingContextCore.Implementation.Resolution
 {
     using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+    using TestingContextCore.CachingEnumerable;
+    using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.Providers;
+    using TestingContextCore.Implementation.Resolution.ResolutionStrategy;
+    using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Interfaces;
 
-    internal class Resolution<T> : IResolution<T>, IResolution
+    internal class Resolution<T> : IResolution, IEnumerable<IResolutionContext<T>>
     {
         private readonly Definition definition;
+        private readonly IResolutionStrategy strategy;
 
-        protected Resolution(Definition definition)
+        public Resolution(Definition definition, 
+            IEnumerable<IResolutionContext<T>> source,
+            IResolutionStrategy strategy)
         {
             this.definition = definition;
+            this.strategy = strategy;
+            var cachedSource = source.Cache();
+            MeetsConditions = strategy.MeetsCondition(cachedSource);
+            Source = cachedSource.Where(x => x.MeetsConditions);
         }
 
         IEnumerator<IResolutionContext> IEnumerable<IResolutionContext>.GetEnumerator() => (Source as IEnumerable<IResolutionContext>).GetEnumerator();
@@ -24,13 +32,8 @@ namespace TestingContextCore.Implementation.Resolution
 
         IEnumerator IEnumerable.GetEnumerator() => Source.GetEnumerator();
 
-        public IResolution Resolve(Definition def)
-        {
-            return definition.Equals(def) ? this : null;
-        }
+        public bool MeetsConditions { get; }
 
-        public bool MeetsConditions => false;
-
-        protected IEnumerable<IResolutionContext<T>> Source { get; set; }
+        private IEnumerable<IResolutionContext<T>> Source { get; }
     }
 }

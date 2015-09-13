@@ -1,7 +1,6 @@
 ﻿namespace UnitTestProject1.Definitions
 {
     using TechTalk.SpecFlow;
-    using UnitTestProject1.Entities;
 
     [Binding]
     public class PolicyIsCreatedBeforeYear

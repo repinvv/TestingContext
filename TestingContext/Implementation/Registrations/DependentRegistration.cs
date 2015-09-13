@@ -5,10 +5,9 @@
     using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Providers;
-    using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.Resolution.ResolutionStrategy;
     using TestingContextCore.Interfaces;
-    using static TestingContextCore.Implementation.Definition;
+    using static Definition;
 
     internal class DependentRegistration <TSource> : Registration<TSource>, IChildRegistration<TSource>
         where TSource : class
@@ -29,10 +28,10 @@
         public override void Provide<T>(string key, Func<TSource, IEnumerable<T>> sourceFunc)
         {
             var definition = Define<T>(key);
-            var source = new Provider<TSource, T>(store, definition, sourceFunc, strategy);
-            var node = new ChildNode(source, definition, this.sourceDef, store);
+            var provider = new Provider<TSource, T>(definition, sourceDef, sourceFunc, strategy, store);
+            var node = new ChildNode(provider, definition, parentDef, store);
             store.RegisterNode(definition, node);
-            store.RegisterDependency(this.sourceDef, node);
+            store.RegisterDependency(sourceDef, node);
         }
 
         public IRegistration<TSourceFrom> TakesSourceFrom<TSourceFrom>(string key) 

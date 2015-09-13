@@ -46,9 +46,13 @@
     <Compile Include="Implementation\ContextStorage\RegistrationExtension.cs" />
     <Compile Include="Implementation\Definition.cs" />
     <Compile Include="Implementation\Exceptions\FilterRegistrationException.cs" />
+    <Compile Include="Implementation\Exceptions\ResolutionException.cs" />
     <Compile Include="Implementation\Exceptions\ResolutionStartedException.cs" />
     <Compile Include="Implementation\Exceptions\SourceRegistrationException.cs" />
+    <Compile Include="Implementation\Filters\Filter2.cs" />
+    <Compile Include="Implementation\Filters\FilterRegistrator1.cs" />
     <Compile Include="Implementation\Filters\Filter1.cs" />
+    <Compile Include="Implementation\ResolutionContext\ResolutionContextExtension.cs" />
     <Compile Include="Implementation\Filters\IFilter.cs" />
     <Compile Include="Implementation\Nodes\ChildNode.cs" />
     <Compile Include="Implementation\Nodes\INode.cs" />
@@ -56,7 +60,7 @@
     <Compile Include="Implementation\Registrations\Registration.cs" />
     <Compile Include="Implementation\ContextStorage\ContextStore.cs" />
     <Compile Include="Implementation\Registrations\DependentRegistration.cs" />
-    <Compile Include="Implementation\Filters\Filter2.cs" />
+    <Compile Include="Implementation\Filters\FilterRegistrator2.cs" />
     <Compile Include="Implementation\Resolution\IResolution.cs" />
     <Compile Include="Implementation\Resolution\Resolution.cs" />
     <Compile Include="Implementation\ResolutionContext\RootResolutionContext.cs" />

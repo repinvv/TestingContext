@@ -5,6 +5,8 @@
 
     internal interface IProvider
     {
+        Definition Definition { get; }
+
         IResolution Resolve(IResolutionContext parentContext);
     }
 }

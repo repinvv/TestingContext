@@ -6,10 +6,7 @@
 
     internal class ContextStore
     {
-        public Dictionary<Definition, List<IFilter>> AllFilters { get; } = new Dictionary<Definition, List<IFilter>>();
-
-        public Dictionary<Definition, List<IFilter>> ValidatedFilters { get; } = new Dictionary<Definition, List<IFilter>>();
-
+        public Dictionary<Definition, List<IFilter>> Filters { get; } = new Dictionary<Definition, List<IFilter>>();
         public Dictionary<Definition, INode> Nodes { get; } = new Dictionary<Definition, INode>();
         public Dictionary<Definition, List<INode>> Dependencies { get; } = new Dictionary<Definition, List<INode>>();
     }

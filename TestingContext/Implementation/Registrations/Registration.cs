@@ -2,9 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using TestingContextCore.Implementation.ContextStorage;
-    using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Interfaces;
 
     internal abstract class Registration<TSource> : IRegistration<TSource>

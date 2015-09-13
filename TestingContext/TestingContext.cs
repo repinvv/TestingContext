@@ -1,6 +1,5 @@
 ﻿namespace TestingContextCore
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation;
@@ -8,16 +7,16 @@
     using TestingContextCore.Implementation.Exceptions;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Registrations;
-    using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.Resolution.ResolutionStrategy;
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Interfaces;
-    using static TestingContextCore.Implementation.Definition;
+    using static Implementation.Definition;
 
     public class TestingContext
     {
         private readonly ContextStore store;
         private IResolutionContext rootContext; 
+        private Definition rootDefinition = Define<TestingContext>(string.Empty);
 
         public TestingContext()
         {
@@ -27,13 +26,13 @@
         public IFor<T> For<T>(string key)
         {
             CheckResolutionStarted();
-            return new Filter1<T>(key, store);
+            return new FilterRegistrator1<T>(key, store);
         }
 
         public IRegistration<TestingContext> Root()
         {
             CheckResolutionStarted();
-            return new RootRegistration<TestingContext>(store, Define<TestingContext>(string.Empty));
+            return new RootRegistration<TestingContext>(store, rootDefinition);
         }
 
         public IRegistration<TSource> RootResolve<TSource>(string key) where TSource : class
@@ -65,7 +64,7 @@
 
         public IEnumerable<IResolutionContext<T>> All<T>(string key)
         {
-            rootContext = rootContext ?? new RootResolutionContext(this, store);
+            rootContext = rootContext ?? new RootResolutionContext(rootDefinition, this, store);
             return rootContext.Resolve(Define<T>(key)) as IEnumerable<IResolutionContext<T>>;
         }
 

@@ -7,21 +7,14 @@
 
     internal static class FiltersExtension
     {
-        public static IList<IFilter> GetFilters(this ContextStore store, Definition definition)
-        {
-            return store.ValidatedFilters.SafeGet(definition, () => GetValidatedFilters(store, definition));
-        }
-
-        private static List<IFilter> GetValidatedFilters(ContextStore store, Definition definition)
+        public static List<IFilter> GetFilters(this ContextStore store, Definition definition)
         {
             var definitionNode = store.GetNode(definition);
-
-            var filters = store.AllFilters
+            var filters = store.Filters
                                .SafeGet(definition, () => new List<IFilter>())
                                .Where(x => x.Definitions.All(y => !store.GetNode(y).IsChildOf(definitionNode)))
                                .ToList();
             filters.ForEach(x=>ValidateFilter(store, x));
-            store.ValidatedFilters[definition] = filters;
             return filters;
         }
 

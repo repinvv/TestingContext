@@ -1,35 +1,25 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
     using System;
-    using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Interfaces;
-    using static TestingContextCore.Implementation.Definition;
 
-    internal class Filter2<T1, T2> : IFor<T1, T2>, IFilter
+    internal class Filter2<T1, T2> : IFilter
     {
-        private readonly string key1;
-        private readonly string key2;
-        private readonly ContextStore store;
-        private Func<T1, T2, bool> filter;
+        private readonly Func<T1, T2, bool> filterFunc;
 
-        public Filter2(string key1, string key2, ContextStore store)
+        public Filter2(Definition[] definitions, Func<T1, T2, bool> filterFunc)
         {
-            this.key1 = key1;
-            this.key2 = key2;
-            this.store = store;
+            Definitions = definitions;
+            this.filterFunc = filterFunc;
         }
 
-        public void Filter(Func<T1, T2, bool> filterFunc)
-        {
-            filter = filterFunc;
-            store.RegisterFilter(this);
-        }
+        public Definition[] Definitions { get; }
 
-        public Definition[] Definitions => new[] { Define<T1>(key1), Define<T2>(key2) };
-
-        public bool MeetsCondition(IResolutionContext resolve)
+        public bool MeetsCondition(IResolutionContext context)
         {
-            return false;
+            var argument1 = context.GetValue<T1>(Definitions[0]);
+            var argument2 = context.GetValue<T2>(Definitions[1]);
+            return filterFunc(argument1, argument2);
         }
     }
 }

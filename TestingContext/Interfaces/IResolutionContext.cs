@@ -7,10 +7,14 @@
     internal interface IResolutionContext
     {
         IResolution Resolve(Definition definition);
+
+        IResolutionContext GetContext(Definition contextDef);
     }
 
     public interface IResolutionContext<T>
     {
+        bool MeetsConditions { get; }
+
         T Value { get; }
 
         IEnumerable<IResolutionContext<TChild>> Resolve<TChild>(string key);
