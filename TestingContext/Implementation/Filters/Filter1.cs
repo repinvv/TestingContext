@@ -1,16 +1,17 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
     using System;
+    using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Interfaces;
 
     internal class Filter1<T1> : IFilter
     {
         private readonly Func<T1, bool> filterFunc;
 
-        public Filter1(Definition[] definitions, Func<T1, bool> filterFunc)
+        public Filter1(Definition definition, Func<T1, bool> filterFunc)
         {
             this.filterFunc = filterFunc;
-            Definitions = definitions;
+            Definitions = new []{ definition};
         }
 
         public Definition[] Definitions { get; }

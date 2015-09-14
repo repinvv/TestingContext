@@ -80,7 +80,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 7
  testRunner.Given("Policy A is taken from policiesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
-   testRunner.And("policy A is created before year 2013", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("policy A is created before year 2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 9
    testRunner.And("policy A has at least 2 covered rows", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10

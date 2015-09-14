@@ -6,13 +6,10 @@
 
     internal static class RegistrationExtension
     {
-        public static void RegisterFilter(this ContextStore store, IFilter filter)
+        public static void RegisterFilter(this ContextStore store, Definition definition, IFilter filter)
         {
             store.CheckResolutionStarted();
-            foreach (var entityDefinition in filter.Definitions)
-            {
-                store.Filters.GetList(entityDefinition).Add(filter);
-            }
+            store.Filters.GetList(definition).Add(filter);
         }
 
         public static void RegisterNode(this ContextStore store, Definition definition, INode node)

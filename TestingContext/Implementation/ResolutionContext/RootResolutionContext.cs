@@ -31,7 +31,7 @@
         {
             var node = store.GetNode(definition);
             var rootProvider = node.Root.Provider;
-            var resolution = roots.SafeGet(rootProvider.Definition, () => rootProvider.Resolve(this));
+            var resolution = roots.SafeGet(rootProvider.Definition) ?? rootProvider.Resolve(this);
             
             foreach (var nodeDef in node.DefinitionChain)
             {

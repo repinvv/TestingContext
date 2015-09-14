@@ -9,36 +9,24 @@
     {
         public static List<IFilter> GetFilters(this ContextStore store, Definition definition)
         {
-            var definitionNode = store.GetNode(definition);
             var filters = store.Filters
                                .SafeGet(definition, () => new List<IFilter>())
-                               .Where(x => x.Definitions.All(y => !store.GetNode(y).IsChildOf(definitionNode)))
                                .ToList();
-            filters.ForEach(x=>ValidateFilter(store, x));
+
+            filters.ForEach(x => ValidateFilter(store, x));
             return filters;
         }
 
         private static void ValidateFilter(ContextStore store, IFilter filter)
         {
-            for (int i = 0; i < filter.Definitions.Length - 1; i++)
+            var firstNode = store.GetNode(filter.Definitions[0]);
+            for (int n = 1; n < filter.Definitions.Length; n++)
             {
-                for (int j = 1; j < filter.Definitions.Length; j++)
+                var nextNode = store.GetNode(filter.Definitions[n]);
+                if (!firstNode.IsChildOf(nextNode))
                 {
-                    ValidateDefinitions(store, filter.Definitions[i], filter.Definitions[j]);
-                }
-            }
-        }
-
-        private static void ValidateDefinitions(ContextStore store, Definition definition, Definition definition1)
-        {
-            var node = store.GetNode(definition);
-            var node1 = store.GetNode(definition1);
-            if (node.Root == node1.Root)
-            {
-                if (!node.IsChildOf(node1) && !node1.IsChildOf(node))
-                {
-                    throw new FilterRegistrationException($"filter, includes {definition} and {definition1} which have the same root, but in different branches. " +
-                                                          $"Definitions in the filter should belong to the same branch or be in different independent hierarchies.");
+                    throw new FilterRegistrationException($"Filter, registered for {filter.Definitions[0]} can't work with {filter.Definitions[n]}, With<> can only be" +
+                                                          $" used for definitions in the same registration branc, i.e. this definition can only be a parent of {filter.Definitions[0]}.");   
                 }
             }
         }
