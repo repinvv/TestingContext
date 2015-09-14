@@ -2,6 +2,7 @@
 {
     using System;
     using TestingContextCore.Implementation.ContextStorage;
+    using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Interfaces;
 
     internal class Filter2<T1, T2> : IFilter

@@ -10,13 +10,13 @@
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Interfaces;
 
-    internal class Resolution<T> : IResolution, IEnumerable<IResolutionContext<T>>
+    internal class Resolution<T> : IResolution, IEnumerable<IInternalResolutionContext<T>>
     {
         private readonly Definition definition;
         private readonly IResolutionStrategy strategy;
 
         public Resolution(Definition definition, 
-            IEnumerable<IResolutionContext<T>> source,
+            IEnumerable<IInternalResolutionContext<T>> source,
             IResolutionStrategy strategy)
         {
             this.definition = definition;
@@ -28,12 +28,12 @@
 
         IEnumerator<IResolutionContext> IEnumerable<IResolutionContext>.GetEnumerator() => (Source as IEnumerable<IResolutionContext>).GetEnumerator();
 
-        IEnumerator<IResolutionContext<T>> IEnumerable<IResolutionContext<T>>.GetEnumerator() => Source.GetEnumerator();
+        IEnumerator<IInternalResolutionContext<T>> IEnumerable<IInternalResolutionContext<T>>.GetEnumerator() => Source.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => Source.GetEnumerator();
 
         public bool MeetsConditions { get; }
 
-        private IEnumerable<IResolutionContext<T>> Source { get; }
+        private IEnumerable<IInternalResolutionContext<T>> Source { get; }
     }
 }

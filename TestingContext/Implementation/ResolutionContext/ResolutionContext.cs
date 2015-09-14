@@ -8,7 +8,7 @@
     using TestingContextCore.Interfaces;
     using static Definition;
 
-    internal class ResolutionContext<T> : IResolutionContext<T>, IResolutionContext
+    internal class ResolutionContext<T> : IInternalResolutionContext<T>, IResolutionContext
     {
         private readonly Definition definition;
         private readonly IResolutionContext parentContext;

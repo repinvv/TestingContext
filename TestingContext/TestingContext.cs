@@ -1,5 +1,6 @@
 ﻿namespace TestingContextCore
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation;
@@ -54,6 +55,12 @@
         {
             var def = Define<T>(key);
             return new DependentRegistration<T>(def, def, store, ResolutionStrategyFactory.Each());
+        }
+
+        public IChildRegistration<T> HasCountFor<T>(string key, Func<int, bool> countFunc) where T : class
+        {
+            var def = Define<T>(key);
+            return new DependentRegistration<T>(def, def, store, ResolutionStrategyFactory.Count(countFunc));
         }
 
         public IEnumerable<IResolutionContext<T>> All<T>(string key)
