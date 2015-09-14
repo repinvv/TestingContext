@@ -42,6 +42,7 @@
     <Compile Include="CachingEnumerable\CachingEnumerable.cs" />
     <Compile Include="CachingEnumerable\CachingEnumerableExtension.cs" />
     <Compile Include="DictionaryExtension.cs" />
+    <Compile Include="Implementation\ContextStorage\FailureReasonExtension.cs" />
     <Compile Include="Implementation\ContextStorage\FiltersExtension.cs" />
     <Compile Include="Implementation\ContextStorage\RegistrationExtension.cs" />
     <Compile Include="Implementation\Definition.cs" />

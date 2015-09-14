@@ -17,12 +17,14 @@
     {
         private readonly ContextStore store;
         private IResolutionContext rootContext;
-        private Definition rootDefinition = Define<TestingContext>(string.Empty);
+        private readonly Definition rootDefinition = Define<TestingContext>(string.Empty);
 
         public TestingContext()
         {
             store = new ContextStore();
         }
+
+       public bool Logging { set { store.Logging = value; } }
 
         public IFor<T> For<T>(string key)
         {
@@ -73,7 +75,7 @@
         public T Value<T>(string key)
             where T : class
         {
-            return All<T>(key)?.FirstOrDefault()?.Value;
+            return store.LoggedFirstOrDefault(All<T>(key)).Value;
         }
     }
 }

@@ -7,6 +7,7 @@
 
     internal class ContextStore
     {
+        public bool Logging { get; set; }
         public bool ResolutionStarted { get; set; }
         public Dictionary<Definition, List<IFilter>> Filters { get; } = new Dictionary<Definition, List<IFilter>>();
         public Dictionary<Definition, INode> Nodes { get; } = new Dictionary<Definition, INode>();

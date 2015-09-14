@@ -35,7 +35,7 @@
             
             foreach (var nodeDef in node.DefinitionChain)
             {
-                resolution = resolution?.FirstOrDefault()?.Resolve(nodeDef);
+                resolution = store.LoggedFirstOrDefault(resolution)?.Resolve(nodeDef);
             }
 
             return resolution;
@@ -48,7 +48,7 @@
                 return this;
             }
 
-            return Resolve(contextDef)?.FirstOrDefault();
+            return store.LoggedFirstOrDefault(Resolve(contextDef));
         }
 
         public bool MeetsConditions => true;
