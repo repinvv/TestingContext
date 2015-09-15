@@ -68,6 +68,7 @@
         public IEnumerable<IResolutionContext<T>> All<T>(string key)
         {
             rootContext = rootContext ?? new RootResolutionContext(rootDefinition, this, store);
+            store.ValidateTree();
             store.ResolutionStarted = true;
             return rootContext.Resolve(Define<T>(key)) as IEnumerable<IResolutionContext<T>>;
         }
