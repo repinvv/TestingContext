@@ -1,7 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.ResolutionContext
 {
     using System.Collections.Generic;
-    using System.Linq;
     using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Interfaces;

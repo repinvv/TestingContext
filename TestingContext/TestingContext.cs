@@ -2,10 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using TestingContextCore.Implementation;
     using TestingContextCore.Implementation.ContextStorage;
-    using TestingContextCore.Implementation.Exceptions;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution.ResolutionStrategy;
@@ -68,7 +66,7 @@
         public IEnumerable<IResolutionContext<T>> All<T>(string key)
         {
             rootContext = rootContext ?? new RootResolutionContext(rootDefinition, this, store);
-            store.ValidateTree();
+            store.Validate();
             store.ResolutionStarted = true;
             return rootContext.Resolve(Define<T>(key)) as IEnumerable<IResolutionContext<T>>;
         }

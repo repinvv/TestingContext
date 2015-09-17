@@ -3,7 +3,6 @@
     using System;
     using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.ResolutionContext;
-    using TestingContextCore.Interfaces;
 
     internal class Filter2<T1, T2> : IFilter
     {
@@ -24,8 +23,5 @@
             var argument2 = context.GetValue<T2>(definitions[1]);
             return filterFunc(argument1, argument2);
         }
-
-        public void ValidateFilter(ContextStore store)
-        { }
     }
 }

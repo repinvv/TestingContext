@@ -25,7 +25,7 @@
 
         public static void RegisterDependency(this ContextStore store, Definition definition, INode node)
         {
-            store.Dependencies.GetList(definition).Add(node);
+            store.Dependendents.GetList(definition).Add(node);
         }
 
         public static INode GetNode(this ContextStore store, Definition definition)

@@ -4,11 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.CachingEnumerable;
-    using TestingContextCore.Implementation.Filters;
-    using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Resolution.ResolutionStrategy;
     using TestingContextCore.Implementation.ResolutionContext;
-    using TestingContextCore.Interfaces;
 
     internal class Resolution<T> : IResolution, IEnumerable<IInternalResolutionContext<T>>
     {

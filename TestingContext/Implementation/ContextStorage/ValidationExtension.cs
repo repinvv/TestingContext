@@ -4,12 +4,21 @@
 
     internal static class ValidationExtension
     {
-        public static void ValidateTree(this ContextStore store)
+        public static void Validate(this ContextStore store)
         {
-            foreach (var filter in store.Filters.Values.SelectMany(x => x).Where(x => x.Definitions.Length > 1))
+            foreach (var dependency in store.Dependencies)
             {
-
+                dependency.Validate(store);
             }
+        }
+
+        public static Definition GetClosestParent(this ContextStore store, Definition node, Definition dependsOn)
+        {
+            return node;
+        }
+
+        public static void ValidateDependency(this ContextStore store, Definition node, Definition dependsOn, Definition closestParent)
+        {
         }
     }
 }

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using TestingContextCore.Implementation.ContextStorage;
+    using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Resolution.ResolutionStrategy;
@@ -23,7 +24,8 @@
         public override void Provide<T>(string key, Func<TSource, IEnumerable<T>> srcFunc)
         {
             var definition = Define<T>(key);
-            var provider = new Provider<TSource, T>(definition, sourceDef, srcFunc, ResolutionStrategyFactory.Root(), store);
+            var dependency = new SingleDependency<TSource>(definition, sourceDef);
+            var provider = new Provider<TSource, T>(definition, dependency, srcFunc, ResolutionStrategyFactory.Root(), store);
             var node = new RootNode(provider, definition);
             store.RegisterNode(definition, node);
         }
