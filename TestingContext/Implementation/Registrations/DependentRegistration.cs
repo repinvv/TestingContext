@@ -29,7 +29,7 @@
         public override void Provide<T>(string key, Func<TSource, IEnumerable<T>> sourceFunc)
         {
             var definition = Define<T>(key);
-            var dependency = new SingleDependency<TSource>(definition, sourceDef);
+            var dependency = store.Depend<TSource>(definition, sourceDef);
             var provider = new Provider<TSource, T>(definition, dependency, sourceFunc, strategy, store);
             var node = new ChildNode(provider, definition, parentDef, store);
             store.RegisterNode(definition, node);

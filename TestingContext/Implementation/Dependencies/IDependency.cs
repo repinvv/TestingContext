@@ -6,6 +6,8 @@
     internal interface IDependency
     {
         void Validate(ContextStore store);
+
+        Definition DependsOn { get; }
     }
 
     internal interface IDependency<TSource> : IDependency

@@ -24,7 +24,7 @@
 
        public bool Logging { set { store.Logging = value; } }
 
-        public IFor<T> For<T>(string key)
+        public IFor<T> For<T>(string key) where T : class
         {
             return new FilterRegistrator1<T>(key, store);
         }

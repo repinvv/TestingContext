@@ -5,7 +5,7 @@
     public interface IFor<T1>
     {
         void Filter(Func<T1, bool> filter);
-        IWith<T1, T2> With<T2>(string key);
+        IWith<T1, T2> With<T2>(string key) where T2 : class;
     }
 
     public interface IWith<T1, T2>

@@ -24,7 +24,7 @@
         public override void Provide<T>(string key, Func<TSource, IEnumerable<T>> srcFunc)
         {
             var definition = Define<T>(key);
-            var dependency = new SingleDependency<TSource>(definition, sourceDef);
+            var dependency = store.Depend<TSource>(definition, sourceDef);
             var provider = new Provider<TSource, T>(definition, dependency, srcFunc, ResolutionStrategyFactory.Root(), store);
             var node = new RootNode(provider, definition);
             store.RegisterNode(definition, node);

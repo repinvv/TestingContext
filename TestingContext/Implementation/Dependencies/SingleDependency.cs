@@ -12,20 +12,19 @@
         where TSource : class
     {
         private readonly Definition definition;
-        private readonly Definition dependency;
 
         public SingleDependency(Definition definition, Definition dependency)
         {
             this.definition = definition;
-            this.dependency = dependency;
+            DependsOn = dependency;
         }
 
         public TSource GetValue(IResolutionContext context)
         {
-            var resolved = context.GetContext(dependency) as IResolutionContext<TSource>;
+            var resolved = context.GetContext(DependsOn) as IResolutionContext<TSource>;
             if (resolved == null)
             {
-                throw new ResolutionException($"Could not resolve the value of {dependency}, " +
+                throw new ResolutionException($"Could not resolve the value of {DependsOn}, " +
                                               "this most likely means no item meets the specified conditions");
             }
 
@@ -34,10 +33,12 @@
 
         public void Validate(ContextStore store)
         {
-            if (definition.Equals(dependency))
+            if (definition.Equals(DependsOn))
             {
                 return;
             }
         }
+
+        public Definition DependsOn { get; }
     }
 }
