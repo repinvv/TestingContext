@@ -4,7 +4,7 @@
 
     internal static class ValidationExtension
     {
-        public static void Validate(this ContextStore store)
+        public static void ValidateDependencies(this ContextStore store)
         {
             foreach (var dependency in store.Dependencies)
             {
@@ -14,6 +14,7 @@
 
         public static Definition GetClosestParent(this ContextStore store, Definition node, Definition dependsOn)
         {
+
             return node;
         }
 

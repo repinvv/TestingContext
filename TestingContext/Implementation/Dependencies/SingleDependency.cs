@@ -35,7 +35,7 @@
         {
             if (definition.Equals(DependsOn))
             {
-                return;
+                return; // should not ever get here
             }
             var node = store.GetNode(definition);
             var depend = store.GetNode(DependsOn);
