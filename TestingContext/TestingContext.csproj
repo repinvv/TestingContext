@@ -46,6 +46,7 @@
     <Compile Include="Implementation\ContextStorage\FailureReasonExtension.cs" />
     <Compile Include="Implementation\ContextStorage\FiltersExtension.cs" />
     <Compile Include="Implementation\ContextStorage\RegistrationExtension.cs" />
+    <Compile Include="Implementation\ContextStorage\Swap.cs" />
     <Compile Include="Implementation\ContextStorage\ValidationExtension.cs" />
     <Compile Include="Implementation\Definition.cs" />
     <Compile Include="Implementation\Dependencies\IDependency.cs" />

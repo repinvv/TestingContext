@@ -1,17 +1,15 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
-    using System;
-    using System.Collections.Generic;
-    using ResolutionContext;
     using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Exceptions;
-    using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Interfaces;
 
     internal class SingleDependency<TSource> : IDependency<TSource>
         where TSource : class
     {
         private readonly Definition definition;
+        private Definition closestParent;
 
         public SingleDependency(Definition definition, Definition dependency)
         {
@@ -33,18 +31,22 @@
 
         public void Validate(ContextStore store)
         {
-            if (definition.Equals(DependsOn))
-            {
-                return; // should not ever get here
-            }
             var node = store.GetNode(definition);
-            var depend = store.GetNode(DependsOn);
-            if (node.IsChildOf(depend))
+            var dependNode = store.GetNode(DependsOn);
+            if (node.IsChildOf(dependNode))
             {
                 return;
             }
 
+            if (dependNode.IsChildOf(node))
+            {
+                throw new ResolutionException($"{definition} is registered use {DependsOn} as singular dependency, " +
+                                              $"while {DependsOn} is registered as a child of {definition}. " +
+                                              $"This is a prohibited scenario, singular dependency can only reference parent, " +
+                                              $"or other cranches.");
+            }
 
+            closestParent = store.ValidateDependency(node, dependNode);
         }
 
         public Definition DependsOn { get; }

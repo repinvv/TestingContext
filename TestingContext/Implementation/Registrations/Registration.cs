@@ -15,12 +15,12 @@
             Provide(key, d => func());
         }
 
-        public void Provide<T>(string key, Func<T> func) where T : class
+        public void ProvideSingle<T>(string key, Func<T> func) where T : class
         {
             Provide(key, d => new[] { func() } as IEnumerable<TSource>);
         }
 
-        public void Provide<T>(string key, Func<TSource, T> func) where T : class
+        public void ProvideSingle<T>(string key, Func<TSource, T> func) where T : class
         {
             Provide(key, d => new[] { func(d) } as IEnumerable<TSource>);
         }

@@ -15,7 +15,6 @@
     {
         private readonly ContextStore store;
         private IResolutionContext rootContext;
-        private readonly Definition rootDefinition = Define<TestingContext>(string.Empty);
 
         public TestingContext()
         {
@@ -31,7 +30,7 @@
 
         public IRegistration<TestingContext> Root()
         {
-            return new RootRegistration<TestingContext>(store, rootDefinition);
+            return new RootRegistration<TestingContext>(store, store.RootDefinition);
         }
 
         public IRegistration<TSource> RootResolve<TSource>(string key) where TSource : class
@@ -59,7 +58,7 @@
 
         public IEnumerable<IResolutionContext<T>> All<T>(string key)
         {
-            rootContext = rootContext ?? new RootResolutionContext(rootDefinition, this, store);
+            rootContext = rootContext ?? new RootResolutionContext(store.RootDefinition, this, store);
             store.ValidateDependencies();
             store.ResolutionStarted = true;
             return rootContext.Resolve(Define<T>(key)) as IEnumerable<IResolutionContext<T>>;
