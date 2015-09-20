@@ -8,7 +8,7 @@
         public RootNode(IProvider provider, Definition definition)
         {
             Provider = provider;
-            DefinitionChain = new List<Definition>();
+            DefinitionChain = new List<Definition> { definition };
         }
 
         public IProvider Provider { get; }

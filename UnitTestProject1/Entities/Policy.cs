@@ -11,6 +11,6 @@
 
         public DateTime Created { get; set; }
 
-        public List<Covered> Covered { get; set; } 
+        public List<Coverage> Coverages { get; set; } 
     }
 }

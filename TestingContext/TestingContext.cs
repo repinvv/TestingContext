@@ -57,12 +57,6 @@
             return new DependentRegistration<T>(def, def, store, ResolutionStrategyFactory.Each());
         }
 
-        public IChildRegistration<T> HasCountFor<T>(string key, Func<int, bool> countFunc) where T : class
-        {
-            var def = Define<T>(key);
-            return new DependentRegistration<T>(def, def, store, ResolutionStrategyFactory.Count(countFunc));
-        }
-
         public IEnumerable<IResolutionContext<T>> All<T>(string key)
         {
             rootContext = rootContext ?? new RootResolutionContext(rootDefinition, this, store);

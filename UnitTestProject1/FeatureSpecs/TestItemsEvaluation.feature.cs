@@ -70,27 +70,49 @@ namespace UnitTestProject1.FeatureSpecs
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Find a policy by name, date and covered")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Find a policy by year and check name")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "TestItemsEvaluation")]
-        public virtual void FindAPolicyByNameDateAndCovered()
+        public virtual void FindAPolicyByYearAndCheckName()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Find a policy by name, date and covered", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Find a policy by year and check name", ((string[])(null)));
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line 7
- testRunner.Given("Policy B is taken from policiesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("policy B is taken from policiesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
    testRunner.And("policy B is created before year 2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 9
-   testRunner.And("policy B has at least 2 covered rows", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 10
-   testRunner.And("policy B has at least 80 people covered", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 11
  testRunner.Then("policy B must exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 10
+   testRunner.And("policy B name must contain \'2013\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Find a policy by name with coverage by type, check policy name and coverage id")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "TestItemsEvaluation")]
+        public virtual void FindAPolicyByNameWithCoverageByTypeCheckPolicyNameAndCoverageId()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Find a policy by name with coverage by type, check policy name and coverage id", ((string[])(null)));
 #line 12
-   testRunner.And("policy B must have id 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+this.ScenarioSetup(scenarioInfo);
 #line 13
-   testRunner.And("policy B name must contain naem", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("policy B is taken from policiesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 14
+   testRunner.And("policy B is created before year 2015", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 15
+   testRunner.And("for policy B exists a coverage B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 16
+   testRunner.And("coverage B has type \'Dependent\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 17
+ testRunner.Then("policy B must exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 18
+   testRunner.And("policy B name must contain \'2014\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 19
+   testRunner.And("coverage B must exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 20
+   testRunner.And("coverage B Id must be 5", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

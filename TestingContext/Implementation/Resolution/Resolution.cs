@@ -23,7 +23,8 @@
             Source = cachedSource.Where(x => x.MeetsConditions);
         }
 
-        IEnumerator<IResolutionContext> IEnumerable<IResolutionContext>.GetEnumerator() => (Source as IEnumerable<IResolutionContext>).GetEnumerator();
+        IEnumerator<IResolutionContext> IEnumerable<IResolutionContext>.GetEnumerator()
+            => Source.Select(item => item as IResolutionContext).GetEnumerator();
 
         IEnumerator<IInternalResolutionContext<T>> IEnumerable<IInternalResolutionContext<T>>.GetEnumerator() => Source.GetEnumerator();
 

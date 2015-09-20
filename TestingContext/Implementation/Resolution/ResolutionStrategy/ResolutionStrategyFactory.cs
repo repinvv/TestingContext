@@ -24,10 +24,5 @@
         public static IResolutionStrategy DoesNotExist() => doesNotExist;
 
         public static IResolutionStrategy Each() => each;
-
-        public static IResolutionStrategy Count(Func<int, bool> countFunc)
-        {
-            return new CountForResolutionStrategy(countFunc);
-        }
     }
 }

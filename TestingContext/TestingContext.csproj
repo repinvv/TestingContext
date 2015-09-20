@@ -70,7 +70,6 @@
     <Compile Include="Implementation\Resolution\IResolution.cs" />
     <Compile Include="Implementation\Resolution\Resolution.cs" />
     <Compile Include="Implementation\ResolutionContext\RootResolutionContext.cs" />
-    <Compile Include="Implementation\Resolution\ResolutionStrategy\CountForResolutionStrategy.cs" />
     <Compile Include="Implementation\Resolution\ResolutionStrategy\DoesNotExistResolutionStrategy.cs" />
     <Compile Include="Implementation\Resolution\ResolutionStrategy\EachResolutionStrategy.cs" />
     <Compile Include="Implementation\Resolution\ResolutionStrategy\EmptyResolutionStrategy.cs" />

@@ -1,6 +1,7 @@
 ﻿namespace TestingContextCore.Implementation.ResolutionContext
 {
     using System.Collections.Generic;
+    using System.Linq;
     using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Interfaces;
@@ -32,7 +33,7 @@
             var rootProvider = node.Root.Provider;
             var resolution = roots.SafeGet(rootProvider.Definition) ?? rootProvider.Resolve(this);
             
-            foreach (var nodeDef in node.DefinitionChain)
+            foreach (var nodeDef in node.DefinitionChain.Skip(1))
             {
                 resolution = store.LoggedFirstOrDefault(resolution)?.Resolve(nodeDef);
             }

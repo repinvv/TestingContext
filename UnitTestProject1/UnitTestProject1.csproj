@@ -54,15 +54,18 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Definitions\DefinitionConstants.cs" />
-    <Compile Include="Definitions\PolicyHasCoveredCount.cs" />
-    <Compile Include="Definitions\PolicyHasCoveredRows.cs" />
-    <Compile Include="Definitions\PolicyIsCreatedBeforeYear.cs" />
-    <Compile Include="Definitions\PolicyIsTakenFromPolicySource.cs" />
-    <Compile Include="Definitions\PolicyMustExist.cs" />
-    <Compile Include="Definitions\PolicyMustHaveId.cs" />
-    <Compile Include="Definitions\PolicyNameMustContain.cs" />
-    <Compile Include="Entities\Covered.cs" />
+    <Compile Include="Definitions\Coverage\Assertions\CoverageIdMustBe.cs" />
+    <Compile Include="Definitions\Coverage\CoverageHasType.cs" />
+    <Compile Include="Definitions\Coverage\Assertions\CoverageMustExist.cs" />
+    <Compile Include="Definitions\Coverage\CoverageMustHaveHeadCount.cs" />
+    <Compile Include="Definitions\Coverage\ForPolicyExistsACoverage.cs" />
+    <Compile Include="Definitions\Policy\PolicyIsCreatedBeforeYear.cs" />
+    <Compile Include="Definitions\Policy\PolicyIsTakenFromPolicySource.cs" />
+    <Compile Include="Definitions\Policy\Assertions\PolicyMustExist.cs" />
+    <Compile Include="Definitions\Policy\Assertions\PolicyMustHaveId.cs" />
+    <Compile Include="Definitions\Policy\PolicyNameMustContain.cs" />
+    <Compile Include="Entities\CoverageType.cs" />
+    <Compile Include="Entities\Coverage.cs" />
     <Compile Include="Entities\Policy.cs" />
     <Compile Include="FeatureSpecs\TestItemsEvaluation.feature.cs">
       <AutoGen>True</AutoGen>

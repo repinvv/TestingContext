@@ -37,6 +37,14 @@
             {
                 return;
             }
+            var node = store.GetNode(definition);
+            var depend = store.GetNode(DependsOn);
+            if (node.IsChildOf(depend))
+            {
+                return;
+            }
+
+
         }
 
         public Definition DependsOn { get; }
