@@ -66,7 +66,7 @@
         public IEnumerable<IResolutionContext<T>> All<T>(string key)
         {
             rootContext = rootContext ?? new RootResolutionContext(rootDefinition, this, store);
-            store.Validate();
+            store.ValidateDependencies();
             store.ResolutionStarted = true;
             return rootContext.Resolve(Define<T>(key)) as IEnumerable<IResolutionContext<T>>;
         }
@@ -74,7 +74,7 @@
         public T Value<T>(string key)
             where T : class
         {
-            return store.LoggedFirstOrDefault(All<T>(key)).Value;
+            return store.LoggedFirstOrDefault(All<T>(key))?.Value;
         }
     }
 }

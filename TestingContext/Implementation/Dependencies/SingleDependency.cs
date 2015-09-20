@@ -35,8 +35,10 @@
         {
             if (definition.Equals(DependsOn))
             {
-                return;
+                return; // should not ever get here
             }
+
+            var closestParent = store.GetClosestParent(definition, DependsOn);
         }
 
         public Definition DependsOn { get; }
