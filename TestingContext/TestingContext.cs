@@ -25,7 +25,16 @@
 
         public IFor<T> For<T>(string key) where T : class
         {
-            return new FilterRegistrator1<T>(key, store);
+            var definition = Define<T>(key);
+            var dependency = store.Depend<T>(definition, definition);
+            return new FilterRegistrator1<T>(dependency, store);
+        }
+
+        public IFor<IEnumerable<T>> ForCollection<T>(string key) where T : class
+        {
+            var definition = Define<T>(key);
+            var dependency = store.CollectionDepend<T>(definition, definition);
+            return new FilterRegistrator1<IEnumerable<T>>(dependency, store);
         }
 
         public IRegistration<TestingContext> Root()

@@ -8,6 +8,8 @@
         void Validate(ContextStore store);
 
         Definition DependsOn { get; }
+
+        bool IsCollectionDependency { get; }
     }
 
     internal interface IDependency<TSource> : IDependency

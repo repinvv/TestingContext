@@ -50,5 +50,7 @@
         }
 
         public Definition DependsOn { get; }
+
+        public bool IsCollectionDependency => false;
     }
 }

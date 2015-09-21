@@ -12,17 +12,18 @@
         private readonly IDependency<T1> dependency1;
         private readonly IDependency<T2> dependency2;
         private readonly Func<T1, T2, bool> filterFunc;
-        private readonly Definition[] definitions;
 
         public Filter2(IDependency<T1> dependency1, IDependency<T2> dependency2, Func<T1, T2, bool> filterFunc)
         {
-            definitions = new[] { dependency1.DependsOn, dependency2.DependsOn };
+            Definitions = new[] { dependency1.DependsOn, dependency2.DependsOn };
             this.dependency1 = dependency1;
             this.dependency2 = dependency2;
             this.filterFunc = filterFunc;
         }
 
-        public Definition[] Definitions => definitions;
+        public bool IsPostFilter { get; }
+        public bool IsCollectionFilter => dependency1.IsCollectionDependency;
+        public Definition[] Definitions { get; }
 
         public bool MeetsCondition(IResolutionContext context)
         {

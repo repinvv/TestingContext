@@ -1,6 +1,7 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
     using System;
+    using System.Collections.Generic;
     using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Interfaces;
@@ -12,10 +13,9 @@
         private readonly ContextStore store;
         private readonly IDependency<T1> dependency;
 
-        public FilterRegistrator1(string key1, ContextStore store)
+        public FilterRegistrator1(IDependency<T1> dependency, ContextStore store)
         {
-            var definition = Define<T1>(key1);
-            dependency = store.Depend<T1>(definition, definition);
+            this.dependency = dependency;
             this.store = store;
         }
 
@@ -26,7 +26,14 @@
 
         public IWith<T1, T2> With<T2>(string key2) where T2 : class
         {
-            return new FilterRegistrator2<T1, T2>(dependency, key2, store);
+            var dependency2 = store.Depend<T2>(dependency.DependsOn, Define<T2>(key2));
+            return new FilterRegistrator2<T1, T2>(dependency, dependency2, store);
+        }
+
+        public IWith<T1, IEnumerable<T2>> WithCollection<T2>(string key2) where T2 : class
+        {
+            var dependency2 = store.CollectionDepend<T2>(dependency.DependsOn, Define<T2>(key2));
+            return new FilterRegistrator2<T1, IEnumerable<T2>>(dependency, dependency2, store);
         }
     }
 }

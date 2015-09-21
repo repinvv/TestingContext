@@ -14,10 +14,10 @@
         private readonly ContextStore store;
         private readonly IDependency<T2> dependency2;
 
-        public FilterRegistrator2(IDependency<T1> dependency1, string key2, ContextStore store)
+        public FilterRegistrator2(IDependency<T1> dependency1, IDependency<T2> dependency2, ContextStore store)
         {
             this.dependency1 = dependency1;
-            dependency2 = store.Depend<T2>(dependency1.DependsOn, Define<T2>(key2));
+            this.dependency2 = dependency2;
             this.store = store;
         }
 

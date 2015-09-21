@@ -18,6 +18,8 @@
             Definitions = new []{ dependency.DependsOn };
         }
 
+        public bool IsPostFilter => false;
+        public bool IsCollectionFilter => dependency.IsCollectionDependency;
         public Definition[] Definitions { get; }
 
         public bool MeetsCondition(IResolutionContext context)
