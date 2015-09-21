@@ -11,10 +11,12 @@
         public ContextStore()
         {
             RootDefinition = Define<TestingContext>(string.Empty);
-            this.RegisterNode(RootDefinition, new RootNode(null, RootDefinition));
+            RootNode = new RootNode(null, RootDefinition, this);
+            this.RegisterNode(RootDefinition, RootNode);
         }
         
         public Definition RootDefinition { get; }
+        public INode RootNode { get; }
         public bool Logging { get; set; }
         public bool ResolutionStarted { get; set; }
         public Dictionary<Definition, List<IFilter>> Filters { get; } = new Dictionary<Definition, List<IFilter>>();
