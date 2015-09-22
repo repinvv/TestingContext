@@ -1,12 +1,10 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
     using System;
-    using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.ResolutionContext;
 
     internal class Filter1<T1> : IFilter
-        where T1 : class
     {
         private readonly IDependency<T1> dependency;
         private readonly Func<T1, bool> filterFunc;

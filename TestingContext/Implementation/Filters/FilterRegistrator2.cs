@@ -4,11 +4,8 @@
     using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Interfaces;
-    using static Definition;
 
     internal class FilterRegistrator2<T1, T2> : IWith<T1, T2>
-        where T1 : class
-        where T2 : class
     {
         private readonly IDependency<T1> dependency1;
         private readonly ContextStore store;

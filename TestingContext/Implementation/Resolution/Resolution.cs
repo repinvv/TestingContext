@@ -4,22 +4,17 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.CachingEnumerable;
-    using TestingContextCore.Implementation.Resolution.ResolutionStrategy;
     using TestingContextCore.Implementation.ResolutionContext;
 
     internal class Resolution<T> : IResolution, IEnumerable<IInternalResolutionContext<T>>
     {
         private readonly Definition definition;
-        private readonly IResolutionStrategy strategy;
 
         public Resolution(Definition definition, 
-            IEnumerable<IInternalResolutionContext<T>> source,
-            IResolutionStrategy strategy)
+            IEnumerable<IInternalResolutionContext<T>> source)
         {
             this.definition = definition;
-            this.strategy = strategy;
             var cachedSource = source.Cache();
-            MeetsConditions = strategy.MeetsCondition(cachedSource);
             Source = cachedSource.Where(x => x.MeetsConditions);
         }
 

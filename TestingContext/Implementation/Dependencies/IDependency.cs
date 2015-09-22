@@ -10,10 +10,11 @@
         Definition DependsOn { get; }
 
         bool IsCollectionDependency { get; }
+
+        bool DependsOnChild { get; }
     }
 
     internal interface IDependency<TSource> : IDependency
-        where TSource : class
     {
         TSource GetValue(IResolutionContext parentContext);
     }

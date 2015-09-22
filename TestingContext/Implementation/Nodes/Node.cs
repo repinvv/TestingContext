@@ -4,15 +4,16 @@
     using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Providers;
 
-    internal class ChildNode : INode
+    internal class Node : INode
     {
         private readonly Definition definition;
         private readonly Definition parentDefinition;
         private readonly ContextStore store;
         private INode parent;
-        private List<Definition> chain; 
+        private List<Definition> chain;
+        private INode root;
 
-        public ChildNode(IProvider provider, Definition definition, Definition parentDefinition, ContextStore store)
+        public Node(IProvider provider, Definition definition, Definition parentDefinition, ContextStore store)
         {
             Provider = provider;
             this.definition = definition;
@@ -22,7 +23,7 @@
 
         public IProvider Provider { get; }
 
-        public INode Root => Parent.Root;
+        public INode Root => root = root ?? Parent.Root ?? this;
 
         public bool IsChildOf(INode node)
         {

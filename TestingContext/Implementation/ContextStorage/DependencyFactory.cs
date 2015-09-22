@@ -2,11 +2,11 @@
 {
     using System.Collections.Generic;
     using TestingContextCore.Implementation.Dependencies;
+    using TestingContextCore.Interfaces;
 
     internal static class DependencyFactory
     {
         public static IDependency<T> Depend<T>(this ContextStore store, Definition definition, Definition dependsOn) 
-            where T : class
         {
             var dependency = new SingleDependency<T>(definition, dependsOn);
             if (!definition.Equals(dependsOn))
@@ -17,9 +17,9 @@
             return dependency;
         }
 
-        public static IDependency<IEnumerable<T>> CollectionDepend<T>(this ContextStore store, Definition definition, Definition dependsOn) where T : class
+        public static IDependency<IEnumerable<IResolutionContext<T>>> CollectionDepend<T>(this ContextStore store, Definition definition, Definition dependsOn)
         {
-            var dependency = new CollectionDependency<IEnumerable<T>, T>(definition, dependsOn);
+            var dependency = new CollectionDependency<IEnumerable<IResolutionContext<T>>, T>(definition, dependsOn, store);
             if (!definition.Equals(dependsOn))
             {
                 store.Dependencies.Add(dependency);

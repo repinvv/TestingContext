@@ -17,9 +17,9 @@
 
         public IProvider Provider { get; }
 
-        public INode Root => this;
+        public INode Root => null;
 
-        public bool IsChildOf(INode node) => node == store.RootNode;
+        public bool IsChildOf(INode node) => false;
 
         public List<Definition> DefinitionChain { get; }
     }

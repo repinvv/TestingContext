@@ -19,8 +19,8 @@
         public void GivenPolicyIsTakenFromPoliciesSource(string key)
         {
             context
-                .Root()
-                .Provide<Policy>(key, () => PoliciesSource.Policies);
+                .Register()
+                .Provide(key, x => PoliciesSource.Policies);
             //testingContext
             //    .DoesNotExistFor<Policy>(key)
             //    .TakesSourceFrom<Policy>(key)

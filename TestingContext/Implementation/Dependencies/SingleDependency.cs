@@ -6,7 +6,6 @@
     using TestingContextCore.Interfaces;
 
     internal class SingleDependency<TSource> : IDependency<TSource>
-        where TSource : class
     {
         private readonly Definition definition;
         private Definition closestParent;
@@ -52,5 +51,7 @@
         public Definition DependsOn { get; }
 
         public bool IsCollectionDependency => false;
+
+        public bool DependsOnChild => false;
     }
 }

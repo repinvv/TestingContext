@@ -1,12 +1,10 @@
 ﻿namespace TestingContextCore
 {
-    using System;
     using System.Collections.Generic;
-    using TestingContextCore.Implementation;
     using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
-    using TestingContextCore.Implementation.Resolution.ResolutionStrategy;
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Interfaces;
     using static Implementation.Definition;
@@ -18,51 +16,30 @@
 
         public TestingContext()
         {
-            store = new ContextStore();
+            var rootDefinition = Define<TestingContext>(string.Empty);
+            var rootNode = new RootNode(null, rootDefinition, store);
+            store = new ContextStore(rootDefinition, rootNode);
         }
 
        public bool Logging { set { store.Logging = value; } }
 
-        public IFor<T> For<T>(string key) where T : class
+        public IFor<T> For<T>(string key)
         {
             var definition = Define<T>(key);
             var dependency = store.Depend<T>(definition, definition);
             return new FilterRegistrator1<T>(dependency, store);
         }
 
-        public IFor<IEnumerable<T>> ForCollection<T>(string key) where T : class
+        public IFor<IEnumerable<IResolutionContext<T>>> ForCollection<T>(string key)
         {
             var definition = Define<T>(key);
             var dependency = store.CollectionDepend<T>(definition, definition);
-            return new FilterRegistrator1<IEnumerable<T>>(dependency, store);
+            return new FilterRegistrator1<IEnumerable<IResolutionContext<T>>>(dependency, store);
         }
 
-        public IRegistration<TestingContext> Root()
+        public IRegistration<TestingContext> Register()
         {
-            return new RootRegistration<TestingContext>(store, store.RootDefinition);
-        }
-
-        public IRegistration<TSource> RootResolve<TSource>(string key) where TSource : class
-        {
-            return new RootRegistration<TSource>(store, Define<TSource>(key));
-        }
-
-        public IChildRegistration<T> ExistsFor<T>(string key) where T : class
-        {
-            var def = Define<T>(key);
-            return new DependentRegistration<T>(def, def, store, ResolutionStrategyFactory.Exists());
-        }
-
-        public IChildRegistration<T> DoesNotExistFor<T>(string key) where T : class
-        {
-            var def = Define<T>(key);
-            return new DependentRegistration<T>(def, def, store, ResolutionStrategyFactory.DoesNotExist());
-        }
-
-        public IChildRegistration<T> EachFor<T>(string key) where T : class
-        {
-            var def = Define<T>(key);
-            return new DependentRegistration<T>(def, def, store, ResolutionStrategyFactory.Each());
+            return new Registration<TestingContext>(store.RootDefinition, store.RootDefinition, store);
         }
 
         public IEnumerable<IResolutionContext<T>> All<T>(string key)
@@ -74,9 +51,9 @@
         }
 
         public T Value<T>(string key)
-            where T : class
         {
-            return store.LoggedFirstOrDefault(All<T>(key))?.Value;
+            var resolutionContext = store.LoggedFirstOrDefault(All<T>(key));
+            return resolutionContext != null ? resolutionContext.Value : default(T);
         }
     }
 }

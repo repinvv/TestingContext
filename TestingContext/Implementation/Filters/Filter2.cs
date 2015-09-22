@@ -1,13 +1,10 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
     using System;
-    using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.ResolutionContext;
 
     internal class Filter2<T1, T2> : IFilter
-        where T1 : class
-        where T2 : class
     {
         private readonly IDependency<T1> dependency1;
         private readonly IDependency<T2> dependency2;
@@ -21,9 +18,11 @@
             this.filterFunc = filterFunc;
         }
 
-        public bool IsPostFilter { get; }
-        public bool IsCollectionFilter => dependency1.IsCollectionDependency;
         public Definition[] Definitions { get; }
+
+        public bool IsPostFilter => dependency2.IsCollectionDependency && dependency2.DependsOnChild;
+
+        public bool IsCollectionFilter => dependency1.IsCollectionDependency;
 
         public bool MeetsCondition(IResolutionContext context)
         {

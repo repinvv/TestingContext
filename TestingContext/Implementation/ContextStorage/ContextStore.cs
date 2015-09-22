@@ -8,13 +8,13 @@
 
     internal class ContextStore
     {
-        public ContextStore()
+        public ContextStore(Definition rootDefinition, INode rootNode)
         {
-            RootDefinition = Define<TestingContext>(string.Empty);
-            RootNode = new RootNode(null, RootDefinition, this);
+            RootDefinition = rootDefinition;
+            RootNode = rootNode;
             this.RegisterNode(RootDefinition, RootNode);
         }
-        
+
         public Definition RootDefinition { get; }
         public INode RootNode { get; }
         public bool Logging { get; set; }
