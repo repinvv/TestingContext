@@ -9,9 +9,4 @@
 
         IResolutionContext GetContext(Definition contextDef);
     }
-
-    internal interface IInternalResolutionContext<T> : IResolutionContext<T>
-    {
-        bool MeetsConditions { get; }
-    }
 }

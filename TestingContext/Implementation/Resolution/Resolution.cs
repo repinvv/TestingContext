@@ -5,13 +5,14 @@
     using System.Linq;
     using TestingContextCore.CachingEnumerable;
     using TestingContextCore.Implementation.ResolutionContext;
+    using TestingContextCore.Interfaces;
 
-    internal class Resolution<T> : IResolution, IEnumerable<IInternalResolutionContext<T>>
+    internal class Resolution<T> : IResolution, IEnumerable<IResolutionContext<T>>
     {
         private readonly Definition definition;
 
         public Resolution(Definition definition, 
-            IEnumerable<IInternalResolutionContext<T>> source)
+            IEnumerable<IResolutionContext<T>> source)
         {
             this.definition = definition;
             var cachedSource = source.Cache();
@@ -21,12 +22,12 @@
         IEnumerator<IResolutionContext> IEnumerable<IResolutionContext>.GetEnumerator()
             => Source.Select(item => item as IResolutionContext).GetEnumerator();
 
-        IEnumerator<IInternalResolutionContext<T>> IEnumerable<IInternalResolutionContext<T>>.GetEnumerator() => Source.GetEnumerator();
+        IEnumerator<IResolutionContext<T>> IEnumerable<IResolutionContext<T>>.GetEnumerator() => Source.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => Source.GetEnumerator();
 
         public bool MeetsConditions { get; }
 
-        private IEnumerable<IInternalResolutionContext<T>> Source { get; }
+        private IEnumerable<IResolutionContext<T>> Source { get; }
     }
 }

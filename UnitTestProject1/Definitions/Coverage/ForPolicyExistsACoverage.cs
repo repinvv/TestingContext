@@ -22,7 +22,7 @@
                 .Register()
                 .DependsOn<Policy>(policyKey)
                 .Provide(coverageKey, policy => policy.Coverages)
-                .Filter(x => x.Any());
+                .Exists();
         }
 
     }
