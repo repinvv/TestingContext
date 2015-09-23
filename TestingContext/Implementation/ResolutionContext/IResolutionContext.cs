@@ -1,12 +1,14 @@
 ﻿namespace TestingContextCore.Implementation.ResolutionContext
 {
+    using System.Collections.Generic;
     using TestingContextCore.Implementation.Resolution;
-    using TestingContextCore.Interfaces;
 
     internal interface IResolutionContext
     {
-        IResolution Resolve(Definition definition);
+        IResolutionContext ResolveSingle(Definition definition, Definition closestParent);
 
-        IResolutionContext GetContext(Definition contextDef);
+        IEnumerable<IResolutionContext> ResolveCollection(Definition definition, Definition closestParent);
+
+        IEnumerable<IResolutionContext> ResolveDown(Definition definition, List<Definition> chain, int nextIndex);
     }
 }

@@ -57,7 +57,6 @@
     <Compile Include="Definitions\Coverage\Assertions\CoverageIdMustBe.cs" />
     <Compile Include="Definitions\Coverage\CoverageHasType.cs" />
     <Compile Include="Definitions\Coverage\Assertions\CoverageMustExist.cs" />
-    <Compile Include="Definitions\Coverage\CoverageMustHaveHeadCount.cs" />
     <Compile Include="Definitions\Coverage\ForPolicyExistsACoverage.cs" />
     <Compile Include="Definitions\Policy\PolicyIsCreatedBeforeYear.cs" />
     <Compile Include="Definitions\Policy\PolicyIsTakenFromPolicySource.cs" />

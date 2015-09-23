@@ -2,7 +2,7 @@
 {
     using System;
 
-    internal class Definition
+    internal struct Definition : IEquatable<Definition>
     {
         public static Definition Define<T>(string key)
         {
@@ -15,31 +15,26 @@
             Key = key;
         }
 
-        public Type Type { get; set; }
+        public Type Type { get; }
 
-        public string Key { get; set; }
-
-        public bool Is(Type type, string key)
-        {
-            return Type == type && key == Key;
-        }
+        public string Key { get; }
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as Definition);
+            return (obj is Definition) && Equals((Definition)obj);
         }
 
-        protected bool Equals(Definition other)
+        public bool Equals(Definition other)
         {
             return Type == other.Type 
-                && string.Equals(Key, other.Key);
+                && Key == other.Key;
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                return (Type.GetHashCode() * 397) ^ Key.GetHashCode();
+                return (Type?.GetHashCode() ?? 0 * 397) ^ Key?.GetHashCode() ?? 0;
             }
         }
 

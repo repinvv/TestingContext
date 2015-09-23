@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.ResolutionContext;
@@ -12,23 +13,31 @@
         private readonly IDependency<TSource> dependency;
         private readonly Func<TSource, IEnumerable<T>> sourceFunc;
         private readonly ProviderDetails details;
+        private readonly ContextStore store;
 
         public Provider(IDependency<TSource> dependency,
             Func<TSource, IEnumerable<T>> sourceFunc,
-            ProviderDetails details)
+            ProviderDetails details,
+            ContextStore store)
         {
             this.dependency = dependency;
             this.sourceFunc = sourceFunc;
             this.details = details;
+            this.store = store;
         }
 
         public Definition Definition => details.Definition;
 
         public IResolution Resolve(IResolutionContext parentContext)
         {
-            var source = sourceFunc(dependency.GetValue(parentContext))
-                .Select(x => new ResolutionContext<T>(x, Definition, parentContext, details.Filters, details.ChildProviders));
-            return new Resolution<T>(Definition, source);
+            TSource sourceValue;
+            if (!dependency.TryGetValue(parentContext, out sourceValue))
+            {
+                return new EmptyResolution();
+            }
+
+            var source = sourceFunc(sourceValue);
+            return new Resolution<T>(Definition, parentContext, source, details.Filters, details.CollectionFilters, details.ChildProviders, store);
         }
     }
 }

@@ -8,11 +8,11 @@
     {
         private readonly ContextStore store;
 
-        public RootNode(IProvider provider, Definition definition, ContextStore store)
+        public RootNode(IProvider provider, ContextStore store)
         {
             this.store = store;
             Provider = provider;
-            DefinitionChain = new List<Definition> { definition };
+            DefinitionChain = new List<Definition> { store.RootDefinition };
         }
 
         public IProvider Provider { get; }
@@ -22,5 +22,10 @@
         public bool IsChildOf(INode node) => false;
 
         public List<Definition> DefinitionChain { get; }
+
+        public override string ToString()
+        {
+            return store.RootDefinition.ToString();
+        }
     }
 }

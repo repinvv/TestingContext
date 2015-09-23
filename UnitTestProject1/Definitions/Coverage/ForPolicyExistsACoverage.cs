@@ -18,12 +18,10 @@
         [Given(@"for policy(?:\s)?(.*) exists a coverage(?:\s)?(.*)")]
         public void GivenForPolicyExistsACoverage(string policyKey, string coverageKey)
         {
-            context
-                .Register()
-                .DependsOn<Policy>(policyKey)
-                .Provide(coverageKey, policy => policy.Coverages)
-                .Exists();
+            context.Register()
+                   .DependsOn<Policy>(policyKey)
+                   .Provide(coverageKey, policy => policy.Coverages)
+                   .Exists();
         }
-
     }
 }

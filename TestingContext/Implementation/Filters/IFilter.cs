@@ -4,8 +4,6 @@
 
     internal interface IFilter
     {
-        bool IsPostFilter { get; }
-
         bool IsCollectionFilter { get; }
 
         Definition[] Definitions { get; }

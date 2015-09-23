@@ -8,60 +8,35 @@
     public static class PoliciesSource
     {
         public static Policy[] Policies =
+        {
+            new Policy // should be skipped by tests
             {
-                new Policy
+                Id = 1,
+                Created = new DateTime(2015, 1, 2)
+            },
+            new Policy // for @test1
+            {
+                Id = 2,
+                Name = "somenaem2013",
+                Created = new DateTime(2013, 1, 2),
+                Coverages =
+                    new List<Coverage>
                     {
-                        Id = 1,
-                        Name = "somenaem2013",
-                        Created = new DateTime(2013, 1, 2),
-                        Coverages =
-                            new List<Coverage>
-                            {
-                              new Coverage { Id = 1, Type  = Employee, HeadCount = 30 },
-                            }
-                    },
-                new Policy
+                        new Coverage { Id = 1, Type = Employee, HeadCount = 30 },
+                    }
+            },
+            new Policy // for @test2
+            {
+                Id = 3,
+                Name = "somename2014",
+                Created = new DateTime(2014, 1, 2),
+                Coverages =
+                    new List<Coverage>
                     {
-                        Id = 2,
-                        Name = "somename2014",
-                        Created = new DateTime(2014, 1, 2),
-                        Coverages =
-                            new List<Coverage>
-                                {
-                                    new Coverage { Id = 4, Type = Employee, HeadCount = 40 },
-                                    new Coverage { Id = 5, Type  = Dependent, HeadCount = 70 },
-                                }
-                    },
-                new Policy
-                    {
-                        Id = 3,
-                        Name = "nonaem",
-                        Created = new DateTime(2013, 1, 2),
-                        Coverages =
-                            new List<Coverage>
-                                {
-                                    new Coverage { Id = 6, HeadCount = 50 },
-                                    new Coverage { Id = 7, HeadCount = 40 },
-                                }
-                    },
-                new Policy
-                    {
-                        Id = 4,
-                        Name = "somenaem",
-                        Created = new DateTime(2014, 1, 2)
-                    },
-                new Policy
-                    {
-                        Id = 5,
-                        Name = "somenaem",
-                        Created = new DateTime(2014, 1, 2)
-                    },
-                new Policy
-                    {
-                        Id = 6,
-                        Name = "somenaem",
-                        Created = new DateTime(2014, 1, 2)
-                    },
-            };
+                        new Coverage { Id = 2, Type = Employee, HeadCount = 40 },
+                        new Coverage { Id = 3, Type = Dependent, HeadCount = 70 },
+                    }
+            }
+        };
     }
 }

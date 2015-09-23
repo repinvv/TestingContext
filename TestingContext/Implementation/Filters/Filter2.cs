@@ -20,15 +20,13 @@
 
         public Definition[] Definitions { get; }
 
-        public bool IsPostFilter => dependency2.IsCollectionDependency && dependency2.DependsOnChild;
-
         public bool IsCollectionFilter => dependency1.IsCollectionDependency;
 
         public bool MeetsCondition(IResolutionContext context)
         {
             var argument1 = dependency1.GetValue(context);
-            var argument2 = dependency2.GetValue(context);
-            return filterFunc(argument1, argument2);
+            T2 argument2;
+            return dependency2.TryGetValue(context, out argument2) && filterFunc(argument1, argument2);
         }
     }
 }

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Resolution;
@@ -10,62 +11,102 @@
 
     internal class ResolutionContext<T> : IResolutionContext<T>, IResolutionContext
     {
-        private readonly Definition definition;
+        private readonly Definition ownDefinition;
         private readonly IResolutionContext parentContext;
+        private readonly ContextStore store;
         private readonly Dictionary<Definition, IResolution> resolutions = new Dictionary<Definition, IResolution>();
+        private int[] failure;
 
         public ResolutionContext(T value,
-            Definition definition,
+            Definition ownDefinition,
             IResolutionContext parentContext,
             List<IFilter> filters,
-            List<IProvider> childProviders)
+            List<IProvider> childProviders,
+            ContextStore store)
         {
             Value = value;
-            this.definition = definition;
+            this.ownDefinition = ownDefinition;
             this.parentContext = parentContext;
+            this.store = store;
             TestConditions(filters, childProviders);
         }
 
         private void TestConditions(List<IFilter> filters, List<IProvider> childProviders)
         {
-            if (filters.Any(filter => !filter.MeetsCondition(this)))
+            for (int index = 0; index < filters.Count; index++)
             {
-                return;
-            }
-
-            foreach (var childProvider in childProviders)
-            {
-                var resolution = childProvider.Resolve(this);
-                if (!resolution.MeetsConditions)
+                if (!filters[index].MeetsCondition(this))
                 {
-                    MeetsConditions = false;
-                    resolutions.Clear();
+                    failure = new[] { 1, index };
                     return;
                 }
-
-                resolutions.Add(childProvider.Definition, resolution);
             }
 
             MeetsConditions = true;
+
+            for (int index = 0; index < childProviders.Count; index++)
+            {
+                var resolution = childProviders[index].Resolve(this);
+                resolutions.Add(childProviders[index].Definition, resolution);
+                if (!resolution.MeetsConditions)
+                {
+                    failure = new[] { 2, index };
+                    MeetsConditions = false;
+                }
+            }
         }
 
         public T Value { get; }
 
         public bool MeetsConditions { get; private set; }
 
-        public IEnumerable<IResolutionContext<TChild>> Resolve<TChild>(string key)
+        public IEnumerable<IResolutionContext<TChild>> Get<TChild>(string key)
         {
             return resolutions[Define<TChild>(key)] as IEnumerable<IResolutionContext<TChild>>;
         }
 
-        public IResolution Resolve(Definition childDef)
+        public IResolutionContext ResolveSingle(Definition definition, Definition closestParent)
         {
-            return resolutions[childDef];
+            if (ownDefinition.Equals(definition))
+            {
+                return this;
+            }
+
+            if (ownDefinition.Equals(closestParent))
+            {
+                return ClosestParentResolve(definition).FirstOrDefault();
+            }
+
+            return parentContext.ResolveSingle(definition, closestParent);
         }
 
-        public IResolutionContext GetContext(Definition sourceDef)
+        public IEnumerable<IResolutionContext> ResolveCollection(Definition definition, Definition closestParent)
         {
-            return definition.Equals(sourceDef) ? this : parentContext.GetContext(sourceDef);
+            if (ownDefinition.Equals(closestParent))
+            {
+                return ClosestParentResolve(definition);
+            }
+
+            return parentContext.ResolveCollection(definition, closestParent);
+        }
+
+        public IEnumerable<IResolutionContext> ResolveDown(Definition definition, List<Definition> chain, int nextIndex)
+        {
+            var nextDefinition = chain[nextIndex];
+            if (definition.Equals(nextDefinition))
+            {
+                return resolutions[nextDefinition];
+            }
+
+            nextIndex ++;
+            return resolutions[nextDefinition].SelectMany(x => x.ResolveDown(definition, chain, nextIndex));
+        }
+
+        private IEnumerable<IResolutionContext> ClosestParentResolve(Definition definition)
+        {
+            var chain = store.GetNode(definition).DefinitionChain;
+            int index = chain.IndexOf(ownDefinition);
+            return ResolveDown(definition, chain, index + 1);
         }
     }
 }

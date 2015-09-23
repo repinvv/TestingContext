@@ -38,7 +38,7 @@
         public IFor<IEnumerable<IResolutionContext<T>>> Provide<T>(string key, Func<TSource, IEnumerable<T>> srcFunc)
         {
             var definition = Define<T>(key);
-            var provider = new Provider<TSource, T>(store.Depend<TSource>(definition, sourceDef),srcFunc,new ProviderDetails(store, definition));
+            var provider = new Provider<TSource, T>(store.Depend<TSource>(definition, sourceDef), srcFunc, new ProviderDetails(store, definition), store);
             var node = new Node(provider, definition, parentDef, store);
             store.RegisterNode(definition, node);
             store.RegisterDependency(sourceDef, node);

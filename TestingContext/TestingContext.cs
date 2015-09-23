@@ -1,6 +1,7 @@
 ﻿namespace TestingContextCore
 {
     using System.Collections.Generic;
+    using System.Linq;
     using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
@@ -17,8 +18,7 @@
         public TestingContext()
         {
             var rootDefinition = Define<TestingContext>(string.Empty);
-            var rootNode = new RootNode(null, rootDefinition, store);
-            store = new ContextStore(rootDefinition, rootNode);
+            store = new ContextStore(rootDefinition);
         }
 
        public bool Logging { set { store.Logging = value; } }
@@ -39,20 +39,27 @@
 
         public IRegistration<TestingContext> Register()
         {
-            return new Registration<TestingContext>(store.RootDefinition, store.RootDefinition, store);
+            return new Registration<TestingContext>(store.RootDefinition, store.LastRegistered, store);
         }
 
-        public IEnumerable<IResolutionContext<T>> All<T>(string key)
+        public IEnumerable<IResolutionContext<T>> All<T>(string key, bool selectMany = false)
         {
-            rootContext = rootContext ?? new RootResolutionContext(store.RootDefinition, this, store);
-            store.ValidateDependencies();
             store.ResolutionStarted = true;
-            return rootContext.Resolve(Define<T>(key)) as IEnumerable<IResolutionContext<T>>;
+            rootContext = rootContext
+                          ?? new ResolutionContext<TestingContext>(this,
+                                                                   store.RootDefinition,
+                                                                   null,
+                                                                   new List<IFilter>(),
+                                                                   store.GetChildProviders(store.RootDefinition),
+                                                                   store);
+            store.ValidateDependencies();
+            return rootContext.ResolveCollection(Define<T>(key), store.RootDefinition)
+                              .Select(x => x as IResolutionContext<T>);
         }
 
         public T Value<T>(string key)
         {
-            var resolutionContext = store.LoggedFirstOrDefault(All<T>(key));
+            var resolutionContext = All<T>(key).FirstOrDefault();
             return resolutionContext != null ? resolutionContext.Value : default(T);
         }
     }

@@ -10,7 +10,6 @@
     {
         private readonly ContextStore store;
         private List<IFilter> filters;
-        private List<IFilter> postFilters;
         private List<IFilter> collectionFilters;
         private List<IProvider> childProviders;
 
@@ -22,22 +21,14 @@
 
         public Definition Definition { get; }
 
-        public List<IFilter> PostFilters => postFilters = postFilters ?? store.GetFilters(Definition)
-                                                                              .Where(x => x.IsPostFilter)
-                                                                              .ToList();
-
         public List<IFilter> CollectionFilters => collectionFilters = collectionFilters ?? store.GetFilters(Definition)
                                                                                                 .Where(x => x.IsCollectionFilter)
                                                                                                 .ToList();
 
         public List<IFilter> Filters => filters = filters ?? store.GetFilters(Definition)
-                                                                  .Except(PostFilters)
                                                                   .Except(CollectionFilters)
                                                                   .ToList();
 
-        public List<IProvider> ChildProviders => childProviders = childProviders
-                                                    ?? store.Dependendents.SafeGet(Definition, new List<INode>())
-                                                            .Select(x => x.Provider)
-                                                            .ToList();
+        public List<IProvider> ChildProviders => childProviders = childProviders ?? store.GetChildProviders(Definition);
     }
 }

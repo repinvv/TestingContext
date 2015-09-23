@@ -43,7 +43,6 @@
     <Compile Include="CachingEnumerable\CachingEnumerableExtension.cs" />
     <Compile Include="DictionaryExtension.cs" />
     <Compile Include="Implementation\ContextStorage\DependencyFactory.cs" />
-    <Compile Include="Implementation\ContextStorage\FailureReasonExtension.cs" />
     <Compile Include="Implementation\ContextStorage\FiltersExtension.cs" />
     <Compile Include="Implementation\ContextStorage\RegistrationExtension.cs" />
     <Compile Include="Implementation\ContextStorage\Swap.cs" />
@@ -61,7 +60,6 @@
     <Compile Include="Implementation\Filters\Filter1.cs" />
     <Compile Include="Implementation\Providers\ProviderDetails.cs" />
     <Compile Include="Implementation\ResolutionContext\IResolutionContext.cs" />
-    <Compile Include="Implementation\ResolutionContext\ResolutionContextExtension.cs" />
     <Compile Include="Implementation\Filters\IFilter.cs" />
     <Compile Include="Implementation\Nodes\Node.cs" />
     <Compile Include="Implementation\Nodes\INode.cs" />
@@ -69,9 +67,9 @@
     <Compile Include="Implementation\ContextStorage\ContextStore.cs" />
     <Compile Include="Implementation\Registrations\Registration.cs" />
     <Compile Include="Implementation\Filters\FilterRegistrator2.cs" />
+    <Compile Include="Implementation\Resolution\EmptyResolution.cs" />
     <Compile Include="Implementation\Resolution\IResolution.cs" />
     <Compile Include="Implementation\Resolution\Resolution.cs" />
-    <Compile Include="Implementation\ResolutionContext\RootResolutionContext.cs" />
     <Compile Include="Implementation\Providers\Provider.cs" />
     <Compile Include="Implementation\Providers\IProvider.cs" />
     <Compile Include="Interfaces\IFor.cs" />

@@ -8,6 +8,6 @@
 
         T Value { get; }
 
-        IEnumerable<IResolutionContext<TChild>> Resolve<TChild>(string key);
+        IEnumerable<IResolutionContext<TChild>> Get<TChild>(string key);
     }
 }

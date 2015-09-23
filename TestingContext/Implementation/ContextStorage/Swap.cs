@@ -34,9 +34,9 @@
         {
             unchecked
             {
-                var hashCode = Parent?.GetHashCode() ?? 0;
-                hashCode = (hashCode * 397) ^ (Child?.GetHashCode() ?? 0);
-                hashCode = (hashCode * 397) ^ (DependedChild?.GetHashCode() ?? 0);
+                var hashCode = Parent.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Child.GetHashCode());
+                hashCode = (hashCode * 397) ^ (DependedChild.GetHashCode());
                 return hashCode;
             }
         }

@@ -18,14 +18,21 @@
 
         public TSource GetValue(IResolutionContext context)
         {
-            var resolved = context.GetContext(DependsOn) as IResolutionContext<TSource>;
+            var resolved = context.ResolveSingle(DependsOn, closestParent) as IResolutionContext<TSource>;
+            return resolved != null ? resolved.Value : default(TSource);
+        }
+
+        public bool TryGetValue(IResolutionContext context, out TSource value)
+        {
+            var resolved = context.ResolveSingle(DependsOn, closestParent) as IResolutionContext<TSource>;
             if (resolved == null)
             {
-                throw new ResolutionException($"Could not resolve the value of {DependsOn}, " +
-                                              "this most likely means no item meets the specified conditions");
+                value = default(TSource);
+                return default(TSource) == null;
             }
 
-            return resolved.Value;
+            value = resolved.Value;
+            return true;
         }
 
         public void Validate(ContextStore store)
@@ -37,21 +44,11 @@
                 return;
             }
 
-            if (dependNode.IsChildOf(node))
-            {
-                throw new ResolutionException($"{definition} is registered use {DependsOn} as singular dependency, " +
-                                              $"while {DependsOn} is registered as a child of {definition}. " +
-                                              $"This is a prohibited scenario, singular dependency can only reference parent, " +
-                                              $"or other cranches.");
-            }
-
             closestParent = store.ValidateDependency(node, dependNode);
         }
 
         public Definition DependsOn { get; }
 
         public bool IsCollectionDependency => false;
-
-        public bool DependsOnChild => false;
     }
 }

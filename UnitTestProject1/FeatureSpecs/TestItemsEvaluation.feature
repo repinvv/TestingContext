@@ -3,12 +3,14 @@
 	As a test writer
 	I want to find entity by defined conditions
 
+@test1
 Scenario: Find a policy by year and check name
 	Given policy B is taken from policiesSource
 	  And policy B is created before year 2014
 	Then policy B must exist
 	  And policy B name must contain '2013'
 
+@test2
 Scenario: Find a policy by name with coverage by type, check policy name and coverage id
 	Given policy B is taken from policiesSource
 	  And policy B is created before year 2015
@@ -17,4 +19,4 @@ Scenario: Find a policy by name with coverage by type, check policy name and cov
 	Then policy B must exist
 	  And policy B name must contain '2014'
 	  And coverage B must exist
-	  And coverage B Id must be 5
+	  And coverage B Id must be 3

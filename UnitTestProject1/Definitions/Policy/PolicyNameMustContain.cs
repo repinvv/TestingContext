@@ -18,7 +18,8 @@
         [Then(@"policy(?:\s)?(.*) name must contain '(.*)'")]
         public void ThenPolicyNameMustContain(string key, string namepart)
         {
-           Assert.IsTrue(context.Value<Policy>(key).Name.Contains(namepart));
+            var policy = context.Value<Policy>(key);
+            Assert.IsTrue(policy.Name.Contains(namepart));
         }
     }
 }

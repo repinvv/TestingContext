@@ -1,8 +1,11 @@
 ﻿namespace TestingContextCore.Implementation.ContextStorage
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using TestingContextCore.Implementation.Exceptions;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
+    using TestingContextCore.Implementation.Providers;
 
     internal static class RegistrationExtension
     {
@@ -21,6 +24,7 @@
             }
 
             store.Nodes.Add(definition, node);
+            store.LastRegistered = definition;
         }
 
         public static void RegisterDependency(this ContextStore store, Definition definition, INode node)
@@ -45,6 +49,18 @@
             {
                 throw new ResolutionStartedException("Resolutions are already started, can't add more registrations");
             }
+        }
+
+        public static List<IFilter> GetFilters(this ContextStore store, Definition definition)
+        {
+            return store.Filters.SafeGet(definition, () => new List<IFilter>());
+        }
+
+        public static List<IProvider> GetChildProviders(this ContextStore store, Definition definition)
+        {
+            return store.Dependendents.SafeGet(definition, new List<INode>())
+                        .Select(x => x.Provider)
+                        .ToList();
         }
     }
 }

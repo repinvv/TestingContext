@@ -33,5 +33,10 @@
         public List<Definition> DefinitionChain => chain = chain ?? new List<Definition>(Parent.DefinitionChain) { definition };
 
         public INode Parent => parent = parent ?? store.GetNode(parentDefinition);
+
+        public override string ToString()
+        {
+            return definition.ToString();
+        }
     }
 }

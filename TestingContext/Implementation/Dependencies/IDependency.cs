@@ -10,12 +10,12 @@
         Definition DependsOn { get; }
 
         bool IsCollectionDependency { get; }
-
-        bool DependsOnChild { get; }
     }
 
     internal interface IDependency<TSource> : IDependency
     {
-        TSource GetValue(IResolutionContext parentContext);
+        TSource GetValue(IResolutionContext context);
+
+        bool TryGetValue(IResolutionContext context, out TSource value);
     }
 }

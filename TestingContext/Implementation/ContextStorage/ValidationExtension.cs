@@ -21,14 +21,21 @@
         /// </summary>
         /// <param name="store"></param>
         /// <param name="node"></param>
-        /// <param name="dependsOn"></param>
+        /// <param name="dependNode"></param>
         /// <returns>closest parent</returns>
-        public static Definition ValidateDependency(this ContextStore store, INode node, INode dependsOn)
+        public static Definition ValidateDependency(this ContextStore store, INode node, INode dependNode)
         {
+            if (dependNode.IsChildOf(node))
+            {
+                throw new ResolutionException($"{node} is registered use {dependNode} as singular dependency, " +
+                                              $"while {dependNode} is registered as a child of {node}. " +
+                                              "This is a prohibited scenario, singular dependency can only reference parent, " +
+                                              "or other cranches.");
+            }
             var nodeList = node.DefinitionChain;
-            var dependList = dependsOn.DefinitionChain;
+            var dependList = dependNode.DefinitionChain;
 
-            Definition parent = null;
+            Definition parent = store.RootDefinition;
             int i = 0;
             while (nodeList[i].Equals(dependList[i]))
             {
@@ -39,7 +46,7 @@
             if (store.Swaps.Contains(swap.Backward))
             {
                 throw new ResolutionException($"{node.DefinitionChain.Last()} is registered to depend on " +
-                                              $"{dependsOn.DefinitionChain.Last()}, which makes circular reference.");
+                                              $"{dependNode.DefinitionChain.Last()}, which makes circular reference.");
             }
 
             store.Swaps.Add(swap);
@@ -50,7 +57,7 @@
 
         public static void Swap(this ContextStore store, Swap swap)
         {
-            if (swap.Parent == null)
+            if (swap.Parent.Equals(store.RootDefinition))
             {
                 return;
             }
