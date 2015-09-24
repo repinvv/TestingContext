@@ -42,5 +42,15 @@
         {
             return Type.Name + $" \"{Key}\"";
         }
+
+        public static bool operator ==(Definition definition, Definition other)
+        {
+            return definition.Equals(other);
+        }
+
+        public static bool operator !=(Definition definition, Definition other)
+        {
+            return !definition.Equals(other);
+        }
     }
 }

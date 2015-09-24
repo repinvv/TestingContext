@@ -67,6 +67,7 @@
     <Compile Include="Implementation\ContextStorage\ContextStore.cs" />
     <Compile Include="Implementation\Registrations\Registration.cs" />
     <Compile Include="Implementation\Filters\FilterRegistrator2.cs" />
+    <Compile Include="Implementation\ResolutionContext\RootResolutionContext.cs" />
     <Compile Include="Implementation\Resolution\EmptyResolution.cs" />
     <Compile Include="Implementation\Resolution\IResolution.cs" />
     <Compile Include="Implementation\Resolution\Resolution.cs" />

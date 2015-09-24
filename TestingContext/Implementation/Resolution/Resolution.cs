@@ -72,12 +72,9 @@
 
         public IEnumerable<IResolutionContext> ResolveCollection(Definition definition, Definition closestParent)
         {
-            if (ownDefinition.Equals(definition))
-            {
-                return resolvedSource;
-            }
-
-            return parent.ResolveCollection(definition, closestParent);
+            return ownDefinition == definition
+                       ? resolvedSource
+                       : parent.ResolveCollection(definition, closestParent);
         }
 
         public IEnumerable<IResolutionContext> ResolveDown(Definition definition, List<Definition> chain, int nextIndex)

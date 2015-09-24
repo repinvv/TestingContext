@@ -67,12 +67,12 @@
 
         public IResolutionContext ResolveSingle(Definition definition, Definition closestParent)
         {
-            if (ownDefinition.Equals(definition))
+            if (ownDefinition == definition)
             {
                 return this;
             }
 
-            if (ownDefinition.Equals(closestParent))
+            if (ownDefinition == closestParent)
             {
                 return ClosestParentResolve(definition).FirstOrDefault();
             }
@@ -82,7 +82,7 @@
 
         public IEnumerable<IResolutionContext> ResolveCollection(Definition definition, Definition closestParent)
         {
-            if (ownDefinition.Equals(closestParent))
+            if (ownDefinition == closestParent)
             {
                 return ClosestParentResolve(definition);
             }
@@ -93,7 +93,7 @@
         public IEnumerable<IResolutionContext> ResolveDown(Definition definition, List<Definition> chain, int nextIndex)
         {
             var nextDefinition = chain[nextIndex];
-            if (definition.Equals(nextDefinition))
+            if (definition == nextDefinition)
             {
                 return resolutions[nextDefinition];
             }

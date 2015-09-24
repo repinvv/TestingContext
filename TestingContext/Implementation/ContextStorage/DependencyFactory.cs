@@ -9,7 +9,7 @@
         public static IDependency<T> Depend<T>(this ContextStore store, Definition definition, Definition dependsOn) 
         {
             var dependency = new SingleDependency<T>(definition, dependsOn);
-            if (!definition.Equals(dependsOn))
+            if (definition != dependsOn)
             {
                 store.Dependencies.Add(dependency);
             }
@@ -20,7 +20,7 @@
         public static IDependency<IEnumerable<IResolutionContext<T>>> CollectionDepend<T>(this ContextStore store, Definition definition, Definition dependsOn)
         {
             var dependency = new CollectionDependency<IEnumerable<IResolutionContext<T>>, T>(definition, dependsOn, store);
-            if (!definition.Equals(dependsOn))
+            if (definition != dependsOn)
             {
                 store.Dependencies.Add(dependency);
             }

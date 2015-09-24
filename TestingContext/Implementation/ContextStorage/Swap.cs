@@ -25,9 +25,9 @@
         public bool Equals(Swap other)
         {
             return other != null 
-                && Equals(Parent, other.Parent) 
-                && Child.Equals(other.Child) 
-                && DependedChild.Equals(other.DependedChild);
+                && Parent == other.Parent
+                && Child == other.Child
+                && DependedChild == other.DependedChild;
         }
 
         public override int GetHashCode()
@@ -39,6 +39,16 @@
                 hashCode = (hashCode * 397) ^ (DependedChild.GetHashCode());
                 return hashCode;
             }
+        }
+
+        public static bool operator ==(Swap swap, Swap other)
+        {
+            return swap == null && other == null || swap != null && swap.Equals(other);
+        }
+
+        public static bool operator !=(Swap swap, Swap other)
+        {
+            return !(swap == other);
         }
     }
 }

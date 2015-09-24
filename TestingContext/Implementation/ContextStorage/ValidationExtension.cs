@@ -37,7 +37,7 @@
 
             Definition parent = store.RootDefinition;
             int i = 0;
-            while (nodeList[i].Equals(dependList[i]))
+            while (nodeList[i] == dependList[i])
             {
                 parent = nodeList[i++];
             }
@@ -57,7 +57,7 @@
 
         public static void Swap(this ContextStore store, Swap swap)
         {
-            if (swap.Parent.Equals(store.RootDefinition))
+            if (swap.Parent == store.RootDefinition)
             {
                 return;
             }
