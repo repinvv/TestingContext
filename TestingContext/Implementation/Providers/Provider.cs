@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
@@ -35,7 +36,7 @@
                 return new EmptyResolution();
             }
 
-            var source = sourceFunc(sourceValue);
+            var source = sourceFunc(sourceValue) ?? Enumerable.Empty<T>();
             return new Resolution<T>(Definition, parentContext, source, details.Filters, details.CollectionFilters, details.ChildProviders, store);
         }
     }

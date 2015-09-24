@@ -54,28 +54,41 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Definitions\Coverage\Assertions\CoverageIdMustBe.cs" />
+    <Compile Include="Definitions\Coverage\Then\CoverageIdMustBe.cs" />
     <Compile Include="Definitions\Coverage\CoverageHasType.cs" />
-    <Compile Include="Definitions\Coverage\Assertions\CoverageMustExist.cs" />
+    <Compile Include="Definitions\Coverage\Then\CoverageMustExist.cs" />
     <Compile Include="Definitions\Coverage\ForPolicyExistsACoverage.cs" />
     <Compile Include="Definitions\Policy\PolicyIsCreatedBeforeYear.cs" />
     <Compile Include="Definitions\Policy\PolicyIsTakenFromPolicySource.cs" />
-    <Compile Include="Definitions\Policy\Assertions\PolicyMustExist.cs" />
-    <Compile Include="Definitions\Policy\Assertions\PolicyMustHaveId.cs" />
+    <Compile Include="Definitions\Common\LoggerProducesInfoForPolicyAndYear.cs" />
+    <Compile Include="Definitions\Policy\Then\PolicyMustExist.cs" />
+    <Compile Include="Definitions\Policy\Then\PolicyMustHaveId.cs" />
     <Compile Include="Definitions\Policy\PolicyNameMustContain.cs" />
+    <Compile Include="Definitions\Policy\When\PolicyResolves.cs" />
+    <Compile Include="Definitions\SetLogger.cs" />
     <Compile Include="Entities\CoverageType.cs" />
     <Compile Include="Entities\Coverage.cs" />
     <Compile Include="Entities\Policy.cs" />
+    <Compile Include="FeatureSpecs\SimpleNotFoundLogging.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SimpleNotFoundLogging.feature</DependentUpon>
+    </Compile>
     <Compile Include="FeatureSpecs\TestItemsEvaluation.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TestItemsEvaluation.feature</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestLogger.cs" />
     <Compile Include="TestSource\PoliciesSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="FeatureSpecs\SimpleNotFoundLogging.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SimpleNotFoundLogging.feature.cs</LastGenOutput>
+    </None>
     <None Include="FeatureSpecs\TestItemsEvaluation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>TestItemsEvaluation.feature.cs</LastGenOutput>

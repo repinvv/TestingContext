@@ -136,7 +136,7 @@
             }
             else if(failedFilter != null)
             {
-                collect.ReportFailure(startingWeight.Add(failure), failedFilter);
+                collect.ReportFailure(startingWeight.Add(failure), failedFilter, ownDefinition);
             }
         }
     }

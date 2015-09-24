@@ -3,7 +3,6 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContextCore.CachingEnumerable;
     using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Exceptions;
     using TestingContextCore.Implementation.Filters;
@@ -16,7 +15,7 @@
         private readonly Definition ownDefinition;
         private readonly IResolutionContext parent;
         private readonly List<IFilter> collectionFilters;
-        public int failure;
+        public int failureWeight;
         private IFailure failedFilter;
         private readonly IEnumerable<ResolutionContext<T>> resolvedSource;
         private bool? meetsCondition;
@@ -64,7 +63,7 @@
             {
                 if (!collectionFilters[i].MeetsCondition(this))
                 {
-                    failure = i;
+                    failureWeight = i;
                     failedFilter = collectionFilters[i];
                     return false;
                 }
@@ -72,7 +71,8 @@
 
             if (collectionFilters.Count == 0 && !ResolutionContent.Any())
             {
-                failure = 0;
+                failureWeight = 0;
+                failedFilter = new CustomFailure("x => x.Any(y => y.MeetsCondition)");
                 return false;
             }
 
@@ -100,16 +100,21 @@
 
         public void ReportFailure(FailureCollect collect, int[] startingWeight)
         {
-            if (failedFilter != null)
+            if (resolvedSource.Any() && !ResolutionContent.Any())
             {
-                collect.ReportFailure(startingWeight.Add(1, failure), failedFilter);
-                return;
+                foreach (var context in resolvedSource)
+                {
+                    var cascade = startingWeight.Add(1);
+                    context.ReportFailure(collect, cascade);
+                }
             }
-
-            var cascade = startingWeight.Add(0);
-            foreach (var context in this)
+            else if (!resolvedSource.Any())
             {
-                context.ReportFailure(collect, cascade);
+                collect.ReportFailure(startingWeight.Add(0, failureWeight), new CustomFailure("Source was null or empty."), ownDefinition);
+            }
+            else
+            {
+                collect.ReportFailure(startingWeight.Add(0, failureWeight), failedFilter, ownDefinition);
             }
         }
     }

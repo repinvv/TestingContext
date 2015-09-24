@@ -1,8 +1,7 @@
-﻿namespace UnitTestProject1.Definitions
+﻿namespace UnitTestProject1.Definitions.Policy
 {
     using TechTalk.SpecFlow;
     using TestingContextCore;
-    using UnitTestProject1.Entities;
 
     [Binding]
     public class PolicyIsCreatedBeforeYear
@@ -17,7 +16,7 @@
         [Given(@"policy(?:\s)?(.*) is created before year (.*)")]
         public void GivenPolicyIsCreatedBeforeYear(string key, int year)
         {
-            context.For<Policy>(key).Filter(policy => policy.Created.Year < year);
+            context.For<Entities.Policy>(key).Filter(policy => policy.Created.Year < year);
         }
     }
 }

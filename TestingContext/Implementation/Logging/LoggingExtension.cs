@@ -9,7 +9,7 @@
         {
             var collect = new FailureCollect(store);
             reporter.ReportFailure(collect, new int[0]);
-            collect.LogFailure(definition);
+            collect.LogFailure();
         }
     }
 }

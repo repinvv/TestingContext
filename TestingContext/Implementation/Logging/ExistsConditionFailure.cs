@@ -1,7 +1,12 @@
 ﻿namespace TestingContextCore.Implementation.Logging
 {
-    internal class ExistsConditionFailure : IFailure
+    internal class CustomFailure : IFailure
     {
-        public string FailureString { get; } = "x => x.Any(y => y.MeetsCondition)";
+        public CustomFailure(string customFailure)
+        {
+            FailureString = customFailure;
+        }
+
+        public string FailureString { get; }
     }
 }

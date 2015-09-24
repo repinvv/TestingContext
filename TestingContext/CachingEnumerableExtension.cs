@@ -1,4 +1,4 @@
-﻿namespace TestingContextCore.CachingEnumerable
+﻿namespace TestingContextCore
 {
     using System.Collections;
     using System.Collections.Generic;

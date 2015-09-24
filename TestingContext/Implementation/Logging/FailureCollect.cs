@@ -9,6 +9,7 @@ namespace TestingContextCore.Implementation.Logging
         private ContextStore store;
         private int[] currentWeight;
         private IFailure currentFailure;
+        private Definition currentDefinition;
 
         public FailureCollect(ContextStore store)
         {
@@ -16,17 +17,18 @@ namespace TestingContextCore.Implementation.Logging
             currentWeight = new int[0];
         }
 
-        public void LogFailure(Definition definition)
+        public void LogFailure()
         {
-            store.Log.LogNoItemsResolved(definition.ToString(), currentFailure.FailureString);
+            store.Log.LogNoItemsResolved(currentDefinition.ToString(), currentFailure.FailureString);
         }
 
-        public void ReportFailure(int[] failureWeight, IFailure faiure)
+        public void ReportFailure(int[] failureWeight, IFailure faiure, Definition definition)
         {
             if (WeightIsBigger(failureWeight))
             {
                 currentWeight = failureWeight;
                 currentFailure = faiure;
+                currentDefinition = definition;
             }
         }
 

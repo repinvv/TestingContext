@@ -14,7 +14,7 @@
                 Id = 1,
                 Created = new DateTime(2015, 1, 2)
             },
-            new Policy // for @test1
+            new Policy // for @simpleEvaluation1
             {
                 Id = 2,
                 Name = "somenaem2013",
@@ -25,7 +25,7 @@
                         new Coverage { Id = 1, Type = Employee, HeadCount = 30 },
                     }
             },
-            new Policy // for @test2
+            new Policy // for @simpleEvaluation2
             {
                 Id = 3,
                 Name = "somename2014",
@@ -36,7 +36,14 @@
                         new Coverage { Id = 2, Type = Employee, HeadCount = 40 },
                         new Coverage { Id = 3, Type = Dependent, HeadCount = 70 },
                     }
-            }
+            },
+            new Policy // for @notFoundLogging3
+            {
+                Id = 1,
+                Created = new DateTime(2011, 1, 2)
+            },
+
+
         };
     }
 }

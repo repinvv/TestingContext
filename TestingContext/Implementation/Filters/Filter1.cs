@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq.Expressions;
+    using ExpressionToCodeLib;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.ResolutionContext;
 
@@ -27,6 +28,6 @@
             return filterFunc(dependency.GetValue(context));
         }
 
-        public string FailureString => filterExpression.ToString();
+        public string FailureString => ExpressionToCode.AnnotatedToCode(filterExpression);
     }
 }

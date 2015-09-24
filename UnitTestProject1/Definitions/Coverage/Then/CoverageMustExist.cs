@@ -1,4 +1,4 @@
-﻿namespace UnitTestProject1.Definitions.Coverage
+﻿namespace UnitTestProject1.Definitions.Coverage.Then
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;

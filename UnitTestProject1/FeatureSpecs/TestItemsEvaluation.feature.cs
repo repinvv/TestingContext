@@ -70,13 +70,13 @@ namespace UnitTestProject1.FeatureSpecs
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Find a policy by year and check name")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Single find and assert")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "TestItemsEvaluation")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("test1")]
-        public virtual void FindAPolicyByYearAndCheckName()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("simpleEvaluation1")]
+        public virtual void SingleFindAndAssert()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Find a policy by year and check name", new string[] {
-                        "test1"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Single find and assert", new string[] {
+                        "simpleEvaluation1"});
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
@@ -92,13 +92,13 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Find a policy by name with coverage by type, check policy name and coverage id")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Two entities in cascaded find and assert")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "TestItemsEvaluation")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("test2")]
-        public virtual void FindAPolicyByNameWithCoverageByTypeCheckPolicyNameAndCoverageId()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("simpleEvaluation2")]
+        public virtual void TwoEntitiesInCascadedFindAndAssert()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Find a policy by name with coverage by type, check policy name and coverage id", new string[] {
-                        "test2"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Two entities in cascaded find and assert", new string[] {
+                        "simpleEvaluation2"});
 #line 14
 this.ScenarioSetup(scenarioInfo);
 #line 15

@@ -1,4 +1,4 @@
-﻿namespace UnitTestProject1.Definitions
+﻿namespace UnitTestProject1.Definitions.Policy.Then
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;

@@ -1,4 +1,4 @@
-﻿namespace UnitTestProject1.Definitions
+﻿namespace UnitTestProject1.Definitions.Policy
 {
     using TechTalk.SpecFlow;
     using TestingContextCore;

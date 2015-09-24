@@ -3,15 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using TestingContextCore.Interfaces;
 
     public static class RegistrationExtension
     {
-        public static void ValueFilter<T>(this IFor<IEnumerable<IResolutionContext<T>>> filterRegister, Func<IEnumerable<T>, bool> filter)
-        {
-            filterRegister.Filter(x => filter(x.Select(y => y.Value)));
-        }
-
         public static void ConditionedFilter<T>(this IFor<IEnumerable<IResolutionContext<T>>> filterRegister, Func<IEnumerable<T>, bool> filter)
         {
             filterRegister.Filter(x => filter(x.Where(y => y.MeetsConditions).Select(y => y.Value)));
@@ -24,12 +20,12 @@
 
         public static void Exists<T>(this IFor<IEnumerable<IResolutionContext<T>>> filterRegister)
         {
-            filterRegister.ConditionedFilter(x => x.Any());
+            filterRegister.Filter(x => x.Any(y => y.MeetsConditions));
         }
 
         public static void DoesNotExist<T>(this IFor<IEnumerable<IResolutionContext<T>>> filterRegister)
         {
-            filterRegister.ConditionedFilter(x => !x.Any());
+            filterRegister.Filter(x => !x.Any(y => y.MeetsConditions));
         }
     }
 }
