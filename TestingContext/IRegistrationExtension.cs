@@ -7,7 +7,12 @@
 
     public static class RegistrationExtension
     {
-        public static void CollectionFilter<T>(this IFor<IEnumerable<IResolutionContext<T>>> filterRegister, Func<IEnumerable<T>, bool> filter)
+        public static void ValueFilter<T>(this IFor<IEnumerable<IResolutionContext<T>>> filterRegister, Func<IEnumerable<T>, bool> filter)
+        {
+            filterRegister.Filter(x => filter(x.Select(y => y.Value)));
+        }
+
+        public static void ConditionedFilter<T>(this IFor<IEnumerable<IResolutionContext<T>>> filterRegister, Func<IEnumerable<T>, bool> filter)
         {
             filterRegister.Filter(x => filter(x.Where(y => y.MeetsConditions).Select(y => y.Value)));
         }
@@ -19,12 +24,12 @@
 
         public static void Exists<T>(this IFor<IEnumerable<IResolutionContext<T>>> filterRegister)
         {
-            filterRegister.CollectionFilter(x => x.Any());
+            filterRegister.ConditionedFilter(x => x.Any());
         }
 
         public static void DoesNotExist<T>(this IFor<IEnumerable<IResolutionContext<T>>> filterRegister)
         {
-            filterRegister.CollectionFilter(x => !x.Any());
+            filterRegister.ConditionedFilter(x => !x.Any());
         }
     }
 }

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
     using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Interfaces;
@@ -18,7 +19,7 @@
             this.store = store;
         }
 
-        public void Filter(Func<T1, bool> filterFunc)
+        public void Filter(Expression<Func<T1, bool>> filterFunc)
         {
             store.RegisterFilter(dependency.DependsOn, new Filter1<T1>(dependency, filterFunc));
         }

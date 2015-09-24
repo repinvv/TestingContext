@@ -1,6 +1,7 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
     using System;
+    using System.Linq.Expressions;
     using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Interfaces;
@@ -18,7 +19,7 @@
             this.store = store;
         }
 
-        public void Filter(Func<T1, T2, bool> filterFunc)
+        public void Filter(Expression<Func<T1, T2, bool>> filterFunc)
         {
             store.RegisterFilter(dependency1.DependsOn, new Filter2<T1, T2>(dependency1, dependency2, filterFunc));
         }
