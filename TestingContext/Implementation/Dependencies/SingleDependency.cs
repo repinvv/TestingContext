@@ -1,7 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
     using TestingContextCore.Implementation.ContextStorage;
-    using TestingContextCore.Implementation.Exceptions;
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Interfaces;
 

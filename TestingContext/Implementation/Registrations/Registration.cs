@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using TestingContextCore.Implementation.ContextStorage;
-    using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Providers;

@@ -4,6 +4,7 @@
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
+    using TestingContextCore.Interfaces;
 
     internal class ContextStore
     {
@@ -14,10 +15,10 @@
             this.RegisterNode(RootDefinition, RootNode);
         }
 
+        public IResolutionLog Log { get; set; }
         public Definition LastRegistered { get; set; }
         public Definition RootDefinition { get; }
         public INode RootNode { get; }
-        public bool Logging { get; set; }
         public bool ResolutionStarted { get; set; }
 
         public Dictionary<Definition, List<IFilter>> Filters { get; } = new Dictionary<Definition, List<IFilter>>();

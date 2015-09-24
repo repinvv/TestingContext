@@ -4,7 +4,7 @@
     using System.Linq;
     using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Filters;
-    using TestingContextCore.Implementation.Nodes;
+    using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Interfaces;
@@ -18,10 +18,10 @@
         public TestingContext()
         {
             var rootDefinition = Define<TestingContext>(string.Empty);
-            store = new ContextStore(rootDefinition);
+            store = new ContextStore(rootDefinition) { Log = new EmptyLog() };
         }
 
-       public bool Logging { set { store.Logging = value; } }
+        public IResolutionLog ResolutionLog { set { store.Log = value; } }
 
         public IFor<T> For<T>(string key)
         {
@@ -45,13 +45,7 @@
         public IEnumerable<IResolutionContext<T>> All<T>(string key, bool selectMany = false)
         {
             store.ResolutionStarted = true;
-            rootContext = rootContext
-                          ?? new ResolutionContext<TestingContext>(this,
-                                                                   store.RootDefinition,
-                                                                   null,
-                                                                   new List<IFilter>(),
-                                                                   store.GetChildProviders(store.RootDefinition),
-                                                                   store);
+            rootContext = rootContext ?? new RootResolutionContext<TestingContext>(this, store);
             store.ValidateDependencies();
             return rootContext.ResolveCollection(Define<T>(key), store.RootDefinition)
                               .Select(x => x as IResolutionContext<T>);

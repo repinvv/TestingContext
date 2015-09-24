@@ -4,7 +4,6 @@
     using System.Linq;
     using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Filters;
-    using TestingContextCore.Implementation.Nodes;
 
     internal class ProviderDetails
     {

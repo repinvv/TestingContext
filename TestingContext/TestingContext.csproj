@@ -39,8 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CachingEnumerable\CachingEnumerable.cs" />
-    <Compile Include="CachingEnumerable\CachingEnumerableExtension.cs" />
+    <Compile Include="CachingEnumerableExtension.cs" />
     <Compile Include="DictionaryExtension.cs" />
     <Compile Include="Implementation\ContextStorage\DependencyFactory.cs" />
     <Compile Include="Implementation\ContextStorage\FiltersExtension.cs" />
@@ -58,6 +57,13 @@
     <Compile Include="Implementation\Filters\Filter2.cs" />
     <Compile Include="Implementation\Filters\FilterRegistrator1.cs" />
     <Compile Include="Implementation\Filters\Filter1.cs" />
+    <Compile Include="Implementation\Logging\ArrayExtension.cs" />
+    <Compile Include="Implementation\Logging\EmptyLog.cs" />
+    <Compile Include="Implementation\Logging\ExistsConditionFailure.cs" />
+    <Compile Include="Implementation\Logging\FailureCollect.cs" />
+    <Compile Include="Implementation\Logging\IFailure.cs" />
+    <Compile Include="Implementation\Logging\IFailureReporter.cs" />
+    <Compile Include="Implementation\Logging\LoggingExtension.cs" />
     <Compile Include="Implementation\Providers\ProviderDetails.cs" />
     <Compile Include="Implementation\ResolutionContext\IResolutionContext.cs" />
     <Compile Include="Implementation\Filters\IFilter.cs" />
@@ -76,6 +82,7 @@
     <Compile Include="Interfaces\IFor.cs" />
     <Compile Include="Interfaces\IRegistration.cs" />
     <Compile Include="Interfaces\IResolutionContext.cs" />
+    <Compile Include="Interfaces\IResolutionLogging.cs" />
     <Compile Include="IRegistrationExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Implementation\ResolutionContext\ResolutionContext.cs" />

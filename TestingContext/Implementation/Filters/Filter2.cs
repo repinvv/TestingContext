@@ -31,5 +31,7 @@
             T2 argument2;
             return dependency2.TryGetValue(context, out argument2) && filterFunc(argument1, argument2);
         }
+
+        public string FailureString => filterExpression.ToString();
     }
 }

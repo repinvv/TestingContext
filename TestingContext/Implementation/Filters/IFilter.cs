@@ -1,8 +1,9 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
+    using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.ResolutionContext;
 
-    internal interface IFilter
+    internal interface IFilter : IFailure
     {
         bool IsCollectionFilter { get; }
 

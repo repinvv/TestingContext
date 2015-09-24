@@ -26,5 +26,7 @@
         {
             return filterFunc(dependency.GetValue(context));
         }
+
+        public string FailureString => filterExpression.ToString();
     }
 }

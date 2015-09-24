@@ -1,9 +1,9 @@
 ﻿namespace TestingContextCore.Implementation.ResolutionContext
 {
     using System.Collections.Generic;
-    using TestingContextCore.Implementation.Resolution;
+    using TestingContextCore.Implementation.Logging;
 
-    internal interface IResolutionContext
+    internal interface IResolutionContext : IFailureReporter
     {
         IResolutionContext ResolveSingle(Definition definition, Definition closestParent);
 

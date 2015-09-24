@@ -1,6 +1,5 @@
 ﻿namespace UnitTestProject1.Definitions.Coverage
 {
-    using System.Linq;
     using TechTalk.SpecFlow;
     using TestingContextCore;
     using UnitTestProject1.Entities;
