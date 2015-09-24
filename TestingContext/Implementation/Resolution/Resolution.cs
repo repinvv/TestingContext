@@ -21,11 +21,11 @@
         private readonly IEnumerable<ResolutionContext<T>> resolvedSource;
         private bool? meetsCondition;
 
-        public Resolution(Definition ownDefinition, 
-            IResolutionContext parent, 
-            IEnumerable<T> source, 
-            List<IFilter> filters, 
-            List<IFilter> collectionFilters, 
+        public Resolution(Definition ownDefinition,
+            IResolutionContext parent,
+            IEnumerable<T> source,
+            List<IFilter> filters,
+            List<IFilter> collectionFilters,
             List<IProvider> childProviders,
             ContextStore store)
         {
@@ -107,12 +107,9 @@
             }
 
             var cascade = startingWeight.Add(0);
-            if (collect.CanCascade(cascade))
+            foreach (var context in this)
             {
-                foreach (var context in this)
-                {
-                    context.ReportFailure(collect, cascade);
-                }
+                context.ReportFailure(collect, cascade);
             }
         }
     }
