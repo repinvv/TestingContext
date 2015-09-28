@@ -65,8 +65,8 @@
                 Created = new DateTime(2010, 1, 2),
                 Coverages = new List<Coverage>
                             {
-                                new Coverage { Id = 4, Type = Employee, HeadCount = 40 },
-                                new Coverage { Id = 5, Type = Dependent, HeadCount = 70 },
+                                new Coverage { Id = 6, Type = Employee, HeadCount = 40 },
+                                new Coverage { Id = 7, Type = Dependent, HeadCount = 70 },
                             },
                 Taxes = new List<Tax>()
                         {

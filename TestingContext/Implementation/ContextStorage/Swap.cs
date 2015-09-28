@@ -24,7 +24,7 @@
 
         public bool Equals(Swap other)
         {
-            return other != null 
+            return !ReferenceEquals(other, null)
                 && Parent == other.Parent
                 && Child == other.Child
                 && DependedChild == other.DependedChild;
@@ -43,7 +43,7 @@
 
         public static bool operator ==(Swap swap, Swap other)
         {
-            return swap == null && other == null || swap != null && swap.Equals(other);
+            return ReferenceEquals(swap, null) && ReferenceEquals(other, null) || !ReferenceEquals(swap, null) && swap.Equals(other);
         }
 
         public static bool operator !=(Swap swap, Swap other)

@@ -14,6 +14,7 @@ Scenario: Two branch search with one branch referencing the other
 	  And tax B has type 'Federal'	  
 	  And average payment per person in coverages B, specified in taxes B is over 10$
 	Then policy B name must contain '@twobranch1'
+	  And coverage B Id must be 7
 
 @twobranch1
 Scenario: Two branch search failure with one branch referencing the other
