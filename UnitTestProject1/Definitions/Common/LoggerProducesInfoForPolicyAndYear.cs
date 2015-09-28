@@ -13,7 +13,7 @@
             this.logger = logger;
         }
 
-        [Then(@"resolution logger produces info for filter, mentioning '(.*)' and '(.*)'")]
+        [Then(@"resolution logger must produce info for filter, mentioning '(.*)' and '(.*)'")]
         public void ThenResolutionLoggerProducesInfoForFilterMentioningAnd(string first, string second)
         {
             Assert.AreEqual(1, logger.Logs.Count);

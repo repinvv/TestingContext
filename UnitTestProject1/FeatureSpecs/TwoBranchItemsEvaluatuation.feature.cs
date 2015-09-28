@@ -132,7 +132,8 @@ this.ScenarioSetup(scenarioInfo);
 #line 29
  testRunner.When("policy B resolves", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 30
- testRunner.Then("resolution logger produces info for filter, mentioning \'Coverage \"B\"\' and \'17\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("resolution logger must produce info for filter, mentioning \'Coverage \"B\"\' and \'17" +
+                    "\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

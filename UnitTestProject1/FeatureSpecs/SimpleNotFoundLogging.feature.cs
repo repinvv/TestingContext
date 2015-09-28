@@ -87,7 +87,8 @@ this.ScenarioSetup(scenarioInfo);
 #line 10
  testRunner.When("policy B resolves", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 11
- testRunner.Then("resolution logger produces info for filter, mentioning \'Policy \"B\"\' and \'2005\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("resolution logger must produce info for filter, mentioning \'Policy \"B\"\' and \'2005" +
+                    "\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -113,8 +114,8 @@ this.ScenarioSetup(scenarioInfo);
 #line 19
  testRunner.When("policy B resolves", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 20
- testRunner.Then("resolution logger produces info for filter, mentioning \'Coverage \"B\"\' and \'Undefi" +
-                    "ned\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("resolution logger must produce info for filter, mentioning \'Coverage \"B\"\' and \'Un" +
+                    "defined\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -140,8 +141,8 @@ this.ScenarioSetup(scenarioInfo);
 #line 28
  testRunner.When("policy B resolves", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 29
- testRunner.Then("resolution logger produces info for filter, mentioning \'Coverage \"B\"\' and \'Source" +
-                    " was null or empty\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("resolution logger must produce info for filter, mentioning \'Coverage \"B\"\' and \'So" +
+                    "urce was null or empty\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

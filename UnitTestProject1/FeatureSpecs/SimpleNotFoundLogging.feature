@@ -8,7 +8,7 @@ Scenario: Single failed find should print a filter
 	Given policy B is taken from policiesSource
 	  And policy B is created in year 2005
 	When policy B resolves
-	Then resolution logger produces info for filter, mentioning 'Policy "B"' and '2005'
+	Then resolution logger must produce info for filter, mentioning 'Policy "B"' and '2005'
 
 @notFoundLogging2
 Scenario: Two entities in cascade failed find should print a filter
@@ -17,7 +17,7 @@ Scenario: Two entities in cascade failed find should print a filter
 	  And for policy B exists a coverage B
 	  And coverage B has type 'Undefined'
 	When policy B resolves
-	Then resolution logger produces info for filter, mentioning 'Coverage "B"' and 'Undefined'
+	Then resolution logger must produce info for filter, mentioning 'Coverage "B"' and 'Undefined'
 
 @notFoundLogging3
 Scenario: Two entities in cascade failed find should print an "empty source" message
@@ -26,4 +26,4 @@ Scenario: Two entities in cascade failed find should print an "empty source" mes
 	  And for policy B exists a coverage B
 	  And coverage B has type 'Undefined'
 	When policy B resolves
-	Then resolution logger produces info for filter, mentioning 'Coverage "B"' and 'Source was null or empty'
+	Then resolution logger must produce info for filter, mentioning 'Coverage "B"' and 'Source was null or empty'
