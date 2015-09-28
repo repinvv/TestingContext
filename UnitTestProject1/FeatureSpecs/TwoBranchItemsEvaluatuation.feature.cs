@@ -70,12 +70,12 @@ namespace UnitTestProject1.FeatureSpecs
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Two branch find with one branch referencing the other")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Two branch search with one branch referencing the other")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "TwoBranchItemsEvaluatuation")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("twobranch1")]
-        public virtual void TwoBranchFindWithOneBranchReferencingTheOther()
+        public virtual void TwoBranchSearchWithOneBranchReferencingTheOther()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Two branch find with one branch referencing the other", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Two branch search with one branch referencing the other", new string[] {
                         "twobranch1"});
 #line 7
 this.ScenarioSetup(scenarioInfo);

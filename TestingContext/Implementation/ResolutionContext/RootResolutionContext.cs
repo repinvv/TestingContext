@@ -83,7 +83,7 @@
 
         public IEnumerable<IResolutionContext> GetSourceCollection(Definition definition, Definition closestParent)
         {
-            yield break;
+            throw new ResolutionException("this method should not ever be called");
         }
 
         private IEnumerable<IResolutionContext> RootResolve(Definition definition)

@@ -4,7 +4,7 @@
 	I want to find entity by defined conditions, describing a complex tree of entity interconnections	
 
 @twobranch1
-Scenario: Two branch find with one branch referencing the other
+Scenario: Two branch search with one branch referencing the other
 	Given policy B is taken from policiesSource
 	  And policy B is created in year 2010
 	  And for policy B exists a coverage B

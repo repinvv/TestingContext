@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.ContextStorage;
+    using TestingContextCore.Implementation.Exceptions;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Providers;
@@ -119,7 +120,7 @@
 
         public IEnumerable<IResolutionContext> GetSourceCollection(Definition definition, Definition closestParent)
         {
-            yield break;
+            throw new ResolutionException("this method should not ever be called");
         }
 
         private IEnumerable<IResolutionContext> ClosestParentResolve(Definition definition)
