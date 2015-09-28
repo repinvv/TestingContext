@@ -100,6 +100,40 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Two branch search failure with one branch referencing the other")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "TwoBranchItemsEvaluatuation")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("twobranch1")]
+        public virtual void TwoBranchSearchFailureWithOneBranchReferencingTheOther()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Two branch search failure with one branch referencing the other", new string[] {
+                        "twobranch1"});
+#line 19
+this.ScenarioSetup(scenarioInfo);
+#line 20
+ testRunner.Given("policy B is taken from policiesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 21
+   testRunner.And("policy B is created in year 2010", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 22
+   testRunner.And("for policy B exists a coverage B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 23
+   testRunner.And("coverage B has type \'Dependent\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 24
+   testRunner.And("coverages B have covered people", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 25
+   testRunner.And("for policy B exists a tax B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 26
+   testRunner.And("tax B has type \'Federal\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 27
+   testRunner.And("average payment per person in coverages B, specified in taxes B is over 17$", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 28
+ testRunner.When("policy B resolves", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 29
+ testRunner.Then("resolution logger produces info for filter, mentioning \'Coverage \"B\"\' and \'17\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
