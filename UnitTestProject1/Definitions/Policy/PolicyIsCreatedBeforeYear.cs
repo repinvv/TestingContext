@@ -4,19 +4,19 @@
     using TestingContextCore;
 
     [Binding]
-    public class PolicyIsCreatedBeforeYear
+    public class PolicyIsCreatedInYear
     {
         private readonly TestingContext context;
 
-        public PolicyIsCreatedBeforeYear(TestingContext context)
+        public PolicyIsCreatedInYear(TestingContext context)
         {
             this.context = context;
         }
 
-        [Given(@"policy(?:\s)?(.*) is created before year (.*)")]
+        [Given(@"policy(?:\s)?(.*) is created in year (.*)")]
         public void GivenPolicyIsCreatedBeforeYear(string key, int year)
         {
-            context.For<Entities.Policy>(key).Filter(policy => policy.Created.Year < year);
+            context.For<Entities.Policy>(key).Filter(policy => policy.Created.Year == year);
         }
     }
 }

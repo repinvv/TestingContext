@@ -61,6 +61,7 @@
     <Compile Include="Implementation\Filters\Filter2.cs" />
     <Compile Include="Implementation\Filters\FilterRegistrator1.cs" />
     <Compile Include="Implementation\Filters\Filter1.cs" />
+    <Compile Include="Implementation\Filters\ThisFilter.cs" />
     <Compile Include="Implementation\Logging\ArrayExtension.cs" />
     <Compile Include="Implementation\Logging\EmptyLog.cs" />
     <Compile Include="Implementation\Logging\ExistsConditionFailure.cs" />

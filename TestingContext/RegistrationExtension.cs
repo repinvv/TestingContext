@@ -10,22 +10,22 @@
     {
         public static void ConditionedFilter<T>(this IFor<IEnumerable<IResolutionContext<T>>> filterRegister, Func<IEnumerable<T>, bool> filter)
         {
-            filterRegister.Filter(x => filter(x.Where(y => y.MeetsConditions).Select(y => y.Value)));
+            filterRegister.ThisFilter(x => filter(x.Where(y => y.MeetsConditions).Select(y => y.Value)));
         }
 
         public static void Each<T>(this IFor<IEnumerable<IResolutionContext<T>>> filterRegister)
         {
-            filterRegister.Filter(x => x.All(y => y.MeetsConditions));
+            filterRegister.ThisFilter(x => x.All(y => y.MeetsConditions));
         }
 
         public static void Exists<T>(this IFor<IEnumerable<IResolutionContext<T>>> filterRegister)
         {
-            filterRegister.Filter(x => x.Any(y => y.MeetsConditions));
+            filterRegister.ThisFilter(x => x.Any(y => y.MeetsConditions));
         }
 
         public static void DoesNotExist<T>(this IFor<IEnumerable<IResolutionContext<T>>> filterRegister)
         {
-            filterRegister.Filter(x => !x.Any(y => y.MeetsConditions));
+            filterRegister.ThisFilter(x => !x.Any(y => y.MeetsConditions));
         }
     }
 }

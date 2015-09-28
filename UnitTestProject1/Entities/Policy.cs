@@ -12,5 +12,7 @@
         public DateTime Created { get; set; }
 
         public List<Coverage> Coverages { get; set; } 
+
+        public List<Tax> Taxes { get; set; }
     }
 }

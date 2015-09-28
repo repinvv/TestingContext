@@ -81,6 +81,11 @@
             return result;
         }
 
+        public IEnumerable<IResolutionContext> GetSourceCollection(Definition definition, Definition closestParent)
+        {
+            yield break;
+        }
+
         private IEnumerable<IResolutionContext> RootResolve(Definition definition)
         {
             var chain = store.GetNode(definition).DefinitionChain;

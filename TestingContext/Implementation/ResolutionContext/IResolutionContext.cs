@@ -10,5 +10,7 @@
         IEnumerable<IResolutionContext> ResolveCollection(Definition definition, Definition closestParent);
 
         IEnumerable<IResolutionContext> ResolveDown(Definition definition, List<Definition> chain, int nextIndex);
+
+        IEnumerable<IResolutionContext> GetSourceCollection(Definition definition, Definition closestParent);
     }
 }

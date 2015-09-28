@@ -27,6 +27,12 @@
             return (TSource)resolved.Select(x => x as IResolutionContext<TItem>);
         }
 
+        public TSource GetThisValue(IResolutionContext context)
+        {
+            var resolved = context.GetSourceCollection(DependsOn, closestParent);
+            return (TSource)resolved.Select(x => x as IResolutionContext<TItem>);
+        }
+
         public bool TryGetValue(IResolutionContext context, out TSource value)
         {
             value = GetValue(context);

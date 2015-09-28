@@ -14,8 +14,10 @@
 
     internal interface IDependency<TSource> : IDependency
     {
+        bool TryGetValue(IResolutionContext context, out TSource value);
+
         TSource GetValue(IResolutionContext context);
 
-        bool TryGetValue(IResolutionContext context, out TSource value);
+        TSource GetThisValue(IResolutionContext context);
     }
 }

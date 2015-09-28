@@ -82,8 +82,13 @@
         public IEnumerable<IResolutionContext> ResolveCollection(Definition definition, Definition closestParent)
         {
             return ownDefinition == definition
-                       ? resolvedSource
+                       ? ResolutionContent
                        : parent.ResolveCollection(definition, closestParent);
+        }
+
+        public IEnumerable<IResolutionContext> GetSourceCollection(Definition definition, Definition closestParent)
+        {
+            return resolvedSource;
         }
 
         #region unused methods
@@ -96,6 +101,7 @@
         {
             throw new ResolutionException("this method should not ever be called");
         }
+
         #endregion
 
         public void ReportFailure(FailureCollect collect, int[] startingWeight)

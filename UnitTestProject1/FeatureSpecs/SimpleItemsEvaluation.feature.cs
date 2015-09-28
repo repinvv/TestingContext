@@ -19,19 +19,19 @@ namespace UnitTestProject1.FeatureSpecs
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class TestItemsEvaluationFeature
+    public partial class SimpleItemsEvaluationFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "TestItemsEvaluation.feature"
+#line 1 "SimpleItemsEvaluation.feature"
 #line hidden
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute()]
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "TestItemsEvaluation", "In order to find entity from existing data\r\nAs a test writer\r\nI want to find enti" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "SimpleItemsEvaluation", "In order to find entity from existing data\r\nAs a test writer\r\nI want to find enti" +
                     "ty by defined conditions", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -47,9 +47,9 @@ namespace UnitTestProject1.FeatureSpecs
         public virtual void TestInitialize()
         {
             if (((TechTalk.SpecFlow.FeatureContext.Current != null) 
-                        && (TechTalk.SpecFlow.FeatureContext.Current.FeatureInfo.Title != "TestItemsEvaluation")))
+                        && (TechTalk.SpecFlow.FeatureContext.Current.FeatureInfo.Title != "SimpleItemsEvaluation")))
             {
-                UnitTestProject1.FeatureSpecs.TestItemsEvaluationFeature.FeatureSetup(null);
+                UnitTestProject1.FeatureSpecs.SimpleItemsEvaluationFeature.FeatureSetup(null);
             }
         }
         
@@ -71,7 +71,7 @@ namespace UnitTestProject1.FeatureSpecs
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Single find and assert")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "TestItemsEvaluation")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "SimpleItemsEvaluation")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("simpleEvaluation1")]
         public virtual void SingleFindAndAssert()
         {
@@ -82,18 +82,18 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
  testRunner.Given("policy B is taken from policiesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
-   testRunner.And("policy B is created before year 2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("policy B is created in year 2006", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10
  testRunner.Then("policy B must exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 11
-   testRunner.And("policy B name must contain \'2013\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("policy B name must contain \'@simpleEvaluation1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Two entities in cascaded find and assert")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "TestItemsEvaluation")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "SimpleItemsEvaluation")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("simpleEvaluation2")]
         public virtual void TwoEntitiesInCascadedFindAndAssert()
         {
@@ -104,7 +104,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 15
  testRunner.Given("policy B is taken from policiesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 16
-   testRunner.And("policy B is created before year 2015", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("policy B is created in year 2007", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 17
    testRunner.And("for policy B exists a coverage B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 18

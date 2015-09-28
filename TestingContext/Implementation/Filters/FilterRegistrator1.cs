@@ -24,6 +24,9 @@
             store.RegisterFilter(dependency.DependsOn, new Filter1<T1>(dependency, filterFunc));
         }
 
+        public void ThisFilter(Expression<Func<T1, bool>> filter)
+        { }
+
         public IWith<T1, T2> With<T2>(string key2) 
         {
             var dependency2 = store.Depend<T2>(dependency.DependsOn, Define<T2>(key2));

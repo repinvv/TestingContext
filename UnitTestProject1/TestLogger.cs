@@ -1,6 +1,8 @@
 ﻿namespace UnitTestProject1
 {
+    using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using TestingContextCore.Interfaces;
 
     internal class TestLogger : IResolutionLog
@@ -9,7 +11,9 @@
 
         public void LogNoItemsResolved(string entity, string filter)
         {
-            Logs.Add($"{entity} - {filter}");
+            var log = $"{entity}:\r\n{filter}";
+            Logs.Add(log);
+            Console.Write(log);
         }
     }
 }

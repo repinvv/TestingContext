@@ -21,6 +21,11 @@
             return resolved != null ? resolved.Value : default(TSource);
         }
 
+        public TSource GetThisValue(IResolutionContext context)
+        {
+            return GetValue(context);
+        }
+
         public bool TryGetValue(IResolutionContext context, out TSource value)
         {
             var resolved = context.ResolveSingle(DependsOn, closestParent) as IResolutionContext<TSource>;

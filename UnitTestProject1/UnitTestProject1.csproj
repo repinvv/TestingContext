@@ -54,6 +54,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Definitions\Coverage\CoveragesHaveCoveredPeople.cs" />
     <Compile Include="Definitions\Coverage\Then\CoverageIdMustBe.cs" />
     <Compile Include="Definitions\Coverage\CoverageHasType.cs" />
     <Compile Include="Definitions\Coverage\Then\CoverageMustExist.cs" />
@@ -66,18 +67,28 @@
     <Compile Include="Definitions\Policy\PolicyNameMustContain.cs" />
     <Compile Include="Definitions\Policy\When\PolicyResolves.cs" />
     <Compile Include="Definitions\SetLogger.cs" />
+    <Compile Include="Definitions\Tax\Then\AveragePayementInCoverageAndInTaxIsOver.cs" />
+    <Compile Include="Definitions\Tax\ForPolicyExistsATax.cs" />
+    <Compile Include="Definitions\Tax\TaxHasType.cs" />
     <Compile Include="Entities\CoverageType.cs" />
     <Compile Include="Entities\Coverage.cs" />
     <Compile Include="Entities\Policy.cs" />
+    <Compile Include="Entities\Tax.cs" />
+    <Compile Include="Entities\TaxType.cs" />
     <Compile Include="FeatureSpecs\SimpleNotFoundLogging.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SimpleNotFoundLogging.feature</DependentUpon>
     </Compile>
-    <Compile Include="FeatureSpecs\TestItemsEvaluation.feature.cs">
+    <Compile Include="FeatureSpecs\SimpleItemsEvaluation.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TestItemsEvaluation.feature</DependentUpon>
+      <DependentUpon>SimpleItemsEvaluation.feature</DependentUpon>
+    </Compile>
+    <Compile Include="FeatureSpecs\TwoBranchItemsEvaluatuation.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TwoBranchItemsEvaluatuation.feature</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestLogger.cs" />
@@ -89,9 +100,13 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SimpleNotFoundLogging.feature.cs</LastGenOutput>
     </None>
-    <None Include="FeatureSpecs\TestItemsEvaluation.feature">
+    <None Include="FeatureSpecs\SimpleItemsEvaluation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>TestItemsEvaluation.feature.cs</LastGenOutput>
+      <LastGenOutput>SimpleItemsEvaluation.feature.cs</LastGenOutput>
+    </None>
+    <None Include="FeatureSpecs\TwoBranchItemsEvaluatuation.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>TwoBranchItemsEvaluatuation.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -101,6 +116,7 @@
       <Name>TestingContext</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
