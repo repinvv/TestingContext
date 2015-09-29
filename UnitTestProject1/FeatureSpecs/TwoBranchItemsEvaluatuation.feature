@@ -27,4 +27,4 @@ Scenario: Two branch search failure with one branch referencing the other
 	  And tax B has type 'Federal'	  
 	  And average payment per person in coverages B, specified in taxes B is over 17$
 	When policy B resolves
-	Then resolution logger produces info for filter, mentioning 'Coverage "B"' and '17'
+	Then resolution logger must produce info for filter, mentioning 'Coverage "B"' and '17'
