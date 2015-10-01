@@ -23,11 +23,11 @@ The C# step definitions gets changed to look like the following
 policies = policies.Where(x => x.Created.Year == year);
 policies = policies.Where(x => x.Coverages.Any(y => y.Type == coverageType && y.HeadCount > headCount));
 ```
-Of course you will need to define policies first, in pre-scenario hook, or in explicit extra step definition, which i personally think is much better, explicit over implied.
+Of course you will need to define policies first, in pre-scenario hook, or in explicit extra step definition, which i personally think is much better, explicit over implied and all.
 After these steps, you create a step that opens a portal with policyId parameter fit into http request line, with the id taken from first policy in policies enumerable, and then test what you intended to in subsequent steps.
 
 # Advanced search
-So you did find a policy that you need, now you are testing the UI. You checked that policy name is displayed in some section on the ui, now you need to check that some UI section displays that seventy-something number of dependents. And there you hit a problem. You have a reference to a policy, but how would you know which of, let's say, five coverage lines did trigger the predicate for the policy. Which coverage would you take to compare its headcount to the number displayed on UI? 
+So you did find a policy that you need, now you are testing the UI. You checked that policy name is displayed in some section on the ui, now you need to check that some UI section displays that seventy-something number of dependents. And there you hit a problem. You have a reference to a policy, but how would you know which of, let's say, five coverage lines did trigger the predicate for the policy? Which coverage would you take to compare its headcount to the number displayed on UI? 
 You could specify the coverage condition the second time in "Then" scenario step but that leads to a duplication. So we needed a tool to help avoid such a duplication
 The tool to specify coverage condition separated from policy and allow to retrieve both policy and coverage. And any other entity in the model tree if we want to specify more than two entities.
 Another benefit is that it will also allows to split two conditions we have for coverage into two separate step definitions.
