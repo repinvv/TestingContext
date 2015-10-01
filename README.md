@@ -67,7 +67,7 @@ var coverages = context.All<Coverage>(coverageKey);
 First line will return first policy that meets all the conditions. I.e. policy that is created in year 2007 and has a Dependent coverage with over 70 people covered. All the filters are combined using "AND" logic.
 Second line will return all the policies that meets these conditions.
 Third line returns all the coverages that have type 'Dependent' and over 70 people covered in all policies that match the condition. I.e. result will not contain such a coverage that was inside policy created in some other year.
-Notice that "All" method returns IEnumerable<<IResolutionContext<<Policy>>>> and not IEnumerable<<Policy>>. so, to get the latter, you need to do a Select of Value.
+Notice that "All" method returns IEnumerable\<IResolutionContext\<Policy\>\> and not IEnumerable\<Policy\>. so, to get the latter, you need to do a Select of Value.
 IResolutionContext will allow to get needed coverages of a specific policy, using the following syntax
 ```C#
 var policies = context.All<Policy>(key);
