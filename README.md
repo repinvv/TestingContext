@@ -40,7 +40,7 @@ Like the following
 	  And coverage A has over 70 people covered   #5
 ```
 I marked steps with numbers here, only to show which step has which definition, here in readme. These numbers are not present in actual code.
-For step definitions i use (TestingContext context) injected into a constructor, and used in step definitions of this sample.
+For step definitions there is (TestingContext context) injected into a constructor, and used in step definitions of this sample.
 Syntax for step definitions is the following
 ```C#
 #1
@@ -57,7 +57,7 @@ context.For<Coverage>(key).Filter(coverage => coverage.Type == type);
 #5
 context.For<Coverage>(key).Filter(coverage => coverage.HeadCount > headCount);
 ```
-Notice that you can interchange any of these five lines in the scenario, i.e. put them in any order. That could be useful if you are planning to use SpecFlow "Background"
+Notice that you can interchange any of these five lines in the scenario, i.e. put them in any order. That could be useful if you are planning to use SpecFlow "Background".
 To get the search results, following syntax can be used
 ```C#
 var policy = context.Value<Policy>(policyKey);
