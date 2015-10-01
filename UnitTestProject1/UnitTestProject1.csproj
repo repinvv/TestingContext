@@ -59,12 +59,12 @@
     <Compile Include="Definitions\Coverage\CoverageHasType.cs" />
     <Compile Include="Definitions\Coverage\Then\CoverageMustExist.cs" />
     <Compile Include="Definitions\Coverage\ForPolicyExistsACoverage.cs" />
-    <Compile Include="Definitions\Policy\PolicyIsCreatedBeforeYear.cs" />
+    <Compile Include="Definitions\Policy\PolicyIsCreatedInYear.cs" />
     <Compile Include="Definitions\Policy\PolicyIsTakenFromPolicySource.cs" />
     <Compile Include="Definitions\Common\LoggerProducesInfoForPolicyAndYear.cs" />
     <Compile Include="Definitions\Policy\Then\PolicyMustExist.cs" />
     <Compile Include="Definitions\Policy\Then\PolicyMustHaveId.cs" />
-    <Compile Include="Definitions\Policy\PolicyNameMustContain.cs" />
+    <Compile Include="Definitions\Policy\Then\PolicyNameMustContain.cs" />
     <Compile Include="Definitions\Policy\When\PolicyResolves.cs" />
     <Compile Include="Definitions\SetLogger.cs" />
     <Compile Include="Definitions\Tax\Then\AveragePayementInCoverageAndInTaxIsOver.cs" />

@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using TestingContextCore.Interfaces;
 
     internal class TestLogger : IResolutionLog

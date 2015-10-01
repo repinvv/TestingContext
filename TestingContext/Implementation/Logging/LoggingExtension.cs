@@ -1,7 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Logging
 {
     using TestingContextCore.Implementation.ContextStorage;
-    using TestingContextCore.Implementation.Resolution;
 
     internal static class LoggingExtension
     {

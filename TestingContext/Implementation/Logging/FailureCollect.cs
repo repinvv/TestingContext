@@ -2,8 +2,6 @@
 
 namespace TestingContextCore.Implementation.Logging
 {
-    using TestingContextCore.Implementation.Filters;
-
     internal class FailureCollect
     {
         private ContextStore store;

@@ -14,7 +14,7 @@
         }
 
         [Given(@"policy(?:\s)?(.*) is created in year (.*)")]
-        public void GivenPolicyIsCreatedBeforeYear(string key, int year)
+        public void GivenPolicyIsCreatedInYear(string key, int year)
         {
             context.For<Entities.Policy>(key).Filter(policy => policy.Created.Year == year);
         }
