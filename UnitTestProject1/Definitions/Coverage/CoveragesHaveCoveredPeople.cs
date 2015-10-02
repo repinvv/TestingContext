@@ -16,7 +16,7 @@
         }
 
         [Given(@"coverages(?:\s)?(.*) have covered people")]
-        public void GivenCoveragesBHaveCoveredPeople(string key)
+        public void GivenCoveragesHaveCoveredPeople(string key)
         {
             context.ForCollection<Coverage>(key)
                    .Filter(coverages => coverages.Sum(x => x.Value.HeadCount) > 0);

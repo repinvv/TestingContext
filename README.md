@@ -96,3 +96,19 @@ context
 There is currently no way to add third entity here, but that is ideological limitation, meaning that if you have a condition that uses 3 or more entities in it, most likely you can break it into smaller conditions which would use 2 entities. There is no technical limitation though, i could add the option for a 3-entity filter anytime.
 
 # Collection filters
+There are several predefined collection filters that can be used. One was used above
+```C#
+context.Register()
+    .DependsOn<Policy>(policyKey)
+    .Provide<Coverage>(coverageKey, policy => policy.Coverages)
+    .Exists();
+```
+"Exists" filter means that policy meets condition if there is at least one coverage that meets all the conditions specified. There are also "DoesNotExist" and "Each" collection filters, with corresponding functions.
+Also, there is a possibility to define custom collection filter. For example
+```C#
+context.ForCollection<Coverage>(key)
+       .Filter(coverages => coverages.Sum(x => x.Value.HeadCount) > 0);
+```
+This filter means that policy meets condition if total headcount of coverages(with each of them meeting their own condition), is positive number.
+
+# Branches
