@@ -55,6 +55,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Definitions\Coverage\CoveragesHaveCoveredPeople.cs" />
+    <Compile Include="Definitions\Coverage\CoversLessPeopleThanMaximumDependendtsInPolicy.cs" />
     <Compile Include="Definitions\Coverage\Then\CoverageIdMustBe.cs" />
     <Compile Include="Definitions\Coverage\CoverageHasType.cs" />
     <Compile Include="Definitions\Coverage\Then\CoverageMustExist.cs" />

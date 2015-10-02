@@ -31,6 +31,7 @@
                 Id = 3,
                 Name = "somename2014",
                 Created = new DateTime(2007, 1, 2),
+                MaximumDependents = 71,
                 Coverages = new List<Coverage>
                             {
                                 new Coverage { Id = 2, Type = Employee, HeadCount = 40 },

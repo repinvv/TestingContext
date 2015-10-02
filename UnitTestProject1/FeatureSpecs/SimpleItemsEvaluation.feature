@@ -16,6 +16,7 @@ Scenario: Two entities in cascaded find and assert
 	  And policy B is created in year 2007
 	  And for policy B exists a coverage B
 	  And coverage B has type 'Dependent'
+	  And coverage B covers less people than maximum dependendts specified in policy B
 	Then policy B must exist
 	  And policy B name must contain '2014'
 	  And coverage B must exist

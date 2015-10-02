@@ -33,11 +33,11 @@ The tool to specify coverage condition separated from policy and allow to retrie
 Another benefit is that it will also allows to split two conditions we have for coverage into two separate step definitions.
 Like the following
 ```Cucumber
-	Given policy A is taken from policiesSource   #1
-	  And policy A is created in year 2007        #2
-	  And for policy A exists a coverage A        #3
-	  And coverage A has type 'Dependent'         #4
-	  And coverage A has over 70 people covered   #5
+Given policy A is taken from policiesSource   #1
+  And policy A is created in year 2007        #2
+  And for policy A exists a coverage A        #3
+  And coverage A has type 'Dependent'         #4
+  And coverage A has over 70 people covered   #5
 ```
 I marked steps with numbers here, only to show which step has which definition, here in readme. These numbers are not present in actual code.
 For step definitions there is (TestingContext context) injected into a constructor, and used in step definitions of this sample.
@@ -58,6 +58,8 @@ context.For<Coverage>(key).Filter(coverage => coverage.Type == type);
 context.For<Coverage>(key).Filter(coverage => coverage.HeadCount > headCount);
 ```
 Notice that you can interchange any of these five lines in the scenario, i.e. put them in any order. That could be useful if you are planning to use SpecFlow "Background".
+
+# Retrieving search results
 To get the search results, following syntax can be used
 ```C#
 var policy = context.Value<Policy>(policyKey);
@@ -65,12 +67,32 @@ var policies = context.All<Policy>(policyKey);
 var coverages = context.All<Coverage>(coverageKey);
 ```
 First line will return first policy that meets all the conditions. I.e. policy that is created in year 2007 and has a Dependent coverage with over 70 people covered. All the filters are combined using "AND" logic.
-Second line will return all the policies that meets these conditions.
+Second line will return all the policies that meet these conditions.
 Third line returns all the coverages that have type 'Dependent' and over 70 people covered in all policies that match the condition. I.e. result will not contain such a coverage that was inside policy created in some other year.
 Notice that "All" method returns IEnumerable\<IResolutionContext\<Policy\>\> and not IEnumerable\<Policy\>. so, to get the latter, you need to do a Select of Value.
 IResolutionContext will allow to get needed coverages of a specific policy, using the following syntax
 ```C#
-var policies = context.All<Policy>(key);
-var firstPolicyCoverages = policies.First().Get<Coverage>(key);
+var policies = context.All<Policy>(policyKey);
+var firstPolicyCoverages = policies.First().Get<Coverage>(coverageKey);
 ```
 
+# Combined filters
+For some cases you will need to compare fields of 2 entities. Here is the example:
+```Cucumber
+Given policy A is taken from policiesSource
+  And for policy A exists a coverage A
+  And coverage A has type 'Dependent' 
+  And coverage A covers less people than maximum dependendts specified in policy A
+```
+Notice that 3 out of 4 steps are reused from previous tests. And this becomes a trend, i.e. when i was writing tests for the search functionality, i had over 75% reuse achieved while having as much 5-6 tests behind me. This is the beauty of combining SpecFlow and granularity, achieved using the advanced search tool. 
+Also, the condition looks quite synthetic, i did not come up with more lifelike condition for this model. But for the other domain model there was a good example where we wanted to find a woman who was a teen mother by specifying a condition where difference between participant age and dependent child age was less than 16 or so years.
+Anyway, here is the step definition
+```C#
+context
+    .For<Coverage>(coverageKey)
+    .With<Policy>(policyKey)
+    .Filter((coverage, policy) => coverage.HeadCount < policy.MaximumDependents);
+```
+There is currently no way to add third entity here, but that is ideological limitation, meaning that if you have a condition that uses 3 or more entities in it, most likely you can break the condition into smaller conditions which would use 2 entities. There is no technical limitation though, i could add the option for a 3-entity filter anytime.
+
+# Collection filters

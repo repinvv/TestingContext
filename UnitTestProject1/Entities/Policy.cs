@@ -9,6 +9,8 @@
         
         public string Name { get; set; }
 
+        public int MaximumDependents { get; set; }
+
         public DateTime Created { get; set; }
 
         public List<Coverage> Coverages { get; set; } 

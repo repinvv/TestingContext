@@ -110,12 +110,14 @@ this.ScenarioSetup(scenarioInfo);
 #line 18
    testRunner.And("coverage B has type \'Dependent\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 19
- testRunner.Then("policy B must exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+   testRunner.And("coverage B covers less people than maximum dependendts specified in policy B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 20
-   testRunner.And("policy B name must contain \'2014\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then("policy B must exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 21
-   testRunner.And("coverage B must exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("policy B name must contain \'2014\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 22
+   testRunner.And("coverage B must exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 23
    testRunner.And("coverage B Id must be 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
