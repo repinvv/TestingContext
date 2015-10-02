@@ -112,3 +112,41 @@ context.ForCollection<Coverage>(key)
 This filter means that policy meets condition if total headcount of coverages(with each of them meeting their own condition), is positive number.
 
 # Branches
+With 2 entities on hand, it is pretty much obvious what the resolved structure is - there is a collection of items, containing one policy each, and a child collection of items containing one coverage each.
+When third entity comes into the test's scope, which is taken from coverage, the structure scales in pretty much obvious way, so i did not try and simulate such a condition here.
+The difference arises when that third entity is a second child of a root element, i.e. policy.
+There are 2 ways to register, and then to resolve such a case.
+First, obvious way is the following
+```C#
+context.Register()
+       .DependsOn<Policy>(policyKey)
+       .Provide<Tax>(taxKey, policy => policy.Taxes)
+       .Exists();
+```
+This way, the structure becomes a tree. For each policy there will be a collection of matching coverages and a second collection of matching taxes. 
+However, if you want to iterate through all the combinations and compare each coverage to each tax, i will use another synthetic condition here, then tree structure is not good for you and you will need a chain structure, i.e. tree with a single branch. This can be done the following way
+```C#
+context.Register()
+       .DependsOn<Coverage>(coverageKey)
+	   .Resolves<Policy>(policyKey)
+       .Provide<Tax>(taxKey, policy => policy.Taxes)
+       .Exists();
+	   
+context.For<Tax>(taxKey)
+       .With<Coverage>(coverageKey)
+       .Filter((tax, coverage) => tax.Id == coverage.Id);
+```
+This way all the pairs of tax and coverage with matching id's will be found. However, if you use this filter on the tree structure, a tax will be valid if it's id is equal to id of the first coverage.
+
+# Comparing two collections
+Tree structure, allows to define a filter that uses 2 collections. It can't happen in the chain, because for every collection out there is only a singular parent, and a singular parent of parent, there is no other collection at resolution time.
+The example of comparing 2 collections
+```Cucumber
+  And average payment per person in coverages B, specified in taxes B is over 10$
+```
+```C#
+context
+    .ForCollection<Coverage>(coverageKey)
+    .WithCollection<Tax>(taxKey)
+    .Filter((coverages, taxes) => taxes.Sum(x => x.Value.Amount) / coverages.Sum(x => x.Value.HeadCount) > average);
+```

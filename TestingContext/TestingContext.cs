@@ -42,6 +42,11 @@
             return new Registration<TestingContext>(store.RootDefinition, store.LastRegistered, store);
         }
 
+        public IRegistration<TestingContext> RootRegister()
+        {
+            return new Registration<TestingContext>(store.RootDefinition, store.RootDefinition, store);
+        }
+
         public IEnumerable<IResolutionContext<T>> All<T>(string key, bool selectMany = false)
         {
             store.ResolutionStarted = true;
