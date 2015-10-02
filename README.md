@@ -139,7 +139,7 @@ context.For<Tax>(taxKey)
 This way all the pairs of tax and coverage with matching id's will be found. However, if you use this filter on the tree structure, a tax will be valid if it's id is equal to id of the first coverage.
 
 # Comparing two collections
-Tree structure, allows to define a filter that uses 2 collections. It can't happen in the chain, because for every collection out there is only a singular parent, and a singular parent of parent, there is no other collection at resolution time.
+Tree structure, allows to define a filter that uses 2 collections. It can't happen in the chain, because for every collection there is only a singular parent, and a singular parent of parent, there is no other collection that can be reached.
 The example of comparing 2 collections
 ```Cucumber
   And average payment per person in coverages B, specified in taxes B is over 10$
@@ -150,3 +150,11 @@ context
     .WithCollection<Tax>(taxKey)
     .Filter((coverages, taxes) => taxes.Sum(x => x.Value.Amount) / coverages.Sum(x => x.Value.HeadCount) > average);
 ```
+
+# Logging a search failure
+Sometimes, when a lot of conditions specified, it is not that obvious why search does not yield any results. For that case there is an option to display the filter that invalidated the search last.
+I.e. if you have 3 filters, and first filter invalidates half the entities, second filter invalidates the other half, third filter will not even trigger, and there is a way to display information about that second filter.
+To do that, you have to implement IResolutionLog interface and assign the instance to ResolutionLog property of the context.
+
+# Installation
+Package is available on NuGet under the name TestingContext
