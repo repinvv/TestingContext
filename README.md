@@ -124,7 +124,7 @@ context.Register()
        .Exists();
 ```
 This way, the structure becomes a tree. For each policy there will be a collection of matching coverages and a second collection of matching taxes. 
-However, if you want to iterate through all the combinations and compare each coverage to each tax, i will use another synthetic condition here, then tree structure is not good for you and you will need a chain structure, i.e. tree with a single branch. This can be done the following way
+However, if you want to iterate through all the combinations and compare each coverage to each tax(i will use another synthetic condition here to demonstrate), then tree structure is not good for you and you will need a chain structure, i.e. tree with a single branch. This can be done the following way
 ```C#
 context.Register()
        .DependsOn<Coverage>(coverageKey)
