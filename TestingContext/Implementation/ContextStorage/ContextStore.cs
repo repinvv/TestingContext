@@ -22,6 +22,7 @@
         public bool ResolutionStarted { get; set; }
 
         public Dictionary<Definition, List<IFilter>> Filters { get; } = new Dictionary<Definition, List<IFilter>>();
+        public Dictionary<string, List<IFilter>> KeyedFilters { get; } = new Dictionary<string, List<IFilter>>();
         public Dictionary<Definition, INode> Nodes { get; } = new Dictionary<Definition, INode>();
         public Dictionary<Definition, List<INode>> Dependendents { get; } = new Dictionary<Definition, List<INode>>();
         public List<IDependency> Dependencies { get; } = new List<IDependency>();

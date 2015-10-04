@@ -61,5 +61,10 @@
             var resolutionContext = All<T>(key).FirstOrDefault();
             return resolutionContext != null ? resolutionContext.Value : default(T);
         }
+
+        public void InvertFilter(string key)
+        {
+            store.InvertFilter(key);
+        }
     }
 }

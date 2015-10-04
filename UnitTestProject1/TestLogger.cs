@@ -8,9 +8,9 @@
     {
         public List<string> Logs { get; } = new List<string>();
 
-        public void LogNoItemsResolved(string entity, string filter)
+        public void LogNoItemsResolved(string entity, string filter, string key, bool inverted)
         {
-            var log = $"{entity}:\r\n{filter}";
+            var log = $"key: {key}\r\nentity: {entity}:\r\ninverter: {inverted}\r\n{filter}\r\n";
             Logs.Add(log);
             Console.Write(log);
         }

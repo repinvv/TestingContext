@@ -74,6 +74,45 @@
                             new Tax { Id = 3, Type = Local, Amount = 600 },
                             new Tax { Id = 4, Type = Federal, Amount = 800 }
                         }
+            },
+            new Policy
+            {
+                Id = 7,
+                Name = "matching policy for @breakOne3",
+                Created = new DateTime(2011, 1, 2),
+                Coverages = new List<Coverage>
+                            {
+                                new Coverage { Id = 8, Type = Dependent, HeadCount = 22 },
+                            },
+                Taxes = new List<Tax>()
+                        {
+                            new Tax { Id = 5, Type = Federal, Amount = 65 }
+                        }
+            },
+            new Policy
+            {
+                Id = 8,
+                Name = "matching policy for @breakOne2",
+                Created = new DateTime(2011, 1, 2),
+                Coverages = new List<Coverage>(),
+                Taxes = new List<Tax>()
+                        {
+                            new Tax { Id = 6, Type = Federal, Amount = 88 }
+                        }
+            },
+            new Policy
+            {
+                Id = 9,
+                Name = "matching policy for @breakOne1",
+                Created = new DateTime(2011, 1, 2),
+                Coverages = new List<Coverage>
+                            {
+                                new Coverage { Id = 9, Type = Dependent, HeadCount = 22 },
+                            },
+                Taxes = new List<Tax>()
+                        {
+                            new Tax { Id = 7, Type = Federal, Amount = 88 }
+                        }
             }
         };
     }

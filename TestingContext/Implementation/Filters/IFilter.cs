@@ -10,5 +10,7 @@
         Definition[] Definitions { get; }
 
         bool MeetsCondition(IResolutionContext context);
+
+        void Invert();
     }
 }

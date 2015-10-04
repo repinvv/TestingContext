@@ -20,7 +20,7 @@
             context.Register()
                    .DependsOn<Policy>(policyKey)
                    .Provide(taxKey, policy => policy.Taxes)
-                   .Exists();
+                   .Exists("TaxExists");
         }
     }
 }

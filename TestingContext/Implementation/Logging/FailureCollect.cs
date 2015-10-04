@@ -4,7 +4,7 @@ namespace TestingContextCore.Implementation.Logging
 {
     internal class FailureCollect
     {
-        private ContextStore store;
+        private readonly ContextStore store;
         private int[] currentWeight;
         private IFailure currentFailure;
         private Definition currentDefinition;
@@ -17,7 +17,7 @@ namespace TestingContextCore.Implementation.Logging
 
         public void LogFailure()
         {
-            store.Log.LogNoItemsResolved(currentDefinition.ToString(), currentFailure.FailureString);
+            store.Log.LogNoItemsResolved(currentDefinition.ToString(), currentFailure.FailureString, currentFailure.Key, currentFailure.Inverted);
         }
 
         public void ReportFailure(int[] failureWeight, IFailure faiure, Definition definition)

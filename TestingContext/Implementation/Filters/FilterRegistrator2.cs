@@ -19,9 +19,9 @@
             this.store = store;
         }
 
-        public void Filter(Expression<Func<T1, T2, bool>> filterFunc)
+        public void Filter(Expression<Func<T1, T2, bool>> filterFunc, string key = null)
         {
-            store.RegisterFilter(dependency1.DependsOn, new Filter2<T1, T2>(dependency1, dependency2, filterFunc));
+            store.RegisterFilter(dependency1.DependsOn, new Filter2<T1, T2>(dependency1, dependency2, filterFunc, key), key);
         }
     }
 }

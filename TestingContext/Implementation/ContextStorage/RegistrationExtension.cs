@@ -9,18 +9,12 @@
 
     internal static class RegistrationExtension
     {
-        public static void RegisterFilter(this ContextStore store, Definition definition, IFilter filter)
-        {
-            store.CheckResolutionStarted();
-            store.Filters.GetList(definition).Add(filter);
-        }
-
         public static void RegisterNode(this ContextStore store, Definition definition, INode node)
         {
             store.CheckResolutionStarted();
             if (store.Nodes.ContainsKey(definition))
             {
-                throw new SourceRegistrationException($"Source for {definition} already registered");
+                throw new RegistrationException($"Source for {definition} already registered");
             }
 
             store.Nodes.Add(definition, node);
@@ -37,13 +31,13 @@
             INode node;
             if (!store.Nodes.TryGetValue(definition, out node))
             {
-                throw new SourceRegistrationException($"Source for {definition} is not registered");
+                throw new RegistrationException($"Source for {definition} is not registered");
             }
 
             return node;
         }
 
-        private static void CheckResolutionStarted(this ContextStore store)
+        public static void CheckResolutionStarted(this ContextStore store)
         {
             if (store.ResolutionStarted)
             {

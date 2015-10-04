@@ -19,13 +19,15 @@
             this.store = store;
         }
 
-        public void Filter(Expression<Func<T1, bool>> filterFunc)
+        public void Filter(Expression<Func<T1, bool>> filterFunc, string key = null)
         {
-            store.RegisterFilter(dependency.DependsOn, new Filter1<T1>(dependency, filterFunc));
+            store.RegisterFilter(dependency.DependsOn, new Filter1<T1>(dependency, filterFunc, key), key);
         }
 
-        public void ThisFilter(Expression<Func<T1, bool>> filter)
-        { }
+        public void ThisFilter(Expression<Func<T1, bool>> filter, string key = null)
+        {
+            store.RegisterFilter(dependency.DependsOn, new ThisFilter<T1>(dependency, filter, key), key);
+        }
 
         public IWith<T1, T2> With<T2>(string key2) 
         {

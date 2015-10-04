@@ -57,7 +57,7 @@
     <Compile Include="Implementation\Exceptions\FilterRegistrationException.cs" />
     <Compile Include="Implementation\Exceptions\ResolutionException.cs" />
     <Compile Include="Implementation\Exceptions\ResolutionStartedException.cs" />
-    <Compile Include="Implementation\Exceptions\SourceRegistrationException.cs" />
+    <Compile Include="Implementation\Exceptions\RegistrationException.cs" />
     <Compile Include="Implementation\Filters\Filter2.cs" />
     <Compile Include="Implementation\Filters\FilterRegistrator1.cs" />
     <Compile Include="Implementation\Filters\Filter1.cs" />

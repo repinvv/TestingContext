@@ -1,8 +1,13 @@
 ﻿namespace UnitTestProject1.Definitions.Tax.Then
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using TechTalk.SpecFlow;
     using TestingContextCore;
+    using TestingContextCore.Interfaces;
     using UnitTestProject1.Entities;
 
     [Binding]
@@ -16,7 +21,7 @@
         }
 
         [Given(@"average payment per person in coverages(?:\s)?(.*), specified in taxes(?:\s)?(.*) is over (.*)\$")]
-        public void GivenAveragePaymentPerPersonInCoveragesBSpecifiedInTaxBIsOver(string coverageKey, string taxKey, int average)
+        public void GivenAveragePaymentPerPersonInCoveragesBSpecifiedInTaxIsOver(string coverageKey, string taxKey, int average)
         {
             context
                 .ForCollection<Coverage>(coverageKey)

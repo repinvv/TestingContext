@@ -54,6 +54,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Definitions\Common\ConditionIsBroken.cs" />
+    <Compile Include="Definitions\Coverage\CoverageHasCoveredCount.cs" />
     <Compile Include="Definitions\Coverage\CoveragesHaveCoveredPeople.cs" />
     <Compile Include="Definitions\Coverage\CoversLessPeopleThanMaximumDependendtsInPolicy.cs" />
     <Compile Include="Definitions\Coverage\Then\CoverageIdMustBe.cs" />
@@ -62,12 +64,13 @@
     <Compile Include="Definitions\Coverage\ForPolicyExistsACoverage.cs" />
     <Compile Include="Definitions\Policy\PolicyIsCreatedInYear.cs" />
     <Compile Include="Definitions\Policy\PolicyIsTakenFromPolicySource.cs" />
-    <Compile Include="Definitions\Common\LoggerProducesInfoForPolicyAndYear.cs" />
+    <Compile Include="Definitions\Common\Then\LoggerMustProduceInfoForPolicyAndYear.cs" />
     <Compile Include="Definitions\Policy\Then\PolicyMustExist.cs" />
     <Compile Include="Definitions\Policy\Then\PolicyMustHaveId.cs" />
     <Compile Include="Definitions\Policy\Then\PolicyNameMustContain.cs" />
     <Compile Include="Definitions\Policy\When\PolicyResolves.cs" />
     <Compile Include="Definitions\SetLogger.cs" />
+    <Compile Include="Definitions\Tax\TaxHasAmount.cs" />
     <Compile Include="Definitions\Tax\Then\AveragePayementInCoverageAndInTaxIsOver.cs" />
     <Compile Include="Definitions\Tax\ForPolicyExistsATax.cs" />
     <Compile Include="Definitions\Tax\TaxHasType.cs" />
@@ -76,6 +79,11 @@
     <Compile Include="Entities\Policy.cs" />
     <Compile Include="Entities\Tax.cs" />
     <Compile Include="Entities\TaxType.cs" />
+    <Compile Include="FeatureSpecs\BreakSomething.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BreakSomething.feature</DependentUpon>
+    </Compile>
     <Compile Include="FeatureSpecs\SimpleNotFoundLogging.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -97,6 +105,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="FeatureSpecs\BreakSomething.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>BreakSomething.feature.cs</LastGenOutput>
+    </None>
     <None Include="FeatureSpecs\SimpleNotFoundLogging.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SimpleNotFoundLogging.feature.cs</LastGenOutput>

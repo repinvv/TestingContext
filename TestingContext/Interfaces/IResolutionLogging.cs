@@ -2,6 +2,6 @@
 {
     public interface IResolutionLog
     {
-        void LogNoItemsResolved(string entity, string filter);
+        void LogNoItemsResolved(string entity, string filter, string key, bool inverted);
     }
 }

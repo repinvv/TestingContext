@@ -7,24 +7,19 @@
 
     public static class RegistrationExtension
     {
-        public static void ConditionedFilter<T>(this IFor<IEnumerable<IResolutionContext<T>>> filterRegister, Func<IEnumerable<T>, bool> filter)
+        public static void Each<T>(this IFor<IEnumerable<IResolutionContext<T>>> filterRegister, string key = null)
         {
-            filterRegister.ThisFilter(x => filter(x.Where(y => y.MeetsConditions).Select(y => y.Value)));
+            filterRegister.ThisFilter(x => x.All(y => y.MeetsConditions), key);
         }
 
-        public static void Each<T>(this IFor<IEnumerable<IResolutionContext<T>>> filterRegister)
+        public static void Exists<T>(this IFor<IEnumerable<IResolutionContext<T>>> filterRegister, string key = null)
         {
-            filterRegister.ThisFilter(x => x.All(y => y.MeetsConditions));
+            filterRegister.ThisFilter(x => x.Any(y => y.MeetsConditions), key);
         }
 
-        public static void Exists<T>(this IFor<IEnumerable<IResolutionContext<T>>> filterRegister)
+        public static void DoesNotExist<T>(this IFor<IEnumerable<IResolutionContext<T>>> filterRegister, string key = null)
         {
-            filterRegister.ThisFilter(x => x.Any(y => y.MeetsConditions));
-        }
-
-        public static void DoesNotExist<T>(this IFor<IEnumerable<IResolutionContext<T>>> filterRegister)
-        {
-            filterRegister.ThisFilter(x => !x.Any(y => y.MeetsConditions));
+            filterRegister.ThisFilter(x => !x.Any(y => y.MeetsConditions), key);
         }
     }
 }

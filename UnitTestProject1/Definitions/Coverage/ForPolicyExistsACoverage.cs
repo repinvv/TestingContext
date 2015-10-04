@@ -20,7 +20,7 @@
             context.Register()
                    .DependsOn<Policy>(policyKey)
                    .Provide(coverageKey, policy => policy.Coverages)
-                   .Exists();
+                   .Exists("CoverageExists");
         }
     }
 }

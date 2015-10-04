@@ -12,10 +12,11 @@
         private readonly Expression<Func<T1, bool>> filterExpression;
         private readonly Func<T1, bool> filterFunc;
 
-        public ThisFilter(IDependency<T1> dependency, Expression<Func<T1, bool>> filterExpression)
+        public ThisFilter(IDependency<T1> dependency, Expression<Func<T1, bool>> filterExpression, string key)
         {
             this.dependency = dependency;
             this.filterExpression = filterExpression;
+            this.Key = key;
             filterFunc = filterExpression.Compile();
             Definitions = new[] { dependency.DependsOn };
         }
@@ -25,9 +26,20 @@
 
         public bool MeetsCondition(IResolutionContext context)
         {
-            return filterFunc(dependency.GetThisValue(context));
+            return filterFunc(dependency.GetThisValue(context)) ^ Inverted;
         }
 
+        public void Invert()
+        {
+            Inverted = !Inverted;
+        }
+
+        #region IFailure members
         public string FailureString => ExpressionToCode.AnnotatedToCode(filterExpression);
+
+        public string Key { get; }
+
+        public bool Inverted { get; private set; }
+        #endregion
     }
 }
