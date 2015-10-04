@@ -31,9 +31,7 @@
         {
             var argument1 = dependency1.GetValue(context);
             T2 argument2;
-            if (!dependency2.TryGetValue(context, out argument2)) return false;
-            var result = filterFunc(argument1, argument2);
-            return result ^ Inverted;
+            return (dependency2.TryGetValue(context, out argument2) && filterFunc(argument1, argument2)) ^ Inverted;
         }
 
         public void Invert()
