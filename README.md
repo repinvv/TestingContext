@@ -173,7 +173,7 @@ Scenario: No tax with needed amount and type
     Given condition 'TaxExists' is broken
 ```
 To implement such a behavior, any filter can be registered in background with a key, and then "inverted" in specific scenario.
-So that for a happy path it will return "meets condition" true for a policy having a needed coverage(same for tax), and when you invert it, 
+So, for a happy path it will return "meets condition" = true for a policy having a needed coverage(same for tax), and when you invert it, 
 it will return true for policy that does not have one.
 
 # Logging a search failure
