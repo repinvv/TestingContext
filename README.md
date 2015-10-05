@@ -154,7 +154,7 @@ context
 # Logging a search failure
 Sometimes, when a lot of conditions specified, it is not that obvious why search does not yield any results. For that case there is an option to display the filter that invalidated the search last.
 I.e. if you have 3 filters, and first filter invalidates half the entities, second filter invalidates the other half, third filter will not even trigger, and there is a way to display information about that second filter.
-To do that, you have to implement IResolutionLog interface and assign the instance to ResolutionLog property of the context.
+To do that, you have to implement IResolutionLog interface and assign the instance to ResolutionLog property of the context prior to the search.
 
 # Installation
 Package is available on NuGet under the name TestingContext
