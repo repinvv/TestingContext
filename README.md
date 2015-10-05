@@ -153,13 +153,13 @@ context
 
 # Break something
 This testing technique has to be widely known, i am just do not have a correct name for it.
-Anyway, the technique is to prepare a "happy path" case, check that it works, and then break one thing at a time to check the bad cases.
+The technique is to prepare a "happy path" case, check that it works, and then break one thing at a time to check the bad cases.
 For example, for a happy path you can find and test the participant who has good password, email, access rights and so on.
-You make sure that page for that participant works all right. Then you might want to test that this page does not work if person is missing anything.
+You make sure that page for that participant works all right. Then you might want to test that this page displays a warning/error/whatever if person is missing anything.
 For one test you get that "good" participant and break his password, for another test you break his email and so on. 
-This does not test all the combinations of data, but i would not assume that page was designed specicically to cheat its way through "negative" tests.
+This does not test all the combinations of good and bad data, but i would not assume that page was designed specicically to cheat its way through "negative" tests.
 <br/>
-Anyway, here is the example that i created using my model
+Here is the example that i created using my model
 ```Cucumber
 Background: 
    Given policy B is taken from policiesSource
@@ -173,8 +173,8 @@ Scenario: No tax with needed amount and type
     Given condition 'TaxExists' is broken
 ```
 To implement such a behavior, any filter can be registered in background with a key, and then "inverted" in specific scenario.
-So that for a happy path it will return "meets condition" true for a policy having any coverage(same for tax), and when you invert it, 
-it will return true for policy that does not have any coverage.
+So that for a happy path it will return "meets condition" true for a policy having a needed coverage(same for tax), and when you invert it, 
+it will return true for policy that does not have one.
 
 # Logging a search failure
 Sometimes, when a lot of conditions specified, it is not that obvious why search does not yield any results. For that case there is an option to display the filter that invalidated the search last.
@@ -182,10 +182,10 @@ I.e. if you have 3 filters, and first filter invalidates half the entities, seco
 To do that, you have to implement IResolutionLog interface and assign the instance to ResolutionLog property of the context prior to the search.
 
 # Limitations
-1. Combined filter can only reference either singular parent in the same branch. Can not try to reference a collection of a parent type, because no collection is availabe in the chain.
-2. Combined filter can not reference a child.
-2. Circular dependencies are not allowed. If first branch references second branch, second branch is not allowed to reference the first branch
-Search tool will throw a ResolutionException in case it finds one of these violations.
+1. Combined filter can only reference either singular parent in the same branch or item/collection from the other branch. Can not try to reference a collection of a parent type, because no collection is availabe in the chain.
+2. Combined filter can not reference a child of the node the filter belongs to.
+2. Circular dependencies are not allowed. If first branch references second branch, second branch is not allowed to reference the first branch.
+<br/>Search tool will throw a ResolutionException in case it finds one of these violations.
 
 # Installation
 Package is available on NuGet under the name TestingContext
