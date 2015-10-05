@@ -182,7 +182,7 @@ I.e. if you have 3 filters, and first filter invalidates half the entities, seco
 To do that, you have to implement IResolutionLog interface and assign the instance to ResolutionLog property of the context prior to the search.
 
 # Limitations
-1. Combined filter can only reference either singular parent in the same branch or item/collection from the other branch. Can not try to reference a collection of a parent type, because no collection is availabe in the chain.
+1. Combined filter can only reference either singular parent in the same branch or item/collection from the other branch. Can not reference a collection of a parent type, because no collection is availabe in the chain.
 2. Combined filter can not reference a child of the node the filter belongs to.
 2. Circular dependencies are not allowed. If first branch references second branch, second branch is not allowed to reference the first branch.
 <br/>Search tool will throw a ResolutionException in case it finds one of these violations.
