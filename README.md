@@ -154,7 +154,7 @@ context
 # Break something
 This testing technique has to be widely known, i am just do not have a correct name for it.
 Anyway, the technique is to prepare a "happy path" case, check that it works, and then break one thing at a time to check the bad cases.
-For example, for a happy path you can find and test the participant who has good password, email, accecc rights and so on.
+For example, for a happy path you can find and test the participant who has good password, email, access rights and so on.
 You make sure that page for that participant works all right. Then you might want to test that this page does not work if person is missing anything.
 For one test you get that "good" participant and break his password, for another test you break his email and so on. 
 This does not test all the combinations of data, but i would not assume that page was designed specicically to cheat its way through "negative" tests.
