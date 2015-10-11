@@ -179,7 +179,7 @@ it evaluates to true for a policy that does not have one.
 # Logging a search failure
 Sometimes, when many conditions are specified, it is not that obvious why the search does not yield any results. For that case there is an option to display the filter which invalidated the search last.
 I.e. if you have 3 filters, and the first filter invalidates half the entities, the second filter invalidates the other half, then the third filter will not even be evaluated. In this case, there is a way to display information about that second filter.
-To do that, you have to implement IResolutionLog interface and assign the instance to ResolutionLog property of the context prior to the search.
+To do that, you have to subscribe to OnSearchFailure event.
 
 # Limitations
 1. Combined filter can only reference either a singular parent in the same branch or an item/collection from the other branch. It can't reference a collection of a parent type, because no collection is availabe in the chain.

@@ -17,7 +17,7 @@ namespace TestingContextCore.Implementation.Logging
 
         public void LogFailure()
         {
-            store.Log.LogNoItemsResolved(currentDefinition.ToString(), currentFailure.FailureString, currentFailure.Key, currentFailure.Inverted);
+            store.SearchFailure(currentDefinition.ToString(), currentFailure.FailureString, currentFailure.Key, currentFailure.Inverted);
         }
 
         public void ReportFailure(int[] failureWeight, IFailure faiure, Definition definition)

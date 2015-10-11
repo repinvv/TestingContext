@@ -18,7 +18,7 @@
         [BeforeScenario]
         public void SetLogger()
         {
-            context.ResolutionLog = logger;
+            context.OnSearchFailure += logger.OnSearchFailure;
         }
     }
 }

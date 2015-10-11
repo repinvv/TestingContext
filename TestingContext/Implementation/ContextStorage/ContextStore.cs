@@ -4,7 +4,6 @@
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
-    using TestingContextCore.Interfaces;
 
     internal class ContextStore
     {
@@ -15,7 +14,7 @@
             this.RegisterNode(RootDefinition, RootNode);
         }
 
-        public IResolutionLog Log { get; set; }
+        public event SearchFailureEventHandler OnSearchFailure;
         public Definition LastRegistered { get; set; }
         public Definition RootDefinition { get; }
         public INode RootNode { get; }
@@ -27,5 +26,10 @@
         public Dictionary<Definition, List<INode>> Dependendents { get; } = new Dictionary<Definition, List<INode>>();
         public List<IDependency> Dependencies { get; } = new List<IDependency>();
         public HashSet<Swap> Swaps { get; } = new HashSet<Swap>();
+
+        public void SearchFailure(string entity, string filter, string key, bool inverted)
+        {
+            OnSearchFailure?.Invoke(this, new SearchFailureEventArgs { Entity = entity, FilterKey = key, FilterText = filter, Inverted = inverted });
+        }
     }
 }

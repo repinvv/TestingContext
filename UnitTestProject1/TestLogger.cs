@@ -2,15 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
-    using TestingContextCore.Interfaces;
+    using TestingContextCore;
 
-    internal class TestLogger : IResolutionLog
+    internal class TestLogger
     {
         public List<string> Logs { get; } = new List<string>();
 
-        public void LogNoItemsResolved(string entity, string filter, string key, bool inverted)
+        public void OnSearchFailure(object sender, SearchFailureEventArgs e)
         {
-            var log = $"key: {key}\r\nentity: {entity}:\r\ninverter: {inverted}\r\n{filter}\r\n";
+            var log = $"key: {e.FilterKey}\r\nentity: {e.Entity}:\r\ninverter: {e.Inverted}\r\n{e.FilterText}\r\n";
             Logs.Add(log);
             Console.Write(log);
         }
