@@ -1,5 +1,6 @@
 ﻿namespace TestingContextCore
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.ContextStorage;
@@ -18,10 +19,16 @@
         public TestingContext()
         {
             var rootDefinition = Define<TestingContext>(string.Empty);
-            store = new ContextStore(rootDefinition) { Log = new EmptyLog() };
+            store = new ContextStore(rootDefinition);
+            store.OnSearchFailure += SearchFailure;
         }
 
-        public IResolutionLog ResolutionLog { set { store.Log = value; } }
+        private void SearchFailure(object sender, SearchFailureEventArgs e)
+        {
+            OnSearchFailure?.Invoke(this, e);
+        }
+
+        public event SearchFailureEventHandler OnSearchFailure;
 
         public IFor<T> For<T>(string key)
         {
