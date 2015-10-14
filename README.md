@@ -1,12 +1,12 @@
 # TestingContext
-A tool for advanced data search, designed for use with SpecFlow.
+A tool for advanced data search, designed to be used with SpecFlow.
 
 # Historical reasons
 <h3>Classic approach</h3>
 Most of the time, when you test something, it makes sense to create test data for your testcase. Here is the example of how it usually works. You write a SpecFlow scenario like this
 ```Cucumber
-Given that I have a insurance created in year 2006
-  And insurance has a assignment with type 'Dependent' and over 70 people covered
+Given that I have an insurance created in year 2006
+  And insurance has an assignment with type 'Dependent' and over 70 people covered
 ```
 Behind these steps you create definitions with code like this
 ```C#
@@ -18,7 +18,7 @@ Anyway, sometimes, it happens so that you need to test an application, a web por
 
 <h3>Alternative</h3>
 Another approach can be taken to test an application like that. For obvious reasons, it will  not work at first if you develop the application from the ground up, for obvious reasons, but it fits perfectly if you already have a lot of functionality, and you are adding new, or modifying existing features. The approach is to use existing test data, selected using specified predicates. It can be a test database, or a set of 'mock' files, containing the data.
-So, to test the feature, you still need a insurance created in 2006 that has 70 dependents covered, but you will not create a new insurance object, instead of this you choose one from the policies that you already have in the database. Any of these policies might contain a lot of other different data, such as taxes, annual premiums, renewal proposals and so on, the model in our application was using over 20 db tables. To demonstrate the concept, I use a very simplified model which does not have all extra child entities. Let's just say each insurance has a lot of data that you don't need to create, check, or even be aware of its existence, because it is not needed for the test at hand.
+So, to test the feature, you still need an insurance created in 2006 that has 70 dependents covered, but you will not create a new insurance object, instead of this you choose one from the policies that you already have in the database. Any of these policies might contain a lot of other different data, such as taxes, annual premiums, renewal proposals and so on, the model in our application was using over 20 db tables. To demonstrate the concept, I use a very simplified model which does not have all extra child entities. Let's just say each insurance has a lot of data that you don't need to create, check, or even be aware of its existence, because it is not needed for the test at hand.
 The C# step definitions gets changed as follows
 ```C#
 policies = policies.Where(x => x.Created.Year == year);
@@ -28,14 +28,14 @@ Of course you will need to define policies source first, in the pre-scenario hoo
 After these steps, you create a step that opens up a portal with the insurance ID parameter in HTTP request line, with the ID taken from the first insurance in policies enumerable. And then test what you intended to in subsequent steps.
 
 # Advanced search
-So you found the insurance that you need, now you are testing the UI. You checked that the insurance name is displayed in some section on the UI, now you need to check that appropriate UI section displays that seventy-something number of dependents. And there you hit a problem. You have a reference to a insurance, but how would you know which of, let's say, five assignment lines did trigger the predicate for the insurance? Which assignment would you take to compare its headcount to the number displayed on UI? 
+So you found the insurance that you need, now you are testing the UI. You checked that the insurance name is displayed in some section on the UI, now you need to check that appropriate UI section displays that seventy-something number of dependents. And there you hit a problem. You have a reference to an insurance, but how would you know which of, let's say, five assignment lines did trigger the predicate for the insurance? Which assignment would you take to compare its headcount to the number displayed on UI? 
 You can specify the assignment condition in the separate predicate, placed in "Then" scenario step but that leads to duplication. So we needed the tool to help avoid such duplication.
 The tool allowing to specify assignment condition without mentioning insurance in it. Allowing to retrieve both insurance and assignment, given that each condition is present in one predicate only. And any other entity in the model tree if we want to specify more than two entities.
 Another benefit given by this search engine is that it will also allows splitting two conditions we have for assignment into two separate predicates and put them int two separate step definitions.
 ```Cucumber
 Given insurance A is taken from policiesSource   #1
   And insurance A is created in year 2007        #2
-  And for insurance A exists a assignment A        #3
+  And for insurance A exists an assignment A        #3
   And assignment A has type 'Dependent'         #4
   And assignment A has over 70 people covered   #5
 ```
@@ -68,7 +68,7 @@ var assignments = context.All<Assignment>(assignmentKey);
 ```
 The first line will return the first insurance that meets all the conditions. I.e. insurance created in 2007, that has a Dependent assignment with over 70 people covered. All the filters are combined using "AND" logic, the same as SpecFlow/Cucumber syntax tells us.
 The second line will return all the policies that meet these conditions.
-The third line returns all the assignments that have 'Dependent' type and over 70 people covered in all the policies that match the condition. I.e. result will not contain such a assignment that was inside the insurance created in some other year.
+The third line returns all the assignments that have 'Dependent' type and over 70 people covered in all the policies that match the condition. I.e. result will not contain such an assignment that was inside the insurance created in some other year.
 Note that "All" method returns IEnumerable\<IResolutionContext\<Insurance\>\> and not IEnumerable\<Insurance\>. So, to get the latter, you need to do a Select of Value.
 IResolutionContext will allow to get needed assignments of a specific insurance, using the following syntax
 ```C#
@@ -80,7 +80,7 @@ var firstInsuranceAssignments = policies.First().Get<Assignment>(assignmentKey);
 For some cases you will need to compare the fields of 2 entities. Here is the example:
 ```Cucumber
 Given insurance A is taken from policiesSource
-  And for insurance A exists a assignment A
+  And for insurance A exists an assignment A
   And assignment A has type 'Dependent' 
   And assignment A covers less people than maximum dependendts specified in insurance A
 ```
@@ -103,13 +103,13 @@ context.Register()
     .Provide<Assignment>(assignmentKey, insurance => insurance.Assignments)
     .Exists();
 ```
-"Exists" filter means that a insurance meets the condition if there is at least one assignment that meets all the conditions specified. There are also "DoesNotExist" and "Each" collection filters, with corresponding functions.
+"Exists" filter means that an insurance meets the condition if there is at least one assignment that meets all the conditions specified. There are also "DoesNotExist" and "Each" collection filters, with corresponding functions.
 Also, there is a possibility to define custom collection filter. For example
 ```C#
 context.ForCollection<Assignment>(key)
        .Filter(assignments => assignments.Sum(x => x.Value.HeadCount) > 0);
 ```
-This filter means that a insurance meets the conditions if total headcount of assignments(with each of them meeting their own conditions), is positive number. Insurance is not mentioned here, but it is implied as previously assignment was registered to depend on it, so this child condition affects the current insurance as well.
+This filter means that an insurance meets the conditions if total headcount of assignments(with each of them meeting their own conditions), is positive number. Insurance is not mentioned here, but it is implied as previously assignment was registered to depend on it, so this child condition affects the current insurance as well.
 
 # Branches
 With 2 entities on hand, it is pretty much obvious what the resolved structure is - there is a collection of items, each containing one insurance, and a child collection of items each containing one assignment.
@@ -163,7 +163,7 @@ Here is the example that I created using my model:
 ```Cucumber
 Background: 
    Given insurance B is taken from policiesSource
-	  And for insurance B exists a assignment B
+	  And for insurance B exists an assignment B
 	  And for insurance B exists a tax B
 
 Scenario: No assignment with needed count and type
@@ -173,8 +173,8 @@ Scenario: No tax with needed amount and type
     Given condition 'TaxExists' is broken
 ```
 To implement such a behavior, any filter can be registered in the "Background" section with a key, and then "inverted" in the specific scenario.
-So, for a happy path the filter evaluates to true for a insurance having a needed assignment(same for tax), and when you invert it, 
-it evaluates to true for a insurance that does not have one.
+So, for a happy path the filter evaluates to true for an insurance having a needed assignment(same for tax), and when you invert it, 
+it evaluates to true for an insurance that does not have one.
 
 # Logging a search failure
 Sometimes, when many conditions are specified, it is not that obvious why the search does not yield any results. For that case there is an option to display the filter which invalidated the search last.
