@@ -1,6 +1,6 @@
 ﻿namespace UnitTestProject1.Entities
 {
-    public enum CoverageType
+    public enum AssignmentType
     {
         Undefined = 0,
         Employee = 1,

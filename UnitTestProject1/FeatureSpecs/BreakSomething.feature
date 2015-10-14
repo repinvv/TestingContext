@@ -4,27 +4,27 @@
 	I want to be able to define filters first, then invert them afterwards
 
 Background: 
-   Given policy B is taken from policiesSource
-	  And policy B is created in year 2011 
-	  #CoverageExists
-	  And for policy B exists a coverage B	 
-	  And coverage B has type 'Dependent'
-	  And coverage B has at least 20 people covered
+   Given insurance B is taken from policiesSource
+	  And insurance B is created in year 2011 
+	  #AssignmentExists
+	  And for insurance B exists an assignment B	 
+	  And assignment B has type 'Dependent'
+	  And assignment B has at least 20 people covered
 	  #TaxExists 
-	  And for policy B exists a tax B	 
+	  And for insurance B exists a tax B	 
 	  And tax B has type 'Federal'
 	  And tax B amounts to at least 70$
 
 @breakOne1
 Scenario: Happy path before breaking something
-	Then policy B name must contain '@breakOne1'
+	Then insurance B name must contain '@breakOne1'
 
 @breakOne2
-Scenario: No coverage with needed count and type
-    Given condition 'CoverageExists' is broken
-	Then policy B name must contain '@breakOne2'
+Scenario: No assignment with needed count and type
+    Given condition 'AssignmentExists' is broken
+	Then insurance B name must contain '@breakOne2'
 
 @breakOne3
 Scenario: No tax with needed amount and type
     Given condition 'TaxExists' is broken
-	Then policy B name must contain '@breakOne3'
+	Then insurance B name must contain '@breakOne3'

@@ -31,8 +31,8 @@ namespace UnitTestProject1.FeatureSpecs
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BreakSomething", "In order to employ advanced testing technique\nAs a test writer\nI want to be able " +
-                    "to define filters first, then invert them afterwards", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BreakSomething", "In order to employ advanced testing technique\r\nAs a test writer\r\nI want to be abl" +
+                    "e to define filters first, then invert them afterwards", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -73,17 +73,17 @@ namespace UnitTestProject1.FeatureSpecs
         {
 #line 6
 #line 7
-   testRunner.Given("policy B is taken from policiesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+   testRunner.Given("insurance B is taken from policiesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
-   testRunner.And("policy B is created in year 2011", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("insurance B is created in year 2011", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10
-   testRunner.And("for policy B exists a coverage B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("for insurance B exists an assignment B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
-   testRunner.And("coverage B has type \'Dependent\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("assignment B has type \'Dependent\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 12
-   testRunner.And("coverage B has at least 20 people covered", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("assignment B has at least 20 people covered", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 14
-   testRunner.And("for policy B exists a tax B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("for insurance B exists a tax B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 15
    testRunner.And("tax B has type \'Federal\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 16
@@ -104,27 +104,27 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line 20
- testRunner.Then("policy B name must contain \'@breakOne1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("insurance B name must contain \'@breakOne1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("No coverage with needed count and type")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("No assignment with needed count and type")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BreakSomething")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("breakOne2")]
-        public virtual void NoCoverageWithNeededCountAndType()
+        public virtual void NoAssignmentWithNeededCountAndType()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("No coverage with needed count and type", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("No assignment with needed count and type", new string[] {
                         "breakOne2"});
 #line 23
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line 24
-    testRunner.Given("condition \'CoverageExists\' is broken", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+    testRunner.Given("condition \'AssignmentExists\' is broken", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 25
- testRunner.Then("policy B name must contain \'@breakOne2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("insurance B name must contain \'@breakOne2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -144,7 +144,7 @@ this.FeatureBackground();
 #line 29
     testRunner.Given("condition \'TaxExists\' is broken", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 30
- testRunner.Then("policy B name must contain \'@breakOne3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("insurance B name must contain \'@breakOne3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

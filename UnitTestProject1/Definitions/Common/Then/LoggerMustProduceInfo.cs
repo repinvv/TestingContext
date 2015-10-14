@@ -4,11 +4,11 @@
     using TechTalk.SpecFlow;
 
     [Binding]
-    internal class LoggerMustProduceInfoForPolicyAndYear
+    internal class LoggerMustProduceInfo
     {
         private readonly TestLogger logger;
 
-        public LoggerMustProduceInfoForPolicyAndYear(TestLogger logger)
+        public LoggerMustProduceInfo(TestLogger logger)
         {
             this.logger = logger;
         }

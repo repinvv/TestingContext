@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    public class Policy
+    public class Insurance
     {
         public int Id { get; set; }
         
@@ -13,7 +13,7 @@
 
         public DateTime Created { get; set; }
 
-        public List<Coverage> Coverages { get; set; } 
+        public List<Assignment> Assignments { get; set; } 
 
         public List<Tax> Taxes { get; set; }
     }
