@@ -1,11 +1,9 @@
 ﻿namespace TestingContextCore
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Filters;
-    using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Interfaces;
@@ -44,7 +42,7 @@
             return new FilterRegistrator1<IEnumerable<IResolutionContext<T>>>(dependency, store);
         }
 
-        public IRegistration<TestingContext> Register()
+        public IFor<TestingContext> Register()
         {
             return new Registration<TestingContext>(store.RootDefinition, store.LastRegistered, store);
         }

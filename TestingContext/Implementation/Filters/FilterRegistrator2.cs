@@ -6,7 +6,7 @@
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Interfaces;
 
-    internal class FilterRegistrator2<T1, T2> : IWith<T1, T2>
+    internal class FilterRegistrator2<T1, T2> : IFor<T1, T2>
     {
         private readonly IDependency<T1> dependency1;
         private readonly ContextStore store;

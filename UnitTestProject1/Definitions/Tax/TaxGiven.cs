@@ -1,6 +1,5 @@
 ﻿namespace UnitTestProject1.Definitions.Tax
 {
-    using System.Linq;
     using TechTalk.SpecFlow;
     using TestingContextCore;
     using UnitTestProject1.Entities;
@@ -28,7 +27,7 @@
         public void GivenTaxAmountsToAtLeast(string key, int amount)
         {
             context.For<Tax>(key)
-                   .Filter(tax => tax.Amount >= amount);
+                   .IsTrue(tax => tax.Amount >= amount);
         }
 
         [Given(@"tax(?:\s)?(.*) has type '(.*)'")]
@@ -36,7 +35,7 @@
         {
             context
                 .For<Tax>(key)
-                .Filter(tax => tax.Type == type);
+                .IsTrue(tax => tax.Type == type);
         }
 
         [Given(@"average payment per person in coverages(?:\s)?(.*), specified in taxes(?:\s)?(.*) is over (.*)\$")]

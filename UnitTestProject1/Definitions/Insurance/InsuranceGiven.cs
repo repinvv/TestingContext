@@ -2,6 +2,7 @@
 {
     using TechTalk.SpecFlow;
     using TestingContextCore;
+    using UnitTestProject1.Entities;
     using UnitTestProject1.TestSource;
 
     [Binding]
@@ -17,7 +18,7 @@
         [Given(@"insurance(?:\s)?(.*) is created in year (.*)")]
         public void GivenInsuranceIsCreatedInYear(string key, int year)
         {
-            context.For<Entities.Insurance>(key).Filter(insurance => insurance.Created.Year == year);
+            context.For<Insurance>(key).IsTrue(insurance => insurance.Created.Year == year);
         }
 
         [Given(@"insurance(?:\s)?(.*) is taken from policiesSource")]

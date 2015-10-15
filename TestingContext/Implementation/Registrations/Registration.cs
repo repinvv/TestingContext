@@ -9,7 +9,7 @@
     using TestingContextCore.Interfaces;
     using static Definition;
 
-    internal class Registration <TSource> : IRegistration<TSource>
+    internal class Registration <TSource> : IFor<TSource>, IForAll<TSource>
     {
         private readonly ContextStore store;
         private readonly Definition sourceDef;

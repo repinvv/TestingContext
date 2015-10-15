@@ -19,20 +19,20 @@
         public void GivenAssignmentHasAtLeastPeopleCovered(string key, int headCount)
         {
             context.For<Assignment>(key)
-                .Filter(assignment => assignment.HeadCount >= headCount);
+                .IsTrue(assignment => assignment.HeadCount >= headCount);
         }
 
         [Given(@"assignment(?:\s)?(.*) has type '(.*)'")]
         public void GivenAssignmentHasType(string key, AssignmentType type)
         {
-            context.For<Assignment>(key).Filter(assignment => assignment.Type == type);
+            context.For<Assignment>(key).IsTrue(assignment => assignment.Type == type);
         }
 
         [Given(@"coverages(?:\s)?(.*) have covered people")]
         public void GivenAssignmentsHaveCoveredPeople(string key)
         {
             context.ForCollection<Assignment>(key)
-                   .Filter(coverages => coverages.Sum(x => x.Value.HeadCount) > 0);
+                   .IsTrue(coverages => coverages.Sum(x => x.Value.HeadCount) > 0);
         }
 
         [Given(@"assignment(?:\s)?(.*) covers less people than maximum dependendts specified in insurance(?:\s)?(.*)")]

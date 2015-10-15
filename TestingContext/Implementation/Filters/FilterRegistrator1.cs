@@ -19,7 +19,7 @@
             this.store = store;
         }
 
-        public void Filter(Expression<Func<T1, bool>> filterFunc, string key = null)
+        public void IsTrue(Expression<Func<T1, bool>> filterFunc, string key = null)
         {
             store.RegisterFilter(dependency.DependsOn, new Filter1<T1>(dependency, filterFunc, key), key);
         }
@@ -29,13 +29,13 @@
             store.RegisterFilter(dependency.DependsOn, new ThisFilter<T1>(dependency, filter, key), key);
         }
 
-        public IWith<T1, T2> With<T2>(string key2) 
+        public IFor<T1, T2> With<T2>(string key2) 
         {
             var dependency2 = store.Depend<T2>(dependency.DependsOn, Define<T2>(key2));
             return new FilterRegistrator2<T1, T2>(dependency, dependency2, store);
         }
 
-        public IWith<T1, IEnumerable<IResolutionContext<T2>>> WithCollection<T2>(string key2)
+        public IFor<T1, IEnumerable<IResolutionContext<T2>>> WithCollection<T2>(string key2)
         {
             var dependency2 = store.CollectionDepend<T2>(dependency.DependsOn, Define<T2>(key2));
             return new FilterRegistrator2<T1, IEnumerable<IResolutionContext<T2>>>(dependency, dependency2, store);

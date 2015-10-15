@@ -4,19 +4,46 @@
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
-    public interface IFor<T1>
+    public interface IProvide<T1>
     {
-        void Filter(Expression<Func<T1, bool>> filter, string key = null);
+        void Exists<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc);
 
-        void ThisFilter(Expression<Func<T1, bool>> filter, string key = null);
+        void Exists<T2>(string key, Func<T1, T2> srcFunc);
 
-        IWith<T1, T2> With<T2>(string key);
+        void DoesNotExist<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc);
 
-        IWith<T1, IEnumerable<IResolutionContext<T2>>> WithCollection<T2>(string key);
+        void DoesNotExist<T2>(string key, Func<T1, T2> srcFunc);
+
+        void Each<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc);
     }
 
-    public interface IWith<T1, T2>
+    public interface IForRoot : IProvide<TestingContext>
     {
-        void Filter(Expression<Func<T1, T2, bool>> filter, string key = null);
+        IFor<T1> For<T1>(string key);
+
+        IForAll<T1> ForAll<T1>(string key);
+    }
+
+    public interface IForAll<T1>
+    {
+        void IsTrue(Expression<Func<IEnumerable<T1>, bool>> filter, string key = null);
+
+        IFor<IEnumerable<T1>, T2> With<T2>(string key);
+
+        IFor<IEnumerable<T1>, IEnumerable<T2>> ForAll<T2>(string key);
+    }
+
+    public interface IFor<T1> : IProvide<T1>
+    {
+        void IsTrue(Expression<Func<T1, bool>> filter, string key = null);
+
+        IFor<T1, T2> With<T2>(string key);
+
+        IFor<T1, IEnumerable<T2>> ForAll<T2>(string key);
+    }
+
+    public interface IFor<T1, T2>
+    {
+        void IsTrue(Expression<Func<T1, T2, bool>> filter, string key = null);
     }
 }
