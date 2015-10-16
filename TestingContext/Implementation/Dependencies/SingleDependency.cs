@@ -7,7 +7,6 @@
     internal class SingleDependency<TSource> : IDependency<TSource>
     {
         private readonly Definition definition;
-        private Definition closestParent;
 
         public SingleDependency(Definition definition, Definition dependency)
         {
@@ -21,11 +20,6 @@
             return resolved != null ? resolved.Value : default(TSource);
         }
 
-        public TSource GetThisValue(IResolutionContext context)
-        {
-            return GetValue(context);
-        }
-
         public bool TryGetValue(IResolutionContext context, out TSource value)
         {
             var resolved = context.ResolveSingle(DependsOn, closestParent) as IResolutionContext<TSource>;
@@ -37,18 +31,6 @@
 
             value = resolved.Value;
             return true;
-        }
-
-        public void Validate(ContextStore store)
-        {
-            var node = store.GetNode(definition);
-            var dependNode = store.GetNode(DependsOn);
-            if (node.IsChildOf(dependNode))
-            {
-                return;
-            }
-
-            closestParent = store.ValidateDependency(node, dependNode);
         }
 
         public Definition DependsOn { get; }

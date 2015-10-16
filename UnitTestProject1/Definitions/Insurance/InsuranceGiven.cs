@@ -24,9 +24,8 @@
         [Given(@"insurance(?:\s)?(.*) is taken from policiesSource")]
         public void GivenInsuranceIsTakenFromPoliciesSource(string key)
         {
-            context
-                .Register()
-                .Provide(key, x => PoliciesSource.Insurances);
+            context.Register()
+                .Items(key, () => PoliciesSource.Insurances);
         }
     }
 }

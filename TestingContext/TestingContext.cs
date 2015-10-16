@@ -28,28 +28,9 @@
 
         public event SearchFailureEventHandler OnSearchFailure;
 
-        public IFor<T> For<T>(string key)
-        {
-            var definition = Define<T>(key);
-            var dependency = store.Depend<T>(definition, definition);
-            return new FilterRegistrator1<T>(dependency, store);
-        }
-
-        public IFor<IEnumerable<IResolutionContext<T>>> ForCollection<T>(string key)
-        {
-            var definition = Define<T>(key);
-            var dependency = store.CollectionDepend<T>(definition, definition);
-            return new FilterRegistrator1<IEnumerable<IResolutionContext<T>>>(dependency, store);
-        }
-
-        public IFor<TestingContext> Register()
+        public IForRoot Register()
         {
             return new Registration<TestingContext>(store.RootDefinition, store.LastRegistered, store);
-        }
-
-        public IRegistration<TestingContext> RootRegister()
-        {
-            return new Registration<TestingContext>(store.RootDefinition, store.RootDefinition, store);
         }
 
         public IEnumerable<IResolutionContext<T>> All<T>(string key, bool selectMany = false)

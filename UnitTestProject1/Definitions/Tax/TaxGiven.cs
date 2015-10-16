@@ -1,5 +1,6 @@
 ﻿namespace UnitTestProject1.Definitions.Tax
 {
+    using System.Linq;
     using TechTalk.SpecFlow;
     using TestingContextCore;
     using UnitTestProject1.Entities;
@@ -18,15 +19,15 @@
         public void GivenForInsuranceExistsATax(string insuranceKey, string taxKey)
         {
             context.Register()
-                   .DependsOn<Insurance>(insuranceKey)
-                   .Provide(taxKey, insurance => insurance.Taxes)
-                   .Exists("TaxExists");
+                   .For<Insurance>(insuranceKey)
+                   .Exists(taxKey, insurance => insurance.Taxes);
         }
 
         [Given(@"tax(?:\s)?(.*) amounts to at least (.*)\$")]
         public void GivenTaxAmountsToAtLeast(string key, int amount)
         {
-            context.For<Tax>(key)
+            context.Register()
+                   .For<Tax>(key)
                    .IsTrue(tax => tax.Amount >= amount);
         }
 
@@ -34,6 +35,7 @@
         public void GivenTaxBHasType(string key, TaxType type)
         {
             context
+                .Register()
                 .For<Tax>(key)
                 .IsTrue(tax => tax.Type == type);
         }
@@ -42,9 +44,10 @@
         public void GivenAveragePaymentPerPersonInAssignmentsBSpecifiedInTaxIsOver(string assignmentKey, string taxKey, int average)
         {
             context
-                .ForCollection<Assignment>(assignmentKey)
-                .WithCollection<Tax>(taxKey)
-                .Filter((coverages, taxes) => taxes.Sum(x => x.Value.Amount) / coverages.Sum(x => x.Value.HeadCount) > average);
+                .Register()
+                .ForAll<Assignment>(assignmentKey)
+                .ForAll<Tax>(taxKey)
+                .IsTrue((coverages, taxes) => taxes.Sum(x => x.Amount) / coverages.Sum(x => x.HeadCount) > average);
         }
     }
 }

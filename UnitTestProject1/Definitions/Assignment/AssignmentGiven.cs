@@ -40,17 +40,16 @@
         {
             context
                 .For<Assignment>(assignmentKey)
-                .With<Insurance>(insuranceKey)
-                .Filter((assignment, insurance) => assignment.HeadCount < insurance.MaximumDependents);
+                .For<Insurance>(insuranceKey)
+                .IsTrue((assignment, insurance) => assignment.HeadCount < insurance.MaximumDependents);
         }
 
         [Given(@"for insurance(?:\s)?(.*) exists an assignment(?:\s)?(.*)")]
         public void GivenForInsuranceExistsAAssignment(string insuranceKey, string assignmentKey)
         {
             context.Register()
-                   .DependsOn<Insurance>(insuranceKey)
-                   .Provide(assignmentKey, insurance => insurance.Assignments)
-                   .Exists("AssignmentExists");
+                   .For<Insurance>(insuranceKey)
+                   .Exists(assignmentKey, insurance => insurance.Assignments);
         }
     }
 }
