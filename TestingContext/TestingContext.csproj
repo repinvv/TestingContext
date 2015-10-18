@@ -54,7 +54,6 @@
     <Compile Include="Implementation\Dependencies\CollectionDependency.cs" />
     <Compile Include="Implementation\Dependencies\IDependency.cs" />
     <Compile Include="Implementation\Dependencies\SingleDependency.cs" />
-    <Compile Include="Implementation\Exceptions\FilterRegistrationException.cs" />
     <Compile Include="Implementation\Exceptions\ResolutionException.cs" />
     <Compile Include="Implementation\Exceptions\ResolutionStartedException.cs" />
     <Compile Include="Implementation\Exceptions\RegistrationException.cs" />
