@@ -45,11 +45,7 @@
   <ItemGroup>
     <Compile Include="CachingEnumerableExtension.cs" />
     <Compile Include="DictionaryExtension.cs" />
-    <Compile Include="Implementation\ContextStorage\DependencyFactory.cs" />
-    <Compile Include="Implementation\ContextStorage\FiltersExtension.cs" />
-    <Compile Include="Implementation\ContextStorage\RegistrationExtension.cs" />
     <Compile Include="Implementation\ContextStorage\Swap.cs" />
-    <Compile Include="Implementation\ContextStorage\ValidationExtension.cs" />
     <Compile Include="Implementation\Definition.cs" />
     <Compile Include="Implementation\Dependencies\CollectionDependency.cs" />
     <Compile Include="Implementation\Dependencies\IDependency.cs" />
