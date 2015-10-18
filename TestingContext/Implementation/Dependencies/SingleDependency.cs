@@ -6,12 +6,9 @@
 
     internal class SingleDependency<TSource> : IDependency<TSource>
     {
-        private readonly Definition definition;
-
-        public SingleDependency(Definition definition, Definition dependency)
+        public SingleDependency(Definition definition)
         {
-            this.definition = definition;
-            DependsOn = dependency;
+            DependsOn = definition;
         }
 
         public TSource GetValue(IResolutionContext context)

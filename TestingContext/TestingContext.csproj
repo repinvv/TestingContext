@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="CachingEnumerableExtension.cs" />
     <Compile Include="DictionaryExtension.cs" />
+    <Compile Include="Implementation\ContextStorage\RegistrationExtension.cs" />
     <Compile Include="Implementation\ContextStorage\Swap.cs" />
     <Compile Include="Implementation\Definition.cs" />
     <Compile Include="Implementation\Dependencies\CollectionDependency.cs" />
@@ -58,21 +59,14 @@
     <Compile Include="Implementation\Filters\Filter1.cs" />
     <Compile Include="Implementation\Filters\ThisFilter.cs" />
     <Compile Include="Implementation\Logging\ArrayExtension.cs" />
-    <Compile Include="Implementation\Logging\EmptyLog.cs" />
-    <Compile Include="Implementation\Logging\ExistsConditionFailure.cs" />
     <Compile Include="Implementation\Logging\FailureCollect.cs" />
     <Compile Include="Implementation\Logging\IFailure.cs" />
     <Compile Include="Implementation\Logging\IFailureReporter.cs" />
     <Compile Include="Implementation\Logging\LoggingExtension.cs" />
-    <Compile Include="Implementation\Providers\ProviderDetails.cs" />
     <Compile Include="Implementation\Registrations\ProviderCreator.cs" />
     <Compile Include="Implementation\ResolutionContext\IResolutionContext.cs" />
     <Compile Include="Implementation\Filters\IFilter.cs" />
-    <Compile Include="Implementation\Nodes\Node.cs" />
-    <Compile Include="Implementation\Nodes\INode.cs" />
-    <Compile Include="Implementation\Nodes\RootNode.cs" />
     <Compile Include="Implementation\ContextStorage\ContextStore.cs" />
-    <Compile Include="Implementation\Registrations\Registration.cs" />
     <Compile Include="Implementation\Filters\FilterRegistrator2.cs" />
     <Compile Include="Implementation\ResolutionContext\RootResolutionContext.cs" />
     <Compile Include="Implementation\Resolution\EmptyResolution.cs" />

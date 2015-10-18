@@ -9,6 +9,7 @@
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.ResolutionContext;
+    using Interfaces;
 
     internal class Resolution<T> : IResolution, IResolutionContext
     {
@@ -86,7 +87,7 @@
                        : parent.ResolveCollection(definition, closestParent);
         }
 
-        public IEnumerable<IResolutionContext> GetSourceCollection(Definition definition, Definition closestParent)
+        public IEnumerable<IResolutionContext<T>> GetSourceCollection()
         {
             return resolvedSource;
         }

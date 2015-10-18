@@ -5,10 +5,6 @@
 
     internal interface IFilter : IFailure
     {
-        bool IsCollectionFilter { get; }
-
-        Definition[] Definitions { get; }
-
         bool MeetsCondition(IResolutionContext context);
 
         void Invert();

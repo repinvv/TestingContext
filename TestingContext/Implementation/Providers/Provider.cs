@@ -12,21 +12,16 @@
     {
         private readonly IDependency<TSource> dependency;
         private readonly Func<TSource, IEnumerable<T>> sourceFunc;
-        private readonly ProviderDetails details;
         private readonly ContextStore store;
 
         public Provider(IDependency<TSource> dependency,
             Func<TSource, IEnumerable<T>> sourceFunc,
-            ProviderDetails details,
             ContextStore store)
         {
             this.dependency = dependency;
             this.sourceFunc = sourceFunc;
-            this.details = details;
             this.store = store;
         }
-
-        public Definition Definition => details.Definition;
 
         public IResolution Resolve(IResolutionContext parentContext)
         {
