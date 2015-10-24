@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq.Expressions;
     using ExpressionToCodeLib;
+    using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Interfaces;
@@ -13,11 +14,14 @@
         private readonly Expression<Func<IEnumerable<IResolutionContext<T>>, bool>> filterExpression;
         private readonly Func<IEnumerable<IResolutionContext<T>>, bool> filterFunc;
 
-        public ThisFilter(Expression<Func<IEnumerable<IResolutionContext<T>>, bool>> filterExpression)
+        public ThisFilter(Expression<Func<IEnumerable<IResolutionContext<T>>, bool>> filterExpression, Definition definition)
         {
             this.filterExpression = filterExpression;
             filterFunc = filterExpression.Compile();
+            Dependencies = new IDependency[] { new CollectionDependency<T>(definition) };
         }
+
+        public IDependency[] Dependencies { get; }
 
         public bool MeetsCondition(IResolutionContext context)
         {
@@ -28,7 +32,7 @@
         public void Invert() { }
 
         #region IFailure members
-        public string FailureString => ExpressionToCode.AnnotatedToCode(filterExpression);
+        public string FilterString => ExpressionToCode.AnnotatedToCode(filterExpression);
 
         public string Key => null;
 

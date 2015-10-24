@@ -1,58 +1,30 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
     using System.Collections.Generic;
-    using System.Linq;
-    using TestingContextCore.Implementation.ContextStorage;
-    using TestingContextCore.Implementation.Exceptions;
     using TestingContextCore.Implementation.ResolutionContext;
-    using TestingContextCore.Interfaces;
 
-    internal class CollectionDependency<TSource, TItem> : IDependency<TSource>
-        where TSource : IEnumerable<IResolutionContext<TItem>>
+    internal class CollectionDependency<TItem> : IDependency<IEnumerable<TItem>>
     {
-        private readonly Definition definition;
-        private readonly ContextStore store;
-        private Definition closestParent;
-
-        public CollectionDependency(Definition definition, Definition dependency, ContextStore store)
+        public CollectionDependency(Definition definition)
         {
-            this.definition = definition;
-            this.store = store;
-            DependsOn = dependency;
+            Definition = definition;
         }
 
-        public TSource GetValue(IResolutionContext context)
+        public IEnumerable<TItem> GetValue(IResolutionContext context)
         {
-            var resolved = context.ResolveCollection(DependsOn, closestParent);
-            return (TSource)resolved.Select(x => x as IResolutionContext<TItem>);
+            yield break;
+            //var resolved = context.ResolveCollection(Definition);
+            //return resolved.Cast<IResolutionContext<TItem>>().Select(x=>x.Value);
         }
 
-        public TSource GetThisValue(IResolutionContext context)
-        {
-            var resolved = context.GetSourceCollection(DependsOn, closestParent);
-            return (TSource)resolved.Select(x => x as IResolutionContext<TItem>);
-        }
-
-        public bool TryGetValue(IResolutionContext context, out TSource value)
+        public bool TryGetValue(IResolutionContext context, out IEnumerable<TItem> value)
         {
             value = GetValue(context);
             return true;
         }
 
-        public void Validate(ContextStore store1)
-        {
-            var node = store.GetNode(definition);
-            var dependNode = store.GetNode(DependsOn);
-            if (node.IsChildOf(dependNode))
-            {
-                throw new ResolutionException($"Collection dependency created for {definition} depends on {DependsOn}, " +
-                                              $"which is registered as a parent of {definition}. Parents are singular in resolution chain.");
-            }
-
-            closestParent = store.ValidateDependency(node, dependNode);
-        }
-
-        public Definition DependsOn { get; }
+        public Definition Definition { get; }
+        public Definition ClosestParent { private get; set; }
 
         public bool IsCollectionDependency => true;
     }

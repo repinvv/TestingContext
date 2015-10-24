@@ -1,14 +1,11 @@
 ﻿namespace TestingContextCore.Implementation.ResolutionContext
 {
-    using System.Collections.Generic;
-    using TestingContextCore.Implementation.Logging;
-
-    internal interface IResolutionContext : IFailureReporter
+    internal interface IResolutionContext
     {
-        IResolutionContext ResolveSingle(Definition definition, Definition closestParent);
+        ////IResolutionContext ResolveSingle(Definition definition);
 
-        IEnumerable<IResolutionContext> ResolveCollection(Definition definition, Definition closestParent);
+        ////IEnumerable<IResolutionContext> ResolveCollection(Definition definition);
 
-        IEnumerable<IResolutionContext> ResolveDown(Definition definition, List<Definition> chain, int nextIndex);
+        ////IEnumerable<IResolutionContext> ResolveDown(Definition definition, List<Definition> chain, int nextIndex);
     }
 }

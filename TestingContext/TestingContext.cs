@@ -2,22 +2,21 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContextCore.Implementation.ContextStorage;
-    using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.ResolutionContext;
+    using TestingContextCore.Implementation.TreeOperation;
     using TestingContextCore.Interfaces;
     using static Implementation.Definition;
 
     public class TestingContext
     {
-        private readonly ContextStore store;
+        private readonly RegistrationStore store;
         private IResolutionContext rootContext;
 
         public TestingContext()
         {
             var rootDefinition = Define<TestingContext>(string.Empty);
-            store = new ContextStore(rootDefinition);
+            store = new RegistrationStore(rootDefinition);
             store.OnSearchFailure += SearchFailure;
         }
 
@@ -30,16 +29,18 @@
 
         public IForRoot Register()
         {
-            return new Registration<TestingContext>(store.RootDefinition, store.LastRegistered, store);
+            return new RootRegistration(store);
         }
 
         public IEnumerable<IResolutionContext<T>> All<T>(string key, bool selectMany = false)
         {
-            store.ResolutionStarted = true;
-            rootContext = rootContext ?? new RootResolutionContext<TestingContext>(this, store);
-            store.ValidateDependencies();
-            return rootContext.ResolveCollection(Define<T>(key), store.RootDefinition)
-                              .Select(x => x as IResolutionContext<T>);
+            var rootNode = TreeOperationService.GetTreeRoot(store);
+            yield break;
+            //store.ResolutionStarted = true;
+            //rootContext = rootContext ?? new RootResolutionContext<TestingContext>(this, store);
+            //store.ValidateDependencies();
+            //return rootContext.ResolveCollection(Define<T>(key))
+            //                  .Select(x => x as IResolutionContext<T>);
         }
 
         public T Value<T>(string key)
@@ -50,7 +51,7 @@
 
         public void InvertFilter(string key)
         {
-            store.InvertFilter(key);
+            store.RegisterFilterInversion(key);
         }
     }
 }

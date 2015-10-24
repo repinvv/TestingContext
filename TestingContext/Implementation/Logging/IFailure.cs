@@ -2,7 +2,7 @@
 {
     internal interface IFailure
     {
-        string FailureString { get; }
+        string FilterString { get; }
 
         string Key { get; }
 

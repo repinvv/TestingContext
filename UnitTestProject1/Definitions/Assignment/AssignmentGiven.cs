@@ -18,30 +18,34 @@
         [Given(@"assignment(?:\s)?(.*) has at least (.*) people covered")]
         public void GivenAssignmentHasAtLeastPeopleCovered(string key, int headCount)
         {
-            context.For<Assignment>(key)
-                .IsTrue(assignment => assignment.HeadCount >= headCount);
+            context.Register()
+                   .For<Assignment>(key)
+                   .IsTrue(assignment => assignment.HeadCount >= headCount);
         }
 
         [Given(@"assignment(?:\s)?(.*) has type '(.*)'")]
         public void GivenAssignmentHasType(string key, AssignmentType type)
         {
-            context.For<Assignment>(key).IsTrue(assignment => assignment.Type == type);
+            context.Register()
+                .For<Assignment>(key)
+                .IsTrue(assignment => assignment.Type == type);
         }
 
         [Given(@"coverages(?:\s)?(.*) have covered people")]
         public void GivenAssignmentsHaveCoveredPeople(string key)
         {
-            context.ForCollection<Assignment>(key)
-                   .IsTrue(coverages => coverages.Sum(x => x.Value.HeadCount) > 0);
+            context.Register()
+                   .ForAll<Assignment>(key)
+                   .IsTrue(coverages => coverages.Sum(x => x.HeadCount) > 0);
         }
 
         [Given(@"assignment(?:\s)?(.*) covers less people than maximum dependendts specified in insurance(?:\s)?(.*)")]
         public void GivenAssignmentCoversLessPeopleThanMaximumDependendtsSpecifiedInInsurance(string assignmentKey, string insuranceKey)
         {
-            context
-                .For<Assignment>(assignmentKey)
-                .For<Insurance>(insuranceKey)
-                .IsTrue((assignment, insurance) => assignment.HeadCount < insurance.MaximumDependents);
+            context.Register()
+                   .For<Assignment>(assignmentKey)
+                   .For<Insurance>(insuranceKey)
+                   .IsTrue((assignment, insurance) => assignment.HeadCount < insurance.MaximumDependents);
         }
 
         [Given(@"for insurance(?:\s)?(.*) exists an assignment(?:\s)?(.*)")]

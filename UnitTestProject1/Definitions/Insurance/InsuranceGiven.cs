@@ -18,14 +18,16 @@
         [Given(@"insurance(?:\s)?(.*) is created in year (.*)")]
         public void GivenInsuranceIsCreatedInYear(string key, int year)
         {
-            context.For<Insurance>(key).IsTrue(insurance => insurance.Created.Year == year);
+            context.Register()
+                   .For<Insurance>(key)
+                   .IsTrue(insurance => insurance.Created.Year == year);
         }
 
         [Given(@"insurance(?:\s)?(.*) is taken from policiesSource")]
         public void GivenInsuranceIsTakenFromPoliciesSource(string key)
         {
             context.Register()
-                .Items(key, () => PoliciesSource.Insurances);
+                   .Items(key, () => PoliciesSource.Insurances);
         }
     }
 }

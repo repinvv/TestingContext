@@ -34,20 +34,18 @@
         [Given(@"tax(?:\s)?(.*) has type '(.*)'")]
         public void GivenTaxBHasType(string key, TaxType type)
         {
-            context
-                .Register()
-                .For<Tax>(key)
-                .IsTrue(tax => tax.Type == type);
+            context.Register()
+                   .For<Tax>(key)
+                   .IsTrue(tax => tax.Type == type);
         }
 
         [Given(@"average payment per person in coverages(?:\s)?(.*), specified in taxes(?:\s)?(.*) is over (.*)\$")]
         public void GivenAveragePaymentPerPersonInAssignmentsBSpecifiedInTaxIsOver(string assignmentKey, string taxKey, int average)
         {
-            context
-                .Register()
-                .ForAll<Assignment>(assignmentKey)
-                .ForAll<Tax>(taxKey)
-                .IsTrue((coverages, taxes) => taxes.Sum(x => x.Amount) / coverages.Sum(x => x.HeadCount) > average);
+            context.Register()
+                   .ForAll<Assignment>(assignmentKey)
+                   .ForAll<Tax>(taxKey)
+                   .IsTrue((coverages, taxes) => taxes.Sum(x => x.Amount) / coverages.Sum(x => x.HeadCount) > average);
         }
     }
 }

@@ -4,7 +4,9 @@
 
     internal interface IDependency
     {
-        Definition DependsOn { get; }
+        Definition Definition { get; }
+
+        Definition ClosestParent { set; }
 
         bool IsCollectionDependency { get; }
     }

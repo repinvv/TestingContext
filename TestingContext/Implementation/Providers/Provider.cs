@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Dependencies;
+    using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.ResolutionContext;
 
@@ -12,16 +12,18 @@
     {
         private readonly IDependency<TSource> dependency;
         private readonly Func<TSource, IEnumerable<T>> sourceFunc;
-        private readonly ContextStore store;
+        private readonly RegistrationStore store;
 
         public Provider(IDependency<TSource> dependency,
             Func<TSource, IEnumerable<T>> sourceFunc,
-            ContextStore store)
+            RegistrationStore store)
         {
             this.dependency = dependency;
             this.sourceFunc = sourceFunc;
             this.store = store;
         }
+
+        public IDependency Dependency => dependency;
 
         public IResolution Resolve(IResolutionContext parentContext)
         {
@@ -32,7 +34,7 @@
             }
 
             var source = sourceFunc(sourceValue) ?? Enumerable.Empty<T>();
-            return new Resolution<T>(Definition, parentContext, source, details.Filters, details.CollectionFilters, details.ChildProviders, store);
+            return new Resolution<T>(dependency.Definition, parentContext, source);
         }
     }
 }

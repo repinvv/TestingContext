@@ -1,12 +1,13 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
+    using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.ResolutionContext;
 
     internal interface IFilter : IFailure
     {
-        bool MeetsCondition(IResolutionContext context);
+        IDependency[] Dependencies { get; }
 
-        void Invert();
+        bool MeetsCondition(IResolutionContext context);
     }
 }

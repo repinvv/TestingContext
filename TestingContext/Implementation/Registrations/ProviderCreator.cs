@@ -3,39 +3,38 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContextCore.Implementation.ContextStorage;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Interfaces;
     using static Definition;
 
-    internal class ProviderCreator<T1> : ICreateProvider<T1>
+    internal abstract class ProviderCreator<T1> : ICreateProvider<T1>
     {
-        private readonly Definition parent;
-        private readonly ContextStore store;
+        private readonly Definition definition;
+        private readonly RegistrationStore store;
 
-        public ProviderCreator(Definition parent, ContextStore store)
+        protected ProviderCreator(Definition definition, RegistrationStore store)
         {
-            this.parent = parent;
+            this.definition = definition;
             this.store = store;
         }
 
         public void Exists<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc)
         {
-            store.RegisterFilter(new ThisFilter<T2>(x => x.Any(y => y.MeetsConditions)));
+            store.RegisterFilter(new ThisFilter<T2>(x => x.Any(y => y.MeetsConditions), Define<T2>(key)), null);
             CreateProvider(key, srcFunc);
         }
 
         public void DoesNotExist<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc)
         {
-            store.RegisterFilter(new ThisFilter<T2>(x => !x.Any(y => y.MeetsConditions)));
+            store.RegisterFilter(new ThisFilter<T2>(x => !x.Any(y => y.MeetsConditions), Define<T2>(key)), null);
             CreateProvider(key, srcFunc);
         }
 
         public void Each<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc)
         {
-            store.RegisterFilter(new ThisFilter<T2>(x => x.All(y => y.MeetsConditions)));
+            store.RegisterFilter(new ThisFilter<T2>(x => x.All(y => y.MeetsConditions), Define<T2>(key)), null);
             CreateProvider(key, srcFunc);
         }
 
@@ -59,9 +58,8 @@
 
         private void CreateProvider<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc)
         {
-            var definition = Define<T2>(key);
-            var dep = new SingleDependency<T1>(parent);
-            store.Providers[definition] = new Provider<T1, T2>(dep, srcFunc, store);
+            var dep = new SingleDependency<T1>(definition);
+            store.RegisterProvider(definition, new Provider<T1, T2>(dep, srcFunc, store));
         }
     }
 }

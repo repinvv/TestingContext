@@ -1,15 +1,15 @@
-﻿using TestingContextCore.Implementation.ContextStorage;
-
-namespace TestingContextCore.Implementation.Logging
+﻿namespace TestingContextCore.Implementation.Logging
 {
+    using TestingContextCore.Implementation.Registrations;
+
     internal class FailureCollect
     {
-        private readonly ContextStore store;
+        private readonly RegistrationStore store;
         private int[] currentWeight;
         private IFailure currentFailure;
         private Definition currentDefinition;
 
-        public FailureCollect(ContextStore store)
+        public FailureCollect(RegistrationStore store)
         {
             this.store = store;
             currentWeight = new int[0];
@@ -17,7 +17,7 @@ namespace TestingContextCore.Implementation.Logging
 
         public void LogFailure()
         {
-            store.SearchFailure(currentDefinition.ToString(), currentFailure.FailureString, currentFailure.Key, currentFailure.Inverted);
+            store.SearchFailure(currentDefinition.ToString(), currentFailure.FilterString, currentFailure.Key, currentFailure.Inverted);
         }
 
         public void ReportFailure(int[] failureWeight, IFailure faiure, Definition definition)

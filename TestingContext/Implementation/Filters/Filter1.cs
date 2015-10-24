@@ -18,28 +18,25 @@
             this.filterExpression = filterExpression;
             this.Key = key;
             filterFunc = filterExpression.Compile();
-            Definitions = new []{ dependency.DependsOn };
+            Dependencies = new IDependency[] { dependency };
         }
 
-        public bool IsCollectionFilter => dependency.IsCollectionDependency;
-        public Definition[] Definitions { get; }
+        public IDependency[] Dependencies { get; }
 
         public bool MeetsCondition(IResolutionContext context)
         {
-            return filterFunc(dependency.GetValue(context)) ^ Inverted;
-        }
-
-        public void Invert()
-        {
-            Inverted = !Inverted;
+            T1 argument;
+            dependency.TryGetValue(context, out argument);
+            return filterFunc(argument);
         }
 
         #region IFailure members
-        public string FailureString => ExpressionToCode.AnnotatedToCode(filterExpression);
+        public string FilterString => ExpressionToCode.AnnotatedToCode(filterExpression);
 
         public string Key { get; }
 
-        public bool Inverted { get; private set; }
+        public bool Inverted => false;
+
         #endregion
     }
 }
