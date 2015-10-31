@@ -1,7 +1,9 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
     using System.Collections.Generic;
+    using System.Linq;
     using TestingContextCore.Implementation.ResolutionContext;
+    using TestingContextCore.Interfaces;
 
     internal class CollectionDependency<TItem> : IDependency<IEnumerable<TItem>>
     {
@@ -12,9 +14,10 @@
 
         public IEnumerable<TItem> GetValue(IResolutionContext context)
         {
-            yield break;
-            //var resolved = context.ResolveCollection(Definition);
-            //return resolved.Cast<IResolutionContext<TItem>>().Select(x=>x.Value);
+            return context.ResolveCollection(Definition)
+                          .Cast<IResolutionContext<TItem>>()
+                          .Where(x => x.MeetsConditions)
+                          .Select(x => x.Value);
         }
 
         public bool TryGetValue(IResolutionContext context, out IEnumerable<TItem> value)

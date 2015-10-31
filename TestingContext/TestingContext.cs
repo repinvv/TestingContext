@@ -4,9 +4,9 @@
     using System.Linq;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.ResolutionContext;
-    using TestingContextCore.Implementation.TreeOperation;
     using TestingContextCore.Interfaces;
     using static Implementation.Definition;
+    using static TestingContextCore.Implementation.TreeOperation.TreeOperationService;
 
     public class TestingContext
     {
@@ -32,15 +32,11 @@
             return new RootRegistration(store);
         }
 
-        public IEnumerable<IResolutionContext<T>> All<T>(string key, bool selectMany = false)
+        public IEnumerable<IResolutionContext<T>> All<T>(string key)
         {
-            var rootNode = TreeOperationService.GetTreeRoot(store);
-            yield break;
-            //store.ResolutionStarted = true;
-            //rootContext = rootContext ?? new RootResolutionContext<TestingContext>(this, store);
-            //store.ValidateDependencies();
-            //return rootContext.ResolveCollection(Define<T>(key))
-            //                  .Select(x => x as IResolutionContext<T>);
+            return GetTreeRoot(store, this)
+                .ResolveCollection(Define<T>(key))
+                .Select(x => x as IResolutionContext<T>);
         }
 
         public T Value<T>(string key)

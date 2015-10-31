@@ -12,11 +12,13 @@
     internal class ThisFilter<T> : IFilter
     {
         private readonly Expression<Func<IEnumerable<IResolutionContext<T>>, bool>> filterExpression;
+        private readonly Definition definition;
         private readonly Func<IEnumerable<IResolutionContext<T>>, bool> filterFunc;
 
         public ThisFilter(Expression<Func<IEnumerable<IResolutionContext<T>>, bool>> filterExpression, Definition definition)
         {
             this.filterExpression = filterExpression;
+            this.definition = definition;
             filterFunc = filterExpression.Compile();
             Dependencies = new IDependency[] { new CollectionDependency<T>(definition) };
         }
@@ -25,8 +27,8 @@
 
         public bool MeetsCondition(IResolutionContext context)
         {
-            var source = (context as Resolution<T>).GetSourceCollection();
-            return filterFunc(source);
+            var source = context.ResolveCollection(definition);
+            return filterFunc(source as IEnumerable<IResolutionContext<T>>);
         }
 
         public void Invert() { }

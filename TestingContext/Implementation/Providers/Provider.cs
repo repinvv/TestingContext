@@ -7,6 +7,8 @@
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.ResolutionContext;
+    using TestingContextCore.Implementation.TreeOperation;
+    using TestingContextCore.Implementation.TreeOperation.Nodes;
 
     internal class Provider<TSource, T> : IProvider
     {
@@ -25,7 +27,7 @@
 
         public IDependency Dependency => dependency;
 
-        public IResolution Resolve(IResolutionContext parentContext)
+        public IEnumerable<IResolutionContext> Resolve(IResolutionContext parentContext, Node node)
         {
             TSource sourceValue;
             if (!dependency.TryGetValue(parentContext, out sourceValue))
@@ -34,7 +36,7 @@
             }
 
             var source = sourceFunc(sourceValue) ?? Enumerable.Empty<T>();
-            return new Resolution<T>(dependency.Definition, parentContext, source);
+            return new Resolution<T>(dependency.Definition, parentContext, source, node);
         }
     }
 }

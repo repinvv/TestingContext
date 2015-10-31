@@ -5,7 +5,7 @@
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.ResolutionContext;
 
-    internal class EmptyResolution : IResolution
+    internal class EmptyResolution : IEnumerable<IResolutionContext>
     {
         public IEnumerator<IResolutionContext> GetEnumerator()
         {
