@@ -3,15 +3,13 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.Registrations;
-    using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Interfaces;
     using static Implementation.Definition;
-    using static TestingContextCore.Implementation.TreeOperation.TreeOperationService;
+    using static Implementation.TreeOperation.TreeOperationService;
 
     public class TestingContext
     {
         private readonly RegistrationStore store;
-        private IResolutionContext rootContext;
 
         public TestingContext()
         {
@@ -34,8 +32,9 @@
 
         public IEnumerable<IResolutionContext<T>> All<T>(string key)
         {
+
             return GetTreeRoot(store, this)
-                .ResolveCollection(Define<T>(key))
+                .ResolveDown(Define<T>(key))
                 .Select(x => x as IResolutionContext<T>);
         }
 

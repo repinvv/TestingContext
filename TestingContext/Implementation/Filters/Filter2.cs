@@ -18,8 +18,8 @@
             this.dependency1 = dependency1;
             this.dependency2 = dependency2;
             this.filterExpression = filterExpression;
-            this.Key = key;
-            this.filterFunc = filterExpression.Compile();
+            Key = key;
+            filterFunc = filterExpression.Compile();
             Dependencies = new IDependency[] { dependency1, dependency2 };
         }
 

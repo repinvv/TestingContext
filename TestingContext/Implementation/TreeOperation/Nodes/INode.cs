@@ -1,7 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation.Nodes
 {
     using System.Collections.Generic;
-    using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Providers;
 
     internal interface INode
@@ -12,9 +11,9 @@
 
         INode Parent { get; set; }
 
-        IFilter ItemFilter { get; }
+        NodeFilters Filters { get; }
 
-        IFilter CollectionFilter { get; }
+        NodeResolver Resolver { get; }
 
         IProvider Provider { get; }
 
@@ -22,8 +21,6 @@
 
         List<INode> GetNodesChain();
 
-        void AddItemFilter(IFilter filter);
 
-        void AddCollectionFilter(IFilter filter);
     }
 }

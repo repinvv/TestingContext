@@ -2,8 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContextCore.Implementation.Filters;
-    using TestingContextCore.Implementation.TreeOperation;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
     using TestingContextCore.Interfaces;
 
@@ -24,7 +22,7 @@
             this.parent = parent;
             childNodes = node.Children.ToDictionary(x => x.Definition);
             Value = value;
-            MeetsConditions = node.ItemFilter.MeetsCondition(this);
+            MeetsConditions = node.Filters.ItemFilter.MeetsCondition(this);
         }
 
         public bool MeetsConditions { get; }
@@ -41,7 +39,7 @@
             return null;
         }
 
-        public IEnumerable<IResolutionContext> ResolveCollection(Definition definition)
+        public IEnumerable<IResolutionContext> ResolveDown(Definition definition)
         {
             yield break;
         }

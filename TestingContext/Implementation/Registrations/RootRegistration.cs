@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace TestingContextCore.Implementation.Registrations
+﻿namespace TestingContextCore.Implementation.Registrations
 {
+    using System;
+    using System.Collections.Generic;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Interfaces;
     using static Definition;

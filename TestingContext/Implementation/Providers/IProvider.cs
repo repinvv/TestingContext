@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.ResolutionContext;
-    using TestingContextCore.Implementation.TreeOperation;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
 
     internal interface IProvider

@@ -21,12 +21,12 @@
 
             if (assignment != null)
             {
-                assignment.AddItemFilter(filter);
+                assignment.Filters.AddItemFilter(filter);
             }
             else
             {
                 var dependency = filter.Dependencies.First(x => x.IsCollectionDependency);
-                tree.Nodes[dependency.Definition].AddCollectionFilter(filter);
+                tree.Nodes[dependency.Definition].Filters.AddCollectionFilter(filter);
             }
         }
 
@@ -35,7 +35,7 @@
             foreach (var node in tree.Nodes.Values)
             {
                 var parent = tree.Nodes[node.Provider.Dependency.Definition];
-                parent.AddItemFilter(node.CollectionFilter);
+                parent.Filters.AddItemFilter(node.Filters.CollectionFilter);
             }
         }
     }

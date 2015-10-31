@@ -6,7 +6,7 @@
     {
         IResolutionContext ResolveSingle(Definition definition);
 
-        IEnumerable<IResolutionContext> ResolveCollection(Definition definition);
+        IEnumerable<IResolutionContext> ResolveDown(Definition definition);
 
         IEnumerable<IResolutionContext> ResolveDown(Definition definition, List<Definition> chain, int nextIndex);
     }

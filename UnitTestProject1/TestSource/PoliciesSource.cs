@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using UnitTestProject1.Entities;
-    using static UnitTestProject1.Entities.TaxType;
-    using static UnitTestProject1.Entities.AssignmentType;
+    using static Entities.TaxType;
+    using static Entities.AssignmentType;
 
     public static class PoliciesSource
     {
@@ -23,7 +23,7 @@
                 Assignments =
                     new List<Assignment>
                     {
-                        new Assignment { Id = 1, Type = Employee, HeadCount = 30 },
+                        new Assignment { Id = 1, Type = Employee, HeadCount = 30 }
                     }
             },
             new Insurance // for @simpleEvaluation2
@@ -35,7 +35,7 @@
                 Assignments = new List<Assignment>
                             {
                                 new Assignment { Id = 2, Type = Employee, HeadCount = 40 },
-                                new Assignment { Id = 3, Type = Dependent, HeadCount = 70 },
+                                new Assignment { Id = 3, Type = Dependent, HeadCount = 70 }
                             }
             },
             new Insurance // for @notFoundLogging3
@@ -51,9 +51,9 @@
                 Assignments = new List<Assignment>
                             {
                                 new Assignment { Id = 4, Type = Employee, HeadCount = 40 },
-                                new Assignment { Id = 5, Type = Dependent, HeadCount = 70 },
+                                new Assignment { Id = 5, Type = Dependent, HeadCount = 70 }
                             },
-                Taxes = new List<Tax>()
+                Taxes = new List<Tax>
                         {
                             new Tax { Id = 1, Type = Local, Amount = 800 },
                             new Tax { Id = 2, Type = Federal, Amount = 600 }
@@ -67,9 +67,9 @@
                 Assignments = new List<Assignment>
                             {
                                 new Assignment { Id = 6, Type = Employee, HeadCount = 40 },
-                                new Assignment { Id = 7, Type = Dependent, HeadCount = 70 },
+                                new Assignment { Id = 7, Type = Dependent, HeadCount = 70 }
                             },
-                Taxes = new List<Tax>()
+                Taxes = new List<Tax>
                         {
                             new Tax { Id = 3, Type = Local, Amount = 600 },
                             new Tax { Id = 4, Type = Federal, Amount = 800 }
@@ -82,9 +82,9 @@
                 Created = new DateTime(2011, 1, 2),
                 Assignments = new List<Assignment>
                             {
-                                new Assignment { Id = 8, Type = Dependent, HeadCount = 22 },
+                                new Assignment { Id = 8, Type = Dependent, HeadCount = 22 }
                             },
-                Taxes = new List<Tax>()
+                Taxes = new List<Tax>
                         {
                             new Tax { Id = 5, Type = Federal, Amount = 65 }
                         }
@@ -95,7 +95,7 @@
                 Name = "matching insurance for @breakOne2",
                 Created = new DateTime(2011, 1, 2),
                 Assignments = new List<Assignment>(),
-                Taxes = new List<Tax>()
+                Taxes = new List<Tax>
                         {
                             new Tax { Id = 6, Type = Federal, Amount = 88 }
                         }
@@ -107,9 +107,9 @@
                 Created = new DateTime(2011, 1, 2),
                 Assignments = new List<Assignment>
                             {
-                                new Assignment { Id = 9, Type = Dependent, HeadCount = 22 },
+                                new Assignment { Id = 9, Type = Dependent, HeadCount = 22 }
                             },
-                Taxes = new List<Tax>()
+                Taxes = new List<Tax>
                         {
                             new Tax { Id = 7, Type = Federal, Amount = 88 }
                         }

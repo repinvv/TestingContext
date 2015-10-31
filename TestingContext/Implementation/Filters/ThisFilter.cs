@@ -5,7 +5,6 @@
     using System.Linq.Expressions;
     using ExpressionToCodeLib;
     using TestingContextCore.Implementation.Dependencies;
-    using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Interfaces;
 
@@ -27,7 +26,7 @@
 
         public bool MeetsCondition(IResolutionContext context)
         {
-            var source = context.ResolveCollection(definition);
+            var source = context.ResolveDown(definition);
             return filterFunc(source as IEnumerable<IResolutionContext<T>>);
         }
 

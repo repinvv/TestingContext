@@ -1,15 +1,14 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation
 {
     using System.Linq;
-    using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
-    using static TestingContextCore.Implementation.TreeOperation.Subsystems.ValidationService;
-    using static TestingContextCore.Implementation.TreeOperation.Subsystems.FilterAssignmentService;
-    using static TestingContextCore.Implementation.TreeOperation.Subsystems.NodeReorderingService;
-    using static TestingContextCore.Implementation.TreeOperation.Subsystems.ProhibitedRelationsService;
-    using static TestingContextCore.Implementation.TreeOperation.Subsystems.TreeBuilder;
+    using static Subsystems.ValidationService;
+    using static Subsystems.FilterAssignmentService;
+    using static Subsystems.NodeReorderingService;
+    using static Subsystems.ProhibitedRelationsService;
+    using static Subsystems.TreeBuilder;
 
     internal static class TreeOperationService
     {
@@ -27,8 +26,9 @@
 
         private static Tree CreateTree(RegistrationStore store)
         {
-            var tree = new Tree { Root = new RootNode(store.RootDefinition) };
-            var nodes = store.Providers.Select(x => Node.CreateNode(x.Key, x.Value, store)).ToList();
+            var tree = new Tree();
+            tree.Root = new RootNode(tree, store.RootDefinition);
+            var nodes = store.Providers.Select(x => Node.CreateNode(x.Key, x.Value, store, tree)).ToList();
             BuildNodesTree(tree.Root, nodes);
             store.Filters.ForEach(x => FindProhibitedRelations(tree, x));
             store.Filters.ForEach(x => ReorderNodesForFilter(tree, x));

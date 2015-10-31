@@ -7,7 +7,6 @@
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.ResolutionContext;
-    using TestingContextCore.Implementation.TreeOperation;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
 
     internal class Provider<TSource, T> : IProvider

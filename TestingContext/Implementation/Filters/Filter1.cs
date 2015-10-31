@@ -16,7 +16,7 @@
         {
             this.dependency = dependency;
             this.filterExpression = filterExpression;
-            this.Key = key;
+            Key = key;
             filterFunc = filterExpression.Compile();
             Dependencies = new IDependency[] { dependency };
         }

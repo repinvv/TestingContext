@@ -14,7 +14,7 @@
 
         public IEnumerable<TItem> GetValue(IResolutionContext context)
         {
-            return context.ResolveCollection(Definition)
+            return context.ResolveDown(Definition)
                           .Cast<IResolutionContext<TItem>>()
                           .Where(x => x.MeetsConditions)
                           .Select(x => x.Value);

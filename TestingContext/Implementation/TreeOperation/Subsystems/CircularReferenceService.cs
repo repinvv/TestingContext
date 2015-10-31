@@ -11,7 +11,7 @@
         {
             foreach (Node node in tree.Nodes.Values)
             {
-                foreach (IDependency dependency in node.ItemFilter.Dependencies)
+                foreach (IDependency dependency in node.Filters.ItemFilter.Dependencies)
                 {
                     DetectCircularReference(tree, node, dependency);
                 }

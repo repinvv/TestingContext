@@ -1,7 +1,6 @@
 ﻿namespace TestingContextCore.Implementation
 {
     using TestingContextCore.Implementation.Filters;
-    using TestingContextCore.Implementation.TreeOperation;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
 
     internal class ProhibitedRelation
