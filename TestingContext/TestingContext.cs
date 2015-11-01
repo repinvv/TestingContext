@@ -50,5 +50,15 @@
         {
             store.RegisterFilterInversion(key);
         }
+
+        public void InvertCollectionValidity<T>(string key)
+        {
+            store.RegisterCollectionValidityInversion(Define<T>(key));
+        }
+
+        public void InvertItemValidity<T>(string key)
+        {
+            store.RegisterItemValidityInversion(Define<T>(key));
+        }
     }
 }

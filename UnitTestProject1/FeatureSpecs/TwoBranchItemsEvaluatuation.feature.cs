@@ -14,7 +14,8 @@
 namespace UnitTestProject1.FeatureSpecs
 {
     using TechTalk.SpecFlow;
-
+    
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
@@ -48,7 +49,7 @@ namespace UnitTestProject1.FeatureSpecs
             if (((TechTalk.SpecFlow.FeatureContext.Current != null) 
                         && (TechTalk.SpecFlow.FeatureContext.Current.FeatureInfo.Title != "TwoBranchItemsEvaluatuation")))
             {
-                FeatureSetup(null);
+                UnitTestProject1.FeatureSpecs.TwoBranchItemsEvaluatuationFeature.FeatureSetup(null);
             }
         }
         
@@ -69,12 +70,12 @@ namespace UnitTestProject1.FeatureSpecs
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Two branch search with one branch referencing the other")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Two branch search with condition between collections of those branches")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "TwoBranchItemsEvaluatuation")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("twobranch1")]
-        public virtual void TwoBranchSearchWithOneBranchReferencingTheOther()
+        public virtual void TwoBranchSearchWithConditionBetweenCollectionsOfThoseBranches()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Two branch search with one branch referencing the other", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Two branch search with condition between collections of those branches", new string[] {
                         "twobranch1"});
 #line 7
 this.ScenarioSetup(scenarioInfo);
@@ -87,13 +88,13 @@ this.ScenarioSetup(scenarioInfo);
 #line 11
    testRunner.And("assignment B has type \'Dependent\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 12
-   testRunner.And("coverages B have covered people", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("assignments B have covered people", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 13
    testRunner.And("for insurance B exists a tax B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 14
    testRunner.And("tax B has type \'Federal\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 15
-   testRunner.And("average payment per person in coverages B, specified in taxes B is over 10$", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("average payment per person in assignments B, specified in taxes B is over 10$", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 16
  testRunner.Then("insurance B name must contain \'@twobranch1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 17
@@ -103,12 +104,12 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Two branch search failure with one branch referencing the other")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Two branch search failure with condition between collections of those branches")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "TwoBranchItemsEvaluatuation")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("twobranch1")]
-        public virtual void TwoBranchSearchFailureWithOneBranchReferencingTheOther()
+        public virtual void TwoBranchSearchFailureWithConditionBetweenCollectionsOfThoseBranches()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Two branch search failure with one branch referencing the other", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Two branch search failure with condition between collections of those branches", new string[] {
                         "twobranch1"});
 #line 20
 this.ScenarioSetup(scenarioInfo);
@@ -121,13 +122,13 @@ this.ScenarioSetup(scenarioInfo);
 #line 24
    testRunner.And("assignment B has type \'Dependent\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 25
-   testRunner.And("coverages B have covered people", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("assignments B have covered people", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 26
    testRunner.And("for insurance B exists a tax B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 27
    testRunner.And("tax B has type \'Federal\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 28
-   testRunner.And("average payment per person in coverages B, specified in taxes B is over 17$", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("average payment per person in assignments B, specified in taxes B is over 17$", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 29
  testRunner.When("insurance B resolves", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 30

@@ -39,13 +39,20 @@
                    .IsTrue(tax => tax.Type == type);
         }
 
-        [Given(@"average payment per person in coverages(?:\s)?(.*), specified in taxes(?:\s)?(.*) is over (.*)\$")]
+        [Given(@"average payment per person in assignments(?:\s)?(.*), specified in taxes(?:\s)?(.*) is over (.*)\$")]
         public void GivenAveragePaymentPerPersonInAssignmentsBSpecifiedInTaxIsOver(string assignmentKey, string taxKey, int average)
         {
             context.Register()
                    .ForAll<Assignment>(assignmentKey)
                    .ForAll<Tax>(taxKey)
-                   .IsTrue((coverages, taxes) => taxes.Sum(x => x.Amount) / coverages.Sum(x => x.HeadCount) > average);
+                   .IsTrue((assignments, taxes) => taxes.Sum(x => x.Amount) / assignments.Sum(x => x.HeadCount) > average);
         }
+
+        [Given(@"there is no suitable tax(?:\s)?(.*)")]
+        public void GivenThereIsNoSuitableTax(string key)
+        {
+            context.InvertCollectionValidity<Tax>(key);
+        }
+
     }
 }

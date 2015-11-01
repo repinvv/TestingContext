@@ -32,7 +32,7 @@
 
         public static void AssignCollectionFiltersToParents(Tree tree)
         {
-            foreach (var node in tree.Nodes.Values)
+            foreach (var node in tree.Nodes.Values.Where(x => x.Provider != null))
             {
                 var parent = tree.Nodes[node.Provider.Dependency.Definition];
                 parent.Filters.AddItemFilter(node.Filters.CollectionFilter);

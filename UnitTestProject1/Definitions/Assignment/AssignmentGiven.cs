@@ -31,12 +31,12 @@
                 .IsTrue(assignment => assignment.Type == type);
         }
 
-        [Given(@"coverages(?:\s)?(.*) have covered people")]
+        [Given(@"assignments(?:\s)?(.*) have covered people")]
         public void GivenAssignmentsHaveCoveredPeople(string key)
         {
             context.Register()
                    .ForAll<Assignment>(key)
-                   .IsTrue(coverages => coverages.Sum(x => x.HeadCount) > 0);
+                   .IsTrue(assignments => assignments.Sum(x => x.HeadCount) > 0);
         }
 
         [Given(@"assignment(?:\s)?(.*) covers less people than maximum dependendts specified in insurance(?:\s)?(.*)")]
@@ -55,5 +55,12 @@
                    .For<Insurance>(insuranceKey)
                    .Exists(assignmentKey, insurance => insurance.Assignments);
         }
+
+        [Given(@"there is no suitable assignment(?:\s)?(.*)")]
+        public void GivenThereIsNoSuitableAssignment(string key)
+        {
+            context.InvertCollectionValidity<Assignment>(key);
+        }
+
     }
 }
