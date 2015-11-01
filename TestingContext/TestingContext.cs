@@ -32,10 +32,12 @@
 
         public IEnumerable<IResolutionContext<T>> All<T>(string key)
         {
-
-            return GetTreeRoot(store, this)
-                .ResolveDown(Define<T>(key))
-                .Select(x => x as IResolutionContext<T>);
+            var tree = GetTree(store, this);
+            return tree.Root
+                       .Resolver
+                       .ResolveCollection(Define<T>(key), tree.RootContext)
+                       .Where(x => x.MeetsConditions)
+                       .Cast<IResolutionContext<T>>();
         }
 
         public T Value<T>(string key)

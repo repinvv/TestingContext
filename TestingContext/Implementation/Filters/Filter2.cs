@@ -5,6 +5,7 @@
     using ExpressionToCodeLib;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.ResolutionContext;
+    using TestingContextCore.Implementation.TreeOperation.Nodes;
 
     internal class Filter2<T1, T2> : IFilter
     {
@@ -25,11 +26,11 @@
 
         public IDependency[] Dependencies { get; }
 
-        public bool MeetsCondition(IResolutionContext context)
+        public bool MeetsCondition(IResolutionContext context, NodeResolver resolver)
         {
             T1 argument1;
             T2 argument2;
-            if (!dependency1.TryGetValue(context, out argument1) || !dependency2.TryGetValue(context, out argument2))
+            if (!dependency1.TryGetValue(context, resolver, out argument1) || !dependency2.TryGetValue(context, resolver, out argument2))
             {
                 return false;
             }

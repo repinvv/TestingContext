@@ -1,6 +1,8 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
     using TestingContextCore.Implementation.ResolutionContext;
+    using TestingContextCore.Implementation.TreeOperation.Nodes;
+    using TestingContextCore.Interfaces;
 
     internal class SingleDependency<TSource> : IDependency<TSource>
     {
@@ -9,9 +11,10 @@
             Definition = definition;
         }
 
-        public bool TryGetValue(IResolutionContext context, out TSource value)
+        public bool TryGetValue(IResolutionContext context, NodeResolver resolver, out TSource value)
         {
-            value = default(TSource);
+            var definedcontext = context.ResolveSingle(Definition) as IResolutionContext<TSource>;
+            value = definedcontext.Value;
             return true;
         }
 

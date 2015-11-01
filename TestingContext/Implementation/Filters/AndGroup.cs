@@ -5,6 +5,7 @@
     using System.Linq;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.ResolutionContext;
+    using TestingContextCore.Implementation.TreeOperation.Nodes;
 
     internal class AndGroup : IFilter
     {
@@ -14,7 +15,7 @@
 
         #region IFilter
         public IDependency[] Dependencies => filters.SelectMany(x => x.Dependencies).ToArray();
-        public bool MeetsCondition(IResolutionContext context) => filters.All(x => x.MeetsCondition(context));
+        public bool MeetsCondition(IResolutionContext context, NodeResolver resolver) => filters.All(x => x.MeetsCondition(context, resolver));
         #endregion
 
         #region IFailure members

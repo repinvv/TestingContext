@@ -12,29 +12,25 @@
 
     internal static class TreeOperationService
     {
-        public static IResolutionContext GetTreeRoot(RegistrationStore store, TestingContext rootSource)
+        public static Tree GetTree(RegistrationStore store, TestingContext rootSource)
         {
-            if (store.Tree != null)
-            {
-                return store.Tree.RootContext;
-            }
-
-            store.Tree = CreateTree(store);
-            return store.Tree.RootContext =
-                new ResolutionContext<TestingContext>(rootSource, store.RootDefinition, store.Tree.Root, null);
+            return store.Tree ?? (store.Tree = CreateTree(store, rootSource));
         }
 
-        private static Tree CreateTree(RegistrationStore store)
+        private static Tree CreateTree(RegistrationStore store, TestingContext rootSource)
         {
             var tree = new Tree();
             tree.Root = new RootNode(tree, store.RootDefinition);
             var nodes = store.Providers.Select(x => Node.CreateNode(x.Key, x.Value, store, tree)).ToList();
             BuildNodesTree(tree.Root, nodes);
+            nodes.ForEach(x => tree.Nodes.Add(x.Definition, x));
+            tree.Nodes.Add(store.RootDefinition, tree.Root);
             store.Filters.ForEach(x => FindProhibitedRelations(tree, x));
             store.Filters.ForEach(x => ReorderNodesForFilter(tree, x));
             store.Filters.ForEach(x => ValidateFilter(tree, x));
             store.Filters.ForEach(x => AssignFilter(tree, x));
             ValidateTree(tree);
+            tree.RootContext = new ResolutionContext<TestingContext>(rootSource, tree.Root, null);
             return tree;
         }
     }

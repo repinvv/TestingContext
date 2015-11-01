@@ -26,16 +26,16 @@
 
         public IDependency Dependency => dependency;
 
-        public IEnumerable<IResolutionContext> Resolve(IResolutionContext parentContext, Node node)
+        public IEnumerable<IResolutionContext> Resolve(IResolutionContext parentContext, INode node)
         {
             TSource sourceValue;
-            if (!dependency.TryGetValue(parentContext, out sourceValue))
+            if (!dependency.TryGetValue(parentContext, node.Resolver, out sourceValue))
             {
                 return new EmptyResolution();
             }
 
             var source = sourceFunc(sourceValue) ?? Enumerable.Empty<T>();
-            return new Resolution<T>(dependency.Definition, parentContext, source, node);
+            return new Resolution<T>(parentContext, source, node);
         }
     }
 }

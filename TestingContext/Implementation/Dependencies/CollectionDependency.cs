@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.ResolutionContext;
+    using TestingContextCore.Implementation.TreeOperation.Nodes;
     using TestingContextCore.Interfaces;
 
     internal class CollectionDependency<TItem> : IDependency<IEnumerable<TItem>>
@@ -12,17 +13,17 @@
             Definition = definition;
         }
 
-        public IEnumerable<TItem> GetValue(IResolutionContext context)
+        public IEnumerable<TItem> GetValue(IResolutionContext context, NodeResolver resolver)
         {
-            return context.ResolveDown(Definition)
-                          .Cast<IResolutionContext<TItem>>()
-                          .Where(x => x.MeetsConditions)
-                          .Select(x => x.Value);
+            return resolver.ResolveCollection(Definition, context)
+                           .Where(x => x.MeetsConditions)
+                           .Cast<IResolutionContext<TItem>>()
+                           .Select(x => x.Value);
         }
 
-        public bool TryGetValue(IResolutionContext context, out IEnumerable<TItem> value)
+        public bool TryGetValue(IResolutionContext context, NodeResolver resolver, out IEnumerable<TItem> value)
         {
-            value = GetValue(context);
+            value = GetValue(context, resolver);
             return true;
         }
 

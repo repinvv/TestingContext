@@ -2,6 +2,7 @@
 {
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.ResolutionContext;
+    using TestingContextCore.Implementation.TreeOperation.Nodes;
 
     internal class Inverter : IFilter
     {
@@ -13,7 +14,7 @@
         }
 
         public IDependency[] Dependencies => filter.Dependencies;
-        public bool MeetsCondition(IResolutionContext context) => !filter.MeetsCondition(context);
+        public bool MeetsCondition(IResolutionContext context, NodeResolver resolver) => !filter.MeetsCondition(context, resolver);
 
         #region IFailure members
         public string FilterString => filter.FilterString;

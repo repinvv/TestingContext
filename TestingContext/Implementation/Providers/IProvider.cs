@@ -9,6 +9,6 @@
     {
         IDependency Dependency { get; }
 
-        IEnumerable<IResolutionContext> Resolve(IResolutionContext parentContext, Node node);
+        IEnumerable<IResolutionContext> Resolve(IResolutionContext parentContext, INode node);
     }
 }

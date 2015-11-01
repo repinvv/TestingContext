@@ -8,7 +8,7 @@
         public RootNode(Tree tree, Definition definition)
         {
             Definition = definition;
-            Resolver = new NodeResolver(tree);
+            Resolver = new NodeResolver(tree, definition);
         }
 
         public Definition Definition { get; }

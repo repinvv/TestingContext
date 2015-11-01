@@ -8,19 +8,14 @@
 
     internal class Resolution<T> : IEnumerable<IResolutionContext>
     {
-        private readonly Definition ownDefinition;
-        private readonly IResolutionContext parent;
         private readonly IEnumerable<ResolutionContext<T>> resolvedSource;
 
-        public Resolution(Definition ownDefinition,
-            IResolutionContext parent,
+        public Resolution(IResolutionContext parent,
             IEnumerable<T> source,
-            Node node)
+            INode node)
         {
-            this.ownDefinition = ownDefinition;
-            this.parent = parent;
             resolvedSource = source
-                .Select(x => new ResolutionContext<T>(x, ownDefinition, node, parent))
+                .Select(x => new ResolutionContext<T>(x, node, parent))
                 .Cache();
         }
 

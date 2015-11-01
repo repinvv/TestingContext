@@ -29,7 +29,6 @@
             var chain1 = node1.GetNodesChain();
             var chain2 = node2.GetNodesChain();
             var closestParentIndex = FindClosestParent(chain1, chain2);
-            dependency.ClosestParent = chain1[closestParentIndex].Definition;
             var refIndex = closestParentIndex + 1;
             if (chain1.Count == refIndex || chain2.Count == refIndex)
             {

@@ -2,27 +2,25 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
     using TestingContextCore.Interfaces;
 
     internal class ResolutionContext<T> : IResolutionContext<T>, IResolutionContext
     {
-        private readonly Definition ownDefinition;
+        private readonly INode node;
         private readonly IResolutionContext parent;
-        private Dictionary<Definition, INode> childNodes;
-        private Dictionary<Definition, IEnumerable<IResolutionContext<T>>> childResolutions
-            = new Dictionary<Definition, IEnumerable<IResolutionContext<T>>>();
+        private readonly Dictionary<Definition, IEnumerable<IResolutionContext>> childResolutions 
+            = new Dictionary<Definition, IEnumerable<IResolutionContext>>();
 
         public ResolutionContext(T value,
-            Definition ownDefinition,
             INode node,
             IResolutionContext parent)
         {
-            this.ownDefinition = ownDefinition;
-            this.parent = parent;
-            childNodes = node.Children.ToDictionary(x => x.Definition);
             Value = value;
-            MeetsConditions = node.Filters.ItemFilter.MeetsCondition(this);
+            this.node = node;
+            this.parent = parent;
+            MeetsConditions = node.Filters.ItemFilter.MeetsCondition(this, node.Resolver);
         }
 
         public bool MeetsConditions { get; }
@@ -34,19 +32,25 @@
             yield break;
         }
 
-        public IResolutionContext ResolveSingle(Definition definition)
+        public IEnumerable<IResolutionContext> ResolveDown(Definition definition, List<INode> chain, int index)
         {
-            return null;
+            var nextNode = chain[index];
+            var resolution = GetChildResolution(nextNode);
+            if (definition == nextNode.Definition)
+            {
+                return resolution;
+            }
+
+            return resolution
+                .Where(x => x.MeetsConditions)
+                .SelectMany(x => x.ResolveDown(definition, chain, index + 1));
         }
 
-        public IEnumerable<IResolutionContext> ResolveDown(Definition definition)
-        {
-            yield break;
-        }
+        public IResolutionContext ResolveSingle(Definition definition) => definition == node.Definition ? this : parent.ResolveSingle(definition);
 
-        public IEnumerable<IResolutionContext> ResolveDown(Definition definition, List<Definition> chain, int nextIndex)
+        private IEnumerable<IResolutionContext> GetChildResolution(INode nextNode)
         {
-            yield break;
+            return childResolutions.GetOrAdd(nextNode.Definition, () => nextNode.Provider.Resolve(this, nextNode));
         }
     }
 }

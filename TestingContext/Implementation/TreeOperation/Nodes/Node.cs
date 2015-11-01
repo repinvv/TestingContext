@@ -11,7 +11,7 @@
             Definition = definition;
             Provider = provider;
             Filters = filters;
-            Resolver = new NodeResolver(tree);
+            Resolver = new NodeResolver(tree, definition);
         }
 
         public Definition Definition { get; }
