@@ -85,7 +85,7 @@
 
         protected bool Equals(ResolutionContext<T> other)
         {
-            return ReferenceEquals(Value, other.Value);
+            return other != null && ReferenceEquals(Value, other.Value);
         }
 
         public override int GetHashCode()

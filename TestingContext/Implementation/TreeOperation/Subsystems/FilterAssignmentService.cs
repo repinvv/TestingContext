@@ -30,7 +30,7 @@
             else
             {
                 var node = tree.Nodes[filter.Dependencies[0].Definition];
-                tree.Nodes[node.Provider.Dependency.Definition].Filters.AddItemFilter(filter);
+                node.Parent.Filters.AddItemFilter(filter);
             }
         }
 
@@ -38,8 +38,7 @@
         {
             foreach (var node in tree.Nodes.Values.Where(x => x.Provider != null))
             {
-                var parent = tree.Nodes[node.Provider.Dependency.Definition];
-                parent.Filters.AddItemFilter(node.Filters.CollectionFilter);
+                node.Parent.Filters.AddItemFilter(node.Filters.CollectionFilter);
             }
         }
     }

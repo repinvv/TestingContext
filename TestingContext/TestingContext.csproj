@@ -71,8 +71,6 @@
     <Compile Include="Implementation\ResolutionContext\IResolutionContext.cs" />
     <Compile Include="Implementation\Filters\IFilter.cs" />
     <Compile Include="Implementation\Registrations\RegistrationStore.cs" />
-    <Compile Include="Implementation\Resolution\EmptyResolution.cs" />
-    <Compile Include="Implementation\Resolution\Resolution.cs" />
     <Compile Include="Implementation\Providers\Provider.cs" />
     <Compile Include="Implementation\Providers\IProvider.cs" />
     <Compile Include="Implementation\ProhibitedRelation.cs" />

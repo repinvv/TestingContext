@@ -31,11 +31,13 @@
             var tree = GetTree(store, this);
             if (tree.RootContext.MeetsConditions)
             {
-                return tree.Root
+                var all = tree.Root
                            .Resolver
                            .ResolveCollection(Define<T>(key), tree.RootContext)
                            .Where(x => x.MeetsConditions)
+                           .Distinct()
                            .Cast<IResolutionContext<T>>();
+                return all;
             }
 
             var collect = new FailureCollect();

@@ -59,7 +59,7 @@
         private void CreateProvider<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc)
         {
             var dep = new SingleDependency<T1>(definition);
-            store.RegisterProvider(Define<T2>(key), new Provider<T1, T2>(dep, srcFunc, store));
+            store.RegisterProvider(Define<T2>(key), new Provider<T1, T2>(dep, srcFunc));
         }
     }
 }
