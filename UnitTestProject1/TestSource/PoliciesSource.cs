@@ -10,110 +10,162 @@
     {
         public static Insurance[] Insurances =
         {
-            new Insurance // should be skipped by tests
-            {
-                Id = 1,
-                Created = new DateTime(2004, 1, 2)
-            },
-            new Insurance // for @simpleEvaluation1 and @notFoundLogging2
-            {
-                Id = 2,
-                Name = "insurance for @simpleEvaluation1",
-                Created = new DateTime(2006, 1, 2),
-                Assignments =
-                    new List<Assignment>
-                    {
-                        new Assignment { Id = 1, Type = Employee, HeadCount = 30 }
-                    }
-            },
-            new Insurance // for @simpleEvaluation2
-            {
-                Id = 3,
-                Name = "somename2014",
-                Created = new DateTime(2007, 1, 2),
-                MaximumDependents = 71,
-                Assignments = new List<Assignment>
-                            {
-                                new Assignment { Id = 2, Type = Employee, HeadCount = 40 },
-                                new Assignment { Id = 3, Type = Dependent, HeadCount = 70 }
-                            }
-            },
-            new Insurance // for @notFoundLogging3
-            {
-                Id = 4,
-                Created = new DateTime(2009, 1, 2)
-            },
+            //new Insurance // should be skipped by tests
+            //{
+            //    Id = 1,
+            //    Created = new DateTime(2004, 1, 2)
+            //},
+            //new Insurance // for @simpleEvaluation1 and @notFoundLogging2
+            //{
+            //    Id = 2,
+            //    Name = "insurance for @simpleEvaluation1",
+            //    Created = new DateTime(2006, 1, 2),
+            //    Assignments =
+            //        new List<Assignment>
+            //        {
+            //            new Assignment { Id = 1, Type = Employee, HeadCount = 30 }
+            //        }
+            //},
+            //new Insurance // for @simpleEvaluation2
+            //{
+            //    Id = 3,
+            //    Name = "somename2014",
+            //    Created = new DateTime(2007, 1, 2),
+            //    MaximumDependents = 71,
+            //    Assignments = new List<Assignment>
+            //                  {
+            //                      new Assignment { Id = 2, Type = Employee, HeadCount = 40 },
+            //                      new Assignment { Id = 3, Type = Dependent, HeadCount = 70 }
+            //                  }
+            //},
+            //new Insurance // for @notFoundLogging3
+            //{
+            //    Id = 4,
+            //    Created = new DateTime(2009, 1, 2)
+            //},
+            //new Insurance
+            //{
+            //    Id = 5,
+            //    Name = "non matching insurance for two branch",
+            //    Created = new DateTime(2010, 1, 2),
+            //    Assignments = new List<Assignment>
+            //                  {
+            //                      new Assignment { Id = 4, Type = Employee, HeadCount = 40 },
+            //                      new Assignment { Id = 5, Type = Dependent, HeadCount = 70 }
+            //                  },
+            //    Taxes = new List<Tax>
+            //            {
+            //                new Tax { Id = 1, Type = Local, Amount = 800 },
+            //                new Tax { Id = 2, Type = Federal, Amount = 600 }
+            //            }
+            //},
+            //new Insurance
+            //{
+            //    Id = 6,
+            //    Name = "matching insurance for @twobranch1",
+            //    Created = new DateTime(2010, 1, 2),
+            //    Assignments = new List<Assignment>
+            //                  {
+            //                      new Assignment { Id = 6, Type = Employee, HeadCount = 40 },
+            //                      new Assignment { Id = 7, Type = Dependent, HeadCount = 70 }
+            //                  },
+            //    Taxes = new List<Tax>
+            //            {
+            //                new Tax { Id = 3, Type = Local, Amount = 600 },
+            //                new Tax { Id = 4, Type = Federal, Amount = 800 }
+            //            }
+            //},
+            //new Insurance
+            //{
+            //    Id = 7,
+            //    Name = "matching insurance for @breakOne3",
+            //    Created = new DateTime(2011, 1, 2),
+            //    Assignments = new List<Assignment>
+            //                  {
+            //                      new Assignment { Id = 8, Type = Dependent, HeadCount = 22 }
+            //                  },
+            //    Taxes = new List<Tax>
+            //            {
+            //                new Tax { Id = 5, Type = Federal, Amount = 65 }
+            //            }
+            //},
+            //new Insurance
+            //{
+            //    Id = 8,
+            //    Name = "matching insurance for @breakOne2",
+            //    Created = new DateTime(2011, 1, 2),
+            //    Assignments = new List<Assignment>(),
+            //    Taxes = new List<Tax>
+            //            {
+            //                new Tax { Id = 6, Type = Federal, Amount = 88 }
+            //            }
+            //},
+            //new Insurance
+            //{
+            //    Id = 9,
+            //    Name = "matching insurance for @breakOne1",
+            //    Created = new DateTime(2011, 1, 2),
+            //    Assignments = new List<Assignment>
+            //                  {
+            //                      new Assignment { Id = 9, Type = Dependent, HeadCount = 22 }
+            //                  },
+            //    Taxes = new List<Tax>
+            //            {
+            //                new Tax { Id = 7, Type = Federal, Amount = 88 }
+            //            }
+            //},
+            //new Insurance
+            //{
+            //    Id = 10,
+            //    Name = "non-matching policy for tree reordering",
+            //    Created = new DateTime(2012, 1, 2),
+            //    Assignments = new List<Assignment>
+            //                  {
+            //                      new Assignment { Id = 10, Type = Dependent, HeadCount = 1, Created = new DateTime(2012, 2, 3) }
+            //                  },
+            //    Taxes = new List<Tax>
+            //            {
+            //                new Tax { Id = 8, Type = Federal, Amount = 2, Created = new DateTime(2012, 2, 4) }
+            //            }
+            //},
             new Insurance
             {
-                Id = 5,
-                Name = "non matching insurance for two branch",
-                Created = new DateTime(2010, 1, 2),
+                Id = 11,
+                Name = "matching policy for @treeReordering1",
+                Created = new DateTime(2012, 1, 2),
                 Assignments = new List<Assignment>
-                            {
-                                new Assignment { Id = 4, Type = Employee, HeadCount = 40 },
-                                new Assignment { Id = 5, Type = Dependent, HeadCount = 70 }
-                            },
+                              {
+                                  new Assignment { Id = 11, Type = Dependent, HeadCount = 1, Created = new DateTime(2012, 2, 3) },
+                                  new Assignment { Id = 12, Type = Dependent, HeadCount = 1, Created = new DateTime(2012, 2, 5) }
+
+                              },
                 Taxes = new List<Tax>
                         {
-                            new Tax { Id = 1, Type = Local, Amount = 800 },
-                            new Tax { Id = 2, Type = Federal, Amount = 600 }
+                            new Tax { Id = 9, Type = Federal, Amount = 2, Created = new DateTime(2012, 2, 4) },
+                            new Tax { Id = 10, Type = Federal, Amount = 2, Created = new DateTime(2012, 2, 5) }
                         }
             },
             new Insurance
             {
-                Id = 6,
-                Name = "matching insurance for @twobranch1",
-                Created = new DateTime(2010, 1, 2),
+                Id = 11,
+                Name = "non-matching policy for tree reordering 2",
+                Created = new DateTime(2013, 1, 2),
                 Assignments = new List<Assignment>
-                            {
-                                new Assignment { Id = 6, Type = Employee, HeadCount = 40 },
-                                new Assignment { Id = 7, Type = Dependent, HeadCount = 70 }
-                            },
-                Taxes = new List<Tax>
-                        {
-                            new Tax { Id = 3, Type = Local, Amount = 600 },
-                            new Tax { Id = 4, Type = Federal, Amount = 800 }
-                        }
+                              {
+                                  new Assignment { Id = 13, Type = Employee, HeadCount = 1, Created = new DateTime(2012, 2, 6) }
+                              },
             },
             new Insurance
             {
-                Id = 7,
-                Name = "matching insurance for @breakOne3",
-                Created = new DateTime(2011, 1, 2),
+                Id = 12,
+                Name = "matching policy for @treeReordering2",
+                Created = new DateTime(2013, 1, 2),
                 Assignments = new List<Assignment>
-                            {
-                                new Assignment { Id = 8, Type = Dependent, HeadCount = 22 }
-                            },
-                Taxes = new List<Tax>
-                        {
-                            new Tax { Id = 5, Type = Federal, Amount = 65 }
-                        }
+                              {
+                                  new Assignment { Id = 14, Type = Employee, HeadCount = 1, Created = new DateTime(2012, 2, 6) },
+                                  new Assignment { Id = 15, Type = Employee, HeadCount = 1, Created = new DateTime(2012, 2, 5) }
+                              },
             },
-            new Insurance
-            {
-                Id = 8,
-                Name = "matching insurance for @breakOne2",
-                Created = new DateTime(2011, 1, 2),
-                Assignments = new List<Assignment>(),
-                Taxes = new List<Tax>
-                        {
-                            new Tax { Id = 6, Type = Federal, Amount = 88 }
-                        }
-            },
-            new Insurance
-            {
-                Id = 9,
-                Name = "matching insurance for @breakOne1",
-                Created = new DateTime(2011, 1, 2),
-                Assignments = new List<Assignment>
-                            {
-                                new Assignment { Id = 9, Type = Dependent, HeadCount = 22 }
-                            },
-                Taxes = new List<Tax>
-                        {
-                            new Tax { Id = 7, Type = Federal, Amount = 88 }
-                        }
-            }
         };
     }
 }

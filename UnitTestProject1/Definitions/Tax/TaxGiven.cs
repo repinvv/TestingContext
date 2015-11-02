@@ -54,5 +54,13 @@
             context.InvertCollectionValidity<Tax>(key);
         }
 
+        [Given(@"assignment(?:\s)?(.*) is created at the same day as tax(?:\s)?(.*)")]
+        public void GivenAssignmentIsCreatedAtTheSameDayAsTax(string assignmentKey, string taxKey)
+        {
+            context.Register()
+                   .For<Assignment>(assignmentKey)
+                   .For<Tax>(taxKey)
+                   .IsTrue((assignment, tax) => assignment.Created.Date == tax.Created.Date);
+        }
     }
 }

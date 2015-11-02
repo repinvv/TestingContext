@@ -83,6 +83,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SimpleItemsEvaluation.feature</DependentUpon>
     </Compile>
+    <Compile Include="FeatureSpecs\TreeReordering.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TreeReordering.feature</DependentUpon>
+    </Compile>
     <Compile Include="FeatureSpecs\TwoBranchItemsEvaluatuation.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -105,6 +110,10 @@
     <None Include="FeatureSpecs\SimpleItemsEvaluation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SimpleItemsEvaluation.feature.cs</LastGenOutput>
+    </None>
+    <None Include="FeatureSpecs\TreeReordering.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>TreeReordering.feature.cs</LastGenOutput>
     </None>
     <None Include="FeatureSpecs\TwoBranchItemsEvaluatuation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

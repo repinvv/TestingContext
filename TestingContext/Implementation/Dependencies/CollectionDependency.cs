@@ -17,6 +17,7 @@
         {
             return resolver.ResolveCollection(Definition, context)
                            .Where(x => x.MeetsConditions)
+                           .Distinct()
                            .Cast<IResolutionContext<TItem>>()
                            .Select(x => x.Value);
         }

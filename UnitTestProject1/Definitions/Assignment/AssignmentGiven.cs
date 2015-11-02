@@ -62,5 +62,13 @@
             context.InvertCollectionValidity<Assignment>(key);
         }
 
+        [Given(@"assignment(?:\s)?(.*) is created at the same day as assignment(?:\s)?(.*)")]
+        public void GivenAssignmentIsCreatedAtTheSameDayAsAssignment(string key1, string key2)
+        {
+            context.Register()
+                   .For<Assignment>(key1)
+                   .For<Assignment>(key2)
+                   .IsTrue((assignment1, assignment2) => assignment1.Created.Date == assignment2.Created.Date);
+        }
     }
 }

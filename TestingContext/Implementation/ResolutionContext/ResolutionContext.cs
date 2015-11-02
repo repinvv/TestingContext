@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.CompilerServices;
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
     using TestingContextCore.Interfaces;
@@ -75,6 +76,21 @@
                     }
                 }
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as ResolutionContext<T>);
+        }
+
+        protected bool Equals(ResolutionContext<T> other)
+        {
+            return ReferenceEquals(Value, other.Value);
+        }
+
+        public override int GetHashCode()
+        {
+            return RuntimeHelpers.GetHashCode(Value);
         }
     }
 }
