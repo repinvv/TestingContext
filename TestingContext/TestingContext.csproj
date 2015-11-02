@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="CachingEnumerable.cs" />
     <Compile Include="DictionaryExtension.cs" />
+    <Compile Include="Implementation\Filters\FilterConstant.cs" />
     <Compile Include="Implementation\Registrations\RegistrationExtension.cs" />
     <Compile Include="Implementation\BranchReference.cs" />
     <Compile Include="Implementation\Definition.cs" />

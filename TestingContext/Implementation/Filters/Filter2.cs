@@ -8,6 +8,7 @@
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
+    using static FilterConstant;
 
     internal class Filter2<T1, T2> : IFilter
     {
@@ -15,7 +16,6 @@
         private readonly IDependency<T2> dependency2;
         private readonly Expression<Func<T1, T2, bool>> filterExpression;
         private readonly Func<T1, T2, bool> filterFunc;
-        private static readonly int[] emptyArray = new int[0];
 
         public Filter2(IDependency<T1> dependency1, IDependency<T2> dependency2, Expression<Func<T1, T2, bool>> filterExpression, string key)
         {
@@ -33,7 +33,7 @@
         {
             T1 argument1;
             T2 argument2;
-            failureWeight = emptyArray;
+            failureWeight = EmptyArray;
             failure = this;
 
             if (!dependency1.TryGetValue(context, resolver, out argument1) || !dependency2.TryGetValue(context, resolver, out argument2))

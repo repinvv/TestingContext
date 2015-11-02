@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.Logging;
-    using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
     using TestingContextCore.Interfaces;
 

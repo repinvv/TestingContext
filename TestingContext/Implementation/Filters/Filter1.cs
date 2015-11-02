@@ -8,13 +8,13 @@
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
+    using static FilterConstant;
 
     internal class Filter1<T1> : IFilter
     {
         private readonly IDependency<T1> dependency;
         private readonly Expression<Func<T1, bool>> filterExpression;
         private readonly Func<T1, bool> filterFunc;
-        private static readonly int[] emptyArray = new int[0];
 
         public Filter1(IDependency<T1> dependency, Expression<Func<T1, bool>> filterExpression, string key)
         {
@@ -30,7 +30,7 @@
         public bool MeetsCondition(IResolutionContext context, NodeResolver resolver, out int[] failureWeight, out IFailure failure)
         {
             T1 argument;
-            failureWeight = emptyArray;
+            failureWeight = EmptyArray;
             failure = this;
             if (!dependency.TryGetValue(context, resolver, out argument))
             {

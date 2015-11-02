@@ -2,21 +2,19 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Linq.Expressions;
     using ExpressionToCodeLib;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
-    using TestingContextCore.Interfaces;
+    using static FilterConstant;
 
     internal class ThisFilter<T> : IFilter
     {
         private readonly Expression<Func<IEnumerable<IResolutionContext>, bool>> filterExpression;
         private readonly Definition definition;
         private readonly Func<IEnumerable<IResolutionContext>, bool> filterFunc;
-        private static readonly int[] emptyArray = new int[0];
 
         public ThisFilter(Expression<Func<IEnumerable<IResolutionContext>, bool>> filterExpression, Definition definition)
         {
@@ -31,7 +29,7 @@
         public bool MeetsCondition(IResolutionContext context, NodeResolver resolver, out int[] failureWeight, out IFailure failure)
         {
             var source = resolver.ResolveCollection(definition, context);
-            failureWeight = emptyArray;
+            failureWeight = EmptyArray;
             failure = this;
             return filterFunc(source);
         }

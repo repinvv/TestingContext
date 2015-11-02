@@ -7,11 +7,10 @@
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
+    using static FilterConstant;
 
     internal class AndGroup : IFilter
     {
-        private static readonly int[] emptyArray = new int[0];
-
         private readonly List<IFilter> filters = new List<IFilter>();
 
         public void AddFilter(IFilter filter) => filters.Add(filter);
@@ -33,7 +32,7 @@
                 }
             }
 
-            failureWeight = emptyArray;
+            failureWeight = EmptyArray;
             failure = this;
             return true;
         } 
