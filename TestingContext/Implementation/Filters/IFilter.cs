@@ -9,6 +9,6 @@
     {
         IDependency[] Dependencies { get; }
 
-        bool MeetsCondition(IResolutionContext context, NodeResolver resolver);
+        bool MeetsCondition(IResolutionContext context, NodeResolver resolver, out int[] failureWeight, out IFailure failure);
     }
 }

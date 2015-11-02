@@ -1,32 +1,22 @@
 ﻿namespace TestingContextCore.Implementation.Logging
 {
-    using TestingContextCore.Implementation.Registrations;
-
     internal class FailureCollect
     {
-        private readonly RegistrationStore store;
         private int[] currentWeight;
-        private IFailure currentFailure;
-        private Definition currentDefinition;
 
-        public FailureCollect(RegistrationStore store)
+        public FailureCollect()
         {
-            this.store = store;
             currentWeight = new int[0];
         }
 
-        public void LogFailure()
-        {
-            store.SearchFailure(currentDefinition.ToString(), currentFailure.FilterString, currentFailure.Key, currentFailure.Inverted);
-        }
+        public IFailure Failure { get; private set; }
 
-        public void ReportFailure(int[] failureWeight, IFailure faiure, Definition definition)
+        public void ReportFailure(int[] failureWeight, IFailure faiure)
         {
             if (WeightIsBigger(failureWeight))
             {
                 currentWeight = failureWeight;
-                currentFailure = faiure;
-                currentDefinition = definition;
+                Failure = faiure;
             }
         }
 

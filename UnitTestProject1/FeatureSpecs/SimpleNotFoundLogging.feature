@@ -26,4 +26,5 @@ Scenario: Two entities in cascade failed find should print an "empty source" mes
 	  And for insurance B exists an assignment B
 	  And assignment B has type 'Undefined'
 	When insurance B resolves
-	Then resolution logger must produce info for filter, mentioning 'Assignment "B"' and 'Source was null or empty'
+	Then resolution logger must produce info for filter, mentioning 'Assignment "B"' and 'Any'
+	 And resolution logger must produce info for filter, mentioning 'Assignment "B"' and 'MeetsCondition'

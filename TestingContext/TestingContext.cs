@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Interfaces;
     using static Implementation.Definition;
@@ -15,13 +16,8 @@
         {
             var rootDefinition = Define<TestingContext>(string.Empty);
             store = new RegistrationStore(rootDefinition);
-            store.OnSearchFailure += SearchFailure;
         }
 
-        private void SearchFailure(object sender, SearchFailureEventArgs e)
-        {
-            OnSearchFailure?.Invoke(this, e);
-        }
 
         public event SearchFailureEventHandler OnSearchFailure;
 
@@ -33,11 +29,24 @@
         public IEnumerable<IResolutionContext<T>> All<T>(string key)
         {
             var tree = GetTree(store, this);
-            return tree.Root
-                       .Resolver
-                       .ResolveCollection(Define<T>(key), tree.RootContext)
-                       .Where(x => x.MeetsConditions)
-                       .Cast<IResolutionContext<T>>();
+            if (tree.RootContext.MeetsConditions)
+            {
+                return tree.Root
+                           .Resolver
+                           .ResolveCollection(Define<T>(key), tree.RootContext)
+                           .Where(x => x.MeetsConditions)
+                           .Cast<IResolutionContext<T>>();
+            }
+
+            var collect = new FailureCollect();
+            tree.RootContext.ReportFailure(collect, new int[0]);
+            OnSearchFailure?.Invoke(this, new SearchFailureEventArgs
+                                          {
+                                              Entities = collect.Failure.Definitions.Select(x=>x.ToString()),
+                                              FilterKey = collect.Failure.Key,
+                                              FilterText = collect.Failure.FilterString
+                                          });
+            return Enumerable.Empty<IResolutionContext<T>>();
         }
 
         public T Value<T>(string key)

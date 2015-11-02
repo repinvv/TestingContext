@@ -20,7 +20,6 @@
         }
 
         private IEnumerable<IResolutionContext> ResolutionContent => resolvedSource
-            .Where(x => x.MeetsConditions)
             .Select(item => item as IResolutionContext);
 
         IEnumerator<IResolutionContext> IEnumerable<IResolutionContext>.GetEnumerator() => ResolutionContent.GetEnumerator();

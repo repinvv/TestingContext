@@ -11,22 +11,8 @@
         {
             RootDefinition = rootDefinition;
         }
-
-        public event SearchFailureEventHandler OnSearchFailure;
+        
         public Definition RootDefinition { get; }
-
-        public void SearchFailure(string entity, string filter, string key, bool inverted)
-        {
-            OnSearchFailure?
-                .Invoke(this,
-                        new SearchFailureEventArgs
-                        {
-                            Entity = entity,
-                            FilterKey = key,
-                            FilterText = filter,
-                            Inverted = inverted
-                        });
-        }
 
         public IDictionary<Definition, IProvider> Providers { get; } = new Dictionary<Definition, IProvider>();
 

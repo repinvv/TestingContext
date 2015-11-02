@@ -23,10 +23,14 @@
             {
                 assignment.Filters.AddItemFilter(filter);
             }
+            else if (filter.Dependencies.Length == 1)
+            {
+                tree.Nodes[filter.Dependencies[0].Definition].Filters.AddCollectionFilter(filter);
+            }
             else
             {
-                var dependency = filter.Dependencies.First(x => x.IsCollectionDependency);
-                tree.Nodes[dependency.Definition].Filters.AddCollectionFilter(filter);
+                var node = tree.Nodes[filter.Dependencies[0].Definition];
+                tree.Nodes[node.Provider.Dependency.Definition].Filters.AddItemFilter(filter);
             }
         }
 

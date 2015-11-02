@@ -6,6 +6,7 @@
     using System.Linq.Expressions;
     using ExpressionToCodeLib;
     using TestingContextCore.Implementation.Dependencies;
+    using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
     using TestingContextCore.Interfaces;
@@ -15,6 +16,7 @@
         private readonly Expression<Func<IEnumerable<IResolutionContext>, bool>> filterExpression;
         private readonly Definition definition;
         private readonly Func<IEnumerable<IResolutionContext>, bool> filterFunc;
+        private static readonly int[] emptyArray = new int[0];
 
         public ThisFilter(Expression<Func<IEnumerable<IResolutionContext>, bool>> filterExpression, Definition definition)
         {
@@ -26,20 +28,20 @@
 
         public IDependency[] Dependencies { get; }
 
-        public bool MeetsCondition(IResolutionContext context, NodeResolver resolver)
+        public bool MeetsCondition(IResolutionContext context, NodeResolver resolver, out int[] failureWeight, out IFailure failure)
         {
             var source = resolver.ResolveCollection(definition, context);
+            failureWeight = emptyArray;
+            failure = this;
             return filterFunc(source);
         }
 
         public void Invert() { }
 
         #region IFailure members
+        public IEnumerable<Definition> Definitions => new[] { definition };
         public string FilterString => ExpressionToCode.AnnotatedToCode(filterExpression);
-
         public string Key => null;
-
-        public bool Inverted => false;
         #endregion
     }
 }

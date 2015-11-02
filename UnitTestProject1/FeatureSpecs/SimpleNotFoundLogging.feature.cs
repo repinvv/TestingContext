@@ -14,7 +14,8 @@
 namespace UnitTestProject1.FeatureSpecs
 {
     using TechTalk.SpecFlow;
-
+    
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
@@ -49,7 +50,7 @@ namespace UnitTestProject1.FeatureSpecs
             if (((TechTalk.SpecFlow.FeatureContext.Current != null) 
                         && (TechTalk.SpecFlow.FeatureContext.Current.FeatureInfo.Title != "SimpleNotFoundLogging")))
             {
-                FeatureSetup(null);
+                UnitTestProject1.FeatureSpecs.SimpleNotFoundLoggingFeature.FeatureSetup(null);
             }
         }
         
@@ -141,7 +142,10 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.When("insurance B resolves", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 29
  testRunner.Then("resolution logger must produce info for filter, mentioning \'Assignment \"B\"\' and \'" +
-                    "Source was null or empty\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+                    "Any\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 30
+  testRunner.And("resolution logger must produce info for filter, mentioning \'Assignment \"B\"\' and \'" +
+                    "MeetsCondition\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

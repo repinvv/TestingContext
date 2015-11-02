@@ -63,7 +63,6 @@
     <Compile Include="Implementation\Logging\FailureCollect.cs" />
     <Compile Include="Implementation\Logging\IFailure.cs" />
     <Compile Include="Implementation\Logging\IFailureReporter.cs" />
-    <Compile Include="Implementation\Logging\LoggingExtension.cs" />
     <Compile Include="Implementation\Registrations\Registration2.cs" />
     <Compile Include="Implementation\Registrations\ProviderCreator.cs" />
     <Compile Include="Implementation\Registrations\Registration1.cs" />

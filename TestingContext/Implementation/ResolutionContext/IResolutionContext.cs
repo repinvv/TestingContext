@@ -1,10 +1,11 @@
 ﻿namespace TestingContextCore.Implementation.ResolutionContext
 {
     using System.Collections.Generic;
+    using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
     using TestingContextCore.Interfaces;
 
-    internal interface IResolutionContext
+    internal interface IResolutionContext : IFailureReporter
     {
         bool MeetsConditions { get; }
 

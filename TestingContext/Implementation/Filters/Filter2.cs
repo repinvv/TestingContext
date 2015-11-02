@@ -1,9 +1,11 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq.Expressions;
     using ExpressionToCodeLib;
     using TestingContextCore.Implementation.Dependencies;
+    using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
 
@@ -13,6 +15,7 @@
         private readonly IDependency<T2> dependency2;
         private readonly Expression<Func<T1, T2, bool>> filterExpression;
         private readonly Func<T1, T2, bool> filterFunc;
+        private static readonly int[] emptyArray = new int[0];
 
         public Filter2(IDependency<T1> dependency1, IDependency<T2> dependency2, Expression<Func<T1, T2, bool>> filterExpression, string key)
         {
@@ -26,10 +29,13 @@
 
         public IDependency[] Dependencies { get; }
 
-        public bool MeetsCondition(IResolutionContext context, NodeResolver resolver)
+        public bool MeetsCondition(IResolutionContext context, NodeResolver resolver, out int[] failureWeight, out IFailure failure)
         {
             T1 argument1;
             T2 argument2;
+            failureWeight = emptyArray;
+            failure = this;
+
             if (!dependency1.TryGetValue(context, resolver, out argument1) || !dependency2.TryGetValue(context, resolver, out argument2))
             {
                 return false;
@@ -39,6 +45,8 @@
         }
         
         #region IFailure members
+
+        public IEnumerable<Definition> Definitions => new[] { dependency1.Definition, dependency2.Definition };
         public string FilterString => ExpressionToCode.AnnotatedToCode(filterExpression);
 
         public string Key { get; }
