@@ -39,9 +39,8 @@
 
         public static Node CreateNode(Definition definition, IProvider provider, RegistrationStore store, Tree tree)
         {
-            var collectionInvert = store.CollectionInversions.Contains(definition);
             var itemInvert = store.ItemInversions.Contains(definition);
-            return new Node(tree, definition, provider, new NodeFilters(collectionInvert, itemInvert));
+            return new Node(tree, definition, provider, new NodeFilters(itemInvert));
         }
     }
 }

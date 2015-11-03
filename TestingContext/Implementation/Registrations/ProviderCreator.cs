@@ -22,19 +22,19 @@
 
         public void Exists<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc)
         {
-            store.RegisterFilter(new ThisFilter<T2>(x => x.Any(y => y.MeetsConditions), Define<T2>(key)), null);
+            store.RegisterCollectionValidityFilter(new CollectionValidityFilter<T2>(x => x.Any(y => y.MeetsConditions), Define<T2>(key)), null);
             CreateProvider(key, srcFunc);
         }
 
         public void DoesNotExist<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc)
         {
-            store.RegisterFilter(new ThisFilter<T2>(x => !x.Any(y => y.MeetsConditions), Define<T2>(key)), null);
+            store.RegisterCollectionValidityFilter(new CollectionValidityFilter<T2>(x => !x.Any(y => y.MeetsConditions), Define<T2>(key)), null);
             CreateProvider(key, srcFunc);
         }
 
         public void Each<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc)
         {
-            store.RegisterFilter(new ThisFilter<T2>(x => x.All(y => y.MeetsConditions), Define<T2>(key)), null);
+            store.RegisterCollectionValidityFilter(new CollectionValidityFilter<T2>(x => x.All(y => y.MeetsConditions), Define<T2>(key)), null);
             CreateProvider(key, srcFunc);
         }
 

@@ -29,7 +29,7 @@
             store.Filters.ForEach(x => ReorderNodesForFilter(tree, x));
             store.Filters.ForEach(x => ValidateFilter(tree, x));
             store.Filters.ForEach(x => AssignFilter(tree, x));
-            AssignCollectionFiltersToParents(tree);
+            store.CollectionValidityFilters.ForEach(x => AssignCollectionValidityFilter(tree, x, store));
             ValidateTree(tree);
             tree.RootContext = new ResolutionContext<TestingContext>(rootSource, tree.Root, null);
             return tree;

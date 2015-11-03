@@ -59,7 +59,7 @@
     <Compile Include="Implementation\Filters\Filter2.cs" />
     <Compile Include="Implementation\Filters\Filter1.cs" />
     <Compile Include="Implementation\Filters\Inverter.cs" />
-    <Compile Include="Implementation\Filters\ThisFilter.cs" />
+    <Compile Include="Implementation\Filters\CollectionValidityFilter.cs" />
     <Compile Include="Implementation\Logging\ArrayExtension.cs" />
     <Compile Include="Implementation\Logging\FailureCollect.cs" />
     <Compile Include="Implementation\Logging\IFailure.cs" />

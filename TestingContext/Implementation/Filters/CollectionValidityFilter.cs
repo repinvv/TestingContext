@@ -10,13 +10,13 @@
     using TestingContextCore.Implementation.TreeOperation.Nodes;
     using static FilterConstant;
 
-    internal class ThisFilter<T> : IFilter
+    internal class CollectionValidityFilter<T> : IFilter
     {
         private readonly Expression<Func<IEnumerable<IResolutionContext>, bool>> filterExpression;
         private readonly Definition definition;
         private readonly Func<IEnumerable<IResolutionContext>, bool> filterFunc;
 
-        public ThisFilter(Expression<Func<IEnumerable<IResolutionContext>, bool>> filterExpression, Definition definition)
+        public CollectionValidityFilter(Expression<Func<IEnumerable<IResolutionContext>, bool>> filterExpression, Definition definition)
         {
             this.filterExpression = filterExpression;
             this.definition = definition;

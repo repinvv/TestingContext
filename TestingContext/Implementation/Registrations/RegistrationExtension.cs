@@ -11,6 +11,12 @@
             store.Filters.Add(filter);
         }
 
+        public static void RegisterCollectionValidityFilter(this RegistrationStore store, IFilter filter, string key)
+        {
+            PreRegister(store);
+            store.CollectionValidityFilters.Add(filter);
+        }
+
         public static void RegisterProvider(this RegistrationStore store, Definition definition, IProvider provider)
         {
             PreRegister(store);

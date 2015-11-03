@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
 
     internal static class FilterAssignmentService
@@ -23,23 +24,23 @@
             {
                 assignment.Filters.AddItemFilter(filter);
             }
-            else if (filter.Dependencies.Length == 1)
-            {
-                tree.Nodes[filter.Dependencies[0].Definition].Filters.AddCollectionFilter(filter);
-            }
             else
             {
                 var node = tree.Nodes[filter.Dependencies[0].Definition];
-                node.Parent.Filters.AddItemFilter(filter);
+                var parent = tree.Nodes[node.Provider.Dependency.Definition];
+                parent.Filters.AddItemFilter(filter);
             }
         }
 
-        public static void AssignCollectionFiltersToParents(Tree tree)
+        public static void AssignCollectionValidityFilter(Tree tree, IFilter filter, RegistrationStore store)
         {
-            foreach (var node in tree.Nodes.Values.Where(x => x.Provider != null))
+            var node = tree.Nodes[filter.Dependencies[0].Definition];
+            if (store.CollectionInversions.Contains(node.Definition))
             {
-                node.Parent.Filters.AddItemFilter(node.Filters.CollectionFilter);
+                filter = new Inverter(filter);
             }
+
+            node.Parent.Filters.AddItemFilter(filter);
         }
     }
 }
