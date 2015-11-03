@@ -147,7 +147,28 @@
             },
             new Insurance
             {
-                Id = 11,
+                Id = 12,
+                Name = "matching policy for @treeReordering4",
+                Created = new DateTime(2012, 1, 2),
+                Assignments = new List<Assignment>
+                              {
+                                  new Assignment { Id = 16, Type = Employee, HeadCount = 1, Created = new DateTime(2012, 2, 3) },
+                                  new Assignment { Id = 17, Type = Employee, HeadCount = 10, Created = new DateTime(2012, 2, 5) },
+                                  new Assignment { Id = 18, Type = Employee, HeadCount = 30, Created = new DateTime(2012, 2, 6) },
+                                  new Assignment { Id = 19, Type = Employee, HeadCount = 60, Created = new DateTime(2012, 2, 7) }
+
+                              },
+                Taxes = new List<Tax>
+                        {
+                            new Tax { Id = 11, Type = Federal, Amount = 2, Created = new DateTime(2012, 2, 4) },
+                            new Tax { Id = 12, Type = Federal, Amount = 20, Created = new DateTime(2012, 2, 5) },
+                            new Tax { Id = 13, Type = Federal, Amount = 30, Created = new DateTime(2012, 2, 6) },
+                            new Tax { Id = 14, Type = Federal, Amount = 50, Created = new DateTime(2012, 2, 7) }
+                        }
+            },
+            new Insurance
+            {
+                Id = 13,
                 Name = "non-matching policy for tree reordering 2",
                 Created = new DateTime(2013, 1, 2),
                 Assignments = new List<Assignment>
@@ -157,13 +178,37 @@
             },
             new Insurance
             {
-                Id = 12,
+                Id = 14,
                 Name = "matching policy for @treeReordering2",
                 Created = new DateTime(2013, 1, 2),
                 Assignments = new List<Assignment>
                               {
                                   new Assignment { Id = 14, Type = Employee, HeadCount = 1, Created = new DateTime(2012, 2, 6) },
                                   new Assignment { Id = 15, Type = Employee, HeadCount = 1, Created = new DateTime(2012, 2, 5) }
+                              },
+            },
+            new Insurance
+            {
+                Id = 15,
+                Name = "policy for @treeReordering3 first",
+                Created = new DateTime(2013, 1, 2),
+                Assignments = new List<Assignment>
+                              {
+                                  new Assignment { Id = 20, Type = Dependent, HeadCount = 1, Created = new DateTime(2012, 2, 6) },
+                                  new Assignment { Id = 21, Type = Dependent, HeadCount = 1, Created = new DateTime(2012, 2, 5) },
+                                  new Assignment { Id = 22, Type = Dependent, HeadCount = 1, Created = new DateTime(2012, 2, 5) }
+                              },
+            },
+            new Insurance
+            {
+                Id = 16,
+                Name = "policy for @treeReordering3 second",
+                Created = new DateTime(2014, 1, 2),
+                Assignments = new List<Assignment>
+                              {
+                                  new Assignment { Id = 23, Type = Employee, HeadCount = 1, Created = new DateTime(2012, 2, 6) },
+                                  new Assignment { Id = 24, Type = Employee, HeadCount = 1, Created = new DateTime(2012, 2, 5) },
+                                  new Assignment { Id = 25, Type = Employee, HeadCount = 1, Created = new DateTime(2012, 2, 6) }
                               },
             },
         };

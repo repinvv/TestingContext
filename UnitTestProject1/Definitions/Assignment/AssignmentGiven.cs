@@ -70,5 +70,13 @@
                    .For<Assignment>(key2)
                    .IsTrue((assignment1, assignment2) => assignment1.Created.Date == assignment2.Created.Date);
         }
+
+        [Given(@"assignments(?:\s)?(.*) cover (.*) people total")]
+        public void GivenAssignmentsCoverPeopleTotal(string key, int covered)
+        {
+            context.Register()
+                   .ForAll<Assignment>(key)
+                   .IsTrue(assignments => assignments.Sum(x => x.HeadCount) == covered);
+        }
     }
 }

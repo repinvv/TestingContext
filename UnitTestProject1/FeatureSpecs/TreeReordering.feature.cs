@@ -102,12 +102,12 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Two levels tree reorder")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Two level tree reorder")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "TreeReordering")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("treeReordering2")]
-        public virtual void TwoLevelsTreeReorder()
+        public virtual void TwoLevelTreeReorder()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Two levels tree reorder", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Two level tree reorder", new string[] {
                         "treeReordering2"});
 #line 18
 this.ScenarioSetup(scenarioInfo);
@@ -137,6 +137,80 @@ this.ScenarioSetup(scenarioInfo);
    testRunner.And("assignment B Id must be 12", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 31
    testRunner.And("assignment C Id must be 15", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Two level tree reorder complexResolve")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "TreeReordering")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("treeReordering3")]
+        public virtual void TwoLevelTreeReorderComplexResolve()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Two level tree reorder complexResolve", new string[] {
+                        "treeReordering3"});
+#line 34
+this.ScenarioSetup(scenarioInfo);
+#line 35
+ testRunner.Given("insurance B is taken from policiesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 36
+   testRunner.And("insurance B is created in year 2013", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 37
+   testRunner.And("for insurance B exists an assignment B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 38
+   testRunner.And("assignment B has type \'Dependent\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 39
+   testRunner.And("insurance C is taken from policiesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 40
+   testRunner.And("insurance C is created in year 2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 41
+   testRunner.And("for insurance C exists an assignment C", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 42
+   testRunner.And("assignment C has type \'Employee\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 43
+   testRunner.And("assignment B is created at the same day as assignment C", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 44
+ testRunner.Then("insurance B name must contain \'@treeReordering3 first\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 45
+   testRunner.And("insurance C name must contain \'@treeReordering3 second\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 46
+   testRunner.And("for assignment B with id 20 there must be provided assignments C with ids 23,25", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 47
+   testRunner.And("for assignment C with id 24 there must be provided assignments B with ids 21,22", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Simple tree reorder with collection filter")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "TreeReordering")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("treeReordering4")]
+        public virtual void SimpleTreeReorderWithCollectionFilter()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Simple tree reorder with collection filter", new string[] {
+                        "treeReordering4"});
+#line 50
+this.ScenarioSetup(scenarioInfo);
+#line 51
+ testRunner.Given("insurance B is taken from policiesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 52
+   testRunner.And("insurance B is created in year 2012", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 53
+   testRunner.And("for insurance B exists an assignment B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 54
+   testRunner.And("assignment B has type \'Employee\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 55
+   testRunner.And("for insurance B exists a tax B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 56
+   testRunner.And("tax B has type \'Federal\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 57
+   testRunner.And("assignment B is created at the same day as tax B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 58
+   testRunner.And("assignments B cover 100 people total", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 59
+   testRunner.And("taxes B have total amount of 100$", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 60
+ testRunner.Then("insurance B name must contain \'@treeReordering4\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

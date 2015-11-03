@@ -62,5 +62,13 @@
                    .For<Tax>(taxKey)
                    .IsTrue((assignment, tax) => assignment.Created.Date == tax.Created.Date);
         }
+
+        [Given(@"taxes(?:\s)?(.*) have total amount of (.*)\$")]
+        public void GivenTaxesHaveTotalAmountOf(string key, int amount)
+        {
+            context.Register()
+                   .ForAll<Tax>(key)
+                   .IsTrue(taxes => taxes.Sum(x => x.Amount) == amount);
+        }
     }
 }
