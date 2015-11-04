@@ -12,6 +12,6 @@
 
     internal interface IDependency<TSource> : IDependency
     {
-        bool TryGetValue(IResolutionContext context, NodeResolver resolver, out TSource value);
+        bool TryGetValue(IResolutionContext context, out TSource value);
     }
 }

@@ -36,7 +36,7 @@
             failureWeight = EmptyArray;
             failure = this;
 
-            if (!dependency1.TryGetValue(context, resolver, out argument1) || !dependency2.TryGetValue(context, resolver, out argument2))
+            if (!dependency1.TryGetValue(context, out argument1) || !dependency2.TryGetValue(context, out argument2))
             {
                 return false;
             }

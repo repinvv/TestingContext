@@ -11,7 +11,7 @@
             Definition = definition;
         }
 
-        public bool TryGetValue(IResolutionContext context, NodeResolver resolver, out TSource value)
+        public bool TryGetValue(IResolutionContext context, out TSource value)
         {
             var definedcontext = context.ResolveSingle(Definition) as IResolutionContext<TSource>;
             value = definedcontext.Value;

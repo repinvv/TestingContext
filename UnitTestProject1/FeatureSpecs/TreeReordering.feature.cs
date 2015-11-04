@@ -214,6 +214,38 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Both singular and collection filters are assigned between branches")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "TreeReordering")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("treeReordering5")]
+        public virtual void BothSingularAndCollectionFiltersAreAssignedBetweenBranches()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Both singular and collection filters are assigned between branches", new string[] {
+                        "treeReordering5"});
+#line 63
+this.ScenarioSetup(scenarioInfo);
+#line 64
+ testRunner.Given("insurance B is taken from policiesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 65
+   testRunner.And("insurance B is created in year 2015", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 66
+   testRunner.And("for insurance B exists an assignment B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 67
+   testRunner.And("assignment B has type \'Dependent\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 68
+   testRunner.And("for insurance B exists a tax B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 69
+   testRunner.And("tax B has type \'Federal\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 70
+   testRunner.And("assignment B is created at the same day as tax B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 71
+   testRunner.And("average payment per person in assignments B, specified in taxes B is over 10$", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 72
+ testRunner.Then("insurance B name must contain \'@treeReordering5\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

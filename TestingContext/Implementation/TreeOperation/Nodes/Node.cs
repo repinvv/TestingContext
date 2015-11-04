@@ -20,7 +20,7 @@
 
         public INode SourceParent { get; set; }
 
-        public bool IsChildOf(INode node) =>  Parent == node || Parent.IsChildOf(node);
+        public bool IsChildOf(INode node) => Parent == node || Parent.IsChildOf(node);
 
         public List<INode> GetParentalChain()
         {

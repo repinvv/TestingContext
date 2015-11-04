@@ -7,7 +7,6 @@
     using static Subsystems.ValidationService;
     using static Subsystems.FilterAssignmentService;
     using static Subsystems.NodeReorderingService;
-    using static Subsystems.ProhibitedRelationsService;
     using static Subsystems.TreeBuilder;
 
     internal static class TreeOperationService
@@ -25,12 +24,10 @@
             BuildNodesTree(tree.Root, nodes);
             nodes.ForEach(x => tree.Nodes.Add(x.Definition, x));
             tree.Nodes.Add(store.RootDefinition, tree.Root);
-            store.Filters.ForEach(x => FindProhibitedRelations(tree, x));
-            store.Filters.ForEach(x => ReorderNodesForFilter(tree, x));
             store.Filters.ForEach(x => ValidateFilter(tree, x));
+            store.Filters.ForEach(x => ReorderNodesForFilter(tree, x));
             store.Filters.ForEach(x => AssignFilter(tree, x));
             store.CollectionValidityFilters.ForEach(x => AssignCollectionValidityFilter(tree, x, store));
-            ValidateTree(tree);
             tree.RootContext = new ResolutionContext<TestingContext>(rootSource, tree.Root, null);
             return tree;
         }

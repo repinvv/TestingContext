@@ -58,3 +58,15 @@ Scenario: Simple tree reorder with collection filter
 	  And assignments B cover 100 people total
 	  And taxes B have total amount of 100$
 	Then insurance B name must contain '@treeReordering4'	  
+
+@treeReordering5
+Scenario: Both singular and collection filters are assigned between branches
+	Given insurance B is taken from policiesSource
+	  And insurance B is created in year 2015
+	  And for insurance B exists an assignment B
+	  And assignment B has type 'Dependent'
+	  And for insurance B exists a tax B
+	  And tax B has type 'Federal'	  
+	  And assignment B is created at the same day as tax B
+	  And average payment per person in assignments B, specified in taxes B is over 10$
+	Then insurance B name must contain '@treeReordering5'

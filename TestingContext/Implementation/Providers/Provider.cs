@@ -25,7 +25,7 @@
         public IEnumerable<IResolutionContext> Resolve(IResolutionContext parentContext, INode node)
         {
             TSource sourceValue;
-            if (!dependency.TryGetValue(parentContext, node.Resolver, out sourceValue))
+            if (!dependency.TryGetValue(parentContext, out sourceValue))
             {
                 return Enumerable.Empty<IResolutionContext>();
             }

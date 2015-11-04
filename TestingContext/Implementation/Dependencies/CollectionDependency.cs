@@ -13,18 +13,17 @@
             Definition = definition;
         }
 
-        public IEnumerable<TItem> GetValue(IResolutionContext context, NodeResolver resolver)
+        public IEnumerable<TItem> GetValue(IResolutionContext context)
         {
-            return resolver.ResolveCollection(Definition, context)
-                           .Where(x => x.MeetsConditions)
+            return context.Get(Definition)
                            .Distinct()
                            .Cast<IResolutionContext<TItem>>()
                            .Select(x => x.Value);
         }
 
-        public bool TryGetValue(IResolutionContext context, NodeResolver resolver, out IEnumerable<TItem> value)
+        public bool TryGetValue(IResolutionContext context, out IEnumerable<TItem> value)
         {
-            value = GetValue(context, resolver);
+            value = GetValue(context);
             return true;
         }
 

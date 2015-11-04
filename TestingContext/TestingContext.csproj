@@ -73,7 +73,6 @@
     <Compile Include="Implementation\Registrations\RegistrationStore.cs" />
     <Compile Include="Implementation\Providers\Provider.cs" />
     <Compile Include="Implementation\Providers\IProvider.cs" />
-    <Compile Include="Implementation\ProhibitedRelation.cs" />
     <Compile Include="Implementation\TreeOperation\Nodes\NodeFilters.cs" />
     <Compile Include="Implementation\TreeOperation\Nodes\INode.cs" />
     <Compile Include="Implementation\TreeOperation\Nodes\NodeResolver.cs" />
@@ -83,7 +82,6 @@
     <Compile Include="Implementation\TreeOperation\Subsystems\ValidationService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NodeClosestParentService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NodeReorderingService.cs" />
-    <Compile Include="Implementation\TreeOperation\Subsystems\ProhibitedRelationsService.cs" />
     <Compile Include="Implementation\TreeOperation\Nodes\Node.cs" />
     <Compile Include="Implementation\TreeOperation\Tree.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\TreeBuilder.cs" />

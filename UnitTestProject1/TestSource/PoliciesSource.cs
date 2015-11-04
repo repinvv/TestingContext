@@ -211,6 +211,44 @@
                                   new Assignment { Id = 25, Type = Employee, HeadCount = 1, Created = new DateTime(2012, 2, 6) }
                               },
             },
+            new Insurance
+            {
+                Id = 11,
+                Name = "non-matching policy for tree reordering 5",
+                Created = new DateTime(2015, 1, 2),
+                Assignments = new List<Assignment>
+                              {
+                                  new Assignment { Id = 26, Type = Dependent, HeadCount = 1, Created = new DateTime(2012, 2, 3) },
+                                  new Assignment { Id = 27, Type = Dependent, HeadCount = 20, Created = new DateTime(2012, 2, 5) },
+                                  new Assignment { Id = 28, Type = Dependent, HeadCount = 30, Created = new DateTime(2012, 2, 6) }
+
+                              },
+                Taxes = new List<Tax>
+                        {
+                            new Tax { Id = 15, Type = Federal, Amount = 2, Created = new DateTime(2012, 2, 4) },
+                            new Tax { Id = 16, Type = Federal, Amount = 100, Created = new DateTime(2012, 2, 5) },
+                            new Tax { Id = 17, Type = Federal, Amount = 200, Created = new DateTime(2012, 2, 6) }
+                        }
+            },
+            new Insurance
+            {
+                Id = 11,
+                Name = "matching policy for @treeReordering5",
+                Created = new DateTime(2015, 1, 2),
+                Assignments = new List<Assignment>
+                              {
+                                  new Assignment { Id = 29, Type = Dependent, HeadCount = 1, Created = new DateTime(2012, 2, 3) },
+                                  new Assignment { Id = 30, Type = Dependent, HeadCount = 20, Created = new DateTime(2012, 2, 5) },
+                                  new Assignment { Id = 31, Type = Dependent, HeadCount = 30, Created = new DateTime(2012, 2, 6) }
+
+                              },
+                Taxes = new List<Tax>
+                        {
+                            new Tax { Id = 18, Type = Federal, Amount = 2, Created = new DateTime(2012, 2, 4) },
+                            new Tax { Id = 19, Type = Federal, Amount = 300, Created = new DateTime(2012, 2, 5) },
+                            new Tax { Id = 20, Type = Federal, Amount = 400, Created = new DateTime(2012, 2, 6) }
+                        }
+            },
         };
     }
 }

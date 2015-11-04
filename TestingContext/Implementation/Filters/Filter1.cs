@@ -32,7 +32,7 @@
             T1 argument;
             failureWeight = EmptyArray;
             failure = this;
-            if (!dependency.TryGetValue(context, resolver, out argument))
+            if (!dependency.TryGetValue(context, out argument))
             {
                 return false;
             }
