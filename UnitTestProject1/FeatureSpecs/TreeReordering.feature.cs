@@ -31,8 +31,8 @@ namespace UnitTestProject1.FeatureSpecs
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "TreeReordering", "In order to find all the combinations of data entities\t\nI want a tree to be reord" +
-                    "ered when a filter between two entities is specified", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "TreeReordering", "In order to find all the combinations of data entities\t\r\nI want a tree to be reor" +
+                    "dered when a filter between two entities is specified", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -174,9 +174,9 @@ this.ScenarioSetup(scenarioInfo);
 #line 45
    testRunner.And("insurance C name must contain \'@treeReordering3 second\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 46
-   testRunner.And("for assignment B with id 20 there must be provided assignments C with ids 23,25", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 47
    testRunner.And("for assignment C with id 24 there must be provided assignments B with ids 21,22", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 47
+   testRunner.And("for assignment B with id 20 there must be provided assignments C with ids 23,25", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

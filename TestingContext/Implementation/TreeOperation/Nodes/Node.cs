@@ -18,13 +18,20 @@
 
         public INode Parent { get; set; }
 
-        public List<INode> Children { get; } = new List<INode>();
+        public INode SourceParent { get; set; }
 
         public bool IsChildOf(INode node) =>  Parent == node || Parent.IsChildOf(node);
 
-        public List<INode> GetNodesChain()
+        public List<INode> GetParentalChain()
         {
-            var list = Parent.GetNodesChain();
+            var list = Parent.GetParentalChain();
+            list.Add(this);
+            return list;
+        }
+
+        public List<INode> GetSourceChain()
+        {
+            var list = SourceParent.GetSourceChain();
             list.Add(this);
             return list;
         }

@@ -26,8 +26,8 @@
             }
 
             var node2 = tree.Nodes[dependency.Definition];
-            var chain1 = node1.GetNodesChain();
-            var chain2 = node2.GetNodesChain();
+            var chain1 = node1.GetParentalChain();
+            var chain2 = node2.GetParentalChain();
             var closestParentIndex = FindClosestParent(chain1, chain2);
             var refIndex = closestParentIndex + 1;
             if (chain1.Count == refIndex || chain2.Count == refIndex)

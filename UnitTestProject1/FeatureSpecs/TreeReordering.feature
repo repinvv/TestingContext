@@ -43,8 +43,8 @@ Scenario: Two level tree reorder complexResolve
 	  And assignment B is created at the same day as assignment C
 	Then insurance B name must contain '@treeReordering3 first'
 	  And insurance C name must contain '@treeReordering3 second'
-	  And for assignment B with id 20 there must be provided assignments C with ids 23,25
 	  And for assignment C with id 24 there must be provided assignments B with ids 21,22
+	  And for assignment B with id 20 there must be provided assignments C with ids 23,25	  
 	  	  
 @treeReordering4
 Scenario: Simple tree reorder with collection filter

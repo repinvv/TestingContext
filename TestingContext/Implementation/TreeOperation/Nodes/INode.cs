@@ -7,7 +7,7 @@
     {
         Definition Definition { get; }
 
-        List<INode> Children { get; }
+        INode SourceParent { get; set; }
 
         INode Parent { get; set; }
 
@@ -19,8 +19,8 @@
 
         bool IsChildOf(INode node);
 
-        List<INode> GetNodesChain();
+        List<INode> GetParentalChain();
 
-
+        List<INode> GetSourceChain();
     }
 }

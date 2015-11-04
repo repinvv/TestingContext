@@ -39,8 +39,8 @@
                 return true;
             }
 
-            var chain1 = node1.GetNodesChain();
-            var chain2 = node2.GetNodesChain();
+            var chain1 = node1.GetParentalChain();
+            var chain2 = node2.GetParentalChain();
             var closestParentIndex = FindClosestParent(chain1, chain2);
             var chained = ChainUpNodes(tree, chain1[closestParentIndex + 1], node2);
             chained = chained || ChainUpNodes(tree, chain1[closestParentIndex + 1], node2);
@@ -54,9 +54,7 @@
                 return false;
             }
 
-            node.Parent.Children.Remove(node);
             node.Parent = newParent;
-            newParent.Children.Add(node);
             return true;
         }
 

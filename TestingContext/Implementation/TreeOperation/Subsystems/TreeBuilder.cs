@@ -19,7 +19,7 @@
                     foreach (var child in children)
                     {
                         child.Parent = current;
-                        current.Children.Add(child);
+                        child.SourceParent = current;
                         nodesQueue.Enqueue(child);
                     }
                 }

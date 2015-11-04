@@ -13,7 +13,7 @@
 
         public Definition Definition { get; }
 
-        public List<INode> Children { get; } = new List<INode>();
+        public INode SourceParent { get; set; }
 
         public INode Parent { get; set; }
 
@@ -25,6 +25,8 @@
 
         public bool IsChildOf(INode node) => false;
 
-        public List<INode> GetNodesChain() => new List<INode> { this };
+        public List<INode> GetParentalChain() => new List<INode> { this };
+
+        public List<INode> GetSourceChain() => new List<INode> { this };
     }
 }

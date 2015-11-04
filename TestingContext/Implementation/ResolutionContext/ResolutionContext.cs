@@ -32,7 +32,9 @@
 
         public IEnumerable<IResolutionContext<T2>> Get<T2>(string key)
         {
-            yield break;
+            return Get(Definition.Define<T2>(key))
+                .Distinct()
+                .Cast<IResolutionContext<T2>>();
         }
 
         public IEnumerable<IResolutionContext> ResolveDown(Definition definition, List<INode> chain, int index)
@@ -50,6 +52,19 @@
         }
 
         public IResolutionContext ResolveSingle(Definition definition) => definition == node.Definition ? this : parent.ResolveSingle(definition);
+
+        public IEnumerable<IResolutionContext> ResolveFromClosestParent(Definition definition, Definition parentDefinition)
+        {
+            return parentDefinition == node.Definition 
+                ? Get(definition) 
+                : parent.ResolveFromClosestParent(definition, parentDefinition);
+        }
+
+        public IEnumerable<IResolutionContext> Get(Definition definition)
+        {
+            return node.Resolver.ResolveCollection(definition, this)
+                       .Where(x => x.MeetsConditions);
+        }
 
         private IEnumerable<IResolutionContext> GetChildResolution(INode nextNode)
         {

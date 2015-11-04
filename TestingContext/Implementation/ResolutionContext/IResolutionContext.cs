@@ -11,5 +11,9 @@
         IEnumerable<IResolutionContext> ResolveDown(Definition definition, List<INode> chain, int index);
 
         IResolutionContext ResolveSingle(Definition definition);
+
+        IEnumerable<IResolutionContext> ResolveFromClosestParent(Definition definition, Definition parent);
+
+        IEnumerable<IResolutionContext> Get(Definition definition);
     }
 }
