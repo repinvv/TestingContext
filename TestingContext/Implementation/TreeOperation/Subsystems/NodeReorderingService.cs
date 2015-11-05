@@ -1,8 +1,5 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation.Subsystems
 {
-    using System.Linq;
-    using TestingContextCore.Implementation.Dependencies;
-    using TestingContextCore.Implementation.Exceptions;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
     using static NodeClosestParentService;

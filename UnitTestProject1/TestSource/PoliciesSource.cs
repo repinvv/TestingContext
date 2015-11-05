@@ -252,7 +252,7 @@
             new Insurance
             {
                 Id = 19,
-                Name = "matching policy for @NoFilterLimitation1",
+                Name = "matching policy for @NoFilterLimitation1 and @NonEqualFilter1",
                 Created = new DateTime(2015, 1, 2),
                 Assignments = new List<Assignment>
                               {

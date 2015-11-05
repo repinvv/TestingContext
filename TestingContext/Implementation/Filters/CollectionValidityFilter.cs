@@ -10,7 +10,7 @@
     using TestingContextCore.Implementation.TreeOperation.Nodes;
     using static FilterConstant;
 
-    internal class CollectionValidityFilter<T> : IFilter
+    internal class CollectionValidityFilter : IFilter
     {
         private readonly Expression<Func<IEnumerable<IResolutionContext>, bool>> filterExpression;
         private readonly Definition definition;
@@ -21,7 +21,7 @@
             this.filterExpression = filterExpression;
             this.definition = definition;
             filterFunc = filterExpression.Compile();
-            Dependencies = new IDependency[] { new CollectionDependency<T>(definition) };
+            Dependencies = new IDependency[] { new DummyDependency(definition, true) };
         }
 
         public IDependency[] Dependencies { get; }

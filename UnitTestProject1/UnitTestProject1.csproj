@@ -78,6 +78,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NoFilterLimitation.feature</DependentUpon>
     </Compile>
+    <Compile Include="FeatureSpecs\NonEqualFilter.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NonEqualFilter.feature</DependentUpon>
+    </Compile>
     <Compile Include="FeatureSpecs\SimpleNotFoundLogging.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -111,6 +116,10 @@
     <None Include="FeatureSpecs\NoFilterLimitation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>NoFilterLimitation.feature.cs</LastGenOutput>
+    </None>
+    <None Include="FeatureSpecs\NonEqualFilter.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>NonEqualFilter.feature.cs</LastGenOutput>
     </None>
     <None Include="FeatureSpecs\SimpleNotFoundLogging.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

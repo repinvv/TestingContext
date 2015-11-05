@@ -45,7 +45,9 @@
   <ItemGroup>
     <Compile Include="CachingEnumerable.cs" />
     <Compile Include="DictionaryExtension.cs" />
+    <Compile Include="Implementation\Filters\DummyDependency.cs" />
     <Compile Include="Implementation\Filters\FilterConstant.cs" />
+    <Compile Include="Implementation\Filters\NonEqualFilter.cs" />
     <Compile Include="Implementation\Registrations\RegistrationExtension.cs" />
     <Compile Include="Implementation\BranchReference.cs" />
     <Compile Include="Implementation\Definition.cs" />
@@ -77,12 +79,12 @@
     <Compile Include="Implementation\TreeOperation\Nodes\INode.cs" />
     <Compile Include="Implementation\TreeOperation\Nodes\NodeResolver.cs" />
     <Compile Include="Implementation\TreeOperation\Nodes\RootNode.cs" />
-    <Compile Include="Implementation\TreeOperation\Subsystems\CircularReferenceService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\DependencyNode.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\FilterAssignmentService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NodeClosestParentService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NodeReorderingService.cs" />
     <Compile Include="Implementation\TreeOperation\Nodes\Node.cs" />
+    <Compile Include="Implementation\TreeOperation\Subsystems\NonEqualFilteringService.cs" />
     <Compile Include="Implementation\TreeOperation\Tree.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\TreeBuilder.cs" />
     <Compile Include="Implementation\TreeOperation\TreeOperationService.cs" />

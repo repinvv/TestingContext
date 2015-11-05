@@ -87,5 +87,14 @@
                    .ForAll<Assignment>(key2)
                    .IsTrue((assignments1, assignments2) => assignments1.Sum(x => x.HeadCount) > assignments2.Sum(x => x.HeadCount));
         }
+
+        [Given(@"assignments(?:\s)?(.*) cover as much or more people than assignments(?:\s)?(.*)")]
+        public void GivenAssignmentsCoverAsMuchOrMorePeopleThanAssignments(string key1, string key2)
+        {
+            context.Register()
+                   .ForAll<Assignment>(key1)
+                   .ForAll<Assignment>(key2)
+                   .IsTrue((assignments1, assignments2) => assignments1.Sum(x => x.HeadCount) >= assignments2.Sum(x => x.HeadCount));
+        }
     }
 }
