@@ -4,7 +4,6 @@
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
-    using static Subsystems.ValidationService;
     using static Subsystems.FilterAssignmentService;
     using static Subsystems.NodeReorderingService;
     using static Subsystems.TreeBuilder;
@@ -24,7 +23,6 @@
             BuildNodesTree(tree.Root, nodes);
             nodes.ForEach(x => tree.Nodes.Add(x.Definition, x));
             tree.Nodes.Add(store.RootDefinition, tree.Root);
-            store.Filters.ForEach(x => ValidateFilter(tree, x));
             store.Filters.ForEach(x => ReorderNodesForFilter(tree, x));
             store.Filters.ForEach(x => AssignFilter(tree, x));
             store.CollectionValidityFilters.ForEach(x => AssignCollectionValidityFilter(tree, x, store));

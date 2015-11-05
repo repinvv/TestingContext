@@ -7,7 +7,7 @@
     using TestingContextCore.Implementation.TreeOperation.Nodes;
     using static NodeClosestParentService;
 
-    internal class NodeReorderingService
+    internal static class NodeReorderingService
     {
         public static void ReorderNodesForFilter(Tree tree, IFilter filter)
         {
@@ -15,21 +15,16 @@
             {
                 for (int j = i + 1; j < filter.Dependencies.Length; j++)
                 {
-                    ReorderNodesForDependencies(tree, filter.Dependencies[i], filter.Dependencies[j]);
+                    var node1 = filter.Dependencies[i].GetDependencyNode(tree);
+                    var node2 = filter.Dependencies[j].GetDependencyNode(tree);
+                    TryReorderNodes(node1, node2);
                 }
             }
         }
 
-        private static void ReorderNodesForDependencies(Tree tree, IDependency dep1, IDependency dep2)
+        private static void TryReorderNodes(INode node1, INode node2)
         {
-            if (dep1.Definition == dep2.Definition || dep1.IsCollectionDependency || dep2.IsCollectionDependency)
-            {
-                return;
-            }
-
-            var node1 = tree.Nodes[dep1.Definition];
-            var node2 = tree.Nodes[dep2.Definition];
-            if (node1.IsChildOf(node2) || node2.IsChildOf(node1))
+            if (node1 == node2 || node1.IsChildOf(node2) || node2.IsChildOf(node1))
             {
                 return;
             }
@@ -37,7 +32,7 @@
             var chain1 = node1.GetParentalChain();
             var chain2 = node2.GetParentalChain();
             var closestParentIndex = FindClosestParent(chain1, chain2);
-            chain1[closestParentIndex + 1].Parent = node2;
+            chain2[closestParentIndex + 1].Parent = node1;
         }
     }
 }

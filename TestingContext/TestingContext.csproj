@@ -78,8 +78,8 @@
     <Compile Include="Implementation\TreeOperation\Nodes\NodeResolver.cs" />
     <Compile Include="Implementation\TreeOperation\Nodes\RootNode.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\CircularReferenceService.cs" />
+    <Compile Include="Implementation\TreeOperation\Subsystems\DependencyNode.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\FilterAssignmentService.cs" />
-    <Compile Include="Implementation\TreeOperation\Subsystems\ValidationService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NodeClosestParentService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NodeReorderingService.cs" />
     <Compile Include="Implementation\TreeOperation\Nodes\Node.cs" />

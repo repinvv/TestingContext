@@ -73,6 +73,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BreakSomething.feature</DependentUpon>
     </Compile>
+    <Compile Include="FeatureSpecs\NoFilterLimitation.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NoFilterLimitation.feature</DependentUpon>
+    </Compile>
     <Compile Include="FeatureSpecs\SimpleNotFoundLogging.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -102,6 +107,10 @@
     <None Include="FeatureSpecs\BreakSomething.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>BreakSomething.feature.cs</LastGenOutput>
+    </None>
+    <None Include="FeatureSpecs\NoFilterLimitation.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>NoFilterLimitation.feature.cs</LastGenOutput>
     </None>
     <None Include="FeatureSpecs\SimpleNotFoundLogging.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

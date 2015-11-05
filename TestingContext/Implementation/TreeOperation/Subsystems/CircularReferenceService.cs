@@ -9,7 +9,7 @@
     {
         public static void DetectCircularReferences(Tree tree)
         {
-            foreach (Node node in tree.Nodes.Values)
+            foreach (INode node in tree.Nodes.Values)
             {
                 foreach (IDependency dependency in node.Filters.ItemFilter.Dependencies)
                 {
@@ -18,14 +18,14 @@
             }
         }
 
-        public static void DetectCircularReference(Tree tree, Node node1, IDependency dependency)
+        public static void DetectCircularReference(Tree tree, INode node1, IDependency dependency)
         {
             if (node1.Definition == dependency.Definition)
             {
                 return;
             }
 
-            var node2 = tree.Nodes[dependency.Definition];
+            var node2 = dependency.GetDependencyNode(tree);
             var chain1 = node1.GetParentalChain();
             var chain2 = node2.GetParentalChain();
             var closestParentIndex = FindClosestParent(chain1, chain2);

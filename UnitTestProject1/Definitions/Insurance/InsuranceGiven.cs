@@ -29,5 +29,12 @@
             context.Register()
                    .Items(key, () => PoliciesSource.Insurances);
         }
+
+        [Given(@"for insurance(?:\s)?(.*) there is no insurance(?:\s)?(.*) in policiesSource that meet requirements")]
+        public void GivenForInsuranceThereIsNoInsuranceInPoliciesSourceThatMeetRequirements(string key1, string key2)
+        {
+            context.Register().For<Insurance>(key1)
+                .DoesNotExist(key2, p => PoliciesSource.Insurances);
+        }
     }
 }

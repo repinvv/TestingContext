@@ -213,7 +213,7 @@
             },
             new Insurance
             {
-                Id = 11,
+                Id = 17,
                 Name = "non-matching policy for tree reordering 5",
                 Created = new DateTime(2015, 1, 2),
                 Assignments = new List<Assignment>
@@ -232,7 +232,7 @@
             },
             new Insurance
             {
-                Id = 11,
+                Id = 18,
                 Name = "matching policy for @treeReordering5",
                 Created = new DateTime(2015, 1, 2),
                 Assignments = new List<Assignment>
@@ -248,6 +248,17 @@
                             new Tax { Id = 19, Type = Federal, Amount = 300, Created = new DateTime(2012, 2, 5) },
                             new Tax { Id = 20, Type = Federal, Amount = 400, Created = new DateTime(2012, 2, 6) }
                         }
+            },
+            new Insurance
+            {
+                Id = 19,
+                Name = "matching policy for @NoFilterLimitation1",
+                Created = new DateTime(2015, 1, 2),
+                Assignments = new List<Assignment>
+                              {
+                                  new Assignment { Id = 32, Type = Dependent, HeadCount = 1500, Created = new DateTime(2012, 2, 3) },
+                                  new Assignment { Id = 33, Type = Dependent, HeadCount = 2900, Created = new DateTime(2012, 2, 5) },
+                              }
             },
         };
     }

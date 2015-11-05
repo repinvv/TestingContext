@@ -9,27 +9,11 @@
     {
         public static void AssignFilter(Tree tree, IFilter filter)
         {
-            var singular = filter.Dependencies.Where(x => !x.IsCollectionDependency).ToList();
-            INode assignment = null;
-            foreach (var dependency in singular)
-            {
-                var node = tree.Nodes[dependency.Definition];
-                if (assignment == null || node.IsChildOf(assignment))
-                {
-                    assignment = node;
-                }
-            }
-
-            if (assignment != null)
-            {
-                assignment.Filters.AddItemFilter(filter);
-            }
-            else
-            {
-                var node = tree.Nodes[filter.Dependencies[0].Definition];
-                var parent = tree.Nodes[node.Provider.Dependency.Definition];
-                parent.Filters.AddItemFilter(filter);
-            }
+            var node = filter.Dependencies
+                             .Select(x => x.GetDependencyNode(tree))
+                             .OrderByDescending(x => x.GetParentalChain().Count)
+                             .First();
+            node.Filters.AddItemFilter(filter);
         }
 
         public static void AssignCollectionValidityFilter(Tree tree, IFilter filter, RegistrationStore store)
