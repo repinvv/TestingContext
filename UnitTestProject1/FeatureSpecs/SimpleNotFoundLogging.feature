@@ -5,14 +5,14 @@
 
 @notFoundLogging1
 Scenario: Single failed find should print a filter
-	Given insurance B is taken from policiesSource
+	Given insurance B is taken from insurancesSource
 	  And insurance B is created in year 2005
 	When insurance B resolves
 	Then resolution logger must produce info for filter, mentioning 'Insurance "B"' and '2005'
 
 @notFoundLogging2
 Scenario: Two entities in cascade failed find should print a filter
-	Given insurance B is taken from policiesSource
+	Given insurance B is taken from insurancesSource
 	  And insurance B is created in year 2006
 	  And for insurance B exists an assignment B
 	  And assignment B has type 'Undefined'
@@ -21,7 +21,7 @@ Scenario: Two entities in cascade failed find should print a filter
 
 @notFoundLogging3
 Scenario: Two entities in cascade failed find should print an "empty source" message
-	Given insurance B is taken from policiesSource
+	Given insurance B is taken from insurancesSource
 	  And insurance B is created in year 2009
 	  And for insurance B exists an assignment B
 	  And assignment B has type 'Undefined'

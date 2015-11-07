@@ -81,7 +81,7 @@ namespace UnitTestProject1.FeatureSpecs
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("insurance B is taken from policiesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("insurance B is taken from insurancesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
    testRunner.And("insurance B is created in year 2005", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10
@@ -104,7 +104,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 14
 this.ScenarioSetup(scenarioInfo);
 #line 15
- testRunner.Given("insurance B is taken from policiesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("insurance B is taken from insurancesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 16
    testRunner.And("insurance B is created in year 2006", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 17
@@ -131,7 +131,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 23
 this.ScenarioSetup(scenarioInfo);
 #line 24
- testRunner.Given("insurance B is taken from policiesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("insurance B is taken from insurancesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 25
    testRunner.And("insurance B is created in year 2009", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 26

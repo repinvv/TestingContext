@@ -23,18 +23,18 @@
                    .IsTrue(insurance => insurance.Created.Year == year);
         }
 
-        [Given(@"insurance(?:\s)?(.*) is taken from policiesSource")]
+        [Given(@"insurance(?:\s)?(.*) is taken from insurancesSource")]
         public void GivenInsuranceIsTakenFromPoliciesSource(string key)
         {
             context.Register()
-                   .Items(key, () => PoliciesSource.Insurances);
+                   .Items(key, () => InsurancesSource.Insurances);
         }
 
-        [Given(@"for insurance(?:\s)?(.*) there is no insurance(?:\s)?(.*) in policiesSource that meet requirements")]
+        [Given(@"for insurance(?:\s)?(.*) there is no insurance(?:\s)?(.*) in insurancesSource that meet requirements")]
         public void GivenForInsuranceThereIsNoInsuranceInPoliciesSourceThatMeetRequirements(string key1, string key2)
         {
             context.Register().For<Insurance>(key1)
-                .DoesNotExist(key2, p => PoliciesSource.Insurances);
+                .DoesNotExist(key2, p => InsurancesSource.Insurances);
         }
     }
 }

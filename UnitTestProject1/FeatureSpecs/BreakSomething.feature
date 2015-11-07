@@ -4,7 +4,7 @@
 	I want to be able to define filters first, then invert them afterwards
 
 Background: 
-   Given insurance B is taken from policiesSource
+   Given insurance B is taken from insurancesSource
 	  And insurance B is created in year 2011 	  
 	  And for insurance B exists an assignment B	 
 	  And assignment B has type 'Dependent'

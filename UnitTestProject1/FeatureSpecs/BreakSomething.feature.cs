@@ -73,7 +73,7 @@ namespace UnitTestProject1.FeatureSpecs
         {
 #line 6
 #line 7
-   testRunner.Given("insurance B is taken from policiesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+   testRunner.Given("insurance B is taken from insurancesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
    testRunner.And("insurance B is created in year 2011", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 9

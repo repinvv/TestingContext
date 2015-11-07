@@ -4,7 +4,7 @@
 
 @treeReordering1
 Scenario: Simple tree reorder
-	Given insurance B is taken from policiesSource
+	Given insurance B is taken from insurancesSource
 	  And insurance B is created in year 2012
 	  And for insurance B exists an assignment B
 	  And assignment B has type 'Dependent'
@@ -16,11 +16,11 @@ Scenario: Simple tree reorder
 
 @treeReordering2
 Scenario: Two level tree reorder
-	Given insurance B is taken from policiesSource
+	Given insurance B is taken from insurancesSource
 	  And insurance B is created in year 2012	  
 	  And for insurance B exists an assignment B
 	  And assignment B has type 'Dependent'
-	  And insurance C is taken from policiesSource
+	  And insurance C is taken from insurancesSource
 	  And insurance C is created in year 2013
 	  And for insurance C exists an assignment C
 	  And assignment C has type 'Employee'
@@ -32,11 +32,11 @@ Scenario: Two level tree reorder
 
 @treeReordering3
 Scenario: Two level tree reorder complexResolve
-	Given insurance B is taken from policiesSource
+	Given insurance B is taken from insurancesSource
 	  And insurance B is created in year 2013	  
 	  And for insurance B exists an assignment B
 	  And assignment B has type 'Dependent'
-	  And insurance C is taken from policiesSource
+	  And insurance C is taken from insurancesSource
 	  And insurance C is created in year 2014
 	  And for insurance C exists an assignment C
 	  And assignment C has type 'Employee'
@@ -48,7 +48,7 @@ Scenario: Two level tree reorder complexResolve
 	  	  
 @treeReordering4
 Scenario: Simple tree reorder with collection filter
-	Given insurance B is taken from policiesSource
+	Given insurance B is taken from insurancesSource
 	  And insurance B is created in year 2012
 	  And for insurance B exists an assignment B
 	  And assignment B has type 'Employee'
@@ -61,7 +61,7 @@ Scenario: Simple tree reorder with collection filter
 
 @treeReordering5
 Scenario: Both singular and collection filters are assigned between branches
-	Given insurance B is taken from policiesSource
+	Given insurance B is taken from insurancesSource
 	  And insurance B is created in year 2015
 	  And for insurance B exists an assignment B
 	  And assignment B has type 'Dependent'

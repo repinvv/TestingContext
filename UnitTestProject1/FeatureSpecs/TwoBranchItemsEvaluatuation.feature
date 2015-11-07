@@ -5,7 +5,7 @@
 
 @twobranch1
 Scenario: Two branch search with condition between collections of those branches
-	Given insurance B is taken from policiesSource
+	Given insurance B is taken from insurancesSource
 	  And insurance B is created in year 2010
 	  And for insurance B exists an assignment B
 	  And assignment B has type 'Dependent'
@@ -18,7 +18,7 @@ Scenario: Two branch search with condition between collections of those branches
 
 @twobranch1
 Scenario: Two branch search failure with condition between collections of those branches
-	Given insurance B is taken from policiesSource
+	Given insurance B is taken from insurancesSource
 	  And insurance B is created in year 2010
 	  And for insurance B exists an assignment B
 	  And assignment B has type 'Dependent'

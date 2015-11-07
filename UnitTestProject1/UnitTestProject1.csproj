@@ -105,7 +105,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestLogger.cs" />
-    <Compile Include="TestSource\PoliciesSource.cs" />
+    <Compile Include="TestSource\InsurancesSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

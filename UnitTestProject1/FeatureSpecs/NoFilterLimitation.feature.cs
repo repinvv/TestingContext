@@ -80,11 +80,12 @@ namespace UnitTestProject1.FeatureSpecs
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("insurance B is taken from policiesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("insurance B is taken from insurancesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
    testRunner.And("for insurance B exists an assignment B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10
-   testRunner.And("for insurance B there is no insurance C in policiesSource that meet requirements", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("for insurance B there is no insurance C in insurancesSource that meet requirement" +
+                    "s", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
    testRunner.And("for insurance C exists an assignment C", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 12
