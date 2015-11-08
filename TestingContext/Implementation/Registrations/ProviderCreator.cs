@@ -9,7 +9,7 @@
     using TestingContextCore.Interfaces;
     using static Definition;
 
-    internal abstract class ProviderCreator<T1> : ICreateProvider<T1>
+    internal abstract class ProviderCreator<T1>
     {
         private readonly Definition definition;
         private readonly RegistrationStore store;
@@ -22,19 +22,19 @@
 
         public void Exists<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc)
         {
-            store.RegisterCollectionValidityFilter(new CollectionValidityFilter(x => x.Any(y => y.MeetsConditions), Define<T2>(key)), null);
+            store.RegisterCollectionValidityFilter(new CollectionValidityFilter(x => x.Any(y => y.MeetsConditions), Define<T2>(key)));
             CreateProvider(key, srcFunc);
         }
 
         public void DoesNotExist<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc)
         {
-            store.RegisterCollectionValidityFilter(new CollectionValidityFilter(x => !x.Any(y => y.MeetsConditions), Define<T2>(key)), null);
+            store.RegisterCollectionValidityFilter(new CollectionValidityFilter(x => !x.Any(y => y.MeetsConditions), Define<T2>(key)));
             CreateProvider(key, srcFunc);
         }
 
         public void Each<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc)
         {
-            store.RegisterCollectionValidityFilter(new CollectionValidityFilter(x => x.All(y => y.MeetsConditions), Define<T2>(key)), null);
+            store.RegisterCollectionValidityFilter(new CollectionValidityFilter(x => x.All(y => y.MeetsConditions), Define<T2>(key)));
             CreateProvider(key, srcFunc);
         }
 

@@ -11,7 +11,7 @@
             store.Filters.Add(filter);
         }
 
-        public static void RegisterCollectionValidityFilter(this RegistrationStore store, IFilter filter, string key)
+        public static void RegisterCollectionValidityFilter(this RegistrationStore store, IFilter filter)
         {
             PreRegister(store);
             store.CollectionValidityFilters.Add(filter);

@@ -2,16 +2,18 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using TestingContextCore.Implementation.Dependencies;
+    using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Interfaces;
     using static Definition;
 
-    internal class RootRegistration : ProviderCreator<TestingContext> , IForRoot
+    internal class RootRegistration : IForRoot
     {
         private readonly RegistrationStore store;
 
         public RootRegistration(RegistrationStore store)
-            : base(store.RootDefinition, store)
         {
             this.store = store;
         }
@@ -21,19 +23,25 @@
             return new Registration1<T1>(new SingleDependency<T1>(Define<T1>(key)), store);
         }
 
-        public IForAll<IEnumerable<T1>> ForAll<T1>(string key)
+        public IFor<IEnumerable<T1>> ForAll<T1>(string key)
         {
             return new Registration1<IEnumerable<T1>>(new CollectionDependency<T1>(Define<T1>(key)), store);
         }
 
-        public void Items<T2>(string key, Func<IEnumerable<T2>> srcFunc)
+        public void Items<T>(string key, Func<IEnumerable<T>> srcFunc)
         {
-            Exists(key, x => srcFunc());
+            store.RegisterCollectionValidityFilter(new CollectionValidityFilter(x => x.Any(y => y.MeetsConditions), Define<T>(key)));
+            var dependency = new SingleDependency<TestingContext>(store.RootDefinition);
+            store.RegisterProvider(Define<T>(key), new Provider<TestingContext, T>(dependency, x => srcFunc()));
         }
 
-        public void Item<T2>(string key, Func<T2> srcFunc)
+        public void Item<T>(string key, Func<T> srcFunc)
         {
-            Satisfies(key, x => srcFunc());
+            Items<T>(key, () =>
+            {
+                var item = srcFunc();
+                return item == null ? Enumerable.Empty<T>() : new[] { item };
+            });
         }
     }
 }

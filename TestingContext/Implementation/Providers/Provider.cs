@@ -18,9 +18,10 @@
         {
             this.dependency = dependency;
             this.sourceFunc = sourceFunc;
+            Dependencies = new IDependency[] { dependency };
         }
 
-        public IDependency Dependency => dependency;
+        public IDependency[] Dependencies { get; }
 
         public IEnumerable<IResolutionContext> Resolve(IResolutionContext parentContext, INode node)
         {

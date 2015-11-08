@@ -21,10 +21,10 @@
             var tree = new Tree();
             tree.Root = new RootNode(tree, store.RootDefinition);
             var nodes = store.Providers.Select(x => Node.CreateNode(x.Key, x.Value, store, tree)).ToList();
-            BuildNodesTree(tree.Root, nodes);
             nodes.ForEach(x => tree.Nodes.Add(x.Definition, x));
             tree.Nodes.Add(store.RootDefinition, tree.Root);
-            store.Filters.ForEach(x => ReorderNodesForFilter(tree, x));
+            BuildNodesTree(tree, nodes);
+            store.Filters.ForEach(x => ReorderNodes(tree, x));
             store.Filters.ForEach(x => AssignNonEqualFilters(tree, x));
             store.Filters.ForEach(x => AssignFilter(tree, x));
             store.CollectionValidityFilters.ForEach(x => AssignCollectionValidityFilter(tree, x, store));

@@ -7,7 +7,7 @@
     {
         IFor<T1> For<T1>(string key);
 
-        IForAll<IEnumerable<T1>> ForAll<T1>(string key);
+        IFor<IEnumerable<T1>> ForAll<T1>(string key);
 
         void Items<T2>(string key, Func<IEnumerable<T2>> srcFunc);
 

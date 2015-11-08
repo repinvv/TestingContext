@@ -6,14 +6,14 @@
 
     internal static class NodeReorderingService
     {
-        public static void ReorderNodesForFilter(Tree tree, IFilter filter)
+        public static void ReorderNodes(Tree tree, IHaveDependencies have)
         {
-            for (int i = 0; i < filter.Dependencies.Length; i++)
+            for (int i = 0; i < have.Dependencies.Length; i++)
             {
-                for (int j = i + 1; j < filter.Dependencies.Length; j++)
+                for (int j = i + 1; j < have.Dependencies.Length; j++)
                 {
-                    var node1 = filter.Dependencies[i].GetDependencyNode(tree);
-                    var node2 = filter.Dependencies[j].GetDependencyNode(tree);
+                    var node1 = have.Dependencies[i].GetDependencyNode(tree);
+                    var node2 = have.Dependencies[j].GetDependencyNode(tree);
                     TryReorderNodes(node1, node2);
                 }
             }

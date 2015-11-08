@@ -7,13 +7,17 @@
 
     internal static class FilterAssignmentService
     {
+        public static INode GetAssignmentNode(Tree tree, IHaveDependencies have)
+        {
+            return have.Dependencies
+                       .Select(x => x.GetDependencyNode(tree))
+                       .OrderByDescending(x => x.GetParentalChain().Count)
+                       .First();
+        }
+
         public static void AssignFilter(Tree tree, IFilter filter)
         {
-            var node = filter.Dependencies
-                             .Select(x => x.GetDependencyNode(tree))
-                             .OrderByDescending(x => x.GetParentalChain().Count)
-                             .First();
-            node.Filters.AddItemFilter(filter);
+            GetAssignmentNode(tree, filter).Filters.AddItemFilter(filter);
         }
 
         public static void AssignCollectionValidityFilter(Tree tree, IFilter filter, RegistrationStore store)

@@ -5,10 +5,8 @@
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
 
-    internal interface IFilter : IFailure
+    internal interface IFilter : IHaveDependencies, IFailure
     {
-        IDependency[] Dependencies { get; }
-
         bool MeetsCondition(IResolutionContext context, NodeResolver resolver, out int[] failureWeight, out IFailure failure);
     }
 }

@@ -5,10 +5,8 @@
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
 
-    internal interface IProvider
+    internal interface IProvider : IHaveDependencies
     {
-        IDependency Dependency { get; }
-
         IEnumerable<IResolutionContext> Resolve(IResolutionContext parentContext, INode node);
     }
 }
