@@ -1,4 +1,4 @@
-﻿namespace TestingContextCore.Implementation.Exceptions
+﻿namespace TestingContextCore.Interfaces
 {
     using System;
 

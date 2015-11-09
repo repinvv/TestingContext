@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContextCore.Implementation.Exceptions;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
+    using TestingContextCore.Interfaces;
     using static NodeReorderingService;
 
     internal static class TreeBuilder

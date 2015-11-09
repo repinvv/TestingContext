@@ -22,7 +22,7 @@
 
         public static void AssignCollectionValidityFilter(Tree tree, IFilter filter, RegistrationStore store)
         {
-            var node = tree.Nodes[filter.Dependencies[0].Definition];
+            var node = tree.GetNode(filter.Dependencies[0].Definition);
             if (store.CollectionInversions.Contains(node.Definition))
             {
                 filter = new Inverter(filter);

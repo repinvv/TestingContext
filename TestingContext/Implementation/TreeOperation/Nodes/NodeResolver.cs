@@ -23,16 +23,16 @@
             this.ownDefinition = ownDefinition;
         }
 
-        private INode Node => node ?? (node = tree.Nodes[ownDefinition]);
+        private INode Node => node ?? (node = tree.GetNode(ownDefinition));
 
         private List<INode> GetNodesChain(Definition definition)
         {
-            return nodeChains.GetOrAdd(definition, () => tree.Nodes[definition].GetParentalChain());
+            return nodeChains.GetOrAdd(definition, () => tree.GetNode(definition).GetParentalChain());
         }
 
         private Resolve GetResolver(Definition definition)
         {
-            var node = tree.Nodes[definition];
+            var node = tree.GetNode(definition);
             if (node.IsChildOf(Node))
             {
                 return ResolveDown;
@@ -88,7 +88,7 @@
 
         private Definition GetClosestParent(Definition definition)
         {
-            var chain = tree.Nodes[definition].GetParentalChain();
+            var chain = tree.GetNode(definition).GetParentalChain();
             var thisChain = Node.GetParentalChain();
             var index = NodeClosestParentService.FindClosestParent(chain, thisChain);
             return chain[index].Definition;
@@ -96,7 +96,7 @@
 
         private Definition GetClosestSourceParent(Definition definition)
         {
-            var chain = tree.Nodes[definition].GetSourceChain();
+            var chain = tree.GetNode(definition).GetSourceChain();
             var thisChain = Node.GetSourceChain();
             var index = NodeClosestParentService.FindClosestParent(chain, thisChain);
             return chain[index].Definition;

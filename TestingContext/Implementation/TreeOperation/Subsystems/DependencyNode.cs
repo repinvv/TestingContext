@@ -8,8 +8,8 @@
         public static INode GetDependencyNode(this IDependency dependency, Tree tree)
         {
             return dependency.IsCollectionDependency
-                ? tree.Nodes[dependency.Definition].SourceParent
-                : tree.Nodes[dependency.Definition];
+                ? tree.GetNode(dependency.Definition).SourceParent
+                : tree.GetNode(dependency.Definition);
         }
     }
 }
