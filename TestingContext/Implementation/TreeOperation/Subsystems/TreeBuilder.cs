@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using TestingContextCore.Implementation.Exceptions;
     using TestingContextCore.Implementation.TreeOperation.Nodes;
     using static NodeReorderingService;
 
@@ -30,6 +31,11 @@
                     assigned.Add(child.Definition);
                     nodesQueue.Enqueue(child);
                 }
+            }
+
+            foreach (var node in nodes.Where(node => !assigned.Contains(node.Definition)))
+            {
+                throw new RegistrationException($"Could not put {node} to the resolution tree, please check registrations.");
             }
         }
 
