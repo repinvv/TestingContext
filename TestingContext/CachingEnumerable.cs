@@ -3,7 +3,7 @@
     using System.Collections;
     using System.Collections.Generic;
 
-    internal static class CachingEnumerableExtension
+    public static class CachingEnumerableExtension
     {
         private class CachingEnumerable<T> : IEnumerable<T>
         {
