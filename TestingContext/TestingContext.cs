@@ -26,6 +26,11 @@
             return new RootRegistration(store);
         }
 
+        public bool IsRegistered<T>(string key)
+        {
+            return store.Providers.ContainsKey(Define<T>(key));
+        }
+
         public IEnumerable<IResolutionContext<T>> All<T>(string key)
         {
             var tree = GetTree(store, this);
