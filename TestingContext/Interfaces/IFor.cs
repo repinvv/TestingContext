@@ -14,11 +14,11 @@
 
         void Exists<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc);
 
-        void Satisfies<T2>(string key, Func<T1, T2> srcFunc);
+        void Is<T2>(string key, Func<T1, T2> srcFunc);
 
         void DoesNotExist<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc);
 
-        void DoesNotSatisfy<T2>(string key, Func<T1, T2> srcFunc);
+        void IsNot<T2>(string key, Func<T1, T2> srcFunc);
 
         void Each<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc);
     }
@@ -29,11 +29,11 @@
 
         void Exists<T3>(string key, Func<T1, T2, IEnumerable<T3>> srcFunc);
 
-        void Satisfies<T3>(string key, Func<T1, T2, T3> srcFunc);
+        void Is<T3>(string key, Func<T1, T2, T3> srcFunc);
 
         void DoesNotExist<T3>(string key, Func<T1, T2, IEnumerable<T3>> srcFunc);
 
-        void DoesNotSatisfy<T3>(string key, Func<T1, T2, T3> srcFunc);
+        void IsNot<T3>(string key, Func<T1, T2, T3> srcFunc);
 
         void Each<T3>(string key, Func<T1, T2, IEnumerable<T3>> srcFunc);
     }

@@ -49,7 +49,7 @@
             CreateProvider(key, srcFunc);
         }
 
-        public void Satisfies<T3>(string key, Func<T1, T2, T3> srcFunc)
+        public void Is<T3>(string key, Func<T1, T2, T3> srcFunc)
         {
             Exists(key, (x, y) =>
             {
@@ -58,7 +58,7 @@
             });
         }
 
-        public void DoesNotSatisfy<T3>(string key, Func<T1, T2, T3> srcFunc)
+        public void IsNot<T3>(string key, Func<T1, T2, T3> srcFunc)
         {
             DoesNotExist(key, (x, y) =>
             {

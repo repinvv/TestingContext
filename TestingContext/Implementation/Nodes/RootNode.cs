@@ -26,6 +26,8 @@
 
         public bool IsChildOf(INode node) => false;
 
+        public bool IsSourceChildOf(INode node) => false;
+
         public List<INode> GetParentalChain() => new List<INode> { this };
 
         public List<INode> GetSourceChain() => new List<INode> { this };

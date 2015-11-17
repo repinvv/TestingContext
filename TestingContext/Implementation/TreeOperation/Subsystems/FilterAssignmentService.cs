@@ -64,7 +64,7 @@
                                          .ToList();
                 foreach (var filter in group.Value)
                 {
-                    if (!filter.Dependencies.Any(x => cvFilterNodes.Any(y => x.GetDependencyNode(tree).IsChildOf(y))))
+                    if (!filter.Dependencies.Any(x => cvFilterNodes.Any(y => x.GetDependencyNode(tree).IsSourceChildOf(y))))
                     {
                         AddFilterToGroup(group.Key, filter, tree, store);
                         continue;

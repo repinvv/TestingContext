@@ -19,6 +19,8 @@
 
         bool IsChildOf(INode node);
 
+        bool IsSourceChildOf(INode node);
+
         List<INode> GetParentalChain();
 
         List<INode> GetSourceChain();
