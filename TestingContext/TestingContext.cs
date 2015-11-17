@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Interfaces;
@@ -21,9 +22,19 @@
 
         public event SearchFailureEventHandler OnSearchFailure;
 
-        public IForRoot Register()
+        public IRegister Register()
         {
             return new RootRegistration(store);
+        }
+
+        public IRegister Or()
+        {
+            return new RootRegistration(store, new OrGroup());
+        }
+
+        public IRegister Not()
+        {
+            return new RootRegistration(store, new NotGroup());
         }
 
         public bool IsRegistered<T>(string key)

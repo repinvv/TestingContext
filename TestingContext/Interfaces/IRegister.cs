@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    public interface IForRoot
+    public interface IRegister
     {
         IFor<T1> For<T1>(string key);
 

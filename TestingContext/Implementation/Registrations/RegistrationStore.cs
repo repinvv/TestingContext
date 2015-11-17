@@ -18,8 +18,6 @@
 
         public List<IFilter> Filters { get; } = new List<IFilter>();
 
-        public List<IFilter> CollectionValidityFilters { get; } = new List<IFilter>();
-
         public HashSet<string> FilterInversions { get; } = new HashSet<string>();
 
         public HashSet<Definition> CollectionInversions { get; } = new HashSet<Definition>();

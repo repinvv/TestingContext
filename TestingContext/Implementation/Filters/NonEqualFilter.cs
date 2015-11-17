@@ -3,8 +3,9 @@
     using System.Collections.Generic;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Logging;
+    using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.ResolutionContext;
-    using TestingContextCore.Implementation.TreeOperation.Nodes;
+    using static TestingContextCore.Implementation.Dependencies.DependencyType;
     using static FilterConstant;
 
     internal class NonEqualFilter : IFilter
@@ -16,15 +17,15 @@
         {
             this.definition1 = definition1;
             this.definition2 = definition2;
-            Dependencies = new IDependency[] { new DummyDependency(definition1, false), new DummyDependency(definition2, false) };
+            Dependencies = new IDependency[] { new DummyDependency(definition1, Single), new DummyDependency(definition2, Single) };
             Definitions = new[] { definition1, definition2 };
             FilterString = "(a, b) => a != b";
         }
 
-        public IEnumerable<Definition> Definitions { get; }
-        public string FilterString { get; }
-        public string Key => null;
+        #region IFilter
         public IDependency[] Dependencies { get; }
+
+        public IFilterGroup Group => null;
 
         public bool MeetsCondition(IResolutionContext context, NodeResolver resolver, out int[] failureWeight, out IFailure failure)
         {
@@ -34,5 +35,14 @@
             var context2 = context.ResolveSingle(definition2);
             return !Equals(context1, context2);
         }
+        #endregion
+
+        #region IFailure members
+        public IEnumerable<Definition> Definitions { get; }
+
+        public string FilterString { get; }
+
+        public string Key => null;
+        #endregion
     }
 }

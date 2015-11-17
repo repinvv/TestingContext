@@ -9,28 +9,30 @@
     using TestingContextCore.Interfaces;
     using static Definition;
 
-    internal class RootRegistration : IForRoot
+    internal class RootRegistration : IRegister
     {
         private readonly RegistrationStore store;
+        private readonly IFilterGroup group;
 
-        public RootRegistration(RegistrationStore store)
+        public RootRegistration(RegistrationStore store, IFilterGroup group = null)
         {
             this.store = store;
+            this.group = group;
         }
 
         public IFor<T1> For<T1>(string key)
         {
-            return new Registration1<T1>(new SingleDependency<T1>(Define<T1>(key)), store);
+            return new Registration1<T1>(new SingleDependency<T1>(Define<T1>(key)), store, group);
         }
 
         public IFor<IEnumerable<T1>> ForAll<T1>(string key)
         {
-            return new Registration1<IEnumerable<T1>>(new CollectionDependency<T1>(Define<T1>(key)), store);
+            return new Registration1<IEnumerable<T1>>(new CollectionDependency<T1>(Define<T1>(key)), store, group);
         }
 
         public void Items<T>(string key, Func<IEnumerable<T>> srcFunc)
         {
-            store.RegisterCollectionValidityFilter(new CollectionValidityFilter(x => x.Any(y => y.MeetsConditions), Define<T>(key)));
+            store.RegisterFilter(new CollectionValidityFilter(x => x.Any(y => y.MeetsConditions), Define<T>(key)));
             var dependency = new SingleDependency<TestingContext>(store.RootDefinition);
             store.RegisterProvider(Define<T>(key), new Provider<TestingContext, T>(dependency, x => srcFunc()));
         }

@@ -4,7 +4,7 @@
     using System.Linq;
     using System.Runtime.CompilerServices;
     using TestingContextCore.Implementation.Logging;
-    using TestingContextCore.Implementation.TreeOperation.Nodes;
+    using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Interfaces;
 
     internal class ResolutionContext<T> : IResolutionContext<T>, IResolutionContext

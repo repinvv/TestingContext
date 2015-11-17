@@ -1,8 +1,8 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation
 {
     using System.Collections.Generic;
+    using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.ResolutionContext;
-    using TestingContextCore.Implementation.TreeOperation.Nodes;
 
     internal class Tree
     {

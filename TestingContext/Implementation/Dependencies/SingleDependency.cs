@@ -1,8 +1,8 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
     using TestingContextCore.Implementation.ResolutionContext;
-    using TestingContextCore.Implementation.TreeOperation.Nodes;
     using TestingContextCore.Interfaces;
+    using static DependencyType;
 
     internal class SingleDependency<TSource> : IDependency<TSource>
     {
@@ -19,8 +19,7 @@
         }
 
         public Definition Definition { get; }
-        public Definition ClosestParent { private get; set; }
 
-        public bool IsCollectionDependency => false;
+        public DependencyType Type => Single;
     }
 }

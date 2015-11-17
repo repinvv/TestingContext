@@ -1,7 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation.Subsystems
 {
-    using TestingContextCore.Implementation.Filters;
-    using TestingContextCore.Implementation.TreeOperation.Nodes;
+    using TestingContextCore.Implementation.Nodes;
     using static NodeClosestParentService;
 
     internal static class NodeReorderingService

@@ -16,17 +16,19 @@
         private readonly IDependency<T1> dependency1;
         private readonly IDependency<T2> dependency2;
         private readonly RegistrationStore store;
+        private readonly IFilterGroup group;
 
-        public Registration2(IDependency<T1> dependency1, IDependency<T2> dependency2, RegistrationStore store)
+        public Registration2(IDependency<T1> dependency1, IDependency<T2> dependency2, RegistrationStore store, IFilterGroup group)
         {
             this.dependency1 = dependency1;
             this.dependency2 = dependency2;
             this.store = store;
+            this.group = group;
         }
 
         public void IsTrue(Expression<Func<T1, T2, bool>> filter, string key = null)
         {
-            store.RegisterFilter(new Filter2<T1, T2>(dependency1, dependency2, filter, key), key);
+            store.RegisterFilter(new Filter2<T1, T2>(dependency1, dependency2, filter, key, group), key);
         }
 
         public void Exists<T3>(string key, Func<T1, T2, IEnumerable<T3>> srcFunc)
@@ -67,7 +69,7 @@
 
         private void CreateFilter<T3>(string key, Expression<Func<IEnumerable<IResolutionContext>, bool>> func)
         {
-            store.RegisterCollectionValidityFilter(new CollectionValidityFilter(func, Define<T3>(key)));
+            store.RegisterFilter(new CollectionValidityFilter(func, Define<T3>(key)));
         }
 
         private void CreateProvider<T3>(string key, Func<T1, T2, IEnumerable<T3>> srcFunc)

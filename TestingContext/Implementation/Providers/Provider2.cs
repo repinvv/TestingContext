@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.Dependencies;
+    using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.ResolutionContext;
-    using TestingContextCore.Implementation.TreeOperation.Nodes;
 
     internal class Provider2<TSource1, TSource2, T> : IProvider
     {

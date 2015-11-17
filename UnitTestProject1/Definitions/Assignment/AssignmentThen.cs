@@ -1,6 +1,5 @@
 ﻿namespace UnitTestProject1.Definitions.Assignment
 {
-    using System;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;

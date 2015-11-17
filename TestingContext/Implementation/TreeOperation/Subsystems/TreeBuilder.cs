@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContextCore.Implementation.TreeOperation.Nodes;
+    using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Interfaces;
     using static NodeReorderingService;
 

@@ -31,8 +31,8 @@ namespace UnitTestProject1.FeatureSpecs
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "NonEqualFilter", "In order to avoid comparing entity to itself\nAs a test writer\nI want to specify f" +
-                    "ilter that would fail if entity compares to itself and succeed if it does not", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "NonEqualFilter", "In order to avoid comparing entity to itself\r\nAs a test writer\r\nI want to specify" +
+                    " filter that would fail if entity compares to itself and succeed if it does not", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -91,7 +91,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 12
    testRunner.And("assignments C cover as much or more people than assignments B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 13
- testRunner.Then("insurance B name must contain \'@NoFilterLimitation1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("insurance B name must contain \'@NonEqualFilter1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

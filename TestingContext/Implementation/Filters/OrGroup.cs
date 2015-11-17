@@ -1,5 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.Dependencies;
@@ -8,7 +9,7 @@
     using TestingContextCore.Implementation.ResolutionContext;
     using static FilterConstant;
 
-    internal class AndGroup : IFilter, IFilterGroup
+    internal class OrGroup : IFilter, IFilterGroup
     {
         private readonly List<IFilter> filters = new List<IFilter>();
 
@@ -21,29 +22,25 @@
 
         public bool MeetsCondition(IResolutionContext context, NodeResolver resolver, out int[] failureWeight, out IFailure failure)
         {
-            for (int i = 0; i < filters.Count; i++)
+            failureWeight = EmptyArray;
+            failure = this;
+            foreach (IFilter filter in filters)
             {
                 int[] innerWeight;
                 IFailure innerFailure;
-                if (!filters[i].MeetsCondition(context, resolver, out innerWeight, out innerFailure))
+                if (filter.MeetsCondition(context, resolver, out innerWeight, out innerFailure))
                 {
-                    failure = innerFailure;
-                    failureWeight = new[] { i }.Add(innerWeight);
-                    return false;
+                    return true;
                 }
             }
 
-            failureWeight = EmptyArray;
-            failure = this;
-            return true;
-        } 
+            return false;
+        }
         #endregion
 
         #region IFailure members
         public IEnumerable<Definition> Definitions => Dependencies.Select(x => x.Definition);
-
-        public string FilterString => string.Join(string.Empty, filters.SelectMany(x => x.FilterString));
-
+        public string FilterString => "OR group" + Environment.NewLine + string.Join(string.Empty, filters.SelectMany(x => x.FilterString));
         public string Key => null;
         #endregion
     }

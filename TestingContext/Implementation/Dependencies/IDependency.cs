@@ -1,13 +1,12 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
     using TestingContextCore.Implementation.ResolutionContext;
-    using TestingContextCore.Implementation.TreeOperation.Nodes;
 
     internal interface IDependency
     {
         Definition Definition { get; }
 
-        bool IsCollectionDependency { get; }
+        DependencyType Type { get; }
     }
 
     internal interface IDependency<TSource> : IDependency

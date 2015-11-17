@@ -10,4 +10,4 @@ Scenario: Non-equal filter
 	  And for insurance B there is no insurance C in insurancesSource that meet requirements
 	  And for insurance C exists an assignment C
 	  And assignments C cover as much or more people than assignments B
-	Then insurance B name must contain '@NoFilterLimitation1'
+	Then insurance B name must contain '@NonEqualFilter1'

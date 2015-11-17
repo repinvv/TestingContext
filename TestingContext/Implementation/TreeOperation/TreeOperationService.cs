@@ -1,11 +1,10 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation
 {
     using System.Linq;
+    using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.ResolutionContext;
-    using TestingContextCore.Implementation.TreeOperation.Nodes;
     using static Subsystems.FilterAssignmentService;
-    using static Subsystems.NodeReorderingService;
     using static TestingContextCore.Implementation.TreeOperation.Subsystems.NonEqualFilteringService;
     using static Subsystems.TreeBuilder;
 
@@ -24,10 +23,8 @@
             nodes.ForEach(x => tree.Nodes.Add(x.Definition, x));
             tree.Nodes.Add(store.RootDefinition, tree.Root);
             BuildNodesTree(tree, nodes);
-            store.Filters.ForEach(x => ReorderNodes(tree, x));
-            store.Filters.ForEach(x => AssignNonEqualFilters(tree, x));
-            store.Filters.ForEach(x => AssignFilter(tree, x));
-            store.CollectionValidityFilters.ForEach(x => AssignCollectionValidityFilter(tree, x, store));
+            store.Filters.ForEach(x => AssignNonEqualFilters(tree, x, store));
+            AssignFilters(tree, store);
             tree.RootContext = new ResolutionContext<TestingContext>(rootSource, tree.Root, null);
             return tree;
         }

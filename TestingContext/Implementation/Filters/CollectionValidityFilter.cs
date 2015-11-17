@@ -6,8 +6,9 @@
     using ExpressionToCodeLib;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Logging;
+    using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.ResolutionContext;
-    using TestingContextCore.Implementation.TreeOperation.Nodes;
+    using static TestingContextCore.Implementation.Dependencies.DependencyType;
     using static FilterConstant;
 
     internal class CollectionValidityFilter : IFilter
@@ -21,10 +22,13 @@
             this.filterExpression = filterExpression;
             this.definition = definition;
             filterFunc = filterExpression.Compile();
-            Dependencies = new IDependency[] { new DummyDependency(definition, true) };
+            Dependencies = new IDependency[] { new DummyDependency(definition, CollectionValidity) };
         }
 
+        #region IFilter
         public IDependency[] Dependencies { get; }
+
+        public IFilterGroup Group { get; }
 
         public bool MeetsCondition(IResolutionContext context, NodeResolver resolver, out int[] failureWeight, out IFailure failure)
         {
@@ -33,12 +37,15 @@
             failure = this;
             return filterFunc(source);
         }
+        #endregion
 
         public void Invert() { }
 
         #region IFailure members
         public IEnumerable<Definition> Definitions => new[] { definition };
+
         public string FilterString => ExpressionToCode.AnnotatedToCode(filterExpression);
+
         public string Key => null;
         #endregion
     }

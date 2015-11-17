@@ -1,6 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation
 {
-    using TestingContextCore.Implementation.TreeOperation.Nodes;
+    using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Interfaces;
 
     internal static class GetNodeExtension

@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using TestingContextCore.Implementation.Logging;
-    using TestingContextCore.Implementation.TreeOperation.Nodes;
+    using TestingContextCore.Implementation.Nodes;
 
     internal interface IResolutionContext : IFailureReporter
     {

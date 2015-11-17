@@ -15,28 +15,30 @@
     {
         private readonly IDependency<T1> dependency;
         private readonly RegistrationStore store;
+        private readonly IFilterGroup group;
 
-        public Registration1(IDependency<T1> dependency, RegistrationStore store)
+        public Registration1(IDependency<T1> dependency, RegistrationStore store, IFilterGroup group)
         {
             this.dependency = dependency;
             this.store = store;
+            this.group = group;
         }
 
         public void IsTrue(Expression<Func<T1, bool>> filter, string key = null)
         {
-           store.RegisterFilter(new Filter1<T1>(dependency, filter, key), key);
+           store.RegisterFilter(new Filter1<T1>(dependency, filter, key, group), key);
         }
 
         public IFor<T1, T2> For<T2>(string key)
         {
             var second = new SingleDependency<T2>(Define<T2>(key));
-            return new Registration2<T1, T2>(dependency, second, store);
+            return new Registration2<T1, T2>(dependency, second, store, group);
         }
 
         public IFor<T1, IEnumerable<T2>> ForAll<T2>(string key)
         {
             var second = new CollectionDependency<T2>(Define<T2>(key));
-            return new Registration2<T1, IEnumerable<T2>>(dependency, second, store);
+            return new Registration2<T1, IEnumerable<T2>>(dependency, second, store, group);
         }
 
         public void Exists<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc)
@@ -77,7 +79,7 @@
 
         private void CreateFilter<T2>(string key, Expression<Func<IEnumerable<IResolutionContext>, bool>> func)
         {
-            store.RegisterCollectionValidityFilter(new CollectionValidityFilter(func, Define<T2>(key)));
+            store.RegisterFilter(new CollectionValidityFilter(func, Define<T2>(key)));
         }
 
         private void CreateProvider<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc)

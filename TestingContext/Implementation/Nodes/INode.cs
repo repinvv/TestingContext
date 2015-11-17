@@ -1,4 +1,4 @@
-﻿namespace TestingContextCore.Implementation.TreeOperation.Nodes
+﻿namespace TestingContextCore.Implementation.Nodes
 {
     using System.Collections.Generic;
     using TestingContextCore.Implementation.Providers;

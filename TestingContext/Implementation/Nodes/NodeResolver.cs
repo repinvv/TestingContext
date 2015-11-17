@@ -1,9 +1,9 @@
-﻿namespace TestingContextCore.Implementation.TreeOperation.Nodes
+﻿namespace TestingContextCore.Implementation.Nodes
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.ResolutionContext;
+    using TestingContextCore.Implementation.TreeOperation;
     using TestingContextCore.Implementation.TreeOperation.Subsystems;
 
     internal class NodeResolver

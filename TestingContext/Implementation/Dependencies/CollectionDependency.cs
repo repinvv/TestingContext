@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.ResolutionContext;
-    using TestingContextCore.Implementation.TreeOperation.Nodes;
     using TestingContextCore.Interfaces;
+    using static DependencyType;
 
     internal class CollectionDependency<TItem> : IDependency<IEnumerable<TItem>>
     {
@@ -28,8 +28,7 @@
         }
 
         public Definition Definition { get; }
-        public Definition ClosestParent { private get; set; }
 
-        public bool IsCollectionDependency => true;
+        public DependencyType Type => Collection;
     }
 }

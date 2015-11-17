@@ -6,8 +6,8 @@
     using ExpressionToCodeLib;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Logging;
+    using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.ResolutionContext;
-    using TestingContextCore.Implementation.TreeOperation.Nodes;
     using static FilterConstant;
 
     internal class Filter2<T1, T2> : IFilter
@@ -17,17 +17,25 @@
         private readonly Expression<Func<T1, T2, bool>> filterExpression;
         private readonly Func<T1, T2, bool> filterFunc;
 
-        public Filter2(IDependency<T1> dependency1, IDependency<T2> dependency2, Expression<Func<T1, T2, bool>> filterExpression, string key)
+        public Filter2(IDependency<T1> dependency1, 
+            IDependency<T2> dependency2,
+            Expression<Func<T1, T2, bool>> filterExpression, 
+            string key, 
+            IFilterGroup group)
         {
             this.dependency1 = dependency1;
             this.dependency2 = dependency2;
             this.filterExpression = filterExpression;
             Key = key;
+            Group = @group;
             filterFunc = filterExpression.Compile();
             Dependencies = new IDependency[] { dependency1, dependency2 };
         }
 
+        #region IFilter
         public IDependency[] Dependencies { get; }
+
+        public IFilterGroup Group { get; }
 
         public bool MeetsCondition(IResolutionContext context, NodeResolver resolver, out int[] failureWeight, out IFailure failure)
         {
@@ -43,15 +51,15 @@
 
             return filterFunc(argument1, argument2);
         }
-        
+        #endregion
+
         #region IFailure members
 
         public IEnumerable<Definition> Definitions => new[] { dependency1.Definition, dependency2.Definition };
+
         public string FilterString => ExpressionToCode.AnnotatedToCode(filterExpression);
 
         public string Key { get; }
-
-        public bool Inverted => false;
 
         #endregion
     }
