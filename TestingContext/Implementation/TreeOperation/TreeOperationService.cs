@@ -22,8 +22,7 @@
             var nodes = store.Providers.Select(x => Node.CreateNode(x.Key, x.Value, store, tree)).ToList();
             nodes.ForEach(x => tree.Nodes.Add(x.Definition, x));
             tree.Nodes.Add(store.RootDefinition, tree.Root);
-            BuildNodesTree(tree, nodes);
-            store.Filters.ForEach(x => AssignNonEqualFilters(tree, x, store));
+            BuildNodesTree(tree, nodes, store);
             AssignFilters(tree, store);
             tree.RootContext = new ResolutionContext<TestingContext>(rootSource, tree.Root, null);
             return tree;

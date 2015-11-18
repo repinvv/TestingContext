@@ -61,7 +61,6 @@
     <Compile Include="Definitions\Insurance\InsuranceThen.cs" />
     <Compile Include="Definitions\Insurance\InsuranceWhen.cs" />
     <Compile Include="Definitions\Common\Then\LoggerMustProduceInfo.cs" />
-    <Compile Include="Definitions\SetLogger.cs" />
     <Compile Include="Definitions\Tax\TaxGiven.cs" />
     <Compile Include="Entities\AssignmentType.cs" />
     <Compile Include="Entities\Assignment.cs" />
@@ -104,7 +103,6 @@
       <DependentUpon>TwoBranchItemsEvaluatuation.feature</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestLogger.cs" />
     <Compile Include="TestSource\InsurancesSource.cs" />
   </ItemGroup>
   <ItemGroup>

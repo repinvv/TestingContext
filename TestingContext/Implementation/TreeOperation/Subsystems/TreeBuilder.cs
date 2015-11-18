@@ -3,12 +3,14 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.Nodes;
+    using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Interfaces;
+    using static FilterAssignmentService;
     using static NodeReorderingService;
 
     internal static class TreeBuilder
     {
-        public static void BuildNodesTree(Tree tree, List<Node> nodes)
+        public static void BuildNodesTree(Tree tree, List<Node> nodes, RegistrationStore store)
         {
             var dict = GroupNodes(nodes);
             var nodesQueue = new Queue<INode>(new[] { tree.Root });
@@ -25,7 +27,8 @@
                 foreach (var child in children.Where(child => child.Provider.Dependencies.All(x => assigned.Contains(x.Definition))))
                 {
                     ReorderNodes(tree, child.Provider);
-                    var parent = FilterAssignmentService.GetAssignmentNode(tree, child.Provider);
+                    NonEqualFilteringService.AssignNonEqualFilters(tree, child.Provider, store);
+                    var parent = GetAssignmentNode(tree, child.Provider);
                     child.Parent = parent;
                     child.SourceParent = parent;
                     assigned.Add(child.Definition);

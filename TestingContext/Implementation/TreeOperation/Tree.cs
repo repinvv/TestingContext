@@ -1,5 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation
 {
+    using System;
     using System.Collections.Generic;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.ResolutionContext;
@@ -13,5 +14,7 @@
         public HashSet<BranchReference> BranchReferences { get; } = new HashSet<BranchReference>();
 
         public IResolutionContext RootContext { get; set; }
+
+        public HashSet<Tuple<Definition, Definition>> NonEqualFilters { get; } = new HashSet<Tuple<Definition, Definition>>();
     }
 }

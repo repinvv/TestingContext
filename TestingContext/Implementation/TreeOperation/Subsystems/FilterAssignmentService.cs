@@ -6,6 +6,7 @@
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
     using static NodeReorderingService;
+    using static NonEqualFilteringService;
 
     internal static class FilterAssignmentService
     {
@@ -19,9 +20,20 @@
 
         public static void AssignFilter(Tree tree, IFilter filter, RegistrationStore store)
         {
-            ReorderNodes(tree, filter);
             var node = GetAssignmentNode(tree, filter);
             AddFilterToGroup(node.Filters.Group, filter, tree, store);
+        }
+
+        public static void CheckAndAssignFilter(Tree tree, IFilter filter, RegistrationStore store)
+        {
+            AssignNonEqualFilters(tree, filter, store);
+            AssignFilter(tree, filter, store);
+        }
+
+        public static void ReorderCheckAndAssignFilter(Tree tree, IFilter filter, RegistrationStore store)
+        {
+            ReorderNodes(tree, filter);
+            CheckAndAssignFilter(tree, filter, store);
         }
 
         public static void AssignFilters(Tree tree, RegistrationStore store)
@@ -47,7 +59,7 @@
                 regular.Add(filter);
             }
 
-            regular.ForEach(x => AssignFilter(tree, x, store));
+            regular.ForEach(x => ReorderCheckAndAssignFilter(tree, x, store));
             AssignFilterGroups(tree, store, groups);
             cv.ForEach(x => AssignFilter(tree, x, store));
         }
@@ -76,7 +88,7 @@
                     }
                     else
                     {
-                        AssignFilter(tree, filter, store);
+                        ReorderCheckAndAssignFilter(tree, filter, store);
                     }
                 }
 
@@ -86,7 +98,8 @@
                 }
             }
 
-            groupsToAssign.ForEach(x => AssignFilter(tree, x, store));
+            groupsToAssign.ForEach(x => ReorderNodes(tree, x));
+            groupsToAssign.ForEach(x => CheckAndAssignFilter(tree, x, store));
             remainingCvFilters.ForEach(x => AssignFilter(tree, x, store));
         }
 
