@@ -1,5 +1,6 @@
 ﻿namespace UnitTestProject1.Definitions.Insurance
 {
+    using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;
     using TestingContextCore;
@@ -32,6 +33,14 @@
         {
             var insurance = context.Value<Insurance>(key);
             Assert.IsTrue(insurance.Name.Contains(namepart));
+        }
+
+        [Then(@"insurances(?:\s)?(.*) must have names containing '(.*)'")]
+        public void ThenInsurancesMustHaveNames(string key, string names)
+        {
+            var list = names.Split(',');
+            var result = context.All<Insurance>(key);
+            Assert.IsTrue(list.All(name => result.Count(insurance => insurance.Value.Name.Contains(name)) == 1));
         }
     }
 }

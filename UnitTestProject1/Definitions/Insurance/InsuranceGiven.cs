@@ -27,14 +27,27 @@
         public void GivenInsuranceIsTakenFromPoliciesSource(string key)
         {
             context.Register()
-                   .Items(key, () => InsurancesSource.Insurances);
+                   .Exists(() => InsurancesSource.Insurances, key);
         }
 
         [Given(@"for insurance(?:\s)?(.*) there is no insurance(?:\s)?(.*) in insurancesSource that meet requirements")]
         public void GivenForInsuranceThereIsNoInsuranceInPoliciesSourceThatMeetRequirements(string key1, string key2)
         {
             context.Register().For<Insurance>(key1)
-                .DoesNotExist(key2, p => InsurancesSource.Insurances);
+                .DoesNotExist(p => InsurancesSource.Insurances, key2);
         }
+
+        [Given(@"insuranse(?:\s)?(.*) matches high level OR condition")]
+        public void GivenInsuranseMatchesHiLevelORCondition(string key)
+        {
+            context.Or().CreateHighLevelCondition(key);
+        }
+
+        [Given(@"insuranse(?:\s)?(.*) matches high level NOT condition")]
+        public void GivenInsuranseMatchesHiLevelNOTCondition(string key)
+        {
+            context.Not().CreateHighLevelCondition(key);
+        }
+
     }
 }

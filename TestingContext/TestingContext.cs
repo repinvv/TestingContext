@@ -1,7 +1,9 @@
 ﻿namespace TestingContextCore
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Registrations;
@@ -32,9 +34,21 @@
             return new RootRegistration(store, new OrGroup());
         }
 
+        public void Or(Expression<Action<IRegister>> action)
+        {
+            var register = new RootRegistration(store, new OrGroup());
+            action.Compile()(register);
+        }
+
         public IRegister Not()
         {
             return new RootRegistration(store, new NotGroup());
+        }
+
+        public void Not(Expression<Action<IRegister>> action)
+        {
+            var register = new RootRegistration(store, new NotGroup());
+            action.Compile()(register);
         }
 
         public bool IsRegistered<T>(string key)

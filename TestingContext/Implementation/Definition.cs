@@ -6,7 +6,7 @@
     {
         public static Definition Define<T>(string key)
         {
-            return new Definition(typeof(T), key);
+            return new Definition(typeof(T), key ?? string.Empty);
         }
 
         private Definition(Type type, string key)

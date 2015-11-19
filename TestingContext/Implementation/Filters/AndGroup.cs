@@ -8,7 +8,7 @@
     using TestingContextCore.Implementation.ResolutionContext;
     using static FilterConstant;
 
-    internal class AndGroup : IFilter, IFilterGroup
+    internal class AndGroup : IFilterGroup
     {
         private readonly List<IFilter> filters = new List<IFilter>();
 

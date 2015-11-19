@@ -31,40 +31,40 @@
             store.RegisterFilter(new Filter2<T1, T2>(dependency1, dependency2, filter, key, group), key);
         }
 
-        public void Exists<T3>(string key, Func<T1, T2, IEnumerable<T3>> srcFunc)
+        public void Exists<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, string key = null)
         {
             CreateFilter<T3>(key, x => x.Any(y => y.MeetsConditions));
             CreateProvider(key, srcFunc);
         }
 
-        public void DoesNotExist<T3>(string key, Func<T1, T2, IEnumerable<T3>> srcFunc)
+        public void DoesNotExist<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, string key = null)
         {
             CreateFilter<T3>(key, x => !x.Any(y => y.MeetsConditions));
             CreateProvider(key, srcFunc);
         }
 
-        public void Each<T3>(string key, Func<T1, T2, IEnumerable<T3>> srcFunc)
+        public void Each<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, string key = null)
         {
             CreateFilter<T3>(key, x => x.All(y => y.MeetsConditions));
             CreateProvider(key, srcFunc);
         }
 
-        public void Is<T3>(string key, Func<T1, T2, T3> srcFunc)
+        public void Is<T3>(Func<T1, T2, T3> srcFunc, string key = null)
         {
-            Exists(key, (x, y) =>
+            Exists((x, y) =>
             {
                 var item = srcFunc(x, y);
                 return item == null ? Enumerable.Empty<T3>() : new[] { item };
-            });
+            }, key);
         }
 
-        public void IsNot<T3>(string key, Func<T1, T2, T3> srcFunc)
+        public void IsNot<T3>(Func<T1, T2, T3> srcFunc, string key = null)
         {
-            DoesNotExist(key, (x, y) =>
+            DoesNotExist((x, y) =>
             {
                 var item = srcFunc(x, y);
                 return item == null ? Enumerable.Empty<T3>() : new[] { item };
-            });
+            }, key);
         }
 
         private void CreateFilter<T3>(string key, Expression<Func<IEnumerable<IResolutionContext>, bool>> func)

@@ -30,20 +30,20 @@
             return new Registration1<IEnumerable<T1>>(new CollectionDependency<T1>(Define<T1>(key)), store, group);
         }
 
-        public void Items<T>(string key, Func<IEnumerable<T>> srcFunc)
+        public void Exists<T>(Func<IEnumerable<T>> srcFunc, string key = null)
         {
             store.RegisterFilter(new CollectionValidityFilter(x => x.Any(y => y.MeetsConditions), Define<T>(key)));
             var dependency = new SingleDependency<TestingContext>(store.RootDefinition);
             store.RegisterProvider(Define<T>(key), new Provider<TestingContext, T>(dependency, x => srcFunc()));
         }
 
-        public void Item<T>(string key, Func<T> srcFunc)
+        public void Is<T>(Func<T> srcFunc, string key = null)
         {
-            Items<T>(key, () =>
+            Exists<T>(() =>
             {
                 var item = srcFunc();
                 return item == null ? Enumerable.Empty<T>() : new[] { item };
-            });
+            }, key);
         }
     }
 }

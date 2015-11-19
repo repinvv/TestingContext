@@ -58,6 +58,7 @@
     <Compile Include="Definitions\Assignment\AssignmentThen.cs" />
     <Compile Include="Definitions\Common\ConditionIsBroken.cs" />
     <Compile Include="Definitions\Insurance\InsuranceGiven.cs" />
+    <Compile Include="Definitions\Insurance\InsuranceGivenHelper.cs" />
     <Compile Include="Definitions\Insurance\InsuranceThen.cs" />
     <Compile Include="Definitions\Insurance\InsuranceWhen.cs" />
     <Compile Include="Definitions\Common\Then\LoggerMustProduceInfo.cs" />
@@ -67,37 +68,42 @@
     <Compile Include="Entities\Insurance.cs" />
     <Compile Include="Entities\Tax.cs" />
     <Compile Include="Entities\TaxType.cs" />
-    <Compile Include="FeatureSpecs\BreakSomething.feature.cs">
+    <Compile Include="Features\BreakSomething.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BreakSomething.feature</DependentUpon>
     </Compile>
-    <Compile Include="FeatureSpecs\NoFilterLimitation.feature.cs">
+    <Compile Include="Features\HiLevelFilterGroups.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HiLevelFilterGroups.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\NoFilterLimitation.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NoFilterLimitation.feature</DependentUpon>
     </Compile>
-    <Compile Include="FeatureSpecs\NonEqualFilter.feature.cs">
+    <Compile Include="Features\NonEqualFilter.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NonEqualFilter.feature</DependentUpon>
     </Compile>
-    <Compile Include="FeatureSpecs\SimpleNotFoundLogging.feature.cs">
+    <Compile Include="Features\SimpleNotFoundLogging.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SimpleNotFoundLogging.feature</DependentUpon>
     </Compile>
-    <Compile Include="FeatureSpecs\SimpleItemsEvaluation.feature.cs">
+    <Compile Include="Features\SimpleItemsEvaluation.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SimpleItemsEvaluation.feature</DependentUpon>
     </Compile>
-    <Compile Include="FeatureSpecs\TreeReordering.feature.cs">
+    <Compile Include="Features\TreeReordering.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TreeReordering.feature</DependentUpon>
     </Compile>
-    <Compile Include="FeatureSpecs\TwoBranchItemsEvaluatuation.feature.cs">
+    <Compile Include="Features\TwoBranchItemsEvaluatuation.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TwoBranchItemsEvaluatuation.feature</DependentUpon>
@@ -107,31 +113,35 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="FeatureSpecs\BreakSomething.feature">
+    <None Include="Features\BreakSomething.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>BreakSomething.feature.cs</LastGenOutput>
     </None>
-    <None Include="FeatureSpecs\NoFilterLimitation.feature">
+    <None Include="Features\HiLevelFilterGroups.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>HiLevelFilterGroups.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\NoFilterLimitation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>NoFilterLimitation.feature.cs</LastGenOutput>
     </None>
-    <None Include="FeatureSpecs\NonEqualFilter.feature">
+    <None Include="Features\NonEqualFilter.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>NonEqualFilter.feature.cs</LastGenOutput>
     </None>
-    <None Include="FeatureSpecs\SimpleNotFoundLogging.feature">
+    <None Include="Features\SimpleNotFoundLogging.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SimpleNotFoundLogging.feature.cs</LastGenOutput>
     </None>
-    <None Include="FeatureSpecs\SimpleItemsEvaluation.feature">
+    <None Include="Features\SimpleItemsEvaluation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SimpleItemsEvaluation.feature.cs</LastGenOutput>
     </None>
-    <None Include="FeatureSpecs\TreeReordering.feature">
+    <None Include="Features\TreeReordering.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>TreeReordering.feature.cs</LastGenOutput>
     </None>
-    <None Include="FeatureSpecs\TwoBranchItemsEvaluatuation.feature">
+    <None Include="Features\TwoBranchItemsEvaluatuation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>TwoBranchItemsEvaluatuation.feature.cs</LastGenOutput>
     </None>

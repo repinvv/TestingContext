@@ -29,52 +29,52 @@
            store.RegisterFilter(new Filter1<T1>(dependency, filter, key, group), key);
         }
 
-        public IFor<T1, T2> For<T2>(string key)
+        public IFor<T1, T2> For<T2>(string key = null)
         {
             var second = new SingleDependency<T2>(Define<T2>(key));
             return new Registration2<T1, T2>(dependency, second, store, group);
         }
 
-        public IFor<T1, IEnumerable<T2>> ForAll<T2>(string key)
+        public IFor<T1, IEnumerable<T2>> ForAll<T2>(string key = null)
         {
             var second = new CollectionDependency<T2>(Define<T2>(key));
             return new Registration2<T1, IEnumerable<T2>>(dependency, second, store, group);
         }
 
-        public void Exists<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc)
+        public void Exists<T2>(Func<T1, IEnumerable<T2>> srcFunc, string key = null)
         {
             CreateFilter<T2>(key, x => x.Any(y => y.MeetsConditions));
             CreateProvider(key, srcFunc);
         }
 
-        public void DoesNotExist<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc)
+        public void DoesNotExist<T2>(Func<T1, IEnumerable<T2>> srcFunc, string key = null)
         {
             CreateFilter<T2>(key, x => !x.Any(y => y.MeetsConditions));
             CreateProvider(key, srcFunc);
         }
 
-        public void Each<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc)
+        public void Each<T2>(Func<T1, IEnumerable<T2>> srcFunc, string key = null)
         {
             CreateFilter<T2>(key, x => x.All(y => y.MeetsConditions));
             CreateProvider(key, srcFunc);
         }
 
-        public void Is<T2>(string key, Func<T1, T2> srcFunc)
+        public void Is<T2>(Func<T1, T2> srcFunc, string key = null)
         {
-            Exists(key, x =>
+            Exists(x =>
             {
                 var item = srcFunc(x);
                 return item == null ? Enumerable.Empty<T2>() : new[] { item };
-            });
+            }, key);
         }
 
-        public void IsNot<T2>(string key, Func<T1, T2> srcFunc)
+        public void IsNot<T2>(Func<T1, T2> srcFunc, string key = null)
         {
-            DoesNotExist(key, x =>
+            DoesNotExist(x =>
             {
                 var item = srcFunc(x);
                 return item == null ? Enumerable.Empty<T2>() : new[] { item };
-            });
+            }, key);
         }
 
         private void CreateFilter<T2>(string key, Expression<Func<IEnumerable<IResolutionContext>, bool>> func)

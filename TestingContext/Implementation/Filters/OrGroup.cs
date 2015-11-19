@@ -9,7 +9,7 @@
     using TestingContextCore.Implementation.ResolutionContext;
     using static FilterConstant;
 
-    internal class OrGroup : IFilter, IFilterGroup
+    internal class OrGroup : IFilterGroup
     {
         private readonly List<IFilter> filters = new List<IFilter>();
 

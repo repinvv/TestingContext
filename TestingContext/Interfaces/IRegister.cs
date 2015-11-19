@@ -5,12 +5,12 @@
 
     public interface IRegister
     {
-        IFor<T1> For<T1>(string key);
+        IFor<T1> For<T1>(string key = null);
 
-        IFor<IEnumerable<T1>> ForAll<T1>(string key);
+        IFor<IEnumerable<T1>> ForAll<T1>(string key = null);
 
-        void Items<T2>(string key, Func<IEnumerable<T2>> srcFunc);
+        void Exists<T2>(Func<IEnumerable<T2>> srcFunc, string key = null);
 
-        void Item<T2>(string key, Func<T2> srcFunc);
+        void Is<T2>(Func<T2> srcFunc, string key = null);
     }
 }

@@ -8,7 +8,7 @@
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.ResolutionContext;
 
-    internal class NotGroup : IFilterGroup, IFilter
+    internal class NotGroup : IFilterGroup
     {
         private readonly AndGroup andGroup = new AndGroup();
 
