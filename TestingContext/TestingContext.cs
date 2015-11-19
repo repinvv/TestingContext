@@ -4,102 +4,57 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
+    using TestingContextCore.Implementation;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Registrations;
+    using TestingContextCore.Implementation.TreeOperation;
     using TestingContextCore.Interfaces;
     using static Implementation.Definition;
     using static Implementation.TreeOperation.TreeOperationService;
 
-    public class TestingContext
+    public class TestingContext : Registration<Root>
     {
-        private readonly RegistrationStore store;
-
         public TestingContext()
         {
-            var rootDefinition = Define<TestingContext>(string.Empty);
-            store = new RegistrationStore(rootDefinition);
+            
         }
-
-
-        public event SearchFailureEventHandler OnSearchFailure;
-
-        public IRegister Register()
-        {
-            return new RootRegistration(store);
-        }
-
-        public IRegister Or()
-        {
-            return new RootRegistration(store, new OrGroup());
-        }
-
-        public void Or(Expression<Action<IRegister>> action)
-        {
-            var register = new RootRegistration(store, new OrGroup());
-            action.Compile()(register);
-        }
-
-        public IRegister Not()
-        {
-            return new RootRegistration(store, new NotGroup());
-        }
-
-        public void Not(Expression<Action<IRegister>> action)
-        {
-            var register = new RootRegistration(store, new NotGroup());
-            action.Compile()(register);
-        }
-
+        
         public bool IsRegistered<T>(string key)
         {
-            return store.Providers.ContainsKey(Define<T>(key));
+            return Store.Providers.ContainsKey(Define<T>(key, Store.RootDefinition));
         }
 
-        public IEnumerable<IResolutionContext<T>> All<T>(string key)
+        public bool FoundMatch()
         {
-            var tree = GetTree(store, this);
-            if (tree.RootContext.MeetsConditions)
+            return GetTree(Store).RootContext.MeetsConditions;
+        }
+
+        public IFailure GetFailure()
+        {
+            if (FoundMatch())
             {
-                var all = tree.Root
-                           .Resolver
-                           .ResolveCollection(Define<T>(key), tree.RootContext)
-                           .Where(x => x.MeetsConditions)
-                           .Distinct()
-                           .Cast<IResolutionContext<T>>();
-                return all;
+                return null;
             }
 
             var collect = new FailureCollect();
-            tree.RootContext.ReportFailure(collect, new int[0]);
-            OnSearchFailure?.Invoke(this, new SearchFailureEventArgs
-                                          {
-                                              Entities = collect.Failure.Definitions.Select(x=>x.ToString()),
-                                              FilterKey = collect.Failure.Key,
-                                              FilterText = collect.Failure.FilterString
-                                          });
-            return Enumerable.Empty<IResolutionContext<T>>();
-        }
-
-        public T Value<T>(string key)
-        {
-            var resolutionContext = All<T>(key).FirstOrDefault();
-            return resolutionContext != null ? resolutionContext.Value : default(T);
+            GetTree(Store).RootContext.ReportFailure(collect, new int[0]);
+            return collect.Failure;
         }
 
         public void InvertFilter(string key)
         {
-            store.RegisterFilterInversion(key);
+            Store.RegisterFilterInversion(key);
         }
 
         public void InvertCollectionValidity<T>(string key)
         {
-            store.RegisterCollectionValidityInversion(Define<T>(key));
+            Store.RegisterCollectionValidityInversion(Define<T>(key, Store.RootDefinition));
         }
 
         public void InvertItemValidity<T>(string key)
         {
-            store.RegisterItemValidityInversion(Define<T>(key));
+            Store.RegisterItemValidityInversion(Define<T>(key, Store.RootDefinition));
         }
     }
 }

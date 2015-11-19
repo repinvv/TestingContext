@@ -7,12 +7,7 @@
 
     internal class RegistrationStore
     {
-        public RegistrationStore(Definition rootDefinition)
-        {
-            RootDefinition = rootDefinition;
-        }
-        
-        public Definition RootDefinition { get; }
+        public Definition RootDefinition { get; } = Definition.Define<Root>(null, null);
 
         public IDictionary<Definition, IProvider> Providers { get; } = new Dictionary<Definition, IProvider>();
 

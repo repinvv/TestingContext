@@ -11,34 +11,19 @@
     using TestingContextCore.Interfaces;
     using static Definition;
 
-    internal class Registration1<T1> : IFor<T1>
+    internal class Provide<T1> : IProvide<T1>
     {
         private readonly IDependency<T1> dependency;
         private readonly RegistrationStore store;
         private readonly IFilterGroup group;
+        private readonly Definition scope;
 
-        public Registration1(IDependency<T1> dependency, RegistrationStore store, IFilterGroup group)
+        public Provide(IDependency<T1> dependency, RegistrationStore store, IFilterGroup group, Definition scope)
         {
             this.dependency = dependency;
             this.store = store;
             this.group = group;
-        }
-
-        public void IsTrue(Expression<Func<T1, bool>> filter, string key = null)
-        {
-           store.RegisterFilter(new Filter1<T1>(dependency, filter, key, group), key);
-        }
-
-        public IFor<T1, T2> For<T2>(string key = null)
-        {
-            var second = new SingleDependency<T2>(Define<T2>(key));
-            return new Registration2<T1, T2>(dependency, second, store, group);
-        }
-
-        public IFor<T1, IEnumerable<T2>> ForAll<T2>(string key = null)
-        {
-            var second = new CollectionDependency<T2>(Define<T2>(key));
-            return new Registration2<T1, IEnumerable<T2>>(dependency, second, store, group);
+            this.scope = scope;
         }
 
         public void Exists<T2>(Func<T1, IEnumerable<T2>> srcFunc, string key = null)
@@ -79,12 +64,48 @@
 
         private void CreateFilter<T2>(string key, Expression<Func<IEnumerable<IResolutionContext>, bool>> func)
         {
-            store.RegisterFilter(new CollectionValidityFilter(func, Define<T2>(key)));
+            store.RegisterFilter(new CollectionValidityFilter(func, Define<T2>(key, scope), group));
         }
 
         private void CreateProvider<T2>(string key, Func<T1, IEnumerable<T2>> srcFunc)
         {
-            store.RegisterProvider(Define<T2>(key), new Provider<T1, T2>(dependency, srcFunc));
+            store.RegisterProvider(Define<T2>(key, scope), new Provider<T1, T2>(dependency, srcFunc));
         }
+    }
+
+    internal class Registration1<T1> : Provide<T1>, IFor<T1>
+    {
+        private readonly IDependency<T1> dependency;
+        private readonly RegistrationStore store;
+        private readonly IFilterGroup group;
+        private readonly Definition scope;
+
+        public Registration1(IDependency<T1> dependency, RegistrationStore store, IFilterGroup group, Definition scope)
+            : base(dependency, store, group, scope)
+        {
+            this.dependency = dependency;
+            this.store = store;
+            this.group = group;
+            this.scope = scope;
+        }
+
+        public void IsTrue(Expression<Func<T1, bool>> filter, string key = null)
+        {
+            store.RegisterFilter(new Filter1<T1>(dependency, filter, key, group), key);
+        }
+
+        public IFor<T1, T2> For<T2>(string key = null)
+        {
+            var second = new SingleDependency<T2>(Define<T2>(key, scope));
+            return new Registration2<T1, T2>(dependency, second, store, group);
+        }
+
+        public IFor<T1, IEnumerable<T2>> ForAll<T2>(string key = null)
+        {
+            var second = new CollectionDependency<T2>(Define<T2>(key, scope));
+            return new Registration2<T1, IEnumerable<T2>>(dependency, second, store, group);
+        }
+
+
     }
 }

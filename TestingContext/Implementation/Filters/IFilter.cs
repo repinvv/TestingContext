@@ -3,6 +3,7 @@
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.ResolutionContext;
+    using TestingContextCore.Interfaces;
 
     internal interface IFilter : IHaveDependencies, IFailure
     {

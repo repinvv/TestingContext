@@ -6,6 +6,7 @@
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.ResolutionContext;
+    using TestingContextCore.Interfaces;
     using static FilterConstant;
 
     internal class AndGroup : IFilterGroup

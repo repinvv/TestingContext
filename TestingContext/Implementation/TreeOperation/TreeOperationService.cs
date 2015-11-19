@@ -5,17 +5,16 @@
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.ResolutionContext;
     using static Subsystems.FilterAssignmentService;
-    using static TestingContextCore.Implementation.TreeOperation.Subsystems.NonEqualFilteringService;
     using static Subsystems.TreeBuilder;
 
     internal static class TreeOperationService
     {
-        public static Tree GetTree(RegistrationStore store, TestingContext rootSource)
+        public static Tree GetTree(RegistrationStore store)
         {
-            return store.Tree ?? (store.Tree = CreateTree(store, rootSource));
+            return store.Tree ?? (store.Tree = CreateTree(store));
         }
 
-        private static Tree CreateTree(RegistrationStore store, TestingContext rootSource)
+        private static Tree CreateTree(RegistrationStore store)
         {
             var tree = new Tree();
             tree.Root = new RootNode(tree, store.RootDefinition);
@@ -24,7 +23,7 @@
             tree.Nodes.Add(store.RootDefinition, tree.Root);
             BuildNodesTree(tree, nodes, store);
             AssignFilters(tree, store);
-            tree.RootContext = new ResolutionContext<TestingContext>(rootSource, tree.Root, null);
+            tree.RootContext = new ResolutionContext<Root>(Root.Instance, tree.Root, null);
             return tree;
         }
     }

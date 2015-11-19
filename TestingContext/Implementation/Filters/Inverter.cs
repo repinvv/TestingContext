@@ -5,6 +5,7 @@
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.ResolutionContext;
+    using TestingContextCore.Interfaces;
 
     internal class Inverter : IFilter
     {

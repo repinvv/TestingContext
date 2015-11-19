@@ -8,6 +8,7 @@
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.ResolutionContext;
+    using TestingContextCore.Interfaces;
     using static FilterConstant;
 
     internal class Filter1<T1> : IFilter
