@@ -340,7 +340,86 @@
 
                         }
             },
+            new Insurance
+            {
+                Id = 25,
+                Name = "non matching insurance for @NOTgroup",
+                Created = new DateTime(2017, 1, 2),
+                MaximumDependents = 10,
+                Assignments = new List<Assignment>
+                              {
+                                  new Assignment { Id = 39, Type = Dependent, HeadCount = 1500, Created = new DateTime(2012, 2, 3) },
+                              },
+                Taxes = new List<Tax>
+                        {
+                            new Tax { Id = 26, Type = Federal, Amount = 1 }
 
+                        }
+            },
+            new Insurance
+            {
+                Id = 26,
+                Name = "matching insurance for @NOTgroup1",
+                Created = new DateTime(2017, 1, 2),
+                MaximumDependents = 0,
+                Assignments = new List<Assignment>
+                              {
+                                  new Assignment { Id = 40, Type = Dependent, HeadCount = 1500, Created = new DateTime(2012, 2, 3) },
+                              },
+                Taxes = new List<Tax>
+                        {
+                            new Tax { Id = 27, Type = Federal, Amount = 1 }
+
+                        }
+            },
+            new Insurance
+            {
+                Id = 27,
+                Name = "matching insurance for @NOTgroup2",
+                Created = new DateTime(2017, 1, 2),
+                MaximumDependents = 10,
+                Assignments = new List<Assignment>
+                              {
+                                  new Assignment { Id = 41, Type = Employee, HeadCount = 1500, Created = new DateTime(2012, 2, 3) },
+                              },
+                Taxes = new List<Tax>
+                        {
+                            new Tax { Id = 28, Type = Federal, Amount = 1 }
+
+                        }
+            },
+            new Insurance
+            {
+                Id = 28,
+                Name = "matching insurance for @NOTgroup3",
+                Created = new DateTime(2017, 1, 2),
+                MaximumDependents = 10,
+                Assignments = new List<Assignment>
+                              {
+                                  new Assignment { Id = 42, Type = Dependent, HeadCount = 1500, Created = new DateTime(2012, 2, 3) },
+                              },
+                Taxes = new List<Tax>
+                        {
+                            new Tax { Id = 29, Type = Local, Amount = 1 }
+
+                        }
+            },
+            new Insurance
+            {
+                Id = 29,
+                Name = "matching insurance for @NOTgroup4",
+                Created = new DateTime(2017, 1, 2),
+                MaximumDependents = 0,
+                Assignments = new List<Assignment>
+                              {
+                                  new Assignment { Id = 43, Type = Employee, HeadCount = 1500, Created = new DateTime(2012, 2, 3) },
+                              },
+                Taxes = new List<Tax>
+                        {
+                            new Tax { Id = 30, Type = Local, Amount = 1 }
+
+                        }
+            },
         };
     }
 }
