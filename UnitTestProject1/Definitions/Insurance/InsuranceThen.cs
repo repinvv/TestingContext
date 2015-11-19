@@ -38,9 +38,10 @@
         [Then(@"insurances(?:\s)?(.*) must have names containing '(.*)'")]
         public void ThenInsurancesMustHaveNames(string key, string names)
         {
-            var list = names.Split(',');
+            var list = names.Split(',').Distinct().ToList();
             var result = context.All<Insurance>(key);
             Assert.IsTrue(list.All(name => result.Count(insurance => insurance.Value.Name.Contains(name)) == 1));
+            Assert.AreEqual(list.Count, result.Count());
         }
     }
 }
