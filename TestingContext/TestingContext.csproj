@@ -46,6 +46,7 @@
     <Compile Include="CachingEnumerable.cs" />
     <Compile Include="DictionaryExtension.cs" />
     <Compile Include="GetExtension.cs" />
+    <Compile Include="Implementation\Dependencies\CollectionValidityDependency.cs" />
     <Compile Include="Implementation\Dependencies\DependencyType.cs" />
     <Compile Include="Implementation\Dependencies\DummyDependency.cs" />
     <Compile Include="Implementation\Filters\FilterConstant.cs" />
