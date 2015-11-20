@@ -17,16 +17,6 @@
             store = new RegistrationStore();
         }
 
-        private static IEnumerable<Action<IForContext<Root>>> Action()
-        {
-            yield return reg => reg.For<Root>().IsTrue(y => y != null);
-        }
-
-        public bool IsRegistered<T>(string key)
-        {
-            return store.i
-        }
-
         public bool FoundMatch()
         {
             return GetTree(store).RootContext.MeetsConditions;
