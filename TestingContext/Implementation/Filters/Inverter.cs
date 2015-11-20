@@ -26,7 +26,7 @@
         #endregion
 
         #region IFailure members
-        public IEnumerable<Definition> Definitions => filter.Definitions;
+        public IEnumerable<string> Definitions => filter.Definitions;
 
         public string FilterString => filter.FilterString;
 

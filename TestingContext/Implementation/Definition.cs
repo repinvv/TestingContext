@@ -20,7 +20,7 @@
 
         public string Key { get; }
 
-        Definition Scope { get; }
+        public Definition Scope { get; }
 
         #region Equal members
         public override bool Equals(object obj)

@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.Dependencies;
-    using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Interfaces;
@@ -40,7 +39,7 @@
         #endregion
 
         #region IFailure members
-        public IEnumerable<Definition> Definitions => Dependencies.Select(x => x.Definition);
+        public IEnumerable<string> Definitions => Dependencies.Select(x => x.Definition.ToString());
         public string FilterString => "OR group" + Environment.NewLine + string.Join(string.Empty, filters.SelectMany(x => x.FilterString));
         public string Key => null;
         #endregion

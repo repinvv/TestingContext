@@ -4,13 +4,15 @@
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
-    public interface IRegister<T> : IProvide<T>, IGet
+    public interface IForContext<T> : IProvide<T>, IGet
     {
-        void Not(Expression<Action<IRegister<T>>> action);
+        bool IsRegistered<T1>(string key);
 
-        void Or(Expression<Action<IRegister<T>>> action);
+        void Not(Expression<Action<IForContext<T>>> action);
 
-        void ScopeBy<T1>(Action<IRegister<T1>> action, string key = null);
+        void Or(params Action<IForContext<T>>[] action);
+
+        void ScopeBy<T1>(Action<IForContext<T1>> action, string key = null);
 
         IFor<T1> For<T1>(string key = null);
 

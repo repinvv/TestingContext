@@ -19,7 +19,7 @@
             this.definition1 = definition1;
             this.definition2 = definition2;
             Dependencies = new IDependency[] { new DummyDependency(definition1, Single), new DummyDependency(definition2, Single) };
-            Definitions = new[] { definition1, definition2 };
+            Definitions = new[] { definition1.ToString(), definition2.ToString() };
             FilterString = "(a, b) => a != b";
         }
 
@@ -39,7 +39,7 @@
         #endregion
 
         #region IFailure members
-        public IEnumerable<Definition> Definitions { get; }
+        public IEnumerable<string> Definitions { get; }
 
         public string FilterString { get; }
 

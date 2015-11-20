@@ -10,45 +10,46 @@
     using static Definition;
     using static Implementation.TreeOperation.TreeOperationService;
 
-    public class Registration<T> : IRegister<T>
+    internal class Registration<T> : ProviderRegistration<T>, IForContext<T>
     {
         private readonly IFilterGroup group;
         private readonly Definition scope;
-        internal readonly RegistrationStore Store;
+        private readonly RegistrationStore store;
 
-        internal Registration()
+        internal Registration(RegistrationStore store, Definition scope, IFilterGroup group = null)
+            : base (new SingleDependency<T>(scope),store, scope, group)
         {
-            Store = new RegistrationStore();
-            scope = Store.RootDefinition;
-        }
-
-        internal Registration(RegistrationStore store, IFilterGroup group = null, Definition scope = null)
-        {
-            Store = store;
+            this.store = store;
             this.group = group;
             this.scope = scope;
         }
 
+        public void ScopeBy<T1>(Action<IForContext<T1>> action, string key = null)
+        {
+            var definition = Define<T1>(key, scope);
+            action(new Registration<T1>(store, definition, group));
+        }
+
         public IFor<T1> For<T1>(string key)
         {
-            return new Registration1<T1>(new SingleDependency<T1>(Define<T1>(key, scope)), Store, group);
+            return new Registration1<T1>(new SingleDependency<T1>(Define<T1>(key, scope)), store, group, scope);
         }
 
         public IFor<IEnumerable<T1>> ForAll<T1>(string key)
         {
-            return new Registration1<IEnumerable<T1>>(new CollectionDependency<T1>(Define<T1>(key, scope)), Store, group);
+            return new Registration1<IEnumerable<T1>>(new CollectionDependency<T1>(Define<T1>(key, scope)), store, group, scope);
         }
 
         public IEnumerable<IResolutionContext<T1>> Get<T1>(string key)
         {
-            var tree = GetTree(Store);
+            var tree = GetTree(store);
             if (!tree.RootContext.MeetsConditions)
             {
                 return Enumerable.Empty<IResolutionContext<T1>>();
             }
             var all = tree.Root
                           .Resolver
-                          .ResolveCollection(Define<T1>(key, Store.RootDefinition), tree.RootContext)
+                          .ResolveCollection(Define<T1>(key, store.RootDefinition), tree.RootContext)
                           .Where(x => x.MeetsConditions)
                           .Distinct()
                           .Cast<IResolutionContext<T1>>();

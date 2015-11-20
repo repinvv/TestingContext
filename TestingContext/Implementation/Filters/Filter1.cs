@@ -19,8 +19,8 @@
 
         public Filter1(IDependency<T1> dependency, 
             Expression<Func<T1, bool>> filterExpression, 
-            string key,
-            IFilterGroup group)
+            IFilterGroup group,
+            string key)
         {
             this.dependency = dependency;
             this.filterExpression = filterExpression;
@@ -48,7 +48,7 @@
 
         #region IFailure members
 
-        public IEnumerable<Definition> Definitions => new[] { dependency.Definition };
+        public IEnumerable<string> Definitions => new[] { dependency.Definition.ToString() };
 
         public string FilterString => ExpressionToCode.AnnotatedToCode(filterExpression);
 

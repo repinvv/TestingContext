@@ -41,7 +41,7 @@
         #endregion
 
         #region IFailure members
-        public IEnumerable<Definition> Definitions => Dependencies.Select(x => x.Definition);
+        public IEnumerable<string> Definitions => Dependencies.Select(x => x.Definition.ToString());
 
         public string FilterString => string.Join(string.Empty, filters.SelectMany(x => x.FilterString));
 

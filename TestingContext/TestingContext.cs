@@ -2,32 +2,34 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Linq.Expressions;
-    using TestingContextCore.Implementation;
-    using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Registrations;
-    using TestingContextCore.Implementation.TreeOperation;
     using TestingContextCore.Interfaces;
     using static Implementation.Definition;
     using static Implementation.TreeOperation.TreeOperationService;
 
-    public class TestingContext : Registration<Root>
+    public class TestingContext
     {
+        private RegistrationStore store;
+
         public TestingContext()
         {
-            
+            store = new RegistrationStore();
         }
-        
+
+        private static IEnumerable<Action<IForContext<Root>>> Action()
+        {
+            yield return reg => reg.For<Root>().IsTrue(y => y != null);
+        }
+
         public bool IsRegistered<T>(string key)
         {
-            return Store.Providers.ContainsKey(Define<T>(key, Store.RootDefinition));
+            return store.i
         }
 
         public bool FoundMatch()
         {
-            return GetTree(Store).RootContext.MeetsConditions;
+            return GetTree(store).RootContext.MeetsConditions;
         }
 
         public IFailure GetFailure()

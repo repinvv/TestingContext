@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.Dependencies;
-    using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.ResolutionContext;
     using TestingContextCore.Interfaces;
@@ -31,7 +30,7 @@
         #endregion
 
         #region IFailure members
-        public IEnumerable<Definition> Definitions => Dependencies.Select(x => x.Definition);
+        public IEnumerable<string> Definitions => Dependencies.Select(x => x.Definition.ToString());
 
         public string FilterString => "NOT-AND group" + Environment.NewLine + andGroup.FilterString;
 

@@ -2,9 +2,10 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.ResolutionContext;
-    using TestingContextCore.Interfaces;
     using static DependencyType;
+
     internal class CollectionValidityDependency : IDependency<IEnumerable<IResolutionContext>>
     {
         public CollectionValidityDependency(Definition definition)
@@ -14,7 +15,7 @@
 
         public bool TryGetValue(IResolutionContext context, out IEnumerable<IResolutionContext> value)
         {
-            value = context.Get(Definition).Distinct();
+            value = context.Node.Resolver.ResolveCollection(Definition, context).Distinct();
             return true;
         }
 
@@ -23,3 +24,4 @@
         public DependencyType Type => CollectionValidity;
     }
 }
+

@@ -8,6 +8,8 @@
     {
         bool MeetsConditions { get; }
 
+        INode Node { get; }
+
         IEnumerable<IResolutionContext> ResolveDown(Definition definition, List<INode> chain, int index);
 
         IResolutionContext ResolveSingle(Definition definition);

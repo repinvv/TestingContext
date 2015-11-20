@@ -56,7 +56,7 @@
 
         #region IFailure members
 
-        public IEnumerable<Definition> Definitions => new[] { dependency1.Definition, dependency2.Definition };
+        public IEnumerable<string> Definitions => new[] { dependency1.Definition.ToString(), dependency2.Definition.ToString() };
 
         public string FilterString => ExpressionToCode.AnnotatedToCode(filterExpression);
 

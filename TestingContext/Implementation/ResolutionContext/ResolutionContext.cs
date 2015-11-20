@@ -9,7 +9,6 @@
 
     internal class ResolutionContext<T> : IResolutionContext<T>, IResolutionContext
     {
-        private readonly INode node;
         private readonly IResolutionContext parent;
         private readonly Dictionary<Definition, IEnumerable<IResolutionContext>> childResolutions 
             = new Dictionary<Definition, IEnumerable<IResolutionContext>>();
@@ -21,18 +20,20 @@
             IResolutionContext parent)
         {
             Value = value;
-            this.node = node;
+            Node = node;
             this.parent = parent;
             MeetsConditions = node.Filters.ItemFilter.MeetsCondition(this, node.Resolver, out failureWeight, out failure);
         }
 
         public bool MeetsConditions { get; }
 
+        public INode Node { get; }
+
         public T Value { get; }
 
         public IEnumerable<IResolutionContext<T2>> Get<T2>(string key)
         {
-            return Get(Definition.Define<T2>(key))
+            return Get(Definition.Define<T2>(key, Node.Definition.Scope))
                 .Distinct()
                 .Cast<IResolutionContext<T2>>();
         }
@@ -51,18 +52,18 @@
                 .SelectMany(x => x.ResolveDown(definition, chain, index + 1));
         }
 
-        public IResolutionContext ResolveSingle(Definition definition) => definition == node.Definition ? this : parent.ResolveSingle(definition);
+        public IResolutionContext ResolveSingle(Definition definition) => definition == Node.Definition ? this : parent.ResolveSingle(definition);
 
         public IEnumerable<IResolutionContext> ResolveFromClosestParent(Definition definition, Definition parentDefinition)
         {
-            return parentDefinition == node.Definition 
+            return parentDefinition == Node.Definition 
                 ? Get(definition) 
                 : parent.ResolveFromClosestParent(definition, parentDefinition);
         }
 
         public IEnumerable<IResolutionContext> Get(Definition definition)
         {
-            return node.Resolver.ResolveCollection(definition, this)
+            return Node.Resolver.ResolveCollection(definition, this)
                        .Where(x => x.MeetsConditions);
         }
 
