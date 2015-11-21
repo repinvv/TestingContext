@@ -7,8 +7,12 @@
 
     public class TestingContext : ITestingContext
     {
-        private readonly TokenStore store = new TokenStore();
-        private readonly Storage tokens = new Storage();
+        private readonly TokenStore store;
+
+        public TestingContext()
+        {
+            store = new TokenStore(this);
+        }
 
         //public bool FoundMatch()
         //{
@@ -73,17 +77,12 @@
 
         public IToken<T> GetToken<T>(string name)
         {
-            return tokens.Get<IToken<T>>(name);
+            return store.Tokens.Get<IToken<T>>(name);
         }
 
         public IToken GetToken(string name)
         {
-            return tokens.Get<IToken>(name);
-        }
-
-        public IToken GetFilterToken(string name)
-        {
-            return null;
+            return store.Tokens.Get<IToken>(name);
         }
 
         public Storage Storage { get; } = new Storage();

@@ -2,9 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.Interfaces;
     using TestingContextCore.Interfaces.Tokens;
+    using TestingContextCore.PublicMembers;
 
     internal class Registration : IRegister
     {
@@ -14,37 +17,53 @@
         public Registration(TokenStore store, IFilterGroup group = null)
         {
             this.store = store;
-            this.group = group;
+            this.group = group; // todo reg this
         }
 
-        public void Not(Action<IRegister> action)
-        { }
+        public void Not(Action<IRegister> action, string file = "", int line = 0, string member = "")
+        {
+            var diagInfo = new DiagInfo(file, line, member);
+            var notGroup = new NotGroup(diagInfo, group);
+            action(new Registration(store, notGroup));
+        }
 
-        public void Or(Action<IRegister> action, 
-            Action<IRegister> action2, 
-            Action<IRegister> action3 = null, 
-            Action<IRegister> action4 = null, 
-            Action<IRegister> action5 = null, 
-            string file = "", 
-            int line = 0, 
+        public void Or(Action<IRegister> action,
+            Action<IRegister> action2,
+            Action<IRegister> action3 = null,
+            Action<IRegister> action4 = null,
+            Action<IRegister> action5 = null,
+            string file = "",
+            int line = 0,
             string member = "")
-        { }
+        {
+            var diagInfo = new DiagInfo(file, line, member);
+            var orGroup = new OrGroup(diagInfo, group); // todo reg this
+            action?.Invoke(new Registration(store, new AndGroup()));
+            action2?.Invoke(new Registration(store, new AndGroup()));
+            action3?.Invoke(new Registration(store, new AndGroup()));
+            action4?.Invoke(new Registration(store, new AndGroup()));
+            action5?.Invoke(new Registration(store, new AndGroup()));
+        }
 
-        public void Xor(Action<IRegister> action, 
-            Action<IRegister> action2, 
-            string file = "", 
-            int line = 0, 
+        public void Xor(Action<IRegister> action,
+            Action<IRegister> action2,
+            string file = "",
+            int line = 0,
             string member = "")
-        { }
+        {
+            var diagInfo = new DiagInfo(file, line, member);
+        }
 
         public IFor<T> For<T>(Func<ITestingContext, IToken<T>> getToken)
         {
-            return null;
+            var dependency = new SingleDependency<T>(new LazyToken<T>(getToken, store));
+            return new Registration1<T>(dependency, store, group);
         }
 
         public IFor<IEnumerable<T>> ForCollection<T>(Func<ITestingContext, IToken<T>> getToken)
         {
-            return null;
+            var dependency = new CollectionDependency<T>(new LazyToken<T>(getToken, store));
+            return new Registration1<IEnumerable<T>>(dependency, store, group);
         }
 
         public IHaveToken<T> Exists<T>(Func<IEnumerable<T>> srcFunc)

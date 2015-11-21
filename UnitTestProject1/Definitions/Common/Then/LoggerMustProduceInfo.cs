@@ -35,9 +35,9 @@
             var f = context.GetFailure();
 
             var log = $"name: {f.Token.Name}\r\nentities: {string.Join(", ", f.ForTokens.Select(x=>x.ToString()))}:\r\n" +
-                      $"{f.CallerInfo.File}, Line: {f.CallerInfo.Line}\r\n" +
-                      $"{f.CallerInfo.Member}\r\n" +
-                      $"{f.CallerInfo.FilterString}\r\n";
+                      $"{f.DiagInfo.File}, Line: {f.DiagInfo.Line}\r\n" +
+                      $"{f.DiagInfo.Member}\r\n" +
+                      $"{f.DiagInfo.FilterString}\r\n";
         }
         [Then(@"resolution logger must produce info for filter, mentioning '(.*)' and '(.*)'")]
         public void ThenResolutionLoggerMustProduceInfoForFilterMentioningAnd(string first, string second)

@@ -43,6 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementation\Filters\AndGroup.cs" />
+    <Compile Include="Implementation\Filters\BaseFilter.cs" />
+    <Compile Include="Implementation\Filters\FilterConstant.cs" />
+    <Compile Include="Implementation\Filters\NotGroup.cs" />
+    <Compile Include="Implementation\Filters\OrGroup.cs" />
+    <Compile Include="Implementation\Logging\ArrayExtension.cs" />
+    <Compile Include="Implementation\Registration\Registration2.cs" />
+    <Compile Include="Implementation\Tokens\LazyToken.cs" />
     <Compile Include="UsefulExtensions\CachingEnumerable.cs" />
     <Compile Include="UsefulExtensions\DictionaryExtension.cs" />
     <Compile Include="Implementation\Definition.cs" />
@@ -69,7 +77,7 @@
     <Compile Include="Interfaces\Tokens\ITokenGen.cs" />
     <Compile Include="PublicMembers\Storage.cs" />
     <Compile Include="PublicMembers\Exceptions\StorageException.cs" />
-    <Compile Include="PublicMembers\CallerInfo.cs" />
+    <Compile Include="PublicMembers\DiagInfo.cs" />
     <Compile Include="Interfaces\InterfaceExtensions.cs" />
     <Compile Include="Interfaces\IFailure.cs" />
     <Compile Include="Interfaces\IFor.cs" />

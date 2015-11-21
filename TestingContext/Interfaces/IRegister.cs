@@ -2,12 +2,16 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
     using System.Runtime.CompilerServices;
     using TestingContextCore.Interfaces.Tokens;
 
     public interface IRegister
-    { 
-        void Not(Action<IRegister> action);
+    {
+        void Not(Action<IRegister> action,
+            [CallerFilePath] string file = "",
+            [CallerLineNumber] int line = 0,
+            [CallerMemberName] string member = "");
 
         void Or(Action<IRegister> action,
             Action<IRegister> action2,

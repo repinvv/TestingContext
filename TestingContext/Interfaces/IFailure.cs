@@ -10,6 +10,6 @@
 
         IToken Token { get; }
 
-        CallerInfo CallerInfo { get; }
+        DiagInfo DiagInfo { get; }
     }
 }

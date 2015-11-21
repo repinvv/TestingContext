@@ -1,10 +1,13 @@
 ﻿namespace TestingContextCore.PublicMembers
 {
-    public class CallerInfo
+    using System.Linq.Expressions;
+    using static ExpressionToCodeLib.ExpressionToCode;
+
+    public class DiagInfo
     {
-        public CallerInfo(string filterString, string file, int line, string member)
+        public DiagInfo(string file, int line, string member, Expression filterExpression = null)
         {
-            FilterString = filterString;
+            FilterString = filterExpression == null ? null : AnnotatedToCode(filterExpression);
             File = file;
             Line = line;
             Member = member;

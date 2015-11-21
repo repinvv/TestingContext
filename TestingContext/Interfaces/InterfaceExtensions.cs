@@ -6,7 +6,6 @@
 
     public static class InterfaceExtensions
     {
-        #region RegisterExtensions
         public static IRegister Not(this IRegister register)
         {
             IRegister output = null;
@@ -33,6 +32,7 @@
             => ifor.ForCollection(x => haveToken.Token);
         #endregion
 
+        #region Inversions
         public static void InvertFilter(this ITestingContext context, string name) => context.InvertFilter(context.GetToken(name));
 
         public static void InvertCollectionValidity<T>(this ITestingContext context, string name) 

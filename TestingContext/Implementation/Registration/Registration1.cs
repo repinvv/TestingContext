@@ -7,6 +7,7 @@
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Interfaces;
     using TestingContextCore.Interfaces.Tokens;
+    using TestingContextCore.PublicMembers;
 
     internal class Registration1<T1> : IFor<T1>
     {
@@ -23,6 +24,7 @@
 
         public IHaveToken IsTrue(Expression<Func<T1, bool>> filter, string file = "", int line = 0, string member = "")
         {
+            var diagInfo = new DiagInfo(file, line, member, filter);
             return null;
         }
 
