@@ -2,13 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
-    using TestingContextCore.Implementation.Logging;
-    using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Interfaces;
-    using static Implementation.Definition;
-    using static Implementation.TreeOperation.TreeOperationService;
+    using TestingContextCore.OldImplementation.Logging;
+    using TestingContextCore.OldImplementation.Registrations;
+    using static OldImplementation.Definition;
+    using static OldImplementation.TreeOperation.TreeOperationService;
 
-    public class TestingContext
+    public class TestingContext :
     {
         private RegistrationStore store;
 

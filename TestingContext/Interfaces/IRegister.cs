@@ -2,20 +2,20 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq.Expressions;
+    using TestingContextCore.Interfaces.Tokens;
 
-    public interface IForContext<T> : IProvide<T>, IGet
-    {
-        bool IsRegistered<T1>(string key);
+    public interface IRegister
+    { 
+        void Not(Action<IRegister> action);
 
-        void Not(Expression<Action<IForContext<T>>> action);
+        void Or(params Action<IRegister>[] action);
 
-        void Or(params Action<IForContext<T>>[] action);
+        IFor<T> For<T>(Func<ITestingContext, IToken<T>> getToken);
 
-        void ScopeBy<T1>(Action<IForContext<T1>> action, string key = null);
+        IFor<IEnumerable<T>> ForCollection<T>(Func<ITestingContext, IToken<T>> getToken);
 
-        IFor<T1> For<T1>(string key = null);
+        IHaveToken<T> Exists<T>(Func<IEnumerable<T>> srcFunc);
 
-        IFor<IEnumerable<T1>> ForAll<T1>(string key = null);
+        IHaveToken<T> Is<T>(Func<T> srcFunc);
     }
 }

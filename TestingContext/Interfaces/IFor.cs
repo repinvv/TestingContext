@@ -3,28 +3,24 @@
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
+    using TestingContextCore.Interfaces.Tokens;
 
-    public interface IFor<T1> : IProvide<T1>
+    public interface IFor<T1>
     {
-        void IsTrue(Expression<Func<T1, bool>> filter, string key = null);
+        IHaveFilterToken IsTrue(Expression<Func<T1, bool>> filter);
 
-        IFor<T1, T2> For<T2>(string key = null);
+        IFor<T1, T2> For<T2>(Func<ITestingContext, IToken<T2>> getToken);
 
-        IFor<T1, IEnumerable<T2>> ForAll<T2>(string key = null);
-    }
+        IFor<T1, IEnumerable<T2>> ForCollection<T2>(Func<ITestingContext, IToken<T2>> getToken);
 
-    public interface IFor<T1, T2>
-    {
-        void IsTrue(Expression<Func<T1, T2, bool>> filter, string key = null);
+        IHaveToken<T2> Exists<T2>(Func<T1, IEnumerable<T2>> srcFunc);
 
-        void Exists<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, string key = null);
+        IHaveToken<T2> Is<T2>(Func<T1, T2> srcFunc);
 
-        void Is<T3>(Func<T1, T2, T3> srcFunc, string key = null);
+        IHaveToken<T2> DoesNotExist<T2>(Func<T1, IEnumerable<T2>> srcFunc);
 
-        void DoesNotExist<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, string key = null);
+        IHaveToken<T2> IsNot<T2>(Func<T1, T2> srcFunc);
 
-        void IsNot<T3>(Func<T1, T2, T3> srcFunc, string key = null);
-
-        void Each<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, string key = null);
+        IHaveToken<T2> Each<T2>(Func<T1, IEnumerable<T2>> srcFunc);
     }
 }

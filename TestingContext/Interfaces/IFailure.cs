@@ -1,13 +1,14 @@
 ﻿namespace TestingContextCore.Interfaces
 {
     using System.Collections.Generic;
+    using TestingContextCore.Interfaces.Tokens;
 
     public interface IFailure
     {
-        IEnumerable<string> Definitions { get; }
+        IEnumerable<IToken> ForTokens { get; }
+
+        IFilterToken FilterToken { get; }
 
         string FilterString { get; }
-
-        string Key { get; }
     }
 }
