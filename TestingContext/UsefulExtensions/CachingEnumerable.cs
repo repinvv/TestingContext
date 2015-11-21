@@ -1,4 +1,4 @@
-﻿namespace TestingContextCore
+﻿namespace TestingContextCore.UsefulExtensions
 {
     using System.Collections;
     using System.Collections.Generic;

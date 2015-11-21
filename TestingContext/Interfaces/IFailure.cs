@@ -2,13 +2,14 @@
 {
     using System.Collections.Generic;
     using TestingContextCore.Interfaces.Tokens;
+    using TestingContextCore.PublicMembers;
 
     public interface IFailure
     {
         IEnumerable<IToken> ForTokens { get; }
 
-        IFilterToken FilterToken { get; }
+        IToken Token { get; }
 
-        string FilterString { get; }
+        CallerInfo CallerInfo { get; }
     }
 }

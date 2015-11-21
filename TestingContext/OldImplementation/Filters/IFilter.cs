@@ -1,6 +1,7 @@
 ﻿namespace TestingContextCore.OldImplementation.Filters
 {
     using TestingContextCore.Interfaces;
+    using TestingContextCore.Interfaces.FailureInfo;
     using TestingContextCore.OldImplementation.Nodes;
     using TestingContextCore.OldImplementation.ResolutionContext;
 

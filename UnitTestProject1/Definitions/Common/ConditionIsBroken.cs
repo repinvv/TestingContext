@@ -2,13 +2,14 @@
 {
     using TechTalk.SpecFlow;
     using TestingContextCore;
+    using TestingContextCore.Interfaces;
 
     [Binding]
     public class ConditionIsBroken
     {
-        private readonly TestingContext context;
+        private readonly ITestingContext context;
 
-        public ConditionIsBroken(TestingContext context)
+        public ConditionIsBroken(ITestingContext context)
         {
             this.context = context;
         }

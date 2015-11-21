@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using TestingContextCore.Interfaces;
+    using TestingContextCore.Interfaces.FailureInfo;
     using TestingContextCore.OldImplementation.Dependencies;
     using TestingContextCore.OldImplementation.Nodes;
     using TestingContextCore.OldImplementation.ResolutionContext;

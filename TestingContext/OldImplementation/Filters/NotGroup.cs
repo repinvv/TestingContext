@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Interfaces;
+    using TestingContextCore.Interfaces.FailureInfo;
     using TestingContextCore.OldImplementation.Dependencies;
     using TestingContextCore.OldImplementation.Nodes;
     using TestingContextCore.OldImplementation.ResolutionContext;

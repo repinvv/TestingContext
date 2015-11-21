@@ -1,7 +1,6 @@
-﻿namespace TestingContextCore.OldImplementation.Logging
+﻿namespace TestingContextCore.Implementation.Logging
 {
     using TestingContextCore.Interfaces;
-    using TestingContextCore.Interfaces.FailureInfo;
 
     internal class FailureCollect
     {

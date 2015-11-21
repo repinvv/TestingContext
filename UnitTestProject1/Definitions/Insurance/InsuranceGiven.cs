@@ -2,15 +2,16 @@
 {
     using TechTalk.SpecFlow;
     using TestingContextCore;
+    using TestingContextCore.Interfaces;
     using UnitTestProject1.Entities;
     using UnitTestProject1.TestSource;
 
     [Binding]
     public class InsuranceGiven
     {
-        private readonly TestingContext context;
+        private readonly ITestingContext context;
 
-        public InsuranceGiven(TestingContext context)
+        public InsuranceGiven(ITestingContext context)
         {
             this.context = context;
         }
@@ -27,27 +28,36 @@
         public void GivenInsuranceIsTakenFromPoliciesSource(string key)
         {
             context.Register()
-                   .Exists(() => InsurancesSource.Insurances, key);
+                   .Exists(() => InsurancesSource.Insurances)
+                   .SaveAs(key);
         }
 
         [Given(@"for insurance(?:\s)?(.*) there is no insurance(?:\s)?(.*) in insurancesSource that meet requirements")]
         public void GivenForInsuranceThereIsNoInsuranceInPoliciesSourceThatMeetRequirements(string key1, string key2)
         {
             context.Register().For<Insurance>(key1)
-                .DoesNotExist(p => InsurancesSource.Insurances, key2);
+                .DoesNotExist(p => InsurancesSource.Insurances)
+                .SaveAs(key2);
         }
 
         [Given(@"insuranse(?:\s)?(.*) matches high level OR condition")]
         public void GivenInsuranseMatchesHiLevelORCondition(string key)
         {
-            context.Or().CreateHighLevelCondition(key);
+            context.Register()
+                   .Or(x => x.InsuranceHasFederalTax(key),
+                       x => x.InsuranceHasMaximumDependents(key),
+                       x => x.InsuranceHasDependentAssignment(key));
         }
 
         [Given(@"insuranse(?:\s)?(.*) matches high level NOT condition")]
         public void GivenInsuranseMatchesHiLevelNOTCondition(string key)
         {
-            context.Not().CreateHighLevelCondition(key);
-        }
-
-    }
+            context.Register()
+                   .Not(x =>
+                   {
+                       x.InsuranceHasMaximumDependents(key);
+                       x.InsuranceHasDependentAssignment(key);
+                       x.InsuranceHasFederalTax(key);
+                   });
+        }}
 }

@@ -2,15 +2,15 @@
 {
     using System.Linq;
     using TechTalk.SpecFlow;
-    using TestingContextCore;
+    using TestingContextCore.Interfaces;
     using UnitTestProject1.Entities;
 
     [Binding]
     public class AssignmentGiven
     {
-        private readonly TestingContext context;
+        private readonly ITestingContext context;
 
-        public AssignmentGiven(TestingContext context)
+        public AssignmentGiven(ITestingContext context)
         {
             this.context = context;
         }
@@ -35,7 +35,7 @@
         public void GivenAssignmentsHaveCoveredPeople(string key)
         {
             context.Register()
-                   .ForAll<Assignment>(key)
+                   .ForCollection<Assignment>(key)
                    .IsTrue(assignments => assignments.Sum(x => x.HeadCount) > 0);
         }
 
@@ -49,17 +49,18 @@
         }
 
         [Given(@"for insurance(?:\s)?(.*) exists an assignment(?:\s)?(.*)")]
-        public void GivenForInsuranceExistsAAssignment(string insuranceKey, string assignmentKey)
+        public void GivenForInsuranceExistsAssignment(string insuranceKey, string assignmentKey)
         {
             context.Register()
                    .For<Insurance>(insuranceKey)
-                   .Exists(insurance => insurance.Assignments, assignmentKey);
+                   .Exists(insurance => insurance.Assignments)
+                   .SaveAs(assignmentKey);
         }
 
         [Given(@"there is no suitable assignment(?:\s)?(.*)")]
         public void GivenThereIsNoSuitableAssignment(string key)
         {
-            context.InvertCollectionValidity<Assignment>(key);
+            context.InvertCollectionValidity(context.GetToken<Assignment>(key));
         }
 
         [Given(@"assignment(?:\s)?(.*) is created at the same day as assignment(?:\s)?(.*)")]
@@ -67,7 +68,7 @@
         {
             context.Register()
                    .For<Assignment>(key1)
-                   .For<Assignment>(key2)
+                   .For(x => x.GetToken<Assignment>(key2))
                    .IsTrue((assignment1, assignment2) => assignment1.Created.Date == assignment2.Created.Date);
         }
 
@@ -75,7 +76,7 @@
         public void GivenAssignmentsCoverPeopleTotal(string key, int covered)
         {
             context.Register()
-                   .ForAll<Assignment>(key)
+                   .ForCollection<Assignment>(key)
                    .IsTrue(assignments => assignments.Sum(x => x.HeadCount) == covered);
         }
 
@@ -83,8 +84,8 @@
         public void GivenAssignmentsCoverMorePeopleThanAssignments(string key1, string key2)
         {
             context.Register()
-                   .ForAll<Assignment>(key1)
-                   .ForAll<Assignment>(key2)
+                   .ForCollection<Assignment>(key1)
+                   .ForCollection<Assignment>(key2)
                    .IsTrue((assignments1, assignments2) => assignments1.Sum(x => x.HeadCount) > assignments2.Sum(x => x.HeadCount));
         }
 
@@ -92,8 +93,8 @@
         public void GivenAssignmentsCoverAsMuchOrMorePeopleThanAssignments(string key1, string key2)
         {
             context.Register()
-                   .ForAll<Assignment>(key1)
-                   .ForAll<Assignment>(key2)
+                   .ForCollection<Assignment>(key1)
+                   .ForCollection(c => c.GetToken<Assignment>(key2))
                    .IsTrue((assignments1, assignments2) => assignments1.Sum(x => x.HeadCount) >= assignments2.Sum(x => x.HeadCount));
         }
     }

@@ -43,77 +43,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CachingEnumerable.cs" />
-    <Compile Include="DictionaryExtension.cs" />
-    <Compile Include="InterfaceExtensions\ContextExtension.cs" />
-    <Compile Include="OldImplementation\Dependencies\CollectionValidityDependency.cs" />
-    <Compile Include="OldImplementation\Dependencies\DependencyType.cs" />
-    <Compile Include="OldImplementation\Dependencies\DummyDependency.cs" />
-    <Compile Include="OldImplementation\Filters\FilterConstant.cs" />
-    <Compile Include="OldImplementation\Filters\IFilterGroup.cs" />
-    <Compile Include="OldImplementation\Filters\NonEqualFilter.cs" />
-    <Compile Include="OldImplementation\Filters\NotGroup.cs" />
-    <Compile Include="OldImplementation\Filters\OrGroup.cs" />
-    <Compile Include="OldImplementation\IHaveDependencies.cs" />
-    <Compile Include="OldImplementation\Providers\Provider2.cs" />
-    <Compile Include="OldImplementation\Registrations\ProviderRegistration.cs" />
-    <Compile Include="OldImplementation\Registrations\RegistrationExtension.cs" />
-    <Compile Include="OldImplementation\BranchReference.cs" />
-    <Compile Include="OldImplementation\Definition.cs" />
-    <Compile Include="OldImplementation\Dependencies\CollectionDependency.cs" />
-    <Compile Include="OldImplementation\Dependencies\IDependency.cs" />
-    <Compile Include="OldImplementation\Dependencies\SingleDependency.cs" />
-    <Compile Include="OldImplementation\TreeOperation\Subsystems\CvFilterExtension.cs" />
-    <Compile Include="InterfaceExtensions\RegisterExtension.cs" />
-    <Compile Include="OldImplementation\Filters\AndGroup.cs" />
-    <Compile Include="OldImplementation\Filters\Filter2.cs" />
-    <Compile Include="OldImplementation\Filters\Filter1.cs" />
-    <Compile Include="OldImplementation\Filters\Inverter.cs" />
-    <Compile Include="OldImplementation\Logging\ArrayExtension.cs" />
-    <Compile Include="OldImplementation\Logging\FailureCollect.cs" />
-    <Compile Include="OldImplementation\Logging\IFailureReporter.cs" />
-    <Compile Include="OldImplementation\Registrations\Registration2.cs" />
-    <Compile Include="OldImplementation\Registrations\Registration1.cs" />
-    <Compile Include="OldImplementation\Registrations\Registration.cs" />
-    <Compile Include="OldImplementation\ResolutionContext\IResolutionContext.cs" />
-    <Compile Include="OldImplementation\Filters\IFilter.cs" />
-    <Compile Include="OldImplementation\Registrations\RegistrationStore.cs" />
-    <Compile Include="OldImplementation\Providers\Provider.cs" />
-    <Compile Include="OldImplementation\Providers\IProvider.cs" />
-    <Compile Include="OldImplementation\TreeOperation\GetNodeExtension.cs" />
-    <Compile Include="OldImplementation\Nodes\NodeFilters.cs" />
-    <Compile Include="OldImplementation\Nodes\INode.cs" />
-    <Compile Include="OldImplementation\Nodes\NodeResolver.cs" />
-    <Compile Include="OldImplementation\Nodes\RootNode.cs" />
-    <Compile Include="OldImplementation\TreeOperation\Subsystems\DependencyNode.cs" />
-    <Compile Include="OldImplementation\TreeOperation\Subsystems\FilterAssignmentService.cs" />
-    <Compile Include="OldImplementation\TreeOperation\Subsystems\NodeClosestParentService.cs" />
-    <Compile Include="OldImplementation\TreeOperation\Subsystems\NodeReorderingService.cs" />
-    <Compile Include="OldImplementation\Nodes\Node.cs" />
-    <Compile Include="OldImplementation\TreeOperation\Subsystems\NonEqualFilteringService.cs" />
-    <Compile Include="OldImplementation\TreeOperation\Tree.cs" />
-    <Compile Include="OldImplementation\TreeOperation\Subsystems\TreeBuilder.cs" />
-    <Compile Include="OldImplementation\TreeOperation\TreeOperationService.cs" />
+    <Compile Include="UsefulExtensions\CachingEnumerable.cs" />
+    <Compile Include="UsefulExtensions\DictionaryExtension.cs" />
+    <Compile Include="Implementation\Definition.cs" />
+    <Compile Include="Implementation\Dependencies\CollectionDependency.cs" />
+    <Compile Include="Implementation\Dependencies\DependencyType.cs" />
+    <Compile Include="Implementation\Dependencies\IDependency.cs" />
+    <Compile Include="Implementation\Dependencies\IHaveDependencies.cs" />
+    <Compile Include="Implementation\Dependencies\SingleDependency.cs" />
+    <Compile Include="Implementation\Filters\IFilter.cs" />
+    <Compile Include="Implementation\Filters\IFilterGroup.cs" />
+    <Compile Include="Implementation\Logging\FailureCollect.cs" />
+    <Compile Include="Implementation\Logging\IFailureReporter.cs" />
+    <Compile Include="Implementation\Nodes\INode.cs" />
+    <Compile Include="Implementation\Registration\Registration.cs" />
+    <Compile Include="Implementation\Registration\Registration1.cs" />
+    <Compile Include="Implementation\Registration\TokenStore.cs" />
+    <Compile Include="Implementation\ResolutionContext\IResolutionContext.cs" />
+    <Compile Include="Implementation\Root.cs" />
+    <Compile Include="Implementation\Tokens\Token.cs" />
+    <Compile Include="Implementation\Tokens\HaveToken.cs" />
+    <Compile Include="Implementation\Tokens\HaveTokenGen.cs" />
+    <Compile Include="Implementation\Tokens\TokenGen.cs" />
+    <Compile Include="Interfaces\IResolutionContext.cs" />
+    <Compile Include="Interfaces\Tokens\ITokenGen.cs" />
+    <Compile Include="PublicMembers\Storage.cs" />
+    <Compile Include="PublicMembers\Exceptions\StorageException.cs" />
+    <Compile Include="PublicMembers\CallerInfo.cs" />
+    <Compile Include="Interfaces\InterfaceExtensions.cs" />
     <Compile Include="Interfaces\IFailure.cs" />
-    <Compile Include="Interfaces\Tokens\IFilterToken.cs" />
     <Compile Include="Interfaces\IFor.cs" />
     <Compile Include="Interfaces\IFor2.cs" />
-    <Compile Include="Interfaces\Tokens\IHaveFilterToken.cs" />
     <Compile Include="Interfaces\Tokens\IHaveToken.cs" />
+    <Compile Include="Interfaces\Tokens\IHaveTokenGen.cs" />
     <Compile Include="Interfaces\IRegister.cs" />
     <Compile Include="Interfaces\ITestingContext.cs" />
     <Compile Include="Interfaces\Tokens\IToken.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="OldImplementation\ResolutionContext\ResolutionContext.cs" />
-    <Compile Include="Root.cs" />
-    <Compile Include="TestingContext.cs" />
+    <Compile Include="PublicMembers\TestingContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Implementation\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

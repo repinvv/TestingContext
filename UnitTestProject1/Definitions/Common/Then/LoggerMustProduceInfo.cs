@@ -3,9 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;
     using TestingContextCore;
+    using TestingContextCore.PublicMembers;
 
     [Binding]
     internal class LoggerMustProduceInfo
@@ -18,20 +20,25 @@
             this.context = context;
         }
 
-        [BeforeScenario]
+        [BeforeScenarioBlock]
         public void BindLogger()
         {
-            context.OnSearchFailure += OnSearchFailure;
-        }
+            if (ScenarioContext.Current.CurrentScenarioBlock != ScenarioBlock.Then)
+            {
+                return;
+            }
+            if (context.FoundMatch())
+            {
+                return;
+            }
 
-        public void OnSearchFailure(object sender, SearchFailureEventArgs e)
-        {
-            var log = $"key: {e.FilterKey}\r\nentities: {string.Join(", ", e.Entities)}:\r\n{e.FilterText}\r\n";
-            logs.Add(log);
-            Console.Write(log);
-            Debug.Write(log);
-        }
+            var f = context.GetFailure();
 
+            var log = $"name: {f.Token.Name}\r\nentities: {string.Join(", ", f.ForTokens.Select(x=>x.ToString()))}:\r\n" +
+                      $"{f.CallerInfo.File}, Line: {f.CallerInfo.Line}\r\n" +
+                      $"{f.CallerInfo.Member}\r\n" +
+                      $"{f.CallerInfo.FilterString}\r\n";
+        }
         [Then(@"resolution logger must produce info for filter, mentioning '(.*)' and '(.*)'")]
         public void ThenResolutionLoggerMustProduceInfoForFilterMentioningAnd(string first, string second)
         {

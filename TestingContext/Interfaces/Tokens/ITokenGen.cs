@@ -1,6 +1,6 @@
 ﻿namespace TestingContextCore.Interfaces.Tokens
 {
-    public interface IFilterToken
+    public interface IToken<T> : IToken
     {
     }
 }

@@ -3,14 +3,16 @@
     using System.Linq;
     using TechTalk.SpecFlow;
     using TestingContextCore;
+    using TestingContextCore.Interfaces;
+    using TestingContextCore.PublicMembers;
     using UnitTestProject1.Entities;
 
     [Binding]
     public class TaxGiven
     {
-        private readonly TestingContext context;
+        private readonly ITestingContext context;
 
-        public TaxGiven(TestingContext context)
+        public TaxGiven(ITestingContext context)
         {
             this.context = context;
         }
@@ -20,7 +22,8 @@
         {
             context.Register()
                    .For<Insurance>(insuranceKey)
-                   .Exists(insurance => insurance.Taxes, taxKey);
+                   .Exists(insurance => insurance.Taxes)
+                   .SaveAs(taxKey);
         }
 
         [Given(@"tax(?:\s)?(.*) amounts to at least (.*)\$")]
@@ -43,8 +46,8 @@
         public void GivenAveragePaymentPerPersonInAssignmentsBSpecifiedInTaxIsOver(string assignmentKey, string taxKey, int average)
         {
             context.Register()
-                   .ForAll<Assignment>(assignmentKey)
-                   .ForAll<Tax>(taxKey)
+                   .ForCollection<Assignment>(assignmentKey)
+                   .ForCollection<Tax>(taxKey)
                    .IsTrue((assignments, taxes) => taxes.Sum(x => x.Amount) / assignments.Sum(x => x.HeadCount) > average);
         }
 
@@ -67,7 +70,7 @@
         public void GivenTaxesHaveTotalAmountOf(string key, int amount)
         {
             context.Register()
-                   .ForAll<Tax>(key)
+                   .ForCollection<Tax>(key)
                    .IsTrue(taxes => taxes.Sum(x => x.Amount) == amount);
         }
     }

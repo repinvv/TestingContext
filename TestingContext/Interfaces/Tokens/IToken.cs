@@ -4,12 +4,8 @@
 
     public interface IToken
     {
-        string Name { get; }
+        string Name { get; set; }
 
         Type Type { get; }
-    }
-
-    public interface IToken<T> : IToken
-    {
     }
 }

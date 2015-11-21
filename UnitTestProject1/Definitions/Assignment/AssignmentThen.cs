@@ -4,14 +4,15 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;
     using TestingContextCore;
+    using TestingContextCore.Interfaces;
     using UnitTestProject1.Entities;
 
     [Binding]
     public class AssignmentThen
     {
-        private readonly TestingContext context;
+        private readonly ITestingContext context;
 
-        public AssignmentThen(TestingContext context)
+        public AssignmentThen(ITestingContext context)
         {
             this.context = context;
         }
@@ -32,7 +33,9 @@
         public void ThenForAssignmentWithIdThereMustBeProvidedAssignmentsWithIds(string key1, int id, string key2, string ids)
         {
             var assignment1 = context.All<Assignment>(key1).First(x => x.Value.Id == id);
-            var assignments2Ids = assignment1.Get<Assignment>(key2).Select(x=>x.Value.Id).ToArray();
+            var assignments2Ids = assignment1
+                .Get(context.GetToken<Assignment>(key2))
+                .Select(x => x.Value.Id).ToArray();
             var sourceIds = ids.Split(',').Select(int.Parse).ToArray();
             CollectionAssert.AreEquivalent(sourceIds, assignments2Ids);
         }

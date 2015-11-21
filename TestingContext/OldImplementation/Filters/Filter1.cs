@@ -5,6 +5,7 @@
     using System.Linq.Expressions;
     using ExpressionToCodeLib;
     using TestingContextCore.Interfaces;
+    using TestingContextCore.Interfaces.FailureInfo;
     using TestingContextCore.OldImplementation.Dependencies;
     using TestingContextCore.OldImplementation.Nodes;
     using TestingContextCore.OldImplementation.ResolutionContext;
