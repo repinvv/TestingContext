@@ -3,6 +3,7 @@
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Interfaces.Tokens;
+    using TestingContextCore.PublicMembers;
 
     internal static class StoreExtension
     {
@@ -24,9 +25,29 @@
             store.Providers.Add(token, provider);
         }
 
+        public static void InvertFilter(this TokenStore store, IToken token, DiagInfo diagInfo)
+        {
+            store.PreRegister();
+            store.FilterInversions.Add(token, diagInfo);
+        }
+
+        public static void InvertCollectionValidity(this TokenStore store, IToken token, DiagInfo diagInfo)
+        {
+            store.PreRegister();
+            store.CollectionInversions.Add(token, diagInfo);
+        }
+
+        public static void InvertItemValidity(this TokenStore store, IToken token, DiagInfo diagInfo)
+        {
+            store.PreRegister();
+            store.ItemInversions.Add(token, diagInfo);
+        }
+
         private static void PreRegister(this TokenStore store)
         {
             store.Tree = null;
         }
+
+
     }
 }

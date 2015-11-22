@@ -27,5 +27,11 @@
         public List<IFilter> Filters { get; } = new List<IFilter>();
 
         public Tree Tree { get; set; }
+
+        public Dictionary<IToken, DiagInfo> ItemInversions { get; } =new Dictionary<IToken, DiagInfo>();
+
+        public Dictionary<IToken, DiagInfo> CollectionInversions { get; } = new Dictionary<IToken, DiagInfo>();
+
+        public Dictionary<IToken, DiagInfo> FilterInversions { get; } = new Dictionary<IToken, DiagInfo>();
     }
 }

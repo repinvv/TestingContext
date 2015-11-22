@@ -1,9 +1,12 @@
 ﻿namespace TestingContextCore.PublicMembers
 {
     using System.Collections.Generic;
+    using System.Linq;
+    using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Registration;
     using TestingContextCore.Interfaces;
     using TestingContextCore.Interfaces.Tokens;
+    using static TestingContextCore.Implementation.TreeOperation.TreeOperationService;
 
     public class TestingContext : ITestingContext
     {
@@ -14,38 +17,6 @@
             store = new TokenStore(this);
         }
 
-        //public bool FoundMatch()
-        //{
-        //    //return GetTree(store).RootContext.MeetsConditions;
-        //}
-
-        //public IFailure GetFailure()
-        //{
-        //    //if (FoundMatch())
-        //    //{
-        //    //    return null;
-        //    //}
-
-        //    //var collect = new FailureCollect();
-        //    //GetTree(Store).RootContext.ReportFailure(collect, new int[0]);
-        //    //return collect.Failure;
-        //}
-
-        //public void InvertFilter(string key)
-        //{
-        //    //Store.RegisterFilterInversion(key);
-        //}
-
-        //public void InvertCollectionValidity<T>(string key)
-        //{
-        //    //Store.RegisterCollectionValidityInversion(Define<T>(key, Store.RootDefinition));
-        //}
-
-        //public void InvertItemValidity<T>(string key)
-        //{
-        //    //Store.RegisterItemValidityInversion(Define<T>(key, Store.RootDefinition));
-        //}
-
         public IRegister Register()
         {
             return new Registration(store);
@@ -53,27 +24,44 @@
 
         public bool FoundMatch()
         {
-            return false;
+            var tree = GetTree(store);
+            return tree.RootContext.MeetsConditions;
         }
 
         public IFailure GetFailure()
         {
-            return null;
+            if (FoundMatch())
+            {
+                return null;
+            }
+
+            var collect = new FailureCollect();
+            GetTree(store).RootContext.ReportFailure(collect, new int[0]);
+            return collect.Failure;
         }
 
         public IEnumerable<IResolutionContext<T>> All<T>(IToken<T> token)
         {
-            yield break;
+            var tree = GetTree(store);
+            return tree.RootContext
+                       .GetFromTree(token)
+                       .Cast<IResolutionContext<T>>();
         }
 
-        public void InvertFilter(IToken token)
-        { }
+        public void InvertFilter(IToken token, int line, string file, string member)
+        {
+            store.InvertFilter(token, new DiagInfo(file, line, member));
+        }
 
-        public void InvertCollectionValidity(IToken token)
-        { }
+        public void InvertCollectionValidity(IToken token, int line, string file, string member)
+        {
+            store.InvertCollectionValidity(token, new DiagInfo(file, line, member));
+        }
 
-        public void InvertItemValidity(IToken token)
-        { }
+        public void InvertItemValidity(IToken token, int line, string file, string member)
+        {
+            store.InvertItemValidity(token, new DiagInfo(file, line, member));
+        }
 
         public IToken<T> GetToken<T>(string name)
         {

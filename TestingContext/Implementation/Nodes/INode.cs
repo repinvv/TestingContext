@@ -13,7 +13,7 @@
 
         INode Parent { get; set; }
 
-        IFilterGroup Filters { get; }
+        NodeFilterInfo FilterInfo { get; }
 
         //NodeResolver Resolver { get; }
 
@@ -21,10 +21,6 @@
 
         bool IsChildOf(INode node);
 
-        bool IsSourceChildOf(INode node);
-
         List<INode> GetParentalChain();
-
-        List<INode> GetSourceChain();
     }
 }

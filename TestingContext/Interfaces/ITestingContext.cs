@@ -1,6 +1,7 @@
 ﻿namespace TestingContextCore.Interfaces
 {
     using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
     using TestingContextCore.Implementation;
     using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.PublicMembers;
@@ -12,11 +13,20 @@
         #endregion
 
         #region Given after background to break one
-        void InvertFilter(IToken token);
+        void InvertFilter(IToken token,
+            [CallerLineNumber] int line = 0,
+            [CallerFilePath] string file = "",
+            [CallerMemberName] string member = "");
 
-        void InvertCollectionValidity(IToken token);
+        void InvertCollectionValidity(IToken token,
+            [CallerLineNumber] int line = 0,
+            [CallerFilePath] string file = "",
+            [CallerMemberName] string member = "");
 
-        void InvertItemValidity(IToken token);
+        void InvertItemValidity(IToken token,
+            [CallerLineNumber] int line = 0,
+            [CallerFilePath] string file = "",
+            [CallerMemberName] string member = "");
         #endregion
 
 

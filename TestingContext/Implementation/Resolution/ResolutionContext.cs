@@ -25,7 +25,7 @@
             Value = value;
             Node = node;
             this.parent = parent;
-            MeetsConditions = node.Filters.MeetsCondition(this, out failureWeight, out failure);
+            MeetsConditions = node.FilterInfo.ItemFilter.MeetsCondition(this, out failureWeight, out failure);
         }
 
         public bool MeetsConditions { get; }
