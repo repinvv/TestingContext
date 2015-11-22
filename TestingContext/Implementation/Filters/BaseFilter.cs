@@ -10,16 +10,13 @@
 
     internal abstract class BaseFilter : IFailure
     {
-        private DiagInfo diagInfo;
-
-        protected BaseFilter(DiagInfo diagInfo, IFilterGroup group)
+        protected BaseFilter(DiagInfo diagInfo)
         {
-            Group = group;
             DiagInfo = diagInfo;
         }
 
-        public IFilterGroup Group { get; }
-        public virtual IDependency[] Dependencies { get; } = null;
+        public virtual IEnumerable<IDependency> Dependencies { get; protected set; }
+
         #region IFailure
         public IEnumerable<IToken> ForTokens => Dependencies.Select(x => x.Token);
         public DiagInfo DiagInfo { get; }

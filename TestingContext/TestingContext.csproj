@@ -45,12 +45,18 @@
   <ItemGroup>
     <Compile Include="Implementation\Filters\AndGroup.cs" />
     <Compile Include="Implementation\Filters\BaseFilter.cs" />
+    <Compile Include="Implementation\Filters\Filter1.cs" />
+    <Compile Include="Implementation\Filters\Filter2.cs" />
     <Compile Include="Implementation\Filters\FilterConstant.cs" />
     <Compile Include="Implementation\Filters\NotGroup.cs" />
     <Compile Include="Implementation\Filters\OrGroup.cs" />
+    <Compile Include="Implementation\Filters\XorGroup.cs" />
     <Compile Include="Implementation\Logging\ArrayExtension.cs" />
     <Compile Include="Implementation\Registration\Registration2.cs" />
+    <Compile Include="Implementation\Registration\StoreExtension.cs" />
     <Compile Include="Implementation\Tokens\LazyToken.cs" />
+    <Compile Include="Implementation\TreeOperation\Tree.cs" />
+    <Compile Include="PublicMembers\Exceptions\AlgorythmException.cs" />
     <Compile Include="UsefulExtensions\CachingEnumerable.cs" />
     <Compile Include="UsefulExtensions\DictionaryExtension.cs" />
     <Compile Include="Implementation\Definition.cs" />

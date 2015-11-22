@@ -11,22 +11,18 @@
 
     internal class AndGroup : IFilterGroup
     {
-        private readonly List<IFilter> filters = new List<IFilter>();
-
-        public void AddFilter(IFilter filter) => filters.Add(filter);
+        public List<IFilter> Filters { get; } = new List<IFilter>();
 
         #region IFilter
-        public IDependency[] Dependencies => filters.SelectMany(x => x.Dependencies).ToArray();
-
-        public IFilterGroup Group { get; }
+        public IEnumerable<IDependency> Dependencies => Filters.SelectMany(x => x.Dependencies);
 
         public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFailure failure)
         {
-            for (int i = 0; i < filters.Count; i++)
+            for (int i = 0; i < Filters.Count; i++)
             {
                 int[] innerWeight;
                 IFailure innerFailure;
-                if (!filters[i].MeetsCondition(context, out innerWeight, out innerFailure))
+                if (!Filters[i].MeetsCondition(context, out innerWeight, out innerFailure))
                 {
                     failure = innerFailure;
                     failureWeight = new[] { i }.Add(innerWeight);

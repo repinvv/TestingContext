@@ -6,8 +6,6 @@
 
     internal interface IFilter : IHaveDependencies, IFailure
     {
-        IFilterGroup Group { get; }
-
         bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFailure failure);
     }
 }

@@ -20,11 +20,24 @@
             this.group = group;
         }
 
+        private void RegisterSubgroup(Action<IRegister> action, IFilterGroup parentGroup)
+        {
+            if (action == null)
+            {
+                return;
+            }
+
+            var andGroup = new AndGroup();
+            parentGroup.Filters.Add(andGroup);
+            action(new Registration(store, andGroup));
+        }
+
+
         public void Not(Action<IRegister> action, string file = "", int line = 0, string member = "")
         {
-            var diagInfo = new DiagInfo(file, line, member);
-            var notGroup = new NotGroup(diagInfo, group);
-            action(new Registration(store, notGroup));
+            var notGroup = new NotGroup(new DiagInfo(file, line, member));
+            store.RegisterFilter(notGroup, group);
+            RegisterSubgroup(action, notGroup);
         }
 
         public void Or(Action<IRegister> action,
@@ -36,13 +49,13 @@
             int line = 0,
             string member = "")
         {
-            var diagInfo = new DiagInfo(file, line, member);
-            var orGroup = new OrGroup(diagInfo, group); // todo reg this
-            action?.Invoke(new Registration(store, new AndGroup()));
-            action2?.Invoke(new Registration(store, new AndGroup()));
-            action3?.Invoke(new Registration(store, new AndGroup()));
-            action4?.Invoke(new Registration(store, new AndGroup()));
-            action5?.Invoke(new Registration(store, new AndGroup()));
+            var orGroup = new OrGroup(new DiagInfo(file, line, member));
+            store.RegisterFilter(orGroup, group);
+            RegisterSubgroup(action, orGroup);
+            RegisterSubgroup(action2, orGroup);
+            RegisterSubgroup(action3, orGroup);
+            RegisterSubgroup(action4, orGroup);
+            RegisterSubgroup(action5, orGroup);
         }
 
         public void Xor(Action<IRegister> action,
@@ -51,19 +64,22 @@
             int line = 0,
             string member = "")
         {
-            var diagInfo = new DiagInfo(file, line, member);
+            var xorGroup = new XorGroup(new DiagInfo(file, line, member));
+            store.RegisterFilter(xorGroup, group);
+            RegisterSubgroup(action, xorGroup);
+            RegisterSubgroup(action2, xorGroup);
         }
 
         public IFor<T> For<T>(Func<ITestingContext, IToken<T>> getToken)
         {
             var dependency = new SingleDependency<T>(new LazyToken<T>(getToken, store));
-            return new Registration1<T>(dependency, store, group);
+            return new Registration1<T>(store, dependency, @group);
         }
 
         public IFor<IEnumerable<T>> ForCollection<T>(Func<ITestingContext, IToken<T>> getToken)
         {
             var dependency = new CollectionDependency<T>(new LazyToken<T>(getToken, store));
-            return new Registration1<IEnumerable<T>>(dependency, store, group);
+            return new Registration1<IEnumerable<T>>(store, dependency, @group);
         }
 
         #region unnamed

@@ -1,7 +1,9 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
+    using System.Collections.Generic;
+
     internal interface IHaveDependencies
     {
-        IDependency[] Dependencies { get; }
+        IEnumerable<IDependency> Dependencies { get; }
     }
 }

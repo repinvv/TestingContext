@@ -1,7 +1,9 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
+    using System.Collections.Generic;
+
     internal interface IFilterGroup : IFilter
     {
-        void AddFilter(IFilter filter);
+        List<IFilter> Filters { get; }
     }
 }

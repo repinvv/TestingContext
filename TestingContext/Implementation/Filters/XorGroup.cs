@@ -8,9 +8,9 @@
     using TestingContextCore.PublicMembers;
     using TestingContextCore.PublicMembers.Exceptions;
 
-    internal class NotGroup : BaseFilter, IFilterGroup
+    internal class XorGroup : BaseFilter, IFilterGroup
     {
-        public NotGroup(DiagInfo diagInfo) : base(diagInfo) { }
+        public XorGroup(DiagInfo diagInfo) : base(diagInfo) { }
 
         public List<IFilter> Filters { get; } = new List<IFilter>();
 
@@ -19,16 +19,17 @@
 
         public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFailure failure)
         {
-            if (Filters.Count != 1)
+            if (Filters.Count != 2)
             {
-                throw new AlgorythmException("NOT group can only contain one filter");
+                throw new AlgorythmException("XOR group can only contain two filters");
             }
 
             failureWeight = FilterConstant.EmptyArray;
             failure = this;
             IFailure innerFailure;
             int[] innerWeight;
-            return !Filters[0].MeetsCondition(context, out innerWeight, out innerFailure);
+            return Filters[0].MeetsCondition(context, out innerWeight, out innerFailure) 
+                ^ Filters[1].MeetsCondition(context, out innerWeight, out innerFailure);
         }
         #endregion
     }

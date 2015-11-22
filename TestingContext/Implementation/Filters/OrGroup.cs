@@ -11,21 +11,19 @@
 
     internal class OrGroup : BaseFilter, IFilterGroup
     {
-        private readonly List<IFilter> filters = new List<IFilter>();
-
-        public OrGroup(DiagInfo diagInfo, IFilterGroup group) : base(diagInfo, group)
+        public OrGroup(DiagInfo diagInfo) : base(diagInfo)
         { }
 
-        public void AddFilter(IFilter filter) => filters.Add(filter);
+        public List<IFilter> Filters { get; } = new List<IFilter>();
 
         #region IFilter
-        public override IDependency[] Dependencies => filters.SelectMany(x => x.Dependencies).ToArray();
+        public override IEnumerable<IDependency> Dependencies => Filters.SelectMany(x => x.Dependencies);
 
         public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFailure failure)
         {
             failureWeight = FilterConstant.EmptyArray;
             failure = this;
-            foreach (IFilter filter in filters)
+            foreach (var filter in Filters)
             {
                 int[] innerWeight;
                 IFailure innerFailure;
@@ -38,6 +36,5 @@
             return false;
         }
         #endregion
-        
     }
 }
