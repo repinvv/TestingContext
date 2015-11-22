@@ -1,7 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
     using System.Collections.Generic;
-    using TestingContextCore.Implementation;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Interfaces.Tokens;
 

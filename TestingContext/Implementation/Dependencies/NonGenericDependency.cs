@@ -1,7 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
     using TestingContextCore.Implementation.Resolution;
-    using TestingContextCore.Interfaces;
     using TestingContextCore.Interfaces.Tokens;
 
     internal class NonGenericDependency :IDependency<IResolutionContext>

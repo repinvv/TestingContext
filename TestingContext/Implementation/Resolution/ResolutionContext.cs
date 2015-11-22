@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Runtime.CompilerServices;
-    using TestingContextCore.Implementation;
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Interfaces;

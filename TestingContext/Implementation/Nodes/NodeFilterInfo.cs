@@ -1,8 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Nodes
 {
-    using System.Collections.Generic;
     using TestingContextCore.Implementation.Filters;
-    using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.PublicMembers;
 
     internal class NodeFilterInfo

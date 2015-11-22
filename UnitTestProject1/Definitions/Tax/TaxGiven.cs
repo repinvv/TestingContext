@@ -2,9 +2,7 @@
 {
     using System.Linq;
     using TechTalk.SpecFlow;
-    using TestingContextCore;
     using TestingContextCore.Interfaces;
-    using TestingContextCore.PublicMembers;
     using UnitTestProject1.Entities;
 
     [Binding]
@@ -22,7 +20,7 @@
         {
             context.Register()
                    .For<Insurance>(insuranceKey)
-                   .Exists(insurance => insurance.Taxes, taxKey);
+                   .Exists<Tax>(insurance => insurance.Taxes, taxKey);
         }
 
         [Given(@"tax(?:\s)?(.*) amounts to at least (.*)\$")]

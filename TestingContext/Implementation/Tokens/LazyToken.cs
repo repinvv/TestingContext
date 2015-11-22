@@ -1,8 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Tokens
 {
     using System;
-    using TestingContextCore.Implementation.Registration;
-    using TestingContextCore.Interfaces;
     using TestingContextCore.Interfaces.Tokens;
 
     internal class LazyToken<T>

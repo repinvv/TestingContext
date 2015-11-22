@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Runtime.CompilerServices;
-    using TestingContextCore.Implementation;
     using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.PublicMembers;
 

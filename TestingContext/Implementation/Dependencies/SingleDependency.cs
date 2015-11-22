@@ -1,6 +1,5 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
-    using TestingContextCore.Implementation;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.Interfaces;

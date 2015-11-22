@@ -1,7 +1,6 @@
 ﻿namespace UnitTestProject1.Definitions.Insurance
 {
     using TechTalk.SpecFlow;
-    using TestingContextCore;
     using TestingContextCore.Interfaces;
     using UnitTestProject1.Entities;
     using UnitTestProject1.TestSource;
@@ -28,7 +27,7 @@
         public void GivenInsuranceIsTakenFromPoliciesSource(string key)
         {
             context.Register()
-                   .Exists(() => InsurancesSource.Insurances, key);
+                   .Exists<Insurance>(() => InsurancesSource.Insurances, key);
         }
 
         [Given(@"for insurance(?:\s)?(.*) there is no insurance(?:\s)?(.*) in insurancesSource that meet requirements")]
@@ -36,7 +35,7 @@
         {
             context.Register()
                    .For<Insurance>(key1)
-                   .DoesNotExist(p => InsurancesSource.Insurances, key2);
+                   .DoesNotExist<Insurance>(p => InsurancesSource.Insurances, key2);
         }
 
         [Given(@"insuranse(?:\s)?(.*) matches high level OR condition")]

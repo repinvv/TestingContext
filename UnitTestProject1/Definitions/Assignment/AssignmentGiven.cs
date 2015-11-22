@@ -52,7 +52,7 @@
         {
             context.Register()
                    .For<Insurance>(insuranceKey)
-                   .Exists(insurance => insurance.Assignments, assignmentKey);
+                   .Exists<Assignment>(insurance => insurance.Assignments, assignmentKey);
         }
 
         [Given(@"there is no suitable assignment(?:\s)?(.*)")]

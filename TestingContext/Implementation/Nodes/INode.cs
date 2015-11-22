@@ -1,7 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Nodes
 {
     using System.Collections.Generic;
-    using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Interfaces.Tokens;
 

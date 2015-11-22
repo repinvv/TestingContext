@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContextCore.Implementation;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.Interfaces;

@@ -1,9 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq.Expressions;
-    using ExpressionToCodeLib;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Interfaces;

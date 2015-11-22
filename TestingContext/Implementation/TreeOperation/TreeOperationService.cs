@@ -21,7 +21,7 @@
             nodes.ForEach(x => tree.Nodes.Add(x.Token, x));
             tree.Nodes.Add(store.RootToken, tree.Root);
             TreeBuilder.BuildNodesTree(tree, nodes, store);
-            // todo FilterAssignmentService.AssignFilters(tree, store);
+            FilterAssignmentService.AssignFilters(tree, store);
             tree.RootContext = new ResolutionContext<Root>(Root.Instance, tree.Root, null);
             return tree;
         }

@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.Dependencies;
-    using Logging;
+    using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Interfaces;
     using TestingContextCore.Interfaces.Tokens;

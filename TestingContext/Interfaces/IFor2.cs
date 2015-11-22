@@ -5,7 +5,7 @@
     using System.Linq.Expressions;
     using System.Runtime.CompilerServices;
     using TestingContextCore.Interfaces.Tokens;
-    
+
     public interface IFor<T1, T2>
     {
         IHaveToken IsTrue(Expression<Func<T1, T2, bool>> filter,

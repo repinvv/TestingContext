@@ -1,12 +1,10 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Interfaces;
-    using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.PublicMembers;
 
     internal class OrGroup : BaseFilter, IFilterGroup

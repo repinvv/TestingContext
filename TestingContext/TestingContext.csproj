@@ -66,8 +66,8 @@
     <Compile Include="Implementation\Resolution\ResolutionContext.cs" />
     <Compile Include="Implementation\Tokens\LazyToken.cs" />
     <Compile Include="Implementation\TreeOperation\GetNodeService.cs" />
-    <Compile Include="Implementation\TreeOperation\Subsystems\CvFilterExtension.cs" />
-    <Compile Include="Implementation\TreeOperation\Subsystems\DependencyNode.cs" />
+    <Compile Include="Implementation\TreeOperation\Subsystems\FilterProcessingService.cs" />
+    <Compile Include="Implementation\TreeOperation\Subsystems\RandomServices.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\FilterAssignmentService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NodeClosestParentService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NodeReorderingService.cs" />

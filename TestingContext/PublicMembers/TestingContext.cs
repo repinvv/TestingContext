@@ -6,7 +6,7 @@
     using TestingContextCore.Implementation.Registration;
     using TestingContextCore.Interfaces;
     using TestingContextCore.Interfaces.Tokens;
-    using static TestingContextCore.Implementation.TreeOperation.TreeOperationService;
+    using static Implementation.TreeOperation.TreeOperationService;
 
     public class TestingContext : ITestingContext
     {
