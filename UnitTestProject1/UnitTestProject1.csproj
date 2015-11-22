@@ -56,7 +56,6 @@
   <ItemGroup>
     <Compile Include="Definitions\Assignment\AssignmentGiven.cs" />
     <Compile Include="Definitions\Common\AssignmentThen.cs" />
-    <Compile Include="Definitions\Common\ConditionIsBroken.cs" />
     <Compile Include="Definitions\Insurance\InsuranceGiven.cs" />
     <Compile Include="Definitions\Insurance\InsuranceGivenHelper.cs" />
     <Compile Include="Definitions\Insurance\InsuranceThen.cs" />

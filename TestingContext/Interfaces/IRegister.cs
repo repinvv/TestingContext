@@ -29,11 +29,20 @@
             [CallerMemberName] string member = "");
 
         IFor<T> For<T>(Func<ITestingContext, IToken<T>> getToken);
-
         IFor<IEnumerable<T>> ForCollection<T>(Func<ITestingContext, IToken<T>> getToken);
 
+        #region unnamed
+        IFor<T> For<T>(IHaveToken<T> haveToken);
+        IFor<IEnumerable<T>> ForCollection<T>(IHaveToken<T> haveToken);
         IHaveToken<T> Exists<T>(Func<IEnumerable<T>> srcFunc);
-
         IHaveToken<T> Is<T>(Func<T> srcFunc);
+        #endregion
+
+        #region named
+        IFor<T> For<T>(string name); 
+        IFor<IEnumerable<T>> ForCollection<T>(string name);
+        void Exists<T>(Func<IEnumerable<T>> srcFunc, string name);
+        void Is<T>(Func<T> srcFunc, string name);
+        #endregion
     }
 }

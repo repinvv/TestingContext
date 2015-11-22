@@ -34,8 +34,7 @@
         [Given(@"assignments(?:\s)?(.*) have covered people")]
         public void GivenAssignmentsHaveCoveredPeople(string key)
         {
-            context.Register()
-                   .ForCollection<Assignment>(key)
+            context.Register().ForCollection<Assignment>(key)
                    .IsTrue(assignments => assignments.Sum(x => x.HeadCount) > 0);
         }
 
@@ -53,8 +52,7 @@
         {
             context.Register()
                    .For<Insurance>(insuranceKey)
-                   .Exists(insurance => insurance.Assignments)
-                   .SaveAs(assignmentKey);
+                   .Exists(insurance => insurance.Assignments, assignmentKey);
         }
 
         [Given(@"there is no suitable assignment(?:\s)?(.*)")]
@@ -68,7 +66,7 @@
         {
             context.Register()
                    .For<Assignment>(key1)
-                   .For(x => x.GetToken<Assignment>(key2))
+                   .For<Assignment>(key2)
                    .IsTrue((assignment1, assignment2) => assignment1.Created.Date == assignment2.Created.Date);
         }
 

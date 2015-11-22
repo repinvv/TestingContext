@@ -45,8 +45,7 @@
         [Given(@"average payment per person in assignments(?:\s)?(.*), specified in taxes(?:\s)?(.*) is over (.*)\$")]
         public void GivenAveragePaymentPerPersonInAssignmentsBSpecifiedInTaxIsOver(string assignmentKey, string taxKey, int average)
         {
-            context.Register()
-                   .ForCollection<Assignment>(assignmentKey)
+            context.Register().ForCollection<Assignment>(assignmentKey)
                    .ForCollection<Tax>(taxKey)
                    .IsTrue((assignments, taxes) => taxes.Sum(x => x.Amount) / assignments.Sum(x => x.HeadCount) > average);
         }
@@ -69,8 +68,7 @@
         [Given(@"taxes(?:\s)?(.*) have total amount of (.*)\$")]
         public void GivenTaxesHaveTotalAmountOf(string key, int amount)
         {
-            context.Register()
-                   .ForCollection<Tax>(key)
+            context.Register().ForCollection<Tax>(key)
                    .IsTrue(taxes => taxes.Sum(x => x.Amount) == amount);
         }
     }

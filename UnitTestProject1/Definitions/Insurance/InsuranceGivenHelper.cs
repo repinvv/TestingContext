@@ -13,18 +13,20 @@
 
         public static void InsuranceHasFederalTax(this IRegister register, string insuranceKey)
         {
-            var tax = register.For(c => c.GetToken<Insurance>(insuranceKey))
-                              .Exists<Tax>(x => x.Taxes);
+            var tax = register
+                .For(c => c.GetToken<Insurance>(insuranceKey))
+                .Exists<Tax>(x => x.Taxes);
             register.For(tax)
                     .IsTrue(x => x.Type == TaxType.Federal);
         }
 
         public static void InsuranceHasDependentAssignment(this IRegister register, string insuranceKey)
         {
-            var assignment = register.For(c => c.GetToken<Insurance>(insuranceKey))
-                       .Exists<Assignment>(x => x.Assignments);
+            var assignment = register
+                .For(c => c.GetToken<Insurance>(insuranceKey))
+                .Exists<Assignment>(x => x.Assignments);
             register.For(assignment)
-                .IsTrue(x => x.Type == AssignmentType.Dependent);
+                    .IsTrue(x => x.Type == AssignmentType.Dependent);
         }
     }
 }

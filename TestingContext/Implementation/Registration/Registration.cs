@@ -17,7 +17,7 @@
         public Registration(TokenStore store, IFilterGroup group = null)
         {
             this.store = store;
-            this.group = group; // todo reg this
+            this.group = group;
         }
 
         public void Not(Action<IRegister> action, string file = "", int line = 0, string member = "")
@@ -66,6 +66,9 @@
             return new Registration1<IEnumerable<T>>(dependency, store, group);
         }
 
+        #region unnamed
+        public IFor<T> For<T>(IHaveToken<T> haveToken) => For(x => haveToken.Token);
+        public IFor<IEnumerable<T>> ForCollection<T>(IHaveToken<T> haveToken) => ForCollection(x => haveToken.Token);
         public IHaveToken<T> Exists<T>(Func<IEnumerable<T>> srcFunc)
         {
             return null;
@@ -75,5 +78,13 @@
         {
             return null;
         }
+        #endregion
+
+        #region named
+        public IFor<T> For<T>(string name) => For(x => x.GetToken<T>(name));
+        public IFor<IEnumerable<T>> ForCollection<T>(string name) => ForCollection(x => x.GetToken<T>(name));
+        public void Exists<T>(Func<IEnumerable<T>> srcFunc, string name) => Exists(srcFunc).SaveAs(name);
+        public void Is<T>(Func<T> srcFunc, string name) => Is(srcFunc).SaveAs(name);
+        #endregion
     }
 }

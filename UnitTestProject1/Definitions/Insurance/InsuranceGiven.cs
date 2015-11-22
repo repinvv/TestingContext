@@ -28,8 +28,7 @@
         public void GivenInsuranceIsTakenFromPoliciesSource(string key)
         {
             context.Register()
-                   .Exists(() => InsurancesSource.Insurances)
-                   .SaveAs(key);
+                   .Exists(() => InsurancesSource.Insurances, key);
         }
 
         [Given(@"for insurance(?:\s)?(.*) there is no insurance(?:\s)?(.*) in insurancesSource that meet requirements")]

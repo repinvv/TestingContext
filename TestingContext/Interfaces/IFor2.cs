@@ -13,14 +13,20 @@
             [CallerLineNumber] int line = 0,
             [CallerMemberName] string member = "");
 
+        #region unnamed
         IHaveToken<T3> Exists<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc);
-
-        IHaveToken<T3> Is<T3>(Func<T1, T2, T3> srcFunc);
-
         IHaveToken<T3> DoesNotExist<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc);
-
-        IHaveToken<T3> IsNot<T3>(Func<T1, T2, T3> srcFunc);
-
         IHaveToken<T3> Each<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc);
+        IHaveToken<T3> Is<T3>(Func<T1, T2, T3> srcFunc);
+        IHaveToken<T3> IsNot<T3>(Func<T1, T2, T3> srcFunc);
+        #endregion
+
+        #region named
+        void Exists<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, string name);
+        void DoesNotExist<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, string name);
+        void Each<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, string name);
+        void Is<T3>(Func<T1, T2, T3> srcFunc, string name);
+        void IsNot<T3>(Func<T1, T2, T3> srcFunc, string name);
+        #endregion
     }
 }
