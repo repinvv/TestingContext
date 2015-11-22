@@ -2,9 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Linq.Expressions;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.Providers;
+    using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.Interfaces;
     using TestingContextCore.Interfaces.Tokens;
@@ -34,38 +37,53 @@
         }
 
         #region unnamed
-        public IHaveToken<T3> Exists<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc)
+        public IHaveToken<T3> Exists<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, int line, string file, string member) 
+            => CreateDefinition(srcFunc, x => x.Any(y => y.MeetsConditions), file, line, member);
+        public IHaveToken<T3> DoesNotExist<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, int line, string file, string member) 
+            => CreateDefinition(srcFunc, x => x.Any(y => y.MeetsConditions), file, line, member);
+        public IHaveToken<T3> Each<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, int line, string file, string member) 
+            => CreateDefinition(srcFunc, x => x.Any(y => y.MeetsConditions), file, line, member);
+        public IHaveToken<T3> Is<T3>(Func<T1, T2, T3> srcFunc, int line, string file, string member) 
+            => Exists(ItemFunc(srcFunc), line, file, member);
+        public IHaveToken<T3> IsNot<T3>(Func<T1, T2, T3> srcFunc, int line, string file, string member) 
+            => DoesNotExist(ItemFunc(srcFunc), line, file, member);
+        private Func<T1, T2, IEnumerable<T3>> ItemFunc<T3>(Func<T1, T2, T3> srcFunc)
         {
-            return null;
-        }
-
-        public IHaveToken<T3> DoesNotExist<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc)
-        {
-            return null;
-        }
-
-        public IHaveToken<T3> Each<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc)
-        {
-            return null;
-        }
-
-        public IHaveToken<T3> Is<T3>(Func<T1, T2, T3> srcFunc)
-        {
-            return null;
-        }
-
-        public IHaveToken<T3> IsNot<T3>(Func<T1, T2, T3> srcFunc)
-        {
-            return null;
+            return (x, y) =>
+            {
+                var item = srcFunc(x, y);
+                return item == null ? Enumerable.Empty<T3>() : new[] { item };
+            };
         }
         #endregion
 
         #region named
-        public void Exists<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, string name) => Exists(srcFunc).SaveAs(name);
-        public void DoesNotExist<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, string name) => DoesNotExist(srcFunc).SaveAs(name);
-        public void Each<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, string name) => Each(srcFunc).SaveAs(name);
-        public void Is<T3>(Func<T1, T2, T3> srcFunc, string name) => Is(srcFunc).SaveAs(name);
-        public void IsNot<T3>(Func<T1, T2, T3> srcFunc, string name) => IsNot(srcFunc).SaveAs(name);
+        public void Exists<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, string name, int line, string file, string member)
+            => Exists(srcFunc, line, file, member).SaveAs(name);
+        public void DoesNotExist<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, string name, int line, string file, string member) 
+            => DoesNotExist(srcFunc, line, file, member).SaveAs(name);
+        public void Each<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, string name, int line, string file, string member) 
+            => Each(srcFunc, line, file, member).SaveAs(name);
+        public void Is<T3>(Func<T1, T2, T3> srcFunc, string name, int line, string file, string member) 
+            => Is(srcFunc, line, file, member).SaveAs(name);
+        public void IsNot<T3>(Func<T1, T2, T3> srcFunc, string name, int line, string file, string member) 
+            => IsNot(srcFunc, line, file, member).SaveAs(name);
         #endregion
+
+        private IHaveToken<T3> CreateDefinition<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc,
+            Expression<Func<IEnumerable<IResolutionContext>, bool>> filterExpr,
+            string file,
+            int line,
+            string member)
+        {
+            var token = new Token<T3>();
+            var provider = new Provider2<T1, T2, T3>(dependency1, dependency2, srcFunc);
+            store.RegisterProvider(provider, token);
+            var cv = new CollectionValidityDependency(token);
+            var diagInfo = new DiagInfo(file, line, member, filterExpr);
+            var filter = new Filter1<IEnumerable<IResolutionContext>>(cv, filterExpr.Compile(), diagInfo);
+            store.RegisterFilter(filter, group);
+            return new HaveToken<T3>(token, store);
+        }
     }
 }

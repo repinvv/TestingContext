@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementation\Dependencies\CollectionValidityDependency.cs" />
     <Compile Include="Implementation\Filters\AndGroup.cs" />
     <Compile Include="Implementation\Filters\BaseFilter.cs" />
     <Compile Include="Implementation\Filters\Filter1.cs" />
@@ -52,8 +53,12 @@
     <Compile Include="Implementation\Filters\OrGroup.cs" />
     <Compile Include="Implementation\Filters\XorGroup.cs" />
     <Compile Include="Implementation\Logging\ArrayExtension.cs" />
+    <Compile Include="Implementation\Providers\IProvider.cs" />
+    <Compile Include="Implementation\Providers\Provider.cs" />
+    <Compile Include="Implementation\Providers\Provider2.cs" />
     <Compile Include="Implementation\Registration\Registration2.cs" />
     <Compile Include="Implementation\Registration\StoreExtension.cs" />
+    <Compile Include="Implementation\Resolution\ResolutionContext.cs" />
     <Compile Include="Implementation\Tokens\LazyToken.cs" />
     <Compile Include="Implementation\TreeOperation\Tree.cs" />
     <Compile Include="PublicMembers\Exceptions\AlgorythmException.cs" />
@@ -73,7 +78,7 @@
     <Compile Include="Implementation\Registration\Registration.cs" />
     <Compile Include="Implementation\Registration\Registration1.cs" />
     <Compile Include="Implementation\Registration\TokenStore.cs" />
-    <Compile Include="Implementation\ResolutionContext\IResolutionContext.cs" />
+    <Compile Include="Implementation\Resolution\IResolutionContext.cs" />
     <Compile Include="Implementation\Root.cs" />
     <Compile Include="Implementation\Tokens\Token.cs" />
     <Compile Include="Implementation\Tokens\HaveToken.cs" />

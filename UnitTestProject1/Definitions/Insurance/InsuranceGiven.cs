@@ -34,9 +34,9 @@
         [Given(@"for insurance(?:\s)?(.*) there is no insurance(?:\s)?(.*) in insurancesSource that meet requirements")]
         public void GivenForInsuranceThereIsNoInsuranceInPoliciesSourceThatMeetRequirements(string key1, string key2)
         {
-            context.Register().For<Insurance>(key1)
-                .DoesNotExist(p => InsurancesSource.Insurances)
-                .SaveAs(key2);
+            context.Register()
+                   .For<Insurance>(key1)
+                   .DoesNotExist(p => InsurancesSource.Insurances, key2);
         }
 
         [Given(@"insuranse(?:\s)?(.*) matches high level OR condition")]

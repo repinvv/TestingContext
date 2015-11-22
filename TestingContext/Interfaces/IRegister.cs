@@ -34,15 +34,30 @@
         #region unnamed
         IFor<T> For<T>(IHaveToken<T> haveToken);
         IFor<IEnumerable<T>> ForCollection<T>(IHaveToken<T> haveToken);
-        IHaveToken<T> Exists<T>(Func<IEnumerable<T>> srcFunc);
-        IHaveToken<T> Is<T>(Func<T> srcFunc);
+        IHaveToken<T> Exists<T>(Func<IEnumerable<T>> srcFunc,
+            [CallerLineNumber] int line = 0,
+            [CallerFilePath] string file = "",
+            [CallerMemberName] string member = "");
+        IHaveToken<T> Is<T>(Func<T> srcFunc,
+            [CallerLineNumber] int line = 0,
+            [CallerFilePath] string file = "",
+            [CallerMemberName] string member = "");
         #endregion
 
         #region named
         IFor<T> For<T>(string name); 
         IFor<IEnumerable<T>> ForCollection<T>(string name);
-        void Exists<T>(Func<IEnumerable<T>> srcFunc, string name);
-        void Is<T>(Func<T> srcFunc, string name);
+        void Exists<T>(Func<IEnumerable<T>> srcFunc, 
+            string name,
+            [CallerLineNumber] int line = 0,
+            [CallerFilePath] string file = "",
+            [CallerMemberName] string member = "");
+
+        void Is<T>(Func<T> srcFunc,
+            string name,
+            [CallerLineNumber] int line = 0,
+            [CallerFilePath] string file = "",
+            [CallerMemberName] string member = "");
         #endregion
     }
 }

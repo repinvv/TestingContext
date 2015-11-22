@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.Implementation.TreeOperation;
     using TestingContextCore.Interfaces;
@@ -19,7 +20,9 @@
 
         public Storage Tokens { get; } = new Storage();
 
-        public IToken RootToken { get; } = new Token();
+        public IToken<Root> RootToken { get; } = new Token<Root>();
+
+        public Dictionary<IToken, IProvider> Providers { get; } = new Dictionary<IToken, IProvider>();
 
         public List<IFilter> Filters { get; } = new List<IFilter>();
 

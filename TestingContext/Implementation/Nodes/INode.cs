@@ -1,6 +1,8 @@
 ﻿namespace TestingContextCore.Implementation.Nodes
 {
     using System.Collections.Generic;
+    using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Interfaces.Tokens;
 
     internal interface INode
@@ -11,11 +13,11 @@
 
         INode Parent { get; set; }
 
-        //NodeFilters Filters { get; }
+        IFilterGroup Filters { get; }
 
         //NodeResolver Resolver { get; }
 
-        //IProvider Provider { get; }
+        IProvider Provider { get; }
 
         bool IsChildOf(INode node);
 

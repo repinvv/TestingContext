@@ -1,18 +1,20 @@
-﻿namespace TestingContextCore.OldImplementation.ResolutionContext
+﻿namespace TestingContextCore.Implementation.Resolution
 {
     using System.Collections.Generic;
     using System.Linq;
     using System.Runtime.CompilerServices;
+    using TestingContextCore.Implementation;
+    using TestingContextCore.Implementation.Logging;
+    using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Interfaces;
-    using TestingContextCore.Interfaces.FailureInfo;
-    using TestingContextCore.OldImplementation.Logging;
-    using TestingContextCore.OldImplementation.Nodes;
+    using TestingContextCore.Interfaces.Tokens;
+    using TestingContextCore.UsefulExtensions;
 
     internal class ResolutionContext<T> : IResolutionContext<T>, IResolutionContext
     {
         private readonly IResolutionContext parent;
-        private readonly Dictionary<Definition, IEnumerable<IResolutionContext>> childResolutions 
-            = new Dictionary<Definition, IEnumerable<IResolutionContext>>();
+        private readonly Dictionary<IToken, IEnumerable<IResolutionContext>> childResolutions 
+            = new Dictionary<IToken, IEnumerable<IResolutionContext>>();
         private readonly int[] failureWeight;
         private readonly IFailure failure;
 
@@ -23,7 +25,7 @@
             Value = value;
             Node = node;
             this.parent = parent;
-            MeetsConditions = node.Filters.ItemFilter.MeetsCondition(this, node.Resolver, out failureWeight, out failure);
+            MeetsConditions = node.Filters.MeetsCondition(this, out failureWeight, out failure);
         }
 
         public bool MeetsConditions { get; }
@@ -32,45 +34,48 @@
 
         public T Value { get; }
 
-        public IEnumerable<IResolutionContext<T2>> Get<T2>(string key)
+        public IEnumerable<IResolutionContext<TOther>> Get<TOther>(IToken<TOther> token)
         {
-            return Get(Definition.Define<T2>(key, Node.Definition.Scope))
+            return GetFromTree(token)
                 .Distinct()
-                .Cast<IResolutionContext<T2>>();
+                .Cast<IResolutionContext<TOther>>();
         }
 
-        public IEnumerable<IResolutionContext> ResolveDown(Definition definition, List<INode> chain, int index)
+        #region after cache methods
+        public IEnumerable<IResolutionContext> ResolveDown(IToken token, List<INode> chain, int index)
         {
             var nextNode = chain[index];
             var resolution = GetChildResolution(nextNode);
-            if (definition == nextNode.Definition)
+            if (token == nextNode.Token)
             {
                 return resolution;
             }
 
             return resolution
                 .Where(x => x.MeetsConditions)
-                .SelectMany(x => x.ResolveDown(definition, chain, index + 1));
+                .SelectMany(x => x.ResolveDown(token, chain, index + 1));
         }
 
-        public IResolutionContext ResolveSingle(Definition definition) => definition == Node.Definition ? this : parent.ResolveSingle(definition);
+        public IResolutionContext ResolveSingle(IToken token) => token == Node.Token ? this : parent.ResolveSingle(token);
 
-        public IEnumerable<IResolutionContext> ResolveFromClosestParent(Definition definition, Definition parentDefinition)
+        public IEnumerable<IResolutionContext> ResolveFromClosestParent(IToken token, IToken parentToken)
         {
-            return parentDefinition == Node.Definition 
-                ? Get(definition) 
-                : parent.ResolveFromClosestParent(definition, parentDefinition);
+            return parentToken == Node.Token 
+                ? GetFromTree(token) 
+                : parent.ResolveFromClosestParent(token, parentToken);
         }
+        #endregion
 
-        public IEnumerable<IResolutionContext> Get(Definition definition)
+        public IEnumerable<IResolutionContext> GetFromTree(IToken token)
         {
-            return Node.Resolver.ResolveCollection(definition, this)
-                       .Where(x => x.MeetsConditions);
+            yield break;
+            //return Node.Resolver.ResolveCollection(definition, this)
+            //           .Where(x => x.MeetsConditions);
         }
 
         private IEnumerable<IResolutionContext> GetChildResolution(INode nextNode)
         {
-            return childResolutions.GetOrAdd(nextNode.Definition, () => nextNode.Provider.Resolve(this, nextNode));
+            return childResolutions.GetOrAdd(nextNode.Token, () => nextNode.Provider.Resolve(this, nextNode));
         }
 
         public void ReportFailure(FailureCollect collect, int[] startingWeight)

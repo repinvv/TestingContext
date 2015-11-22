@@ -5,7 +5,7 @@
     using System.Linq.Expressions;
     using ExpressionToCodeLib;
     using TestingContextCore.Implementation.Dependencies;
-    using TestingContextCore.Implementation.ResolutionContext;
+    using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Interfaces;
     using TestingContextCore.PublicMembers;
 

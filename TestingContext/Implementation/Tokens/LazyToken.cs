@@ -7,16 +7,14 @@
 
     internal class LazyToken<T>
     {
-        private readonly Func<ITestingContext, IToken<T>> tokenFunc;
-        private readonly TokenStore store;
+        private readonly Func<IToken<T>> tokenFunc;
         private IToken<T> token;
 
-        public LazyToken(Func<ITestingContext, IToken<T>> tokenFunc, TokenStore store)
+        public LazyToken(Func<IToken<T>> tokenFunc)
         {
             this.tokenFunc = tokenFunc;
-            this.store = store;
         }
 
-        public IToken<T> Value => token ?? (token = tokenFunc(store.Context));
+        public IToken<T> Value => token ?? (token = tokenFunc());
     }
 }

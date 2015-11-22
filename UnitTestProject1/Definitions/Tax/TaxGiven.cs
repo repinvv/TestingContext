@@ -22,8 +22,7 @@
         {
             context.Register()
                    .For<Insurance>(insuranceKey)
-                   .Exists(insurance => insurance.Taxes)
-                   .SaveAs(taxKey);
+                   .Exists(insurance => insurance.Taxes, taxKey);
         }
 
         [Given(@"tax(?:\s)?(.*) amounts to at least (.*)\$")]

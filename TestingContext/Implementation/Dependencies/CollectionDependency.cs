@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation;
-    using TestingContextCore.Implementation.ResolutionContext;
+    using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.Interfaces;
     using TestingContextCore.Interfaces.Tokens;
@@ -19,7 +19,7 @@
 
         public IEnumerable<TItem> GetValue(IResolutionContext context)
         {
-            return context.Get(Token)
+            return context.GetFromTree(Token)
                            .Distinct()
                            .Cast<IResolutionContext<TItem>>()
                            .Select(x => x.Value);

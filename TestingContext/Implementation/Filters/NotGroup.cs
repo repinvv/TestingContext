@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.Dependencies;
-    using TestingContextCore.Implementation.ResolutionContext;
+    using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Interfaces;
     using TestingContextCore.PublicMembers;
     using TestingContextCore.PublicMembers.Exceptions;

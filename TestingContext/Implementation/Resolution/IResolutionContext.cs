@@ -1,7 +1,6 @@
-﻿namespace TestingContextCore.Implementation.ResolutionContext
+﻿namespace TestingContextCore.Implementation.Resolution
 {
     using System.Collections.Generic;
-    using TestingContextCore.Implementation;
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Interfaces.Tokens;
@@ -21,7 +20,7 @@
         #endregion
 
         #region cached method
-        IEnumerable<IResolutionContext> Get(IToken token);
+        IEnumerable<IResolutionContext> GetFromTree(IToken token);
         #endregion
     }
 }
