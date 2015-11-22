@@ -24,15 +24,13 @@
 
         private static void ReorderNodes(Tree tree, INode node1, INode node2)
         {
-            if (node1 == node2 || node1.IsChildOf(node2) || node2.IsChildOf(node1))
+            if (node1 != node2 && !node1.IsChildOf(node2) && !node2.IsChildOf(node1))
             {
-                return;
+                var chain1 = node1.GetParentalChain();
+                var chain2 = node2.GetParentalChain();
+                var closestParentIndex = FindClosestParent(chain1, chain2);
+                chain2[closestParentIndex + 1].Parent = node1;
             }
-
-            var chain1 = node1.GetParentalChain();
-            var chain2 = node2.GetParentalChain();
-            var closestParentIndex = FindClosestParent(chain1, chain2);
-            chain2[closestParentIndex + 1].Parent = node1;
 
             AssignNonEqualFilter(tree, node1, node2);
         }
