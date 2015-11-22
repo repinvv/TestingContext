@@ -14,12 +14,14 @@
 
         NodeFilterInfo FilterInfo { get; }
 
-        //NodeResolver Resolver { get; }
+        NodeResolver Resolver { get; }
 
         IProvider Provider { get; }
 
         bool IsChildOf(INode node);
 
         List<INode> GetParentalChain();
+
+        List<INode> GetSourceChain();
     }
 }

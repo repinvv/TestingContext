@@ -1,6 +1,7 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
     using System.Collections.Generic;
+    using System.Linq;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Interfaces.Tokens;
 
@@ -13,7 +14,7 @@
 
         public bool TryGetValue(IResolutionContext context, out IEnumerable<IResolutionContext> value)
         {
-            value = null; // todo context.Node.Resolver.ResolveCollection(Token, context).Distinct();
+            value = context.Node.Resolver.ResolveCollection(Token, context).Distinct();
             return true;
         }
         public IToken Token { get; }

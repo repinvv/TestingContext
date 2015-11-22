@@ -1,84 +1,81 @@
-﻿namespace TestingContextCore.OldImplementation.Nodes
+﻿namespace TestingContextCore.Implementation.Nodes
 {
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContextCore.OldImplementation.ResolutionContext;
-    using TestingContextCore.OldImplementation.TreeOperation;
-    using TestingContextCore.OldImplementation.TreeOperation.Subsystems;
+    using TestingContextCore.Implementation;
+    using TestingContextCore.Implementation.Resolution;
+    using TestingContextCore.Implementation.TreeOperation;
+    using TestingContextCore.Interfaces.Tokens;
+    using TestingContextCore.UsefulExtensions;
+    using static TestingContextCore.Implementation.TreeOperation.Subsystems.NodeClosestParentService;
 
     internal class NodeResolver
     {
-        internal delegate IEnumerable<IResolutionContext> Resolve(Definition definition, IResolutionContext context);
+        internal delegate IEnumerable<IResolutionContext> Resolve(IToken token, IResolutionContext context);
         private readonly Tree tree;
-        private readonly Definition ownDefinition;
-        private readonly Dictionary<Definition, List<INode>> nodeChains = new Dictionary<Definition, List<INode>>();
-        private readonly Dictionary<Definition, Resolve> resolvers = new Dictionary<Definition, Resolve>();
-        private readonly Dictionary<Definition, Definition> closestParents = new Dictionary<Definition, Definition>();
-        private readonly Dictionary<Definition, Definition> closestSourceParents = new Dictionary<Definition, Definition>();
+        private readonly Dictionary<IToken, List<INode>> nodeChains = new Dictionary<IToken, List<INode>>();
+        private readonly Dictionary<IToken, IToken> closestParents = new Dictionary<IToken, IToken>();
+        private readonly Dictionary<IToken, IToken> closestSourceParents = new Dictionary<IToken, IToken>();
         private INode node;
 
-        public NodeResolver(Tree tree, Definition ownDefinition)
+        private readonly Dictionary<IToken, Resolve> resolvers = new Dictionary<IToken, Resolve>();
+        //private readonly Dictionary<IToken, Resolve> cvResolvers = new Dictionary<IToken, Resolve>();
+
+        public NodeResolver(Tree tree, INode node)
         {
             this.tree = tree;
-            this.ownDefinition = ownDefinition;
+            this.node = node;
         }
 
-        private INode Node => node ?? (node = tree.GetNode(ownDefinition));
-
-        private List<INode> GetNodesChain(Definition definition)
+        private Resolve GetResolver(IToken token)
         {
-            return nodeChains.GetOrAdd(definition, () => tree.GetNode(definition).GetParentalChain());
-        }
-
-        private Resolve GetResolver(Definition definition)
-        {
-            var node = tree.GetNode(definition);
-            if (node.IsChildOf(Node))
+            var resolveNode = tree.GetNode(token);
+            if (resolveNode.IsChildOf(node))
             {
                 return ResolveDown;
             }
 
-            if (!Node.IsChildOf(node))
+            if (!node.IsChildOf(resolveNode))
             {
                 return ResolveOtherBranch;
             }
 
-            var chain = Node.GetSourceChain();
-            return chain.Contains(node)
+            var chain = node.GetSourceChain();
+            return chain.Contains(resolveNode)
                 ? (Resolve)ResolveSingleParent
                 : ResolveSameBranch;
         }
 
-        public IEnumerable<IResolutionContext> ResolveCollection(Definition definition, IResolutionContext context)
+        public IEnumerable<IResolutionContext> ResolveCollection(IToken token, IResolutionContext context)
         {
-            var resolver = resolvers.GetOrAdd(definition, () => GetResolver(definition));
-            return resolver(definition, context);
+            var resolver = resolvers.GetOrAdd(token, () => GetResolver(token));
+            return resolver(token, context);
         }
 
-        private IEnumerable<IResolutionContext> ResolveDown(Definition definition, IResolutionContext context)
+        private IEnumerable<IResolutionContext> ResolveDown(IToken token, IResolutionContext context)
         {
-            var chain = GetNodesChain(definition);
-            return context.ResolveDown(definition, chain, chain.IndexOf(Node) + 1);
+            var chain = GetNodesChain(token);
+            return context.ResolveDown(token, chain, chain.IndexOf(node) + 1);
         }
 
-        private IEnumerable<IResolutionContext> ResolveOtherBranch(Definition definition, IResolutionContext context)
+        private IEnumerable<IResolutionContext> ResolveOtherBranch(IToken token, IResolutionContext context)
         {
-            var parent = closestParents.GetOrAdd(definition, () => GetClosestParent(definition));
-            return context.ResolveFromClosestParent(definition, parent);
+            var parent = closestParents.GetOrAdd(token, () => GetClosestParent(token));
+            return context.ResolveFromClosestParent(token, parent);
         }
 
-        private IEnumerable<IResolutionContext> ResolveSingleParent(Definition definition, IResolutionContext context)
+        private IEnumerable<IResolutionContext> ResolveSingleParent(IToken token, IResolutionContext context)
         {
-            return new[] { context.ResolveSingle(definition) };
+            return new[] { context.ResolveSingle(token) };
         }
 
-        private IEnumerable<IResolutionContext> ResolveSameBranch(Definition definition, IResolutionContext context)
+        private IEnumerable<IResolutionContext> ResolveSameBranch(IToken token, IResolutionContext context)
         {
-            var parent = closestSourceParents.GetOrAdd(definition, () => GetClosestSourceParent(definition));
-            var all = context.ResolveFromClosestParent(definition, parent);
+            var parent = closestSourceParents.GetOrAdd(token, () => GetClosestSourceParent(token));
+            var all = context.ResolveFromClosestParent(token, parent);
             foreach (var resolutionContext in all)
             {
-                var childItems = resolutionContext.Get(ownDefinition);
+                var childItems = resolutionContext.GetFromTree(node.Token);
                 if (childItems.Contains(context))
                 {
                     yield return resolutionContext;
@@ -86,20 +83,25 @@
             }
         }
 
-        private Definition GetClosestParent(Definition definition)
+        private IToken GetClosestParent(IToken token)
         {
-            var chain = tree.GetNode(definition).GetParentalChain();
-            var thisChain = Node.GetParentalChain();
-            var index = NodeClosestParentService.FindClosestParent(chain, thisChain);
-            return chain[index].Definition;
+            var chain = tree.GetNode(token).GetParentalChain();
+            var thisChain = node.GetParentalChain();
+            var index = FindClosestParent(chain, thisChain);
+            return chain[index].Token;
         }
 
-        private Definition GetClosestSourceParent(Definition definition)
+        private IToken GetClosestSourceParent(IToken token)
         {
-            var chain = tree.GetNode(definition).GetSourceChain();
-            var thisChain = Node.GetSourceChain();
-            var index = NodeClosestParentService.FindClosestParent(chain, thisChain);
-            return chain[index].Definition;
+            var chain = tree.GetNode(token).GetSourceChain();
+            var thisChain = node.GetSourceChain();
+            var index = FindClosestParent(chain, thisChain);
+            return chain[index].Token;
+        }
+
+        private List<INode> GetNodesChain(IToken token)
+        {
+            return nodeChains.GetOrAdd(token, () => tree.GetNode(token).GetParentalChain());
         }
     }
 }

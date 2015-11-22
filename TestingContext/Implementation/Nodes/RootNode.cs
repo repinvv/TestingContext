@@ -11,7 +11,7 @@
         public RootNode(Tree tree, IToken token )
         {
             Token = token;
-            //Resolver = new NodeResolver(tree, definition);
+            Resolver = new NodeResolver(tree, this);
         }
 
         public IToken Token { get; }
@@ -22,7 +22,7 @@
 
         public AndGroup Filters { get; } = new AndGroup();
 
-        //public NodeResolver Resolver { get; }
+        public NodeResolver Resolver { get; }
 
         public NodeFilterInfo FilterInfo { get; } = new NodeFilterInfo(null);
 
@@ -31,5 +31,7 @@
         public bool IsChildOf(INode node) => false;
 
         public List<INode> GetParentalChain() => new List<INode> { this };
+
+        public List<INode> GetSourceChain() => new List<INode> { this };
     }
 }

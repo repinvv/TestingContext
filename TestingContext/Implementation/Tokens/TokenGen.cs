@@ -9,6 +9,6 @@
 
         public Type Type => typeof(T);
 
-        public override string ToString() => Type.Name + (string.IsNullOrEmpty(Name) ? string.Empty : (" " + Name));
+        public override string ToString() => Type.Name + (string.IsNullOrEmpty(Name) ? string.Empty : (" \"" + Name + "\""));
     }
 }

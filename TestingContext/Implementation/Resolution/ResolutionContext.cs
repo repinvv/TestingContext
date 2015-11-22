@@ -67,9 +67,8 @@
 
         public IEnumerable<IResolutionContext> GetFromTree(IToken token)
         {
-            yield break;
-            //return Node.Resolver.ResolveCollection(definition, this)
-            //           .Where(x => x.MeetsConditions);
+            return Node.Resolver.ResolveCollection(token, this)
+                       .Where(x => x.MeetsConditions);
         }
 
         private IEnumerable<IResolutionContext> GetChildResolution(INode nextNode)

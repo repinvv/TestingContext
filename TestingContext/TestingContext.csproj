@@ -57,6 +57,7 @@
     <Compile Include="Implementation\Logging\ArrayExtension.cs" />
     <Compile Include="Implementation\Nodes\Node.cs" />
     <Compile Include="Implementation\Nodes\NodeFilterInfo.cs" />
+    <Compile Include="Implementation\Nodes\NodeResolver.cs" />
     <Compile Include="Implementation\Nodes\RootNode.cs" />
     <Compile Include="Implementation\Providers\IProvider.cs" />
     <Compile Include="Implementation\Providers\Provider.cs" />

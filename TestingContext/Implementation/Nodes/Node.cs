@@ -14,7 +14,7 @@
             Token = token;
             Provider = provider;
             FilterInfo = filterInfo;
-            //Resolver = new NodeResolver(tree, token);
+            Resolver = new NodeResolver(tree, this);
         }
 
         public IToken Token { get; }
@@ -32,7 +32,16 @@
             return list;
         }
 
+        public List<INode> GetSourceChain()
+        {
+            var list = SourceParent.GetSourceChain();
+            list.Add(this);
+            return list;
+        }
+
         public NodeFilterInfo FilterInfo { get; }
+
+        public NodeResolver Resolver { get; }
 
         public IProvider Provider { get; }
 
