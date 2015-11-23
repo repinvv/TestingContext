@@ -8,6 +8,7 @@
     using TestingContextCore.Implementation.TreeOperation;
     using TestingContextCore.Interfaces;
     using TestingContextCore.Interfaces.Tokens;
+    using TestingContextCore.PublicMembers.Exceptions;
     using static Implementation.TreeOperation.TreeOperationService;
 
     public class TestingContext : ITestingContext
