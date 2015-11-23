@@ -1,8 +1,8 @@
 ﻿namespace TestingContextCore.Interfaces.Tokens
 {
-    public interface IHaveToken
+    public interface IHaveToken<T>
     {
-        IToken Token { get; }
+        IToken<T> Token { get; }
 
         void SaveAs(string name);
     }

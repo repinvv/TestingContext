@@ -3,17 +3,17 @@
     using TestingContextCore.Implementation.Registration;
     using TestingContextCore.Interfaces.Tokens;
 
-    internal class HaveToken : IHaveToken
+    internal class HaveToken : IHaveFilterToken
     {
         private readonly TokenStore store;
 
-        public HaveToken(IToken token, TokenStore store)
+        public HaveToken(IFilterToken token, TokenStore store)
         {
             this.store = store;
             Token = token;
         }
 
-        public IToken Token { get; }
+        public IFilterToken Token { get; }
 
         public void SaveAs(string name)
         {

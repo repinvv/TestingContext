@@ -38,7 +38,7 @@
 
         #region IFailure
         public IEnumerable<IToken> ForTokens => Dependencies.Select(x => x.Token);
-        public IToken Token => null;
+        public IFilterToken Token => null;
         public DiagInfo DiagInfo => null;
         #endregion
     }

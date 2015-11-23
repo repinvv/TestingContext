@@ -48,12 +48,12 @@
                        .Cast<IResolutionContext<T>>();
         }
 
-        public void InvertFilter(IToken token, int line, string file, string member)
+        public void InvertFilter(IFilterToken token, int line = 0, string file = "", string member = "")
         {
             store.InvertFilter(token, new DiagInfo(file, line, member));
         }
 
-        public void InvertCollectionValidity(IToken token, int line, string file, string member)
+        public void InvertCollectionValidity(IToken token, int line = 0, string file = "", string member = "")
         {
             store.InvertCollectionValidity(token, new DiagInfo(file, line, member));
         }
@@ -68,9 +68,9 @@
             return store.Tokens.Get<IToken<T>>(name);
         }
 
-        public IToken GetToken(string name)
+        public IFilterToken GetFilterToken(string name)
         {
-            return store.Tokens.Get<IToken>(name);
+            return store.Tokens.Get<IFilterToken>(name);
         }
 
         public Storage Storage { get; } = new Storage();

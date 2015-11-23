@@ -76,6 +76,7 @@
     <Compile Include="Implementation\TreeOperation\Subsystems\TreeBuilder.cs" />
     <Compile Include="Implementation\TreeOperation\Tree.cs" />
     <Compile Include="Implementation\TreeOperation\TreeOperationService.cs" />
+    <Compile Include="Interfaces\Tokens\IFilterToken.cs" />
     <Compile Include="PublicMembers\Exceptions\AlgorythmException.cs" />
     <Compile Include="PublicMembers\Exceptions\RegistrationExtension.cs" />
     <Compile Include="UsefulExtensions\CachingEnumerable.cs" />
@@ -109,8 +110,8 @@
     <Compile Include="Interfaces\IFailure.cs" />
     <Compile Include="Interfaces\IFor.cs" />
     <Compile Include="Interfaces\IFor2.cs" />
+    <Compile Include="Interfaces\Tokens\IHaveFilterToken.cs" />
     <Compile Include="Interfaces\Tokens\IHaveToken.cs" />
-    <Compile Include="Interfaces\Tokens\IHaveTokenGen.cs" />
     <Compile Include="Interfaces\IRegister.cs" />
     <Compile Include="Interfaces\ITestingContext.cs" />
     <Compile Include="Interfaces\Tokens\IToken.cs" />

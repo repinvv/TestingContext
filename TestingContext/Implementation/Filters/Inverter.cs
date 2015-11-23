@@ -25,7 +25,7 @@
 
         #region IFailure members
         public IEnumerable<IToken> ForTokens => filter.ForTokens;
-        public IToken Token => filter.Token;
+        public IFilterToken Token => filter.Token;
         public DiagInfo DiagInfo { get; }
         #endregion
     }

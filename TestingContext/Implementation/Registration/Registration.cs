@@ -37,14 +37,15 @@
         }
 
 
-        public void Not(Action<IRegister> action, string file = "", int line = 0, string member = "")
+        public IHaveFilterToken Not(Action<IRegister> action, string file = "", int line = 0, string member = "")
         {
             var notGroup = new NotGroup(new DiagInfo(file, line, member));
             store.RegisterFilter(notGroup, group);
             RegisterSubgroup(action, notGroup);
+            return new HaveToken(notGroup.Token, store);
         }
 
-        public void Or(Action<IRegister> action,
+        public IHaveFilterToken Or(Action<IRegister> action,
             Action<IRegister> action2,
             Action<IRegister> action3 = null,
             Action<IRegister> action4 = null,
@@ -60,18 +61,16 @@
             RegisterSubgroup(action3, orGroup);
             RegisterSubgroup(action4, orGroup);
             RegisterSubgroup(action5, orGroup);
+            return new HaveToken(orGroup.Token, store);
         }
 
-        public void Xor(Action<IRegister> action,
-            Action<IRegister> action2,
-            string file = "",
-            int line = 0,
-            string member = "")
+        public IHaveFilterToken Xor(Action<IRegister> action, Action<IRegister> action2, string file = "", int line = 0, string member = "")
         {
             var xorGroup = new XorGroup(new DiagInfo(file, line, member));
             store.RegisterFilter(xorGroup, group);
             RegisterSubgroup(action, xorGroup);
             RegisterSubgroup(action2, xorGroup);
+            return new HaveToken(xorGroup.Token, store);
         }
 
         public IFor<T> For<T>(Func<ITestingContext, IToken<T>> getToken)

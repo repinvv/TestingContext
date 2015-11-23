@@ -8,7 +8,7 @@
     {
         IEnumerable<IToken> ForTokens { get; }
 
-        IToken Token { get; }
+        IFilterToken Token { get; }
 
         DiagInfo DiagInfo { get; }
     }

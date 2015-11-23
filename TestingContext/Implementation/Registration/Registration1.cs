@@ -26,7 +26,7 @@
             this.group = group;
         }
 
-        public IHaveToken IsTrue(Expression<Func<T1, bool>> filterFunc, string file = "", int line = 0, string member = "")
+        public IHaveFilterToken IsTrue(Expression<Func<T1, bool>> filterFunc, string file = "", int line = 0, string member = "")
         {
             var diagInfo = new DiagInfo(file, line, member, filterFunc);
             var filter = new Filter1<T1>(dependency, filterFunc.Compile(), diagInfo);

@@ -7,12 +7,12 @@
 
     public interface IRegister
     {
-        void Not(Action<IRegister> action,
+        IHaveFilterToken Not(Action<IRegister> action,
             [CallerFilePath] string file = "",
             [CallerLineNumber] int line = 0,
             [CallerMemberName] string member = "");
 
-        void Or(Action<IRegister> action,
+        IHaveFilterToken Or(Action<IRegister> action,
             Action<IRegister> action2,
             Action<IRegister> action3 = null,
             Action<IRegister> action4 = null,
@@ -21,7 +21,7 @@
             [CallerLineNumber] int line = 0,
             [CallerMemberName] string member = "");
 
-        void Xor(Action<IRegister> action,
+        IHaveFilterToken Xor(Action<IRegister> action,
             Action<IRegister> action2,
             [CallerFilePath] string file = "",
             [CallerLineNumber] int line = 0,

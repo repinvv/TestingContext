@@ -14,7 +14,7 @@
         }
 
         #region Inversions
-        public static void InvertFilter(this ITestingContext context, string name) => context.InvertFilter(context.GetToken(name));
+        public static void InvertFilter(this ITestingContext context, string name) => context.InvertFilter(context.GetFilterToken(name));
         public static void InvertCollectionValidity<T>(this ITestingContext context, string name) 
             => context.InvertCollectionValidity(context.GetToken<T>(name));
         public static void InvertItemValidity<T>(this ITestingContext context, string name)

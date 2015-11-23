@@ -28,7 +28,7 @@
             this.store = store;
         }
 
-        public IHaveToken IsTrue(Expression<Func<T1, T2, bool>> filterFunc, string file = "", int line = 0, string member = "")
+        public IHaveFilterToken IsTrue(Expression<Func<T1, T2, bool>> filterFunc, string file = "", int line = 0, string member = "")
         {
             var diagInfo = new DiagInfo(file, line, member, filterFunc);
             var filter = new Filter2<T1, T2>(dependency1, dependency2, filterFunc.Compile(), diagInfo);

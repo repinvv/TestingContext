@@ -4,11 +4,9 @@
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Interfaces.Tokens;
 
-    internal class Token : IToken
+    internal class Token : IFilterToken
     {
         public string Name { get; set; }
-
-        public Type Type => typeof(IFilter);
 
         public override string ToString() => Name;
     }

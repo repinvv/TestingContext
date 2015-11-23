@@ -20,7 +20,7 @@
         #region IFailure
         public IEnumerable<IToken> ForTokens => Dependencies.Select(x => x.Token);
         public DiagInfo DiagInfo { get; }
-        public IToken Token { get; } = new Token();
+        public IFilterToken Token { get; } = new Token();
         #endregion
     }
 }

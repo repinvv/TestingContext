@@ -12,7 +12,7 @@
         #endregion
 
         #region Given after background to break one
-        void InvertFilter(IToken token,
+        void InvertFilter(IFilterToken token,
             [CallerLineNumber] int line = 0,
             [CallerFilePath] string file = "",
             [CallerMemberName] string member = "");
@@ -42,7 +42,7 @@
         #region Token storage
         IToken<T> GetToken<T>(string name);
 
-        IToken GetToken(string name);
+        IFilterToken GetFilterToken(string name);
         #endregion
 
         #region free storage

@@ -25,7 +25,7 @@
             store.Providers.Add(token, provider);
         }
 
-        public static void InvertFilter(this TokenStore store, IToken token, DiagInfo diagInfo)
+        public static void InvertFilter(this TokenStore store, IFilterToken token, DiagInfo diagInfo)
         {
             store.PreRegister();
             store.FilterInversions.Add(token, diagInfo);

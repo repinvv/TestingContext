@@ -8,7 +8,7 @@
 
     public interface IFor<T1, T2>
     {
-        IHaveToken IsTrue(Expression<Func<T1, T2, bool>> filter,
+        IHaveFilterToken IsTrue(Expression<Func<T1, T2, bool>> filter,
             [CallerFilePath] string file = "",
             [CallerLineNumber] int line = 0,
             [CallerMemberName] string member = "");
