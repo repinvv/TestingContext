@@ -5,6 +5,7 @@
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Resolution;
+    using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.Interfaces;
     using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.PublicMembers;
@@ -38,7 +39,7 @@
 
         #region IFailure
         public IEnumerable<IToken> ForTokens => Dependencies.Select(x => x.Token);
-        public IFilterToken Token => null;
+        public IFilterToken Token { get; } = new Token();
         public DiagInfo DiagInfo => null;
         #endregion
     }

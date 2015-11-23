@@ -43,11 +43,26 @@
             store.ItemInversions.Add(token, diagInfo);
         }
 
+        public static void DisableFilter(this TokenStore store, IFilterToken token)
+        {
+            store.PreRegister();
+            store.DisabledFilter = token;
+        }
+
+        public static void RemoveDisabledFilter(this TokenStore store)
+        {
+            if (store.DisabledFilter == null)
+            {
+                return;
+            }
+
+            store.PreRegister();
+            store.DisabledFilter = null;
+        }
+
         private static void PreRegister(this TokenStore store)
         {
             store.Tree = null;
         }
-
-
     }
 }

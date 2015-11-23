@@ -11,11 +11,11 @@
 
     internal static class TreeBuilder
     {
-        public static void BuildNodesTree(Tree tree, List<Node> nodes, TokenStore store)
+        public static void BuildNodesTree(TokenStore store, List<Node> nodes)
         {
             var dict = GroupNodes(nodes);
-            var nodesQueue = new Queue<INode>(new[] { tree.Root });
-            var assigned = new HashSet<IToken> { tree.Root.Token };
+            var nodesQueue = new Queue<INode>(new[] { store.Tree.Root });
+            var assigned = new HashSet<IToken> { store.Tree.Root.Token };
             while (nodesQueue.Any())
             {
                 var current = nodesQueue.Dequeue();
@@ -27,8 +27,8 @@
 
                 foreach (var child in children.Where(child => child.Provider.Dependencies.All(x => assigned.Contains(x.Token))))
                 {
-                    ReorderNodes(tree, child.Provider);
-                    var parent = FilterAssignmentService.GetAssignmentNode(tree, child.Provider);
+                    ReorderNodes(store, child.Provider);
+                    var parent = FilterAssignmentService.GetAssignmentNode(store.Tree, child.Provider);
                     child.Parent = parent;
                     child.SourceParent = parent;
                     assigned.Add(child.Token);

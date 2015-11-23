@@ -17,11 +17,13 @@
     {
         private readonly TokenStore store;
         private readonly IFilterGroup group;
+        private readonly IFilter absorber;
 
-        public Registration(TokenStore store, IFilterGroup group = null)
+        public Registration(TokenStore store, IFilterGroup group = null, IFilter absorber = null)
         {
             this.store = store;
             this.group = group;
+            this.absorber = absorber;
         }
 
         private void RegisterSubgroup(Action<IRegister> action, IFilterGroup parentGroup)
@@ -33,7 +35,7 @@
 
             var andGroup = new AndGroup();
             parentGroup.Filters.Add(andGroup);
-            action(new Registration(store, andGroup));
+            action(new Registration(store, andGroup, absorber ?? parentGroup));
         }
 
 
@@ -76,13 +78,13 @@
         public IFor<T> For<T>(Func<ITestingContext, IToken<T>> getToken)
         {
             var dependency = new SingleDependency<T>(new LazyToken<T>(() => getToken(store.Context)));
-            return new Registration1<T>(store, dependency, group);
+            return new Registration1<T>(store, dependency, group, absorber);
         }
 
         public IFor<IEnumerable<T>> ForCollection<T>(Func<ITestingContext, IToken<T>> getToken)
         {
             var dependency = new CollectionDependency<T>(new LazyToken<T>(() => getToken(store.Context)));
-            return new Registration1<IEnumerable<T>>(store, dependency, group);
+            return new Registration1<IEnumerable<T>>(store, dependency, group, absorber);
         }
 
         #region unnamed
@@ -121,7 +123,7 @@
             store.RegisterProvider(provider, token);
             var cv = new CollectionValidityDependency(token);
             var diagInfo = new DiagInfo(file, line, member);
-            var filter = new Filter1<IEnumerable<IResolutionContext>>(cv, expr.Compile(), diagInfo);
+            var filter = new Filter1<IEnumerable<IResolutionContext>>(cv, expr.Compile(), diagInfo, absorber);
             store.RegisterFilter(filter, @group);
             return new HaveToken<T>(token, store);
         }

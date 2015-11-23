@@ -33,5 +33,7 @@
         public List<INode> GetParentalChain() => new List<INode> { this };
 
         public List<INode> GetSourceChain() => new List<INode> { this };
+
+        public override string ToString() => "root node";
     }
 }

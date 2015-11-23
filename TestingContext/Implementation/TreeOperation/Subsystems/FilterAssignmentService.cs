@@ -19,23 +19,28 @@
                        .First();
         }
 
-        public static void AssignFilter(Tree tree, IFilter filter)
+        public static void AssignFilter(TokenStore store, IFilter filter)
         {
-            var node = GetAssignmentNode(tree, filter);
+            if (!filter.Dependencies.Any() || store.DisabledFilter == filter.Token)
+            {
+                return;
+            }
+
+            var node = GetAssignmentNode(store.Tree, filter);
             node.FilterInfo.Group.Filters.Add(filter);
         }
 
-        public static void AssignFilters(Tree tree, TokenStore store)
+        public static void AssignFilters(TokenStore store)
         {
             var freeFilters = new List<IFilter>();
             foreach (var filter in store.Filters)
             {
-                ProcessFilterGroup(filter as IFilterGroup, freeFilters, store, tree);
+                ProcessFilterGroup(filter as IFilterGroup, freeFilters, store);
                 AddFilter(filter, freeFilters, store);
             }
 
-            freeFilters.ForEach(x => ReorderNodes(tree, x));
-            freeFilters.ForEach(x => AssignFilter(tree, x));
+            freeFilters.ForEach(x => ReorderNodes(store, x));
+            freeFilters.ForEach(x => AssignFilter(store, x));
         }
     }
 }

@@ -18,20 +18,22 @@
         private readonly IDependency<T1> dependency1;
         private readonly IDependency<T2> dependency2;
         private readonly IFilterGroup group;
+        private readonly IFilter absorber;
         private readonly TokenStore store;
 
-        public Registration2(TokenStore store, IDependency<T1> dependency1, IDependency<T2> dependency2, IFilterGroup group)
+        public Registration2(TokenStore store, IDependency<T1> dependency1, IDependency<T2> dependency2, IFilterGroup group, IFilter absorber)
         {
             this.dependency1 = dependency1;
             this.dependency2 = dependency2;
             this.group = group;
+            this.absorber = absorber;
             this.store = store;
         }
 
         public IHaveFilterToken IsTrue(Expression<Func<T1, T2, bool>> filterFunc, string file = "", int line = 0, string member = "")
         {
             var diagInfo = new DiagInfo(file, line, member, filterFunc);
-            var filter = new Filter2<T1, T2>(dependency1, dependency2, filterFunc.Compile(), diagInfo);
+            var filter = new Filter2<T1, T2>(dependency1, dependency2, filterFunc.Compile(), diagInfo, absorber);
             store.RegisterFilter(filter, group);
             return new HaveToken(filter.Token, store);
         }
@@ -81,7 +83,7 @@
             store.RegisterProvider(provider, token);
             var cv = new CollectionValidityDependency(token);
             var diagInfo = new DiagInfo(file, line, member, filterExpr);
-            var filter = new Filter1<IEnumerable<IResolutionContext>>(cv, filterExpr.Compile(), diagInfo);
+            var filter = new Filter1<IEnumerable<IResolutionContext>>(cv, filterExpr.Compile(), diagInfo, absorber);
             store.RegisterFilter(filter, group);
             return new HaveToken<T3>(token, store);
         }

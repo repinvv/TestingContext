@@ -4,18 +4,22 @@
     using System.Linq;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
+    using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.Interfaces;
+    using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.PublicMembers;
 
-    internal class OrGroup : BaseFilter, IFilterGroup
+    internal class OrGroup : IFilterGroup
     {
-        public OrGroup(DiagInfo diagInfo) : base(diagInfo)
-        { }
+        public OrGroup(DiagInfo diagInfo)
+        {
+            DiagInfo = diagInfo;
+        }
 
         public List<IFilter> Filters { get; } = new List<IFilter>();
 
         #region IFilter
-        public override IEnumerable<IDependency> Dependencies => Filters.SelectMany(x => x.Dependencies);
+        public IEnumerable<IDependency> Dependencies => Filters.SelectMany(x => x.Dependencies);
 
         public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFailure failure)
         {
@@ -33,6 +37,12 @@
 
             return false;
         }
+        #endregion
+
+        #region IFailure
+        public IEnumerable<IToken> ForTokens => Dependencies.Select(x => x.Token);
+        public IFilterToken Token { get; } = new Token();
+        public DiagInfo DiagInfo { get; }
         #endregion
     }
 }

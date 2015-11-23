@@ -17,12 +17,12 @@
             [CallerFilePath] string file = "",
             [CallerMemberName] string member = "");
 
-        void InvertCollectionValidity(IToken token,
+        void InvertCollectionValidity<T>(IToken<T> token,
             [CallerLineNumber] int line = 0,
             [CallerFilePath] string file = "",
             [CallerMemberName] string member = "");
 
-        void InvertItemValidity(IToken token,
+        void InvertItemValidity<T>(IToken<T> token,
             [CallerLineNumber] int line = 0,
             [CallerFilePath] string file = "",
             [CallerMemberName] string member = "");
@@ -33,6 +33,8 @@
         bool FoundMatch();
 
         IFailure GetFailure();
+
+        IEnumerable<IResolutionContext<T>> BestCandidates<T>(IToken<T> token, IFailure failure = null);
         #endregion
 
         #region When and Then

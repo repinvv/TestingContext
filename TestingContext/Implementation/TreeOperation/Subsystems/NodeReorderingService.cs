@@ -3,22 +3,23 @@
     using System.Linq;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Nodes;
+    using TestingContextCore.Implementation.Registration;
     using static NodeClosestParentService;
     using static NonEqualFilteringService;
 
     internal static class NodeReorderingService
     {
-        public static void ReorderNodes(Tree tree, IHaveDependencies have)
+        public static void ReorderNodes(TokenStore store, IHaveDependencies have)
         {
             var dependencies = have.Dependencies.ToArray();
             for (int i = 0; i < dependencies.Length; i++)
             {
                 for (int j = i + 1; j < dependencies.Length; j++)
                 {
-                    var node1 = dependencies[i].GetDependencyNode(tree);
-                    var node2 = dependencies[j].GetDependencyNode(tree);
+                    var node1 = dependencies[i].GetDependencyNode(store.Tree);
+                    var node2 = dependencies[j].GetDependencyNode(store.Tree);
                     ReorderNodes(node1, node2);
-                    AssignNonEqualFilter(tree, node1, node2);
+                    AssignNonEqualFilter(store, node1, node2);
                 }
             }
         }

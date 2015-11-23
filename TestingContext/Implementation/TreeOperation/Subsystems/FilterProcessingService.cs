@@ -10,7 +10,7 @@
 
     internal static class FilterProcessingService
     {
-        public static void ProcessFilterGroup(IFilterGroup filterGroup, List<IFilter> freeFilters, TokenStore store, Tree tree)
+        public static void ProcessFilterGroup(IFilterGroup filterGroup, List<IFilter> freeFilters, TokenStore store)
         {
             if (filterGroup == null)
             {
@@ -19,11 +19,11 @@
 
             var groupFilters = filterGroup.Filters.ToList();
             filterGroup.Filters.Clear();
-            var cvNodes = groupFilters.Where(x => x.IsCvFilter()).Select(x => tree.Nodes[x.Dependencies.First().Token]).ToList();
+            var cvNodes = groupFilters.Where(x => x.IsCvFilter()).Select(x => store.Tree.Nodes[x.Dependencies.First().Token]).ToList();
             foreach (var filter in groupFilters)
             {
-                ProcessFilterGroup(filter as IFilterGroup, freeFilters, store, tree);
-                var targetList = cvNodes.Any(x => FilterIsAbsorbed(filter, x, tree))
+                ProcessFilterGroup(filter as IFilterGroup, freeFilters, store);
+                var targetList = cvNodes.Any(x => FilterIsAbsorbed(filter, x, store.Tree))
                     ? freeFilters
                     : filterGroup.Filters;
                 AddFilter(filter, targetList, store);
@@ -44,6 +44,11 @@
 
         public static void AddFilter(IFilter filter, List<IFilter> filters, TokenStore store)
         {
+            if (!filter.Dependencies.Any() || store.DisabledFilter == filter.Token)
+            {
+                return;
+            }
+
             var inversionDiag = filter.IsCvFilter()
                 ? store.CollectionInversions.SafeGet(filter.Dependencies.First().Token)
                 : store.FilterInversions.SafeGet(filter.Token);

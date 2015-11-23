@@ -33,5 +33,7 @@
         public Dictionary<IToken, DiagInfo> CollectionInversions { get; } = new Dictionary<IToken, DiagInfo>();
 
         public Dictionary<IFilterToken, DiagInfo> FilterInversions { get; } = new Dictionary<IFilterToken, DiagInfo>();
+
+        public IFilterToken DisabledFilter { get; set; }
     }
 }
