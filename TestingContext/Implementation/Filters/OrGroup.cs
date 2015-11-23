@@ -1,34 +1,35 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.Dependencies;
-    using TestingContextCore.Implementation.Logging;
-    using TestingContextCore.Implementation.Nodes;
-    using TestingContextCore.Implementation.ResolutionContext;
-    using static FilterConstant;
+    using TestingContextCore.Implementation.Resolution;
+    using TestingContextCore.Implementation.Tokens;
+    using TestingContextCore.Interfaces;
+    using TestingContextCore.Interfaces.Tokens;
+    using TestingContextCore.PublicMembers;
 
     internal class OrGroup : IFilterGroup
     {
-        private readonly List<IFilter> filters = new List<IFilter>();
+        public OrGroup(DiagInfo diagInfo)
+        {
+            DiagInfo = diagInfo;
+        }
 
-        public void AddFilter(IFilter filter) => filters.Add(filter);
+        public List<IFilter> Filters { get; } = new List<IFilter>();
 
         #region IFilter
-        public IDependency[] Dependencies => filters.SelectMany(x => x.Dependencies).ToArray();
+        public IEnumerable<IDependency> Dependencies => Filters.SelectMany(x => x.Dependencies);
 
-        public IFilterGroup Group => null;
-
-        public bool MeetsCondition(IResolutionContext context, NodeResolver resolver, out int[] failureWeight, out IFailure failure)
+        public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFailure failure)
         {
-            failureWeight = EmptyArray;
+            failureWeight = FilterConstant.EmptyArray;
             failure = this;
-            foreach (IFilter filter in filters)
+            foreach (var filter in Filters)
             {
                 int[] innerWeight;
                 IFailure innerFailure;
-                if (filter.MeetsCondition(context, resolver, out innerWeight, out innerFailure))
+                if (filter.MeetsCondition(context, out innerWeight, out innerFailure))
                 {
                     return true;
                 }
@@ -38,10 +39,10 @@
         }
         #endregion
 
-        #region IFailure members
-        public IEnumerable<Definition> Definitions => Dependencies.Select(x => x.Definition);
-        public string FilterString => "OR group" + Environment.NewLine + string.Join(string.Empty, filters.SelectMany(x => x.FilterString));
-        public string Key => null;
+        #region IFailure
+        public IEnumerable<IToken> ForTokens => Dependencies.Select(x => x.Token);
+        public IFilterToken Token { get; } = new Token();
+        public DiagInfo DiagInfo { get; }
         #endregion
     }
 }

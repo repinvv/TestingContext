@@ -2,24 +2,23 @@
 {
     using System.Collections.Generic;
     using TestingContextCore.Implementation.Providers;
+    using TestingContextCore.Interfaces.Tokens;
 
     internal interface INode
     {
-        Definition Definition { get; }
+        IToken Token { get; }
 
         INode SourceParent { get; set; }
 
         INode Parent { get; set; }
 
-        NodeFilters Filters { get; }
+        NodeFilterInfo FilterInfo { get; }
 
         NodeResolver Resolver { get; }
 
         IProvider Provider { get; }
 
         bool IsChildOf(INode node);
-
-        bool IsSourceChildOf(INode node);
 
         List<INode> GetParentalChain();
 

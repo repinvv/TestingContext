@@ -2,29 +2,28 @@
 {
     using System.Linq;
     using TestingContextCore.Implementation.Nodes;
-    using TestingContextCore.Implementation.Registrations;
-    using TestingContextCore.Implementation.ResolutionContext;
-    using static Subsystems.FilterAssignmentService;
-    using static TestingContextCore.Implementation.TreeOperation.Subsystems.NonEqualFilteringService;
-    using static Subsystems.TreeBuilder;
+    using TestingContextCore.Implementation.Registration;
+    using TestingContextCore.Implementation.Resolution;
+    using static TestingContextCore.Implementation.TreeOperation.Subsystems.TreeBuilder;
+    using static TestingContextCore.Implementation.TreeOperation.Subsystems.FilterAssignmentService;
 
     internal static class TreeOperationService
     {
-        public static Tree GetTree(RegistrationStore store, TestingContext rootSource)
+        public static Tree GetTree(TokenStore store)
         {
-            return store.Tree ?? (store.Tree = CreateTree(store, rootSource));
+            return store.Tree ?? CreateTree(store);
         }
 
-        private static Tree CreateTree(RegistrationStore store, TestingContext rootSource)
+        private static Tree CreateTree(TokenStore store)
         {
-            var tree = new Tree();
-            tree.Root = new RootNode(tree, store.RootDefinition);
+            var tree = store.Tree = new Tree();
+            tree.Root = new RootNode(tree, store.RootToken);
             var nodes = store.Providers.Select(x => Node.CreateNode(x.Key, x.Value, store, tree)).ToList();
-            nodes.ForEach(x => tree.Nodes.Add(x.Definition, x));
-            tree.Nodes.Add(store.RootDefinition, tree.Root);
-            BuildNodesTree(tree, nodes, store);
-            AssignFilters(tree, store);
-            tree.RootContext = new ResolutionContext<TestingContext>(rootSource, tree.Root, null);
+            nodes.ForEach(x => tree.Nodes.Add(x.Token, x));
+            tree.Nodes.Add(store.RootToken, tree.Root);
+            BuildNodesTree(store, nodes);
+            AssignFilters(store);
+            tree.RootContext = new ResolutionContext<Root>(Root.Instance, tree.Root, null);
             return tree;
         }
     }

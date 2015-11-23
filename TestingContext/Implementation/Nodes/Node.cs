@@ -2,28 +2,28 @@
 {
     using System.Collections.Generic;
     using TestingContextCore.Implementation.Providers;
-    using TestingContextCore.Implementation.Registrations;
+    using TestingContextCore.Implementation.Registration;
     using TestingContextCore.Implementation.TreeOperation;
+    using TestingContextCore.Interfaces.Tokens;
+    using TestingContextCore.UsefulExtensions;
 
     internal class Node : INode
     {
-        public Node(Tree tree, Definition definition, IProvider provider, NodeFilters filters)
+        public Node(Tree tree, IToken token, IProvider provider, NodeFilterInfo filterInfo)
         {
-            Definition = definition;
+            Token = token;
             Provider = provider;
-            Filters = filters;
-            Resolver = new NodeResolver(tree, definition);
+            FilterInfo = filterInfo;
+            Resolver = new NodeResolver(tree, this);
         }
 
-        public Definition Definition { get; }
+        public IToken Token { get; }
 
         public INode Parent { get; set; }
-
+        
         public INode SourceParent { get; set; }
 
         public bool IsChildOf(INode node) => Parent == node || Parent.IsChildOf(node);
-
-        public bool IsSourceChildOf(INode node) => SourceParent == node || SourceParent.IsSourceChildOf(node);
 
         public List<INode> GetParentalChain()
         {
@@ -39,18 +39,17 @@
             return list;
         }
 
-        public NodeFilters Filters { get; }
+        public NodeFilterInfo FilterInfo { get; }
 
         public NodeResolver Resolver { get; }
 
         public IProvider Provider { get; }
 
-        public override string ToString() => Definition.ToString();
+        public override string ToString() => Token.ToString();
 
-        public static Node CreateNode(Definition definition, IProvider provider, RegistrationStore store, Tree tree)
+        public static Node CreateNode(IToken token, IProvider provider, TokenStore store, Tree tree)
         {
-            var itemInvert = store.ItemInversions.Contains(definition);
-            return new Node(tree, definition, provider, new NodeFilters(itemInvert));
+            return new Node(tree, token, provider, new NodeFilterInfo(store.ItemInversions.SafeGet(token)));
         }
     }
 }

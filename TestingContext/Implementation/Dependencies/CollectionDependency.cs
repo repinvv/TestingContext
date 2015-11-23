@@ -2,20 +2,23 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContextCore.Implementation.ResolutionContext;
+    using TestingContextCore.Implementation.Resolution;
+    using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.Interfaces;
-    using static DependencyType;
+    using TestingContextCore.Interfaces.Tokens;
 
     internal class CollectionDependency<TItem> : IDependency<IEnumerable<TItem>>
     {
-        public CollectionDependency(Definition definition)
+        private readonly LazyToken<TItem> token;
+
+        public CollectionDependency(LazyToken<TItem> token)
         {
-            Definition = definition;
+            this.token = token;
         }
 
         public IEnumerable<TItem> GetValue(IResolutionContext context)
         {
-            return context.Get(Definition)
+            return context.GetFromTree(Token)
                            .Distinct()
                            .Cast<IResolutionContext<TItem>>()
                            .Select(x => x.Value);
@@ -27,8 +30,8 @@
             return true;
         }
 
-        public Definition Definition { get; }
+        public IToken Token => token.Value;
 
-        public DependencyType Type => Collection;
+        public DependencyType Type => DependencyType.Collection;
     }
 }

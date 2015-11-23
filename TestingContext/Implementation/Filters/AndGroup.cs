@@ -4,28 +4,26 @@
     using System.Linq;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Logging;
-    using TestingContextCore.Implementation.Nodes;
-    using TestingContextCore.Implementation.ResolutionContext;
-    using static FilterConstant;
+    using TestingContextCore.Implementation.Resolution;
+    using TestingContextCore.Implementation.Tokens;
+    using TestingContextCore.Interfaces;
+    using TestingContextCore.Interfaces.Tokens;
+    using TestingContextCore.PublicMembers;
 
     internal class AndGroup : IFilterGroup
     {
-        private readonly List<IFilter> filters = new List<IFilter>();
-
-        public void AddFilter(IFilter filter) => filters.Add(filter);
+        public List<IFilter> Filters { get; } = new List<IFilter>();
 
         #region IFilter
-        public IDependency[] Dependencies => filters.SelectMany(x => x.Dependencies).ToArray();
+        public IEnumerable<IDependency> Dependencies => Filters.SelectMany(x => x.Dependencies);
 
-        public IFilterGroup Group => null;
-
-        public bool MeetsCondition(IResolutionContext context, NodeResolver resolver, out int[] failureWeight, out IFailure failure)
+        public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFailure failure)
         {
-            for (int i = 0; i < filters.Count; i++)
+            for (int i = 0; i < Filters.Count; i++)
             {
                 int[] innerWeight;
                 IFailure innerFailure;
-                if (!filters[i].MeetsCondition(context, resolver, out innerWeight, out innerFailure))
+                if (!Filters[i].MeetsCondition(context, out innerWeight, out innerFailure))
                 {
                     failure = innerFailure;
                     failureWeight = new[] { i }.Add(innerWeight);
@@ -33,18 +31,16 @@
                 }
             }
 
-            failureWeight = EmptyArray;
+            failureWeight = FilterConstant.EmptyArray;
             failure = this;
             return true;
-        } 
+        }
         #endregion
 
-        #region IFailure members
-        public IEnumerable<Definition> Definitions => Dependencies.Select(x => x.Definition);
-
-        public string FilterString => string.Join(string.Empty, filters.SelectMany(x => x.FilterString));
-
-        public string Key => null;
+        #region IFailure
+        public IEnumerable<IToken> ForTokens => Dependencies.Select(x => x.Token);
+        public IFilterToken Token { get; } = new Token();
+        public DiagInfo DiagInfo => null;
         #endregion
     }
 }

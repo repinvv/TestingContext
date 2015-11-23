@@ -1,10 +1,11 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
-    using TestingContextCore.Implementation.ResolutionContext;
+    using TestingContextCore.Implementation.Resolution;
+    using TestingContextCore.Interfaces.Tokens;
 
     internal interface IDependency
     {
-        Definition Definition { get; }
+        IToken Token { get; }
 
         DependencyType Type { get; }
     }

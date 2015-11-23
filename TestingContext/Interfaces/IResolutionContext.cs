@@ -1,11 +1,12 @@
 ﻿namespace TestingContextCore.Interfaces
 {
     using System.Collections.Generic;
+    using TestingContextCore.Interfaces.Tokens;
 
     public interface IResolutionContext<T>
     {
         T Value { get; }
 
-        IEnumerable<IResolutionContext<T2>> Get<T2>(string key);
+        IEnumerable<IResolutionContext<TOther>> Get<TOther>(IToken<TOther> token);
     }
 }

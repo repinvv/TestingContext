@@ -1,40 +1,46 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.Dependencies;
-    using TestingContextCore.Implementation.Logging;
-    using TestingContextCore.Implementation.Nodes;
-    using TestingContextCore.Implementation.ResolutionContext;
+    using TestingContextCore.Implementation.Resolution;
+    using TestingContextCore.Implementation.Tokens;
+    using TestingContextCore.Interfaces;
+    using TestingContextCore.Interfaces.Tokens;
+    using TestingContextCore.PublicMembers;
+    using TestingContextCore.PublicMembers.Exceptions;
 
     internal class NotGroup : IFilterGroup
     {
-        private readonly AndGroup andGroup = new AndGroup();
+        public NotGroup(DiagInfo diagInfo)
+        {
+            DiagInfo = diagInfo;
+        }
 
-        public void AddFilter(IFilter filter) => andGroup.AddFilter(filter);
+        public List<IFilter> Filters { get; } = new List<IFilter>();
 
         #region IFilter
-        public IDependency[] Dependencies => andGroup.Dependencies;
+        public IEnumerable<IDependency> Dependencies => Filters.SelectMany(x => x.Dependencies);
 
-        public IFilterGroup Group => null;
-
-        public bool MeetsCondition(IResolutionContext context, NodeResolver resolver, out int[] failureWeight, out IFailure failure)
+        public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFailure failure)
         {
+            if (Filters.Count != 1)
+            {
+                throw new AlgorythmException("NOT group can only contain one filter");
+            }
+
             failureWeight = FilterConstant.EmptyArray;
-            failure = andGroup;
+            failure = this;
             IFailure innerFailure;
             int[] innerWeight;
-            return !andGroup.MeetsCondition(context, resolver, out innerWeight, out innerFailure);
+            return !Filters[0].MeetsCondition(context, out innerWeight, out innerFailure);
         }
         #endregion
 
-        #region IFailure members
-        public IEnumerable<Definition> Definitions => Dependencies.Select(x => x.Definition);
-
-        public string FilterString => "NOT-AND group" + Environment.NewLine + andGroup.FilterString;
-
-        public string Key => null;
+        #region IFailure
+        public IEnumerable<IToken> ForTokens => Dependencies.Select(x => x.Token);
+        public IFilterToken Token { get; } = new Token();
+        public DiagInfo DiagInfo { get; }
         #endregion
     }
 }

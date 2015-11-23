@@ -2,15 +2,15 @@
 {
     using System.Linq;
     using TechTalk.SpecFlow;
-    using TestingContextCore;
+    using TestingContextCore.Interfaces;
     using UnitTestProject1.Entities;
 
     [Binding]
     public class TaxGiven
     {
-        private readonly TestingContext context;
+        private readonly ITestingContext context;
 
-        public TaxGiven(TestingContext context)
+        public TaxGiven(ITestingContext context)
         {
             this.context = context;
         }
@@ -20,7 +20,7 @@
         {
             context.Register()
                    .For<Insurance>(insuranceKey)
-                   .Exists(insurance => insurance.Taxes, taxKey);
+                   .Exists<Tax>(insurance => insurance.Taxes, taxKey);
         }
 
         [Given(@"tax(?:\s)?(.*) amounts to at least (.*)\$")]
@@ -42,9 +42,8 @@
         [Given(@"average payment per person in assignments(?:\s)?(.*), specified in taxes(?:\s)?(.*) is over (.*)\$")]
         public void GivenAveragePaymentPerPersonInAssignmentsBSpecifiedInTaxIsOver(string assignmentKey, string taxKey, int average)
         {
-            context.Register()
-                   .ForAll<Assignment>(assignmentKey)
-                   .ForAll<Tax>(taxKey)
+            context.Register().ForCollection<Assignment>(assignmentKey)
+                   .ForCollection<Tax>(taxKey)
                    .IsTrue((assignments, taxes) => taxes.Sum(x => x.Amount) / assignments.Sum(x => x.HeadCount) > average);
         }
 
@@ -66,8 +65,7 @@
         [Given(@"taxes(?:\s)?(.*) have total amount of (.*)\$")]
         public void GivenTaxesHaveTotalAmountOf(string key, int amount)
         {
-            context.Register()
-                   .ForAll<Tax>(key)
+            context.Register().ForCollection<Tax>(key)
                    .IsTrue(taxes => taxes.Sum(x => x.Amount) == amount);
         }
     }

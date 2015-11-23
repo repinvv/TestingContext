@@ -5,7 +5,8 @@
     using System.Linq;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Nodes;
-    using TestingContextCore.Implementation.ResolutionContext;
+    using TestingContextCore.Implementation.Resolution;
+    using TestingContextCore.UsefulExtensions;
 
     internal class Provider2<TSource1, TSource2, T> : IProvider
     {
@@ -22,7 +23,7 @@
             Dependencies = new IDependency[] { dependency1, dependency2 };
         }
 
-        public IDependency[] Dependencies { get; }
+        public IEnumerable<IDependency> Dependencies { get; }
 
         public IEnumerable<IResolutionContext> Resolve(IResolutionContext parentContext, INode node)
         {

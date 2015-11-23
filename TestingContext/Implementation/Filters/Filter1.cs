@@ -2,57 +2,48 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq.Expressions;
-    using ExpressionToCodeLib;
     using TestingContextCore.Implementation.Dependencies;
-    using TestingContextCore.Implementation.Logging;
-    using TestingContextCore.Implementation.Nodes;
-    using TestingContextCore.Implementation.ResolutionContext;
-    using static FilterConstant;
+    using TestingContextCore.Implementation.Resolution;
+    using TestingContextCore.Implementation.Tokens;
+    using TestingContextCore.Interfaces;
+    using TestingContextCore.Interfaces.Tokens;
+    using TestingContextCore.PublicMembers;
 
     internal class Filter1<T1> : IFilter
     {
         private readonly IDependency<T1> dependency;
-        private readonly Expression<Func<T1, bool>> filterExpression;
-        private readonly Func<T1, bool> filterFunc;
+        private readonly Func<T1, bool> filter;
+        private readonly IFilter absorber;
 
-        public Filter1(IDependency<T1> dependency, 
-            Expression<Func<T1, bool>> filterExpression, 
-            string key,
-            IFilterGroup group)
+        public Filter1(IDependency<T1> dependency, Func<T1, bool> filter, DiagInfo diagInfo, IFilter absorber)
         {
             this.dependency = dependency;
-            this.filterExpression = filterExpression;
-            Key = key;
-            Group = @group;
-            filterFunc = filterExpression.Compile();
+            this.filter = filter;
+            this.absorber = absorber;
             Dependencies = new IDependency[] { dependency };
+            ForTokens = new[] { dependency.Token };
+            DiagInfo = diagInfo;
         }
 
-        public IDependency[] Dependencies { get; }
-
-        public IFilterGroup Group { get; }
-
-        public bool MeetsCondition(IResolutionContext context, NodeResolver resolver, out int[] failureWeight, out IFailure failure)
+        public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFailure failure)
         {
             T1 argument;
-            failureWeight = EmptyArray;
-            failure = this;
+            failureWeight = FilterConstant.EmptyArray;
+            failure = absorber ?? this;
             if (!dependency.TryGetValue(context, out argument))
             {
                 return false;
             }
-            return filterFunc(argument);
+
+            return filter(argument);
         }
 
-        #region IFailure members
+        public IEnumerable<IDependency> Dependencies { get; }
 
-        public IEnumerable<Definition> Definitions => new[] { dependency.Definition };
-
-        public string FilterString => ExpressionToCode.AnnotatedToCode(filterExpression);
-
-        public string Key { get; }
-
+        #region IFailure
+        public IEnumerable<IToken> ForTokens { get; }
+        public IFilterToken Token { get; } = new Token();
+        public DiagInfo DiagInfo { get; }
         #endregion
     }
 }

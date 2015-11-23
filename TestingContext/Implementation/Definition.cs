@@ -2,11 +2,11 @@
 {
     using System;
 
-    internal struct Definition : IEquatable<Definition>
+    internal class Definition : IEquatable<Definition>
     {
         public static Definition Define<T>(string key)
         {
-            return new Definition(typeof(T), key ?? string.Empty);
+            return new Definition(typeof(T), (key ?? string.Empty).Trim());
         }
 
         private Definition(Type type, string key)

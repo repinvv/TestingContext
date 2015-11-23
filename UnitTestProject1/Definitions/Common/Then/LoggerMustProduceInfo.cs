@@ -1,43 +1,50 @@
 ﻿namespace UnitTestProject1.Definitions.Common.Then
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;
-    using TestingContextCore;
+    using TestingContextCore.PublicMembers;
 
     [Binding]
     internal class LoggerMustProduceInfo
     {
         private readonly TestingContext context;
-        private readonly List<string> logs = new List<string>();
+        private string log;
 
         public LoggerMustProduceInfo(TestingContext context)
         {
             this.context = context;
         }
 
-        [BeforeScenario]
+        [BeforeScenarioBlock]
         public void BindLogger()
         {
-            context.OnSearchFailure += OnSearchFailure;
-        }
+            if (ScenarioContext.Current.CurrentScenarioBlock != ScenarioBlock.Then)
+            {
+                return;
+            }
 
-        public void OnSearchFailure(object sender, SearchFailureEventArgs e)
-        {
-            var log = $"key: {e.FilterKey}\r\nentities: {string.Join(", ", e.Entities)}:\r\n{e.FilterText}\r\n";
-            logs.Add(log);
+            if (context.FoundMatch())
+            {
+                return;
+            }
+
+            var f = context.GetFailure();
+
+            log = $"name: {f.Token.Name}\r\nentities: {string.Join(", ", f.ForTokens.Select(x => x.ToString()))}:\r\n" +
+                  $"{f.DiagInfo.File}, Line: {f.DiagInfo.Line}\r\n" +
+                  $"{f.DiagInfo.Member}\r\n" +
+                  $"{f.DiagInfo.FilterString}\r\n";
             Console.Write(log);
             Debug.Write(log);
         }
-
         [Then(@"resolution logger must produce info for filter, mentioning '(.*)' and '(.*)'")]
         public void ThenResolutionLoggerMustProduceInfoForFilterMentioningAnd(string first, string second)
         {
-            Assert.AreEqual(1, logs.Count);
-            Assert.IsTrue(logs[0].Contains(first));
-            Assert.IsTrue(logs[0].Contains(second));
+            Assert.IsTrue(log.Contains(first));
+            Assert.IsTrue(log.Contains(second));
         }
     }
 }

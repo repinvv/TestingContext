@@ -174,7 +174,7 @@
                 Assignments = new List<Assignment>
                               {
                                   new Assignment { Id = 13, Type = Employee, HeadCount = 1, Created = new DateTime(2012, 2, 6) }
-                              },
+                              }
             },
             new Insurance
             {
@@ -185,7 +185,7 @@
                               {
                                   new Assignment { Id = 14, Type = Employee, HeadCount = 1, Created = new DateTime(2012, 2, 6) },
                                   new Assignment { Id = 15, Type = Employee, HeadCount = 1, Created = new DateTime(2012, 2, 5) }
-                              },
+                              }
             },
             new Insurance
             {
@@ -197,7 +197,7 @@
                                   new Assignment { Id = 20, Type = Dependent, HeadCount = 1, Created = new DateTime(2012, 2, 6) },
                                   new Assignment { Id = 21, Type = Dependent, HeadCount = 1, Created = new DateTime(2012, 2, 5) },
                                   new Assignment { Id = 22, Type = Dependent, HeadCount = 1, Created = new DateTime(2012, 2, 5) }
-                              },
+                              }
             },
             new Insurance
             {
@@ -209,7 +209,7 @@
                                   new Assignment { Id = 23, Type = Employee, HeadCount = 1, Created = new DateTime(2012, 2, 6) },
                                   new Assignment { Id = 24, Type = Employee, HeadCount = 1, Created = new DateTime(2012, 2, 5) },
                                   new Assignment { Id = 25, Type = Employee, HeadCount = 1, Created = new DateTime(2012, 2, 6) }
-                              },
+                              }
             },
             new Insurance
             {
@@ -257,7 +257,7 @@
                 Assignments = new List<Assignment>
                               {
                                   new Assignment { Id = 32, Type = Dependent, HeadCount = 1500, Created = new DateTime(2012, 2, 3) },
-                                  new Assignment { Id = 33, Type = Dependent, HeadCount = 2900, Created = new DateTime(2012, 2, 5) },
+                                  new Assignment { Id = 33, Type = Dependent, HeadCount = 2900, Created = new DateTime(2012, 2, 5) }
                               }
             },
             new Insurance
@@ -268,7 +268,7 @@
                 MaximumDependents = 0,
                 Assignments = new List<Assignment>
                               {
-                                  new Assignment { Id = 34, Type = Employee, HeadCount = 1500, Created = new DateTime(2012, 2, 3) },
+                                  new Assignment { Id = 34, Type = Employee, HeadCount = 1500, Created = new DateTime(2012, 2, 3) }
                               },
                 Taxes = new List<Tax>
                         {
@@ -282,14 +282,9 @@
                 Name = "matching insurance for @ORgroup1",
                 Created = new DateTime(2016, 1, 2),
                 MaximumDependents = 1,
-                Assignments = new List<Assignment>
-                              {
-                                  new Assignment { Id = 35, Type = Employee, HeadCount = 1500, Created = new DateTime(2012, 2, 3) },
-                              },
                 Taxes = new List<Tax>
                         {
                             new Tax { Id = 22, Type = Local, Amount = 1 }
-
                         }
             },
             new Insurance
@@ -300,13 +295,8 @@
                 MaximumDependents = 0,
                 Assignments = new List<Assignment>
                               {
-                                  new Assignment { Id = 36, Type = Dependent, HeadCount = 1500, Created = new DateTime(2012, 2, 3) },
-                              },
-                Taxes = new List<Tax>
-                        {
-                            new Tax { Id = 23, Type = Local, Amount = 1 }
-
-                        }
+                                  new Assignment { Id = 36, Type = Dependent, HeadCount = 1500, Created = new DateTime(2012, 2, 3) }
+                              }
             },
             new Insurance
             {
@@ -316,12 +306,11 @@
                 MaximumDependents = 0,
                 Assignments = new List<Assignment>
                               {
-                                  new Assignment { Id = 37, Type = Employee, HeadCount = 1500, Created = new DateTime(2012, 2, 3) },
+                                  new Assignment { Id = 37, Type = Employee, HeadCount = 1500, Created = new DateTime(2012, 2, 3) }
                               },
                 Taxes = new List<Tax>
                         {
                             new Tax { Id = 24, Type = Federal, Amount = 1 }
-
                         }
             },
             new Insurance
@@ -332,7 +321,7 @@
                 MaximumDependents = 10,
                 Assignments = new List<Assignment>
                               {
-                                  new Assignment { Id = 38, Type = Dependent, HeadCount = 1500, Created = new DateTime(2012, 2, 3) },
+                                  new Assignment { Id = 38, Type = Dependent, HeadCount = 1500, Created = new DateTime(2012, 2, 3) }
                               },
                 Taxes = new List<Tax>
                         {
@@ -348,12 +337,11 @@
                 MaximumDependents = 10,
                 Assignments = new List<Assignment>
                               {
-                                  new Assignment { Id = 39, Type = Dependent, HeadCount = 1500, Created = new DateTime(2012, 2, 3) },
+                                  new Assignment { Id = 39, Type = Dependent, HeadCount = 1500, Created = new DateTime(2012, 2, 3) }
                               },
                 Taxes = new List<Tax>
                         {
                             new Tax { Id = 26, Type = Federal, Amount = 1 }
-
                         }
             },
             new Insurance
@@ -364,12 +352,11 @@
                 MaximumDependents = 0,
                 Assignments = new List<Assignment>
                               {
-                                  new Assignment { Id = 40, Type = Dependent, HeadCount = 1500, Created = new DateTime(2012, 2, 3) },
+                                  new Assignment { Id = 40, Type = Dependent, HeadCount = 1500, Created = new DateTime(2012, 2, 3) }
                               },
                 Taxes = new List<Tax>
                         {
                             new Tax { Id = 27, Type = Federal, Amount = 1 }
-
                         }
             },
             new Insurance
@@ -380,12 +367,11 @@
                 MaximumDependents = 10,
                 Assignments = new List<Assignment>
                               {
-                                  new Assignment { Id = 41, Type = Employee, HeadCount = 1500, Created = new DateTime(2012, 2, 3) },
+                                  new Assignment { Id = 41, Type = Employee, HeadCount = 1500, Created = new DateTime(2012, 2, 3) }
                               },
                 Taxes = new List<Tax>
                         {
                             new Tax { Id = 28, Type = Federal, Amount = 1 }
-
                         }
             },
             new Insurance
@@ -396,13 +382,8 @@
                 MaximumDependents = 10,
                 Assignments = new List<Assignment>
                               {
-                                  new Assignment { Id = 42, Type = Dependent, HeadCount = 1500, Created = new DateTime(2012, 2, 3) },
-                              },
-                Taxes = new List<Tax>
-                        {
-                            new Tax { Id = 29, Type = Local, Amount = 1 }
-
-                        }
+                                  new Assignment { Id = 42, Type = Dependent, HeadCount = 1500, Created = new DateTime(2012, 2, 3) }
+                              }
             },
             new Insurance
             {
@@ -410,16 +391,11 @@
                 Name = "matching insurance for @NOTgroup4",
                 Created = new DateTime(2017, 1, 2),
                 MaximumDependents = 0,
-                Assignments = new List<Assignment>
-                              {
-                                  new Assignment { Id = 43, Type = Employee, HeadCount = 1500, Created = new DateTime(2012, 2, 3) },
-                              },
                 Taxes = new List<Tax>
                         {
                             new Tax { Id = 30, Type = Local, Amount = 1 }
-
                         }
-            },
+            }
         };
     }
 }

@@ -1,36 +1,37 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation.Subsystems
 {
     using System;
+    using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
-    using TestingContextCore.Implementation.Registrations;
+    using TestingContextCore.Implementation.Nodes;
+    using TestingContextCore.Implementation.Registration;
+    using TestingContextCore.Implementation.Resolution;
+    using TestingContextCore.Interfaces.Tokens;
+    using TestingContextCore.PublicMembers;
     using static FilterAssignmentService;
 
     internal static class NonEqualFilteringService
     {
-        public static void AssignNonEqualFilters(Tree tree, IHaveDependencies have, RegistrationStore store)
+        public static void AssignNonEqualFilter(TokenStore store, INode node1, INode node2)
         {
-            for (int i = 0; i < have.Dependencies.Length; i++)
+            if (node1 == node2 || node1.Token.Type != node2.Token.Type)
             {
-                for (int j = i + 1; j < have.Dependencies.Length; j++)
-                {
-                    var node1 = have.Dependencies[i].GetDependencyNode(tree);
-                    var node2 = have.Dependencies[j].GetDependencyNode(tree);
-                    if (node1.Definition.Type != node2.Definition.Type || node1.Definition.Key == node2.Definition.Key)
-                    {
-                        continue;
-                    }
-
-                    var tuple = new Tuple<Definition, Definition>(node1.Definition, node2.Definition);
-                    var reverseTuple = new Tuple<Definition, Definition>(node2.Definition, node1.Definition);
-                    if (tree.NonEqualFilters.Contains(tuple) || tree.NonEqualFilters.Contains(reverseTuple))
-                    {
-                        continue;
-                    }
-
-                    tree.NonEqualFilters.Add(tuple);
-                    AssignFilter(tree, new NonEqualFilter(node1.Definition, node2.Definition), store);
-                }
+                return;
             }
+
+            var tuple = new Tuple<IToken, IToken>(node1.Token, node2.Token);
+            var reverseTuple = new Tuple<IToken, IToken>(node2.Token, node1.Token);
+            if (store.Tree.NonEqualFilters.Contains(tuple) || store.Tree.NonEqualFilters.Contains(reverseTuple))
+            {
+                return;
+            }
+
+            store.Tree.NonEqualFilters.Add(tuple);
+            var dep1 = new NonGenericDependency(node1.Token);
+            var dep2 = new NonGenericDependency(node2.Token);
+            var dummyDiag = new DiagInfo(string.Empty, 0, $"Non-equal filter for {node1.Token} and {node2.Token}");
+            var filter = new Filter2<IResolutionContext, IResolutionContext>(dep1, dep2, (x, y) => !x.Equals(y), dummyDiag, null);
+            AssignFilter(store, filter);
         }
     }
 }

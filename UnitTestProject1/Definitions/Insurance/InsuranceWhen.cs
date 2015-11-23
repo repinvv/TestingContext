@@ -1,21 +1,21 @@
 ﻿namespace UnitTestProject1.Definitions.Insurance
 {
     using TechTalk.SpecFlow;
-    using TestingContextCore;
+    using TestingContextCore.Interfaces;
     using UnitTestProject1.Entities;
 
     [Binding]
     public class InsuranceWhen
     {
-        private readonly TestingContext context;
+        private readonly ITestingContext context;
 
-        public InsuranceWhen(TestingContext context)
+        public InsuranceWhen(ITestingContext context)
         {
             this.context = context;
         }
 
         [When(@"insurance(?:\s)?(.*) resolves")]
-        public void WhenInsuranceBResolves(string key)
+        public void WhenInsuranceResolves(string key)
         {
             var value = context.All<Insurance>(key);
         }

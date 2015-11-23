@@ -1,5 +1,7 @@
 ﻿namespace TestingContextCore.Implementation.Logging
 {
+    using TestingContextCore.Interfaces;
+
     internal class FailureCollect
     {
         private int[] currentWeight;
