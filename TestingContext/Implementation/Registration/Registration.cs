@@ -121,7 +121,7 @@
             var rootDependency = new SingleDependency<Root>(new LazyToken<Root>(() => store.RootToken));
             var provider = new Provider<Root, T>(rootDependency, x => srcFunc());
             store.RegisterProvider(provider, token);
-            var cv = new CollectionValidityDependency(token);
+            var cv = new ContextualDependency(token, DependencyType.CollectionValidity);
             var diagInfo = new DiagInfo(file, line, member);
             var filter = new Filter1<IEnumerable<IResolutionContext>>(cv, expr.Compile(), diagInfo, absorber);
             store.RegisterFilter(filter, @group);

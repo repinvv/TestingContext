@@ -5,20 +5,21 @@
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Interfaces.Tokens;
 
-    internal class CollectionValidityDependency : IDependency<IEnumerable<IResolutionContext>>
+    internal class ContextualDependency : IDependency<IEnumerable<IResolutionContext>>
     {
-        public CollectionValidityDependency(IToken token)
+        public ContextualDependency(IToken token, DependencyType dependencyType)
         {
             Token = token;
+            Type = dependencyType;
         }
 
         public bool TryGetValue(IResolutionContext context, out IEnumerable<IResolutionContext> value)
         {
-            value = context.Node.Resolver.ResolveCollection(Token, context).Distinct();
+            value = context.Node.Resolver.GetAllItems(Token, context);
             return true;
         }
         public IToken Token { get; }
-        public DependencyType Type => DependencyType.CollectionValidity;
+        public DependencyType Type { get; }
     }
 }
 

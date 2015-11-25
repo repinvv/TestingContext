@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementation\Dependencies\CollectionValidityDependency.cs" />
+    <Compile Include="Implementation\Dependencies\ContextualDependency.cs" />
     <Compile Include="Implementation\Dependencies\NonGenericDependency.cs" />
     <Compile Include="Implementation\Filters\AndGroup.cs" />
     <Compile Include="Implementation\Filters\Filter1.cs" />

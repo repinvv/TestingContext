@@ -13,6 +13,7 @@
             new Insurance // should be skipped by tests
             {
                 Id = 1,
+                Name = "should be skipped by all tests, due to year check, except @limitationRemoval1",
                 Created = new DateTime(2004, 1, 2)
             },
             new Insurance // for @simpleEvaluation1 and @notFoundLogging2

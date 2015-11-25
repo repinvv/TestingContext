@@ -44,5 +44,11 @@
             Assert.IsTrue(list.All(name => result.Count(insurance => insurance.Value.Name.Contains(name)) == 1));
             Assert.AreEqual(list.Count, result.Count());
         }
+
+        [Then(@"insurances(?:\s)?(.*) count must be equal to insurances(?:\s)?(.*) count")]
+        public void ThenInsurancesCountMustBeEqualToInsurancesCount(string key1, string key2)
+        {
+            Assert.AreEqual(context.All<Insurance>(key2).Count(), context.All<Insurance>(key1).Count());
+        }
     }
 }

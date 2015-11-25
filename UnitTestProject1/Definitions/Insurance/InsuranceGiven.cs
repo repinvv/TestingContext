@@ -1,5 +1,6 @@
 ﻿namespace UnitTestProject1.Definitions.Insurance
 {
+    using System.Linq;
     using TechTalk.SpecFlow;
     using TestingContextCore.Interfaces;
     using UnitTestProject1.Entities;
@@ -57,5 +58,6 @@
                        x.InsuranceHasDependentAssignment(key);
                        x.InsuranceHasFederalTax(key);
                    });
-        }}
+        }
+    }
 }

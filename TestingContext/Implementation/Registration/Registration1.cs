@@ -95,7 +95,7 @@
             var token = new Token<T2>();
             var provider = new Provider<T1, T2>(dependency, srcFunc);
             store.RegisterProvider(provider, token);
-            var cv = new CollectionValidityDependency(token);
+            var cv = new ContextualDependency(token, DependencyType.CollectionValidity);
             var diagInfo = new DiagInfo(file, line, member, filterExpr);
             var filter = new Filter1<IEnumerable<IResolutionContext>>(cv, filterExpr.Compile(), diagInfo, absorber);
             store.RegisterFilter(filter, group);

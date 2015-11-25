@@ -16,10 +16,10 @@
         private readonly Dictionary<IToken, List<INode>> nodeChains = new Dictionary<IToken, List<INode>>();
         private readonly Dictionary<IToken, IToken> closestParents = new Dictionary<IToken, IToken>();
         private readonly Dictionary<IToken, IToken> closestSourceParents = new Dictionary<IToken, IToken>();
-        private INode node;
+        private readonly INode node;
 
         private readonly Dictionary<IToken, Resolve> resolvers = new Dictionary<IToken, Resolve>();
-        //private readonly Dictionary<IToken, Resolve> cvResolvers = new Dictionary<IToken, Resolve>();
+        private readonly Dictionary<IToken, Resolve> fitResolvers = new Dictionary<IToken, Resolve>();
 
         public NodeResolver(Tree tree, INode node)
         {
@@ -27,7 +27,20 @@
             this.node = node;
         }
 
-        private Resolve GetResolver(IToken token)
+        public IEnumerable<IResolutionContext> GetFitItems(IToken token, IResolutionContext context)
+        {
+            var resolver = fitResolvers.GetOrAdd(token, () => GetFitResolver(token));
+            return resolver(token, context);
+        }
+
+        public IEnumerable<IResolutionContext> GetAllItems(IToken token, IResolutionContext context)
+        {
+            var resolver = resolvers.GetOrAdd(token, () => GetAllResolver(token));
+            return resolver(token, context);
+        }
+
+        #region cached get implementers
+        private Resolve GetAllResolver(IToken token)
         {
             var resolveNode = tree.GetNode(token);
             if (resolveNode.IsChildOf(node))
@@ -41,15 +54,35 @@
             }
 
             var chain = node.GetSourceChain();
-            return chain.Contains(resolveNode)
-                ? (Resolve)ResolveSingleParent
-                : ResolveSameBranch;
+            return chain.Contains(resolveNode) ? (Resolve)ResolveSingleParent : ResolveSameBranch;
         }
 
-        public IEnumerable<IResolutionContext> ResolveCollection(IToken token, IResolutionContext context)
+        private Resolve GetFitResolver(IToken token)
         {
-            var resolver = resolvers.GetOrAdd(token, () => GetResolver(token));
-            return resolver(token, context);
+            var resolveNode = tree.GetNode(token);
+            if (resolveNode.IsChildOf(node))
+            {
+                return GetFitMethod(ResolveDown);
+            }
+
+            if (!node.IsChildOf(resolveNode))
+            {
+                return GetFitMethod(ResolveOtherBranch);
+            }
+
+            var chain = node.GetSourceChain();
+            return chain.Contains(resolveNode) ? (Resolve)ResolveSingleParent : GetFitMethod(ResolveSameBranch);
+        }
+
+        private Resolve GetFitMethod(Resolve input)
+        {
+            return (x, y) => input(x, y).Where(rc => rc.MeetsConditions).Distinct();
+        }
+        #endregion
+        #region resolvers
+        private IEnumerable<IResolutionContext> ResolveSingleParent(IToken token, IResolutionContext context)
+        {
+            return new[] { context.ResolveSingle(token) };
         }
 
         private IEnumerable<IResolutionContext> ResolveDown(IToken token, IResolutionContext context)
@@ -63,26 +96,16 @@
             var parent = closestParents.GetOrAdd(token, () => GetClosestParent(token));
             return context.ResolveFromClosestParent(token, parent);
         }
-
-        private IEnumerable<IResolutionContext> ResolveSingleParent(IToken token, IResolutionContext context)
-        {
-            return new[] { context.ResolveSingle(token) };
-        }
-
+        
         private IEnumerable<IResolutionContext> ResolveSameBranch(IToken token, IResolutionContext context)
         {
             var parent = closestSourceParents.GetOrAdd(token, () => GetClosestSourceParent(token));
             var all = context.ResolveFromClosestParent(token, parent);
-            foreach (var resolutionContext in all)
-            {
-                var childItems = resolutionContext.GetFromTree(node.Token);
-                if (childItems.Contains(context))
-                {
-                    yield return resolutionContext;
-                }
-            }
+            return all.Where(resolutionContext => resolutionContext.GetFromTree(node.Token).Contains(context));
         }
+        #endregion
 
+        #region common methods
         private IToken GetClosestParent(IToken token)
         {
             var chain = tree.GetNode(token).GetParentalChain();
@@ -103,5 +126,6 @@
         {
             return nodeChains.GetOrAdd(token, () => tree.GetNode(token).GetParentalChain());
         }
+        #endregion
     }
 }

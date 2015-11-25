@@ -68,6 +68,11 @@
     <Compile Include="Entities\AssignmentType.cs" />
     <Compile Include="Entities\Assignment.cs" />
     <Compile Include="Entities\Insurance.cs" />
+    <Compile Include="Features\RemoveLimitations.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RemoveLimitations.feature</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Tax.cs" />
     <Compile Include="Entities\TaxType.cs" />
     <Compile Include="Features\BreakSomething.feature.cs">
@@ -115,6 +120,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Features\RemoveLimitations.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>RemoveLimitations.feature.cs</LastGenOutput>
+    </None>
     <None Include="Features\BreakSomething.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>BreakSomething.feature.cs</LastGenOutput>

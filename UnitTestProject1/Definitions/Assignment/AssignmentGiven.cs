@@ -95,5 +95,14 @@
                    .ForCollection(c => c.GetToken<Assignment>(key2))
                    .IsTrue((assignments1, assignments2) => assignments1.Sum(x => x.HeadCount) >= assignments2.Sum(x => x.HeadCount));
         }
+
+        [Given(@"assignment(?:\s)?(.*) has one item in insurances(?:\s)?(.*). Do not pay any attention to how dumb it sounds")]
+        public void GivenAssignmentHasSomePoliciesSoNotPayAnyAttentionToHowDumbItSounds(string assignmentKey, string insuranceKey)
+        {
+            context.Register()
+                   .For<Assignment>(assignmentKey)
+                   .ForCollection<Insurance>(insuranceKey)
+                   .IsTrue((assignment, insurances) => insurances.Count() == 1);
+        }
     }
 }

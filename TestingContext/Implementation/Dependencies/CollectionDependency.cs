@@ -18,8 +18,7 @@
 
         public IEnumerable<TItem> GetValue(IResolutionContext context)
         {
-            return context.GetFromTree(Token)
-                           .Distinct()
+            return context.Node.Resolver.GetFitItems(Token, context)
                            .Cast<IResolutionContext<TItem>>()
                            .Select(x => x.Value);
         }
