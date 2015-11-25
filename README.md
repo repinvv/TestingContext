@@ -1,6 +1,9 @@
 # TestingContext
 A tool for advanced data search, designed to be used with SpecFlow.
 
+[![Build status](https://ci.appveyor.com/api/projects/status/djkjftd0k7hofxpy?svg=true)](https://ci.appveyor.com/project/repinvv/testingcontext)
+
+
 # Historical reasons
 <h3>Classic approach</h3>
 Most of the time, when you test something, it makes sense to create test data for your testcase. Here is the example of how it usually works. You write a SpecFlow scenario like this

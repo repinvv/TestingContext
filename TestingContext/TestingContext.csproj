@@ -105,7 +105,6 @@
     <Compile Include="Interfaces\IResolutionContext.cs" />
     <Compile Include="Interfaces\Tokens\ITokenGen.cs" />
     <Compile Include="PublicMembers\Storage.cs" />
-    <Compile Include="PublicMembers\Exceptions\StorageException.cs" />
     <Compile Include="PublicMembers\DiagInfo.cs" />
     <Compile Include="Interfaces\InterfaceExtensions.cs" />
     <Compile Include="Interfaces\IFailure.cs" />

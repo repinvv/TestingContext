@@ -14,20 +14,12 @@
         }
 
         public T Get<T>(string key = null)
+            where T : class
         {
             object value;
             var definition = Definition.Define<T>(key);
-            if (!store.TryGetValue(definition, out value))
-            {
-                throw new StorageException($"Value for {definition} is not present in the storage.");
-            }
-
-            if (!(value is T))
-            {
-                throw new StorageException($"Value, stored for {definition} has wrong type.");
-            }
-
-            return (T)value;
+            store.TryGetValue(definition, out value);
+            return value as T;
         }
     }
 }
