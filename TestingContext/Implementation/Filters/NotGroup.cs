@@ -17,6 +17,12 @@
             DiagInfo = diagInfo;
         }
 
+        public NotGroup(IFilter inner, DiagInfo diagInfo)
+        {
+            DiagInfo = diagInfo;
+            Filters.Add(inner);
+        }
+
         public List<IFilter> Filters { get; } = new List<IFilter>();
 
         #region IFilter

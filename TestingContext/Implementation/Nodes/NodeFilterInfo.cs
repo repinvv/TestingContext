@@ -9,7 +9,7 @@
         {
             var and = new AndGroup();
             Group = and;
-            ItemFilter = inversionInfo == null ? (IFilter)and : new Inverter(and, inversionInfo);
+            ItemFilter = inversionInfo == null ? (IFilter)and : new NotGroup(and, inversionInfo);
         }
 
         public IFilter ItemFilter { get; }

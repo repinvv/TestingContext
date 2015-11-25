@@ -52,7 +52,7 @@
             var inversionDiag = filter.IsCvFilter()
                 ? store.CollectionInversions.SafeGet(filter.Dependencies.First().Token)
                 : store.FilterInversions.SafeGet(filter.Token);
-            filters.Add(inversionDiag == null ? filter : new Inverter(filter, inversionDiag));
+            filters.Add(inversionDiag != null ? new NotGroup(filter, inversionDiag) : filter);
         }
     }
 }
