@@ -98,8 +98,8 @@
     <Compile Include="Implementation\Resolution\IResolutionContext.cs" />
     <Compile Include="Implementation\Root.cs" />
     <Compile Include="Implementation\Tokens\Token.cs" />
+    <Compile Include="Implementation\Tokens\HaveFilterToken.cs" />
     <Compile Include="Implementation\Tokens\HaveToken.cs" />
-    <Compile Include="Implementation\Tokens\HaveTokenGen.cs" />
     <Compile Include="Implementation\Tokens\TokenGen.cs" />
     <Compile Include="Interfaces\IResolutionContext.cs" />
     <Compile Include="Interfaces\Tokens\ITokenGen.cs" />

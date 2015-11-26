@@ -68,5 +68,13 @@
             context.Register().ForCollection<Tax>(key)
                    .IsTrue(taxes => taxes.Sum(x => x.Amount) == amount);
         }
+
+        [Given(@"all taxes(?:\s)?(.*) in insurance(?:\s)?(.*) meet following criteria")]
+        public void GivenAllTaxesInInsuranceMeetFollowingCriteria(string insuranceKey, string taxKey)
+        {
+            context.Register()
+                   .For<Insurance>(insuranceKey)
+                   .Each<Tax>(x => x.Taxes, taxKey);
+        }
     }
 }

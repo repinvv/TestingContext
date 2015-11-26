@@ -22,6 +22,6 @@
         }
 
         public IToken Token => token.Value;
-        public DependencyType Type => DependencyType.Single;
+        public DependencyType Type => DependencyType.Item;
     }
 }

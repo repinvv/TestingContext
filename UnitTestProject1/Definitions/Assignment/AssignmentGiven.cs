@@ -104,5 +104,13 @@
                    .ForCollection<Insurance>(insuranceKey)
                    .IsTrue((assignment, insurances) => insurances.Count() == 1);
         }
+
+        [Given(@"all assignments(?:\s)?(.*) in insurance(?:\s)?(.*) meet following criteria")]
+        public void GivenAllAssignmentsInInsuranceMeetFollowingCriteria(string assignmentKey, string insuranceKey)
+        {
+            context.Register()
+                   .For<Insurance>(insuranceKey)
+                   .Each<Assignment>(x => x.Assignments, assignmentKey);
+        }
     }
 }

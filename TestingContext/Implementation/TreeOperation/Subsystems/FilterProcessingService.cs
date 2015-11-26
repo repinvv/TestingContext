@@ -38,7 +38,7 @@
         private static bool DependencyIsAbsorbed(IDependency dependency, INode cvNode, Tree tree)
         {
             var node = dependency.GetDependencyNode(tree);
-            return (node == cvNode && dependency.Type != DependencyType.CollectionValidity)
+            return (node == cvNode && dependency.Type != DependencyType.Parent)
                    || node.IsChildOf(cvNode);
         }
 

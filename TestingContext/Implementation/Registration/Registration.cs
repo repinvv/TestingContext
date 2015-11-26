@@ -44,7 +44,7 @@
             var notGroup = new NotGroup(new DiagInfo(file, line, member));
             store.RegisterFilter(notGroup, group);
             RegisterSubgroup(action, notGroup);
-            return new HaveToken(notGroup.Token, store);
+            return new HaveFilterToken(notGroup.Token, store);
         }
 
         public IHaveFilterToken Or(Action<IRegister> action,
@@ -63,7 +63,7 @@
             RegisterSubgroup(action3, orGroup);
             RegisterSubgroup(action4, orGroup);
             RegisterSubgroup(action5, orGroup);
-            return new HaveToken(orGroup.Token, store);
+            return new HaveFilterToken(orGroup.Token, store);
         }
 
         public IHaveFilterToken Xor(Action<IRegister> action, Action<IRegister> action2, string file = "", int line = 0, string member = "")
@@ -72,7 +72,7 @@
             store.RegisterFilter(xorGroup, group);
             RegisterSubgroup(action, xorGroup);
             RegisterSubgroup(action2, xorGroup);
-            return new HaveToken(xorGroup.Token, store);
+            return new HaveFilterToken(xorGroup.Token, store);
         }
 
         public IFor<T> For<T>(Func<ITestingContext, IToken<T>> getToken)
@@ -121,7 +121,7 @@
             var rootDependency = new SingleDependency<Root>(new LazyToken<Root>(() => store.RootToken));
             var provider = new Provider<Root, T>(rootDependency, x => srcFunc());
             store.RegisterProvider(provider, token);
-            var cv = new ContextualDependency(token, DependencyType.CollectionValidity);
+            var cv = new ContextualDependency(token, DependencyType.Parent);
             var diagInfo = new DiagInfo(file, line, member);
             var filter = new Filter1<IEnumerable<IResolutionContext>>(cv, expr.Compile(), diagInfo, absorber);
             store.RegisterFilter(filter, @group);

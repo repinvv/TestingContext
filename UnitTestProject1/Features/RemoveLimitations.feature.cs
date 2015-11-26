@@ -82,18 +82,44 @@ this.ScenarioSetup(scenarioInfo);
 #line 7
  testRunner.Given("insurance B is taken from insurancesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
- testRunner.And("for insurance B exists an assignment B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("for insurance B exists an assignment B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 9
- testRunner.And("assignment B has one item in insurances B. Do not pay any attention to how dumb i" +
+   testRunner.And("assignment B has one item in insurances B. Do not pay any attention to how dumb i" +
                     "t sounds", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10
- testRunner.And("insurance C is taken from insurancesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("insurance C is taken from insurancesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
- testRunner.And("for insurance C exists an assignment C", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("for insurance C exists an assignment C", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 12
  testRunner.Then("insurance B must exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 13
- testRunner.And("insurances B count must be equal to insurances C count", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("insurances B count must be equal to insurances C count", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("\"Each\" filter in scenario with tree reordering")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "RemoveLimitations")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("limitationRemoval2")]
+        public virtual void EachFilterInScenarioWithTreeReordering()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("\"Each\" filter in scenario with tree reordering", new string[] {
+                        "limitationRemoval2"});
+#line 16
+this.ScenarioSetup(scenarioInfo);
+#line 17
+   testRunner.Given("insurance B is taken from insurancesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 18
+     testRunner.And("insurance B is created in year 2018", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 19
+  testRunner.And("all assignments B in insurance B meet following criteria", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 20
+  testRunner.And("all taxes B in insurance B meet following criteria", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 21
+  testRunner.And("assignment B is created at the same day as tax B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 22
+   testRunner.Then("insurance B name must contain \' @limitationRemoval2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

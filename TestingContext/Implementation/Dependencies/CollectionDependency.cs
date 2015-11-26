@@ -31,6 +31,6 @@
 
         public IToken Token => token.Value;
 
-        public DependencyType Type => DependencyType.Collection;
+        public DependencyType Type => DependencyType.SourceParent;
     }
 }

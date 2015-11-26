@@ -10,15 +10,14 @@
 
         public void Set<T>(T value, string key = null)
         {
-            store.Add(Definition.Define<T>(key), value);
+            store[Definition.Define<T>(key)] = value;
         }
 
         public T Get<T>(string key = null)
             where T : class
         {
             object value;
-            var definition = Definition.Define<T>(key);
-            store.TryGetValue(definition, out value);
+            store.TryGetValue(Definition.Define<T>(key), out value);
             return value as T;
         }
     }

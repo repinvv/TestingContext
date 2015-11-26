@@ -18,6 +18,6 @@
 
         public IToken Token { get; }
 
-        public DependencyType Type => DependencyType.Single;
+        public DependencyType Type => DependencyType.Item;
     }
 }

@@ -10,7 +10,7 @@
         public static bool IsCvFilter(this IFilter filter)
         {
             var dependencies = filter.Dependencies.ToArray();
-            return dependencies.Length == 1 && dependencies[0].Type == DependencyType.CollectionValidity;
+            return dependencies.Length == 1 && dependencies[0].Type == DependencyType.Parent;
         }
 
         public static INode GetDependencyNode(this IDependency dependency, Tree tree)
@@ -18,11 +18,11 @@
             var node = tree.GetNode(dependency.Token);
             switch (dependency.Type)
             {
-                case DependencyType.CollectionValidity:
+                case DependencyType.Parent:
                     return node.Parent;
-                case DependencyType.Collection:
+                case DependencyType.SourceParent:
                     return node.SourceParent;
-                case DependencyType.Single:
+                case DependencyType.Item:
                     return node;
             }
 
