@@ -400,20 +400,56 @@
             new Insurance
             {
                 Id = 30,
-                Name = "matching insurance for @limitationRemoval2",
+                Name = "not matching insurance for limitation Removal 2 1",
                 Created = new DateTime(2018, 1, 2),
                 MaximumDependents = 0,
                 Assignments = new List<Assignment>
                               {
                                   new Assignment { Id = 43, Type = Dependent, HeadCount = 1, Created = new DateTime(2012, 2, 3) },
                                   new Assignment { Id = 44, Type = Dependent, HeadCount = 1, Created = new DateTime(2012, 2, 4) },
-                                  new Assignment { Id = 45, Type = Dependent, HeadCount = 1, Created = new DateTime(2012, 2, 5) }
                               },
                 Taxes = new List<Tax>
                         {
                             new Tax { Id = 31, Type = Local, Amount = 1, Created = new DateTime(2012, 2, 3) },
                             new Tax { Id = 32, Type = Local, Amount = 1, Created = new DateTime(2012, 2, 4) },
                             new Tax { Id = 33, Type = Local, Amount = 1, Created = new DateTime(2012, 2, 5) },
+                        }
+            },
+            new Insurance
+            {
+                Id = 31,
+                Name = "not matching insurance for limitation Removal 2 2",
+                Created = new DateTime(2018, 1, 2),
+                MaximumDependents = 0,
+                Assignments = new List<Assignment>
+                              {
+                                  new Assignment { Id = 45, Type = Dependent, HeadCount = 1, Created = new DateTime(2012, 2, 3) },
+                                  new Assignment { Id = 46, Type = Dependent, HeadCount = 1, Created = new DateTime(2012, 2, 4) },
+                                  new Assignment { Id = 47, Type = Dependent, HeadCount = 1, Created = new DateTime(2012, 2, 5) }
+                              },
+                Taxes = new List<Tax>
+                        {
+                            new Tax { Id = 34, Type = Local, Amount = 1, Created = new DateTime(2012, 2, 3) },
+                            new Tax { Id = 35, Type = Local, Amount = 1, Created = new DateTime(2012, 2, 4) },
+                        }
+            },
+            new Insurance
+            {
+                Id = 32,
+                Name = "matching insurance for @limitationRemoval2",
+                Created = new DateTime(2018, 1, 2),
+                MaximumDependents = 0,
+                Assignments = new List<Assignment>
+                              {
+                                  new Assignment { Id = 48, Type = Dependent, HeadCount = 1, Created = new DateTime(2012, 2, 3) },
+                                  new Assignment { Id = 49, Type = Dependent, HeadCount = 1, Created = new DateTime(2012, 2, 4) },
+                                  new Assignment { Id = 50, Type = Dependent, HeadCount = 1, Created = new DateTime(2012, 2, 5) }
+                              },
+                Taxes = new List<Tax>
+                        {
+                            new Tax { Id = 36, Type = Local, Amount = 1, Created = new DateTime(2012, 2, 3) },
+                            new Tax { Id = 37, Type = Local, Amount = 1, Created = new DateTime(2012, 2, 4) },
+                            new Tax { Id = 38, Type = Local, Amount = 1, Created = new DateTime(2012, 2, 5) },
                         }
             },
         };
