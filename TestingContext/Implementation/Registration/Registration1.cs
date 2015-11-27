@@ -14,7 +14,7 @@
     using TestingContextCore.PublicMembers;
     using static TestingContextCore.Implementation.Dependencies.DependencyType;
 
-    internal class Registration1<T1> : IFor<T1>
+    internal class Registration1<T1> : IExtendedFor<T1>
     {
         private readonly IDependency<T1> dependency;
         private readonly TokenStore store;
@@ -35,21 +35,21 @@
             return new HaveFilterToken(filter.Token, store);
         }
 
-        public IFor<T1, T2> For<T2>(Func<ITestingContext, IToken<T2>> getToken)
+        public IExtendedFor<T1, T2> For<T2>(Func<ITestingContext, IToken<T2>> getToken)
         {
             var dependency2 = new SingleDependency<T2>(new LazyToken<T2>(() => getToken(store.Context)) );
             return new Registration2<T1, T2>(store, dependency, dependency2, group);
         }
 
-        public IFor<T1, IEnumerable<T2>> ForCollection<T2>(Func<ITestingContext, IToken<T2>> getToken)
+        public IExtendedFor<T1, IEnumerable<T2>> ForCollection<T2>(Func<ITestingContext, IToken<T2>> getToken)
         {
             var dependency2 = new CollectionDependency<T2>(new LazyToken<T2>(() => getToken(store.Context)));
             return new Registration2<T1, IEnumerable<T2>>(store, dependency, dependency2, group);
         }
 
         #region unnamed
-        public IFor<T1, T2> For<T2>(IHaveToken<T2> haveToken) => For(x => haveToken.Token);
-        public IFor<T1, IEnumerable<T2>> ForCollection<T2>(IHaveToken<T2> haveToken) => ForCollection(x => haveToken.Token);
+        public IExtendedFor<T1, T2> For<T2>(IHaveToken<T2> haveToken) => For(x => haveToken.Token);
+        public IExtendedFor<T1, IEnumerable<T2>> ForCollection<T2>(IHaveToken<T2> haveToken) => ForCollection(x => haveToken.Token);
         public IHaveToken<T2> Exists<T2>(Func<T1, IEnumerable<T2>> srcFunc, int line, string file, string member) 
             => CreateDefinition(srcFunc, x => x.Any(y => y.MeetsConditions), Parent, file, line, member);
         public IHaveToken<T2> DoesNotExist<T2>(Func<T1, IEnumerable<T2>> srcFunc, int line, string file, string member) 
@@ -73,8 +73,8 @@
         #endregion
 
         #region named
-        public IFor<T1, T2> For<T2>(string name) => For(x => x.GetToken<T2>(name));
-        public IFor<T1, IEnumerable<T2>> ForCollection<T2>(string name) => ForCollection(x => x.GetToken<T2>(name));
+        public IExtendedFor<T1, T2> For<T2>(string name) => For(x => x.GetToken<T2>(name));
+        public IExtendedFor<T1, IEnumerable<T2>> ForCollection<T2>(string name) => ForCollection(x => x.GetToken<T2>(name));
         public void Exists<T2>(Func<T1, IEnumerable<T2>> srcFunc, string name, int line, string file, string member)
             => Exists(srcFunc, line, file, member).SaveAs(name);
         public void DoesNotExist<T2>(Func<T1, IEnumerable<T2>> srcFunc, string name, int line, string file, string member) 

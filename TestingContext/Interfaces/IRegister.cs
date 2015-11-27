@@ -27,12 +27,12 @@
             [CallerLineNumber] int line = 0,
             [CallerMemberName] string member = "");
 
-        IFor<T> For<T>(Func<ITestingContext, IToken<T>> getToken);
-        IFor<IEnumerable<T>> ForCollection<T>(Func<ITestingContext, IToken<T>> getToken);
+        IExtendedFor<T> For<T>(Func<ITestingContext, IToken<T>> getToken);
+        IExtendedFor<IEnumerable<T>> ForCollection<T>(Func<ITestingContext, IToken<T>> getToken);
 
         #region unnamed
-        IFor<T> For<T>(IHaveToken<T> haveToken);
-        IFor<IEnumerable<T>> ForCollection<T>(IHaveToken<T> haveToken);
+        IExtendedFor<T> For<T>(IHaveToken<T> haveToken);
+        IExtendedFor<IEnumerable<T>> ForCollection<T>(IHaveToken<T> haveToken);
         IHaveToken<T> Exists<T>(Func<IEnumerable<T>> srcFunc,
             [CallerLineNumber] int line = 0,
             [CallerFilePath] string file = "",
@@ -44,8 +44,8 @@
         #endregion
 
         #region named
-        IFor<T> For<T>(string name); 
-        IFor<IEnumerable<T>> ForCollection<T>(string name);
+        IExtendedFor<T> For<T>(string name); 
+        IExtendedFor<IEnumerable<T>> ForCollection<T>(string name);
         void Exists<T>(Func<IEnumerable<T>> srcFunc, 
             string name,
             [CallerLineNumber] int line = 0,

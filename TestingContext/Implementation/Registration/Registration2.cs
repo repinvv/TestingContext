@@ -14,7 +14,7 @@
     using TestingContextCore.PublicMembers;
     using static TestingContextCore.Implementation.Dependencies.DependencyType;
 
-    internal class Registration2<T1, T2> : IFor<T1, T2>
+    internal class Registration2<T1, T2> : IExtendedFor<T1, T2>
     {
         private readonly IDependency<T1> dependency1;
         private readonly IDependency<T2> dependency2;

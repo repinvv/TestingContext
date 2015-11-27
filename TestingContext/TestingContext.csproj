@@ -108,8 +108,8 @@
     <Compile Include="PublicMembers\DiagInfo.cs" />
     <Compile Include="Interfaces\InterfaceExtensions.cs" />
     <Compile Include="Interfaces\IFailure.cs" />
-    <Compile Include="Interfaces\IFor.cs" />
-    <Compile Include="Interfaces\IFor2.cs" />
+    <Compile Include="Interfaces\IExtendedFor.cs" />
+    <Compile Include="Interfaces\IExtendedFor2.cs" />
     <Compile Include="Interfaces\Tokens\IHaveFilterToken.cs" />
     <Compile Include="Interfaces\Tokens\IHaveToken.cs" />
     <Compile Include="Interfaces\IRegister.cs" />

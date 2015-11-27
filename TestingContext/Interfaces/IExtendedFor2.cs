@@ -6,7 +6,7 @@
     using System.Runtime.CompilerServices;
     using TestingContextCore.Interfaces.Tokens;
 
-    public interface IFor<T1, T2>
+    public interface IExtendedFor<T1, T2>
     {
         IHaveFilterToken IsTrue(Expression<Func<T1, T2, bool>> filter,
             [CallerFilePath] string file = "",
