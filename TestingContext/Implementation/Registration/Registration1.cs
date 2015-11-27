@@ -19,20 +19,18 @@
         private readonly IDependency<T1> dependency;
         private readonly TokenStore store;
         private readonly IFilterGroup group;
-        private readonly IFilter absorber;
 
-        public Registration1(TokenStore store, IDependency<T1> dependency, IFilterGroup group, IFilter absorber)
+        public Registration1(TokenStore store, IDependency<T1> dependency, IFilterGroup group)
         {
             this.dependency = dependency;
             this.store = store;
             this.group = group;
-            this.absorber = absorber;
         }
 
         public IHaveFilterToken IsTrue(Expression<Func<T1, bool>> filterFunc, string file = "", int line = 0, string member = "")
         {
-            var diagInfo = new DiagInfo(file, line, member, filterFunc);
-            var filter = new Filter1<T1>(dependency, filterFunc.Compile(), diagInfo, absorber);
+            var diagInfo = DiagInfo.Create(file, line, member, filterFunc);
+            var filter = new Filter1<T1>(dependency, filterFunc.Compile(), diagInfo, group);
             store.RegisterFilter(filter, group);
             return new HaveFilterToken(filter.Token, store);
         }
@@ -40,13 +38,13 @@
         public IFor<T1, T2> For<T2>(Func<ITestingContext, IToken<T2>> getToken)
         {
             var dependency2 = new SingleDependency<T2>(new LazyToken<T2>(() => getToken(store.Context)) );
-            return new Registration2<T1, T2>(store, dependency, dependency2, group, absorber);
+            return new Registration2<T1, T2>(store, dependency, dependency2, group);
         }
 
         public IFor<T1, IEnumerable<T2>> ForCollection<T2>(Func<ITestingContext, IToken<T2>> getToken)
         {
             var dependency2 = new CollectionDependency<T2>(new LazyToken<T2>(() => getToken(store.Context)));
-            return new Registration2<T1, IEnumerable<T2>>(store, dependency, dependency2, group, absorber);
+            return new Registration2<T1, IEnumerable<T2>>(store, dependency, dependency2, group);
         }
 
         #region unnamed
@@ -100,8 +98,8 @@
             var provider = new Provider<T1, T2>(dependency, srcFunc);
             store.RegisterProvider(provider, token);
             var cv = new ContextualDependency(token, contextualDependencyType);
-            var diagInfo = new DiagInfo(file, line, member, filterExpr);
-            var filter = new Filter1<IEnumerable<IResolutionContext>>(cv, filterExpr.Compile(), diagInfo, absorber);
+            var diagInfo = DiagInfo.Create(file, line, member, filterExpr);
+            var filter = new Filter1<IEnumerable<IResolutionContext>>(cv, filterExpr.Compile(), diagInfo, group);
             store.RegisterFilter(filter, group);
             return new HaveToken<T2>(token, store);
         }

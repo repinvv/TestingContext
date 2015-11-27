@@ -29,7 +29,7 @@
             store.Tree.NonEqualFilters.Add(tuple);
             var dep1 = new NonGenericDependency(node1.Token);
             var dep2 = new NonGenericDependency(node2.Token);
-            var dummyDiag = new DiagInfo(string.Empty, 0, $"Non-equal filter for {node1.Token} and {node2.Token}");
+            var dummyDiag = DiagInfo.Create(string.Empty, 0, $"Non-equal filter for {node1.Token} and {node2.Token}");
             var filter = new Filter2<IResolutionContext, IResolutionContext>(dep1, dep2, (x, y) => !x.Equals(y), dummyDiag, null);
             AssignFilter(store, filter);
         }

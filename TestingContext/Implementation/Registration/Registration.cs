@@ -17,13 +17,11 @@
     {
         private readonly TokenStore store;
         private readonly IFilterGroup group;
-        private readonly IFilter absorber;
 
-        public Registration(TokenStore store, IFilterGroup group = null, IFilter absorber = null)
+        public Registration(TokenStore store, IFilterGroup group = null)
         {
             this.store = store;
             this.group = group;
-            this.absorber = absorber;
         }
 
         private void RegisterSubgroup(Action<IRegister> action, IFilterGroup parentGroup)
@@ -33,15 +31,15 @@
                 return;
             }
 
-            var andGroup = new AndGroup();
+            var andGroup = new AndGroup(parentGroup);
             parentGroup.Filters.Add(andGroup);
-            action(new Registration(store, andGroup, absorber ?? parentGroup));
+            action(new Registration(store, andGroup));
         }
 
 
         public IHaveFilterToken Not(Action<IRegister> action, string file = "", int line = 0, string member = "")
         {
-            var notGroup = new NotGroup(new DiagInfo(file, line, member));
+            var notGroup = new NotGroup(DiagInfo.Create(file, line, member), group);
             store.RegisterFilter(notGroup, group);
             RegisterSubgroup(action, notGroup);
             return new HaveFilterToken(notGroup.Token, store);
@@ -56,7 +54,7 @@
             int line = 0,
             string member = "")
         {
-            var orGroup = new OrGroup(new DiagInfo(file, line, member));
+            var orGroup = new OrGroup(DiagInfo.Create(file, line, member), group);
             store.RegisterFilter(orGroup, group);
             RegisterSubgroup(action, orGroup);
             RegisterSubgroup(action2, orGroup);
@@ -68,7 +66,7 @@
 
         public IHaveFilterToken Xor(Action<IRegister> action, Action<IRegister> action2, string file = "", int line = 0, string member = "")
         {
-            var xorGroup = new XorGroup(new DiagInfo(file, line, member));
+            var xorGroup = new XorGroup(DiagInfo.Create(file, line, member), group);
             store.RegisterFilter(xorGroup, group);
             RegisterSubgroup(action, xorGroup);
             RegisterSubgroup(action2, xorGroup);
@@ -78,13 +76,13 @@
         public IFor<T> For<T>(Func<ITestingContext, IToken<T>> getToken)
         {
             var dependency = new SingleDependency<T>(new LazyToken<T>(() => getToken(store.Context)));
-            return new Registration1<T>(store, dependency, group, absorber);
+            return new Registration1<T>(store, dependency, group);
         }
 
         public IFor<IEnumerable<T>> ForCollection<T>(Func<ITestingContext, IToken<T>> getToken)
         {
             var dependency = new CollectionDependency<T>(new LazyToken<T>(() => getToken(store.Context)));
-            return new Registration1<IEnumerable<T>>(store, dependency, group, absorber);
+            return new Registration1<IEnumerable<T>>(store, dependency, group);
         }
 
         #region unnamed
@@ -122,9 +120,9 @@
             var provider = new Provider<Root, T>(rootDependency, x => srcFunc());
             store.RegisterProvider(provider, token);
             var cv = new ContextualDependency(token, DependencyType.Parent);
-            var diagInfo = new DiagInfo(file, line, member);
-            var filter = new Filter1<IEnumerable<IResolutionContext>>(cv, expr.Compile(), diagInfo, absorber);
-            store.RegisterFilter(filter, @group);
+            var diagInfo = DiagInfo.Create(file, line, member);
+            var filter = new Filter1<IEnumerable<IResolutionContext>>(cv, expr.Compile(), diagInfo, group);
+            store.RegisterFilter(filter, group);
             return new HaveToken<T>(token, store);
         }
     }

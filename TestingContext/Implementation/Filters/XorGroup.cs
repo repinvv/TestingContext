@@ -10,17 +10,9 @@
     using TestingContextCore.PublicMembers;
     using TestingContextCore.PublicMembers.Exceptions;
 
-    internal class XorGroup : IFilterGroup
+    internal class XorGroup : BaseFilter, IFilterGroup
     {
-        public XorGroup(DiagInfo diagInfo)
-        {
-            DiagInfo = diagInfo;
-        }
-
-        public List<IFilter> Filters { get; } = new List<IFilter>();
-
-        #region IFilter
-        public IEnumerable<IDependency> Dependencies => Filters.SelectMany(x => x.Dependencies);
+        public XorGroup(DiagInfo diagInfo, IFilter absorber) : base(diagInfo, absorber) { }
 
         public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFailure failure)
         {
@@ -36,12 +28,11 @@
             return Filters[0].MeetsCondition(context, out innerWeight, out innerFailure) 
                 ^ Filters[1].MeetsCondition(context, out innerWeight, out innerFailure);
         }
-        #endregion
 
-        #region IFailure
+        public List<IFilter> Filters { get; } = new List<IFilter>();
+
+        public IEnumerable<IDependency> Dependencies => Filters.SelectMany(x => x.Dependencies);
+
         public IEnumerable<IToken> ForTokens => Dependencies.Select(x => x.Token);
-        public IFilterToken Token { get; } = new Token();
-        public DiagInfo DiagInfo { get; }
-        #endregion
     }
 }

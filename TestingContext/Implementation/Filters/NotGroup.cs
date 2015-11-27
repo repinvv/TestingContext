@@ -10,23 +10,14 @@
     using TestingContextCore.PublicMembers;
     using TestingContextCore.PublicMembers.Exceptions;
 
-    internal class NotGroup : IFilterGroup
+    internal class NotGroup : BaseFilter, IFilterGroup
     {
-        public NotGroup(DiagInfo diagInfo)
-        {
-            DiagInfo = diagInfo;
-        }
+        public NotGroup(DiagInfo diagInfo, IFilter absorber) : base(diagInfo, absorber) { }
 
-        public NotGroup(IFilter inner, DiagInfo diagInfo)
+        public NotGroup(IFilter inner, DiagInfo diagInfo, IFilter absorber = null) : base(diagInfo, absorber)
         {
-            DiagInfo = diagInfo;
             Filters.Add(inner);
         }
-
-        public List<IFilter> Filters { get; } = new List<IFilter>();
-
-        #region IFilter
-        public IEnumerable<IDependency> Dependencies => Filters.SelectMany(x => x.Dependencies);
 
         public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFailure failure)
         {
@@ -41,12 +32,11 @@
             int[] innerWeight;
             return !Filters[0].MeetsCondition(context, out innerWeight, out innerFailure);
         }
-        #endregion
 
-        #region IFailure
+        public List<IFilter> Filters { get; } = new List<IFilter>();
+
+        public IEnumerable<IDependency> Dependencies => Filters.SelectMany(x => x.Dependencies);
+
         public IEnumerable<IToken> ForTokens => Dependencies.Select(x => x.Token);
-        public IFilterToken Token { get; } = new Token();
-        public DiagInfo DiagInfo { get; }
-        #endregion
     }
 }

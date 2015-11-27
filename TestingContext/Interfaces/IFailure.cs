@@ -6,6 +6,8 @@
 
     public interface IFailure
     {
+        IFailure Absorber { get; }
+
         IEnumerable<IToken> ForTokens { get; }
 
         IFilterToken Token { get; }

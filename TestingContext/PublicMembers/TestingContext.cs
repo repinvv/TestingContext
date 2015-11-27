@@ -40,12 +40,28 @@
 
             var collect = new FailureCollect();
             GetTree(store).RootContext.ReportFailure(collect, new int[0]);
-            return collect.Failure;
+            var failure = collect.Failure;
+            while (failure?.Absorber != null)
+            {
+                failure = failure.Absorber;
+            }
+
+            return failure;
         }
 
         public IEnumerable<IResolutionContext<T>> BestCandidates<T>(IToken<T> token, IFailure failure = null)
         {
-            var filterToken = ((failure ?? GetFailure()) as IFilter).Token;
+            if (FoundMatch())
+            {
+                return All(token);
+            }
+
+            var filterToken = ((failure ?? GetFailure()) as IFilter)?.Token;
+            if (filterToken == null)
+            {
+                throw new AlgorythmException("Failure is not found.");
+            }
+
             store.DisableFilter(filterToken);
             return GetTree(store).RootContext.GetFromTree(token).Cast<IResolutionContext<T>>();
         }
@@ -58,17 +74,17 @@
 
         public void InvertFilter(IFilterToken token, int line = 0, string file = "", string member = "")
         {
-            store.InvertFilter(token, new DiagInfo(file, line, member));
+            store.InvertFilter(token, DiagInfo.Create(file, line, member));
         }
 
         public void InvertCollectionValidity<T>(IToken<T> token, int line = 0, string file = "", string member = "")
         {
-            store.InvertCollectionValidity(token, new DiagInfo(file, line, member));
+            store.InvertCollectionValidity(token, DiagInfo.Create(file, line, member));
         }
 
         public void InvertItemValidity<T>(IToken<T> token, int line, string file, string member)
         {
-            store.InvertItemValidity(token, new DiagInfo(file, line, member));
+            store.InvertItemValidity(token, DiagInfo.Create(file, line, member));
         }
 
         public IToken<T> GetToken<T>(string name)

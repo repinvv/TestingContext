@@ -9,17 +9,9 @@
     using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.PublicMembers;
 
-    internal class OrGroup : IFilterGroup
+    internal class OrGroup : BaseFilter, IFilterGroup
     {
-        public OrGroup(DiagInfo diagInfo)
-        {
-            DiagInfo = diagInfo;
-        }
-
-        public List<IFilter> Filters { get; } = new List<IFilter>();
-
-        #region IFilter
-        public IEnumerable<IDependency> Dependencies => Filters.SelectMany(x => x.Dependencies);
+        public OrGroup(DiagInfo diagInfo, IFilter absorber) : base(diagInfo, absorber) { }
 
         public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFailure failure)
         {
@@ -37,12 +29,11 @@
 
             return false;
         }
-        #endregion
 
-        #region IFailure
+        public List<IFilter> Filters { get; } = new List<IFilter>();
+
+        public IEnumerable<IDependency> Dependencies => Filters.SelectMany(x => x.Dependencies);
+
         public IEnumerable<IToken> ForTokens => Dependencies.Select(x => x.Token);
-        public IFilterToken Token { get; } = new Token();
-        public DiagInfo DiagInfo { get; }
-        #endregion
     }
 }

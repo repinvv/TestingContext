@@ -10,12 +10,9 @@
     using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.PublicMembers;
 
-    internal class AndGroup : IFilterGroup
+    internal class AndGroup : BaseFilter, IFilterGroup
     {
-        public List<IFilter> Filters { get; } = new List<IFilter>();
-
-        #region IFilter
-        public IEnumerable<IDependency> Dependencies => Filters.SelectMany(x => x.Dependencies);
+        public AndGroup(IFilter absorber = null) : base(null, absorber) { }
 
         public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFailure failure)
         {
@@ -35,12 +32,11 @@
             failure = this;
             return true;
         }
-        #endregion
 
-        #region IFailure
+        public IEnumerable<IDependency> Dependencies => Filters.SelectMany(x => x.Dependencies);
+
+        public List<IFilter> Filters { get; } = new List<IFilter>();
+
         public IEnumerable<IToken> ForTokens => Dependencies.Select(x => x.Token);
-        public IFilterToken Token { get; } = new Token();
-        public DiagInfo DiagInfo => null;
-        #endregion
     }
 }
