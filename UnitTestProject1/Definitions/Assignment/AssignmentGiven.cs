@@ -20,7 +20,7 @@
         {
             context.Register()
                    .For<Assignment>(key)
-                   .IsTrue(assignment => assignment.HeadCount >= headCount);
+                   .IsTrue(assignmen => assignmen.HeadCount >= headCount);
         }
 
         [Given(@"assignment(?:\s)?(.*) has type '(.*)'")]
@@ -52,13 +52,13 @@
         {
             context.Register()
                    .For<Insurance>(insuranceKey)
-                   .Exists<Assignment>(insurance => insurance.Assignments, assignmentKey);
+                   .Exists<Assignment>(assignmentKey, insurance => insurance.Assignments);
         }
 
         [Given(@"there is no suitable assignment(?:\s)?(.*)")]
         public void GivenThereIsNoSuitableAssignment(string key)
         {
-            context.InvertCollectionValidity(context.GetToken<Assignment>(key));
+            context.Inversion.InvertCollectionValidity<Assignment>(key);
         }
 
         [Given(@"assignment(?:\s)?(.*) is created at the same day as assignment(?:\s)?(.*)")]
@@ -92,7 +92,7 @@
         {
             context.Register()
                    .ForCollection<Assignment>(key1)
-                   .ForCollection(c => c.GetToken<Assignment>(key2))
+                   .ForCollection<Assignment>(key2)
                    .IsTrue((assignments1, assignments2) => assignments1.Sum(x => x.HeadCount) >= assignments2.Sum(x => x.HeadCount));
         }
 
@@ -110,7 +110,7 @@
         {
             context.Register()
                    .For<Insurance>(insuranceKey)
-                   .Each<Assignment>(x => x.Assignments, assignmentKey);
+                   .Each<Assignment>(assignmentKey, x => x.Assignments);
         }
     }
 }

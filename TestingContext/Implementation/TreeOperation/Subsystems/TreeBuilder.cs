@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.Nodes;
-    using TestingContextCore.Implementation.Registration;
+    using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.PublicMembers.Exceptions;
     using TestingContextCore.UsefulExtensions;
@@ -27,7 +27,7 @@
 
                 foreach (var child in children.Where(child => child.Provider.Dependencies.All(x => assigned.Contains(x.Token))))
                 {
-                    ReorderNodes(store, child.Provider);
+                    ReorderNodes(store, child.Provider.Dependencies.ToArray(), child.Provider.CollectionValidityFilter);
                     var parent = FilterAssignmentService.GetAssignmentNode(store.Tree, child.Provider);
                     child.Parent = parent;
                     child.SourceParent = parent;

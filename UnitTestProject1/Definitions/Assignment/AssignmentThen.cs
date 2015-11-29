@@ -33,7 +33,7 @@
         {
             var assignment1 = context.All<Assignment>(key1).First(x => x.Value.Id == id);
             var assignments2Ids = assignment1
-                .Get(context.GetToken<Assignment>(key2))
+                .Get<Assignment>(key2)
                 .Select(x => x.Value.Id).ToArray();
             var sourceIds = ids.Split(',').Select(int.Parse).ToArray();
             CollectionAssert.AreEquivalent(sourceIds, assignments2Ids);

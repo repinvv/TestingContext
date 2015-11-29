@@ -1,4 +1,4 @@
-﻿namespace TestingContextCore.Implementation.Registration
+﻿namespace TestingContextCore.Implementation.Registrations
 {
     using System.Collections.Generic;
     using TestingContextCore.Implementation.Filters;
@@ -25,6 +25,8 @@
         public Dictionary<IToken, IProvider> Providers { get; } = new Dictionary<IToken, IProvider>();
 
         public List<IFilter> Filters { get; } = new List<IFilter>();
+
+        public HashSet<IFilter> CvFilters { get; } = new HashSet<IFilter>();
 
         public Tree Tree { get; set; }
 

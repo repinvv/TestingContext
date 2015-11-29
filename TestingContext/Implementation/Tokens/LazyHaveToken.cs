@@ -4,17 +4,17 @@
     using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.PublicMembers.Exceptions;
 
-    internal class LazyToken<T>
+    internal class LazyHaveToken<T> : IHaveToken<T>
     {
         private readonly Func<IToken<T>> tokenFunc;
         private IToken<T> token;
 
-        public LazyToken(Func<IToken<T>> tokenFunc)
+        public LazyHaveToken(Func<IToken<T>> tokenFunc)
         {
             this.tokenFunc = tokenFunc;
         }
 
-        public IToken<T> Value
+        public IToken<T> Token
         {
             get
             {

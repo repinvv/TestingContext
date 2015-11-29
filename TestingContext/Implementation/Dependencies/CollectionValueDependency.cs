@@ -7,13 +7,13 @@
     using TestingContextCore.Interfaces;
     using TestingContextCore.Interfaces.Tokens;
 
-    internal class CollectionDependency<TItem> : IDependency<IEnumerable<TItem>>
+    internal class CollectionValueDependency<TItem> : IDependency<IEnumerable<TItem>>
     {
-        private readonly LazyToken<TItem> token;
+        private readonly IHaveToken<TItem> haveToken;
 
-        public CollectionDependency(LazyToken<TItem> token)
+        public CollectionValueDependency(IHaveToken<TItem> haveToken)
         {
-            this.token = token;
+            this.haveToken = haveToken;
         }
 
         public IEnumerable<TItem> GetValue(IResolutionContext context)
@@ -29,8 +29,8 @@
             return true;
         }
 
-        public IToken Token => token.Value;
+        public IToken Token => haveToken.Token;
 
-        public DependencyType Type => DependencyType.SourceParent;
+        public DependencyType Type => DependencyType.Collection;
     }
 }

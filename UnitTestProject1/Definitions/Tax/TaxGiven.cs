@@ -20,7 +20,7 @@
         {
             context.Register()
                    .For<Insurance>(insuranceKey)
-                   .Exists<Tax>(insurance => insurance.Taxes, taxKey);
+                   .Exists<Tax>(taxKey, insurance => insurance.Taxes);
         }
 
         [Given(@"tax(?:\s)?(.*) amounts to at least (.*)\$")]
@@ -50,7 +50,7 @@
         [Given(@"there is no suitable tax(?:\s)?(.*)")]
         public void GivenThereIsNoSuitableTax(string key)
         {
-            context.InvertCollectionValidity<Tax>(key);
+            context.Inversion.InvertCollectionValidity<Tax>(key);
         }
 
         [Given(@"assignment(?:\s)?(.*) is created at the same day as tax(?:\s)?(.*)")]
@@ -74,7 +74,7 @@
         {
             context.Register()
                    .For<Insurance>(insuranceKey)
-                   .Each<Tax>(x => x.Taxes, taxKey);
+                   .Each<Tax>(taxKey, x => x.Taxes);
         }
     }
 }

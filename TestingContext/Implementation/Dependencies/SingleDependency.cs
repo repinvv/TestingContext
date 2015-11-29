@@ -1,27 +1,23 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
     using TestingContextCore.Implementation.Resolution;
-    using TestingContextCore.Implementation.Tokens;
-    using TestingContextCore.Interfaces;
     using TestingContextCore.Interfaces.Tokens;
 
-    internal class SingleDependency<TItem> : IDependency<TItem>
+    internal class SingleDependency : IDependency<IResolutionContext>
     {
-        private readonly LazyToken<TItem> token;
-
-        public SingleDependency(LazyToken<TItem> token)
+        public SingleDependency(IToken token)
         {
-            this.token = token;
+            Token = token;
         }
 
-        public bool TryGetValue(IResolutionContext context, out TItem value)
+        public bool TryGetValue(IResolutionContext context, out IResolutionContext value)
         {
-            var definedcontext = context.ResolveSingle(Token) as IResolutionContext<TItem>;
-            value = definedcontext.Value;
+            value = context.ResolveSingle(Token);
             return true;
         }
 
-        public IToken Token => token.Value;
-        public DependencyType Type => DependencyType.Item;
+        public IToken Token { get; }
+
+        public DependencyType Type => DependencyType.Single;
     }
 }

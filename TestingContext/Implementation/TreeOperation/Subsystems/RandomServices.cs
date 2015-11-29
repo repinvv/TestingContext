@@ -1,32 +1,23 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation.Subsystems
 {
-    using System.Linq;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
+    using TestingContextCore.Implementation.Registrations;
 
     internal static class RandomServices
     {
-        public static bool IsCvFilter(this IFilter filter)
+        public static bool IsCvFilter(this TokenStore store, IFilter filter)
         {
-            var dependencies = filter.Dependencies.ToArray();
-            return dependencies.Length == 1 && dependencies[0].Type == DependencyType.Parent;
+            return store.CvFilters.Contains(filter);
         }
 
         public static INode GetDependencyNode(this IDependency dependency, Tree tree)
         {
             var node = tree.GetNode(dependency.Token);
-            switch (dependency.Type)
-            {
-                case DependencyType.Parent:
-                    return node.Parent;
-                case DependencyType.SourceParent:
-                    return node.SourceParent;
-                case DependencyType.Item:
-                    return node;
-            }
-
-            return node;
+            return dependency.Type == DependencyType.Collection
+                ? node.SourceParent
+                : node;
         }
     }
 }

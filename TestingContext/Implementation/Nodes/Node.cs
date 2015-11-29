@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using TestingContextCore.Implementation.Providers;
-    using TestingContextCore.Implementation.Registration;
+    using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.TreeOperation;
     using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.UsefulExtensions;

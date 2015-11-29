@@ -2,10 +2,10 @@
 {
     using System.Linq;
     using TestingContextCore.Implementation.Nodes;
-    using TestingContextCore.Implementation.Registration;
+    using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
-    using static TestingContextCore.Implementation.TreeOperation.Subsystems.TreeBuilder;
-    using static TestingContextCore.Implementation.TreeOperation.Subsystems.FilterAssignmentService;
+    using static Subsystems.TreeBuilder;
+    using static Subsystems.FilterAssignmentService;
 
     internal static class TreeOperationService
     {
@@ -23,7 +23,7 @@
             tree.Nodes.Add(store.RootToken, tree.Root);
             BuildNodesTree(store, nodes);
             AssignFilters(store);
-            tree.RootContext = new ResolutionContext<Root>(Root.Instance, tree.Root, null);
+            tree.RootContext = new ResolutionContext<Root>(Root.Instance, tree.Root, null, store);
             return tree;
         }
     }

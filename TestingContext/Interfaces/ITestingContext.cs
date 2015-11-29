@@ -1,7 +1,8 @@
 ﻿namespace TestingContextCore.Interfaces
 {
     using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
+    using TestingContextCore.Interfaces.Inversion;
+    using TestingContextCore.Interfaces.Register;
     using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.PublicMembers;
 
@@ -12,39 +13,21 @@
         #endregion
 
         #region Given after background to break one
-        void InvertFilter(IFilterToken token,
-            [CallerLineNumber] int line = 0,
-            [CallerFilePath] string file = "",
-            [CallerMemberName] string member = "");
-
-        void InvertCollectionValidity<T>(IToken<T> token,
-            [CallerLineNumber] int line = 0,
-            [CallerFilePath] string file = "",
-            [CallerMemberName] string member = "");
-
-        void InvertItemValidity<T>(IToken<T> token,
-            [CallerLineNumber] int line = 0,
-            [CallerFilePath] string file = "",
-            [CallerMemberName] string member = "");
+        IInversion Inversion { get; }
         #endregion
-
 
         #region AfterScenarioBlock Given
         bool FoundMatch();
 
         IFailure GetFailure();
 
-        IEnumerable<IResolutionContext<T>> BestCandidates<T>(IToken<T> token, IFailure failure = null);
+        IEnumerable<IResolutionContext<T>> BestCandidates<T>(IToken<T> token, IFailure failure);
+        IEnumerable<IResolutionContext<T>> BestCandidates<T>(string name, IFailure failure);
         #endregion
 
         #region When and Then
         IEnumerable<IResolutionContext<T>> All<T>(IToken<T> token);
-        #endregion
-
-        #region Token storage
-        IToken<T> GetToken<T>(string name);
-
-        IFilterToken GetFilterToken(string name);
+        IEnumerable<IResolutionContext<T>> All<T>(string name);
         #endregion
 
         #region free storage

@@ -4,7 +4,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.Dependencies;
+    using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
+    using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.UsefulExtensions;
 
@@ -13,17 +15,25 @@
         private readonly IDependency<TSource1> dependency1;
         private readonly IDependency<TSource2> dependency2;
         private readonly Func<TSource1, TSource2, IEnumerable<T>> sourceFunc;
+        private readonly TokenStore store;
 
-        public Provider2(IDependency<TSource1> dependency1, IDependency<TSource2> dependency2,
-            Func<TSource1, TSource2, IEnumerable<T>> sourceFunc)
+        public Provider2(IDependency<TSource1> dependency1, 
+            IDependency<TSource2> dependency2,
+            Func<TSource1, TSource2, IEnumerable<T>> sourceFunc,
+            IFilter cvFilter,
+            TokenStore store)
         {
             this.dependency1 = dependency1;
             this.dependency2 = dependency2;
             this.sourceFunc = sourceFunc;
+            this.store = store;
+            CollectionValidityFilter = cvFilter;
             Dependencies = new IDependency[] { dependency1, dependency2 };
         }
 
         public IEnumerable<IDependency> Dependencies { get; }
+
+        public IFilter CollectionValidityFilter { get; }
 
         public IEnumerable<IResolutionContext> Resolve(IResolutionContext parentContext, INode node)
         {
@@ -37,7 +47,7 @@
 
             var source = sourceFunc(sourceValue1, sourceValue2) ?? Enumerable.Empty<T>();
             return source
-                .Select(x => new ResolutionContext<T>(x, node, parentContext))
+                .Select(x => new ResolutionContext<T>(x, node, parentContext, store))
                 .Cache();
         }
     }

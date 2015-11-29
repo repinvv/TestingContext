@@ -5,10 +5,8 @@
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Resolution;
-    using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.Interfaces;
     using TestingContextCore.Interfaces.Tokens;
-    using TestingContextCore.PublicMembers;
 
     internal class AndGroup : BaseFilter, IFilterGroup
     {

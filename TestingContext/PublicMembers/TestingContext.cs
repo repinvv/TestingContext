@@ -4,9 +4,10 @@
     using System.Linq;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Logging;
-    using TestingContextCore.Implementation.Registration;
-    using TestingContextCore.Implementation.TreeOperation;
+    using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Interfaces;
+    using TestingContextCore.Interfaces.Inversion;
+    using TestingContextCore.Interfaces.Register;
     using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.PublicMembers.Exceptions;
     using static Implementation.TreeOperation.TreeOperationService;
@@ -18,12 +19,15 @@
         public TestingContext()
         {
             store = new TokenStore(this);
+            Inversion = new Inversion(store);
         }
 
         public IRegister Register()
         {
-            return new Registration(store);
+            return RegistrationFactory.GetRegistration(store);
         }
+
+        public IInversion Inversion { get; }
 
         public bool FoundMatch()
         {
@@ -66,36 +70,16 @@
             return GetTree(store).RootContext.GetFromTree(token).Cast<IResolutionContext<T>>();
         }
 
+        public IEnumerable<IResolutionContext<T>> BestCandidates<T>(string name, IFailure failure)
+            => BestCandidates(store.GetToken<T>(name));
+
         public IEnumerable<IResolutionContext<T>> All<T>(IToken<T> token)
         {
             store.RemoveDisabledFilter();
             return GetTree(store).RootContext.GetFromTree(token).Cast<IResolutionContext<T>>();
         }
 
-        public void InvertFilter(IFilterToken token, int line = 0, string file = "", string member = "")
-        {
-            store.InvertFilter(token, DiagInfo.Create(file, line, member));
-        }
-
-        public void InvertCollectionValidity<T>(IToken<T> token, int line = 0, string file = "", string member = "")
-        {
-            store.InvertCollectionValidity(token, DiagInfo.Create(file, line, member));
-        }
-
-        public void InvertItemValidity<T>(IToken<T> token, int line, string file, string member)
-        {
-            store.InvertItemValidity(token, DiagInfo.Create(file, line, member));
-        }
-
-        public IToken<T> GetToken<T>(string name)
-        {
-            return store.Tokens.Get<IToken<T>>(name);
-        }
-
-        public IFilterToken GetFilterToken(string name)
-        {
-            return store.Tokens.Get<IFilterToken>(name);
-        }
+        public IEnumerable<IResolutionContext<T>> All<T>(string name) => All(store.GetToken<T>(name));
 
         public Storage Storage { get; } = new Storage();
     }

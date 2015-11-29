@@ -2,12 +2,11 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContextCore.Implementation;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.TreeOperation;
     using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.UsefulExtensions;
-    using static TestingContextCore.Implementation.TreeOperation.Subsystems.NodeClosestParentService;
+    using static TreeOperation.Subsystems.NodeClosestParentService;
 
     internal class NodeResolver
     {

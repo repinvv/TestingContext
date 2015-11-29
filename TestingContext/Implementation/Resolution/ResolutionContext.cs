@@ -5,6 +5,7 @@
     using System.Runtime.CompilerServices;
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Nodes;
+    using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Interfaces;
     using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.UsefulExtensions;
@@ -12,6 +13,7 @@
     internal class ResolutionContext<T> : IResolutionContext<T>, IResolutionContext
     {
         private readonly IResolutionContext parent;
+        private readonly TokenStore store;
         private readonly Dictionary<IToken, IEnumerable<IResolutionContext>> childResolutions 
             = new Dictionary<IToken, IEnumerable<IResolutionContext>>();
         private readonly int[] failureWeight;
@@ -19,11 +21,13 @@
 
         public ResolutionContext(T value,
             INode node,
-            IResolutionContext parent)
+            IResolutionContext parent,
+            TokenStore store)
         {
             Value = value;
             Node = node;
             this.parent = parent;
+            this.store = store;
             MeetsConditions = node.FilterInfo.ItemFilter.MeetsCondition(this, out failureWeight, out failure);
         }
 
@@ -38,6 +42,11 @@
             return GetFromTree(token)
                 .Distinct()
                 .Cast<IResolutionContext<TOther>>();
+        }
+
+        public IEnumerable<IResolutionContext<TOther>> Get<TOther>(string name)
+        {
+            return Get(store.GetToken<TOther>(name));
         }
 
         #region after cache methods

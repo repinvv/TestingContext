@@ -2,8 +2,7 @@
 {
     internal enum DependencyType
     {
-        Item,
-        SourceParent,
-        Parent
+        Single,
+        Collection
     }
 }

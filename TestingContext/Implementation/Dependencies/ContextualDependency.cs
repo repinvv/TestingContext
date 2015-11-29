@@ -1,16 +1,14 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
     using System.Collections.Generic;
-    using System.Linq;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Interfaces.Tokens;
 
-    internal class ContextualDependency : IDependency<IEnumerable<IResolutionContext>>
+    internal class CollectionDependency : IDependency<IEnumerable<IResolutionContext>>
     {
-        public ContextualDependency(IToken token, DependencyType dependencyType)
+        public CollectionDependency(IToken token)
         {
             Token = token;
-            Type = dependencyType;
         }
 
         public bool TryGetValue(IResolutionContext context, out IEnumerable<IResolutionContext> value)
@@ -19,7 +17,7 @@
             return true;
         }
         public IToken Token { get; }
-        public DependencyType Type { get; }
+        public DependencyType Type => DependencyType.Collection;
     }
 }
 

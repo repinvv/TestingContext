@@ -1,7 +1,5 @@
 ﻿namespace TestingContextCore.Implementation.Tokens
 {
-    using System;
-    using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Interfaces.Tokens;
 
     internal class Token : IFilterToken

@@ -1,13 +1,15 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation.Subsystems
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
-    using TestingContextCore.Implementation.Registration;
+    using TestingContextCore.Implementation.Registrations;
     using static FilterProcessingService;
     using static NodeReorderingService;
+    using static TestingContextCore.Implementation.Registrations.StoreExtension;
 
     internal static class FilterAssignmentService
     {
@@ -39,8 +41,15 @@
                 AddFilter(filter, freeFilters, store);
             }
 
-            freeFilters.ForEach(x => ReorderNodes(store, x));
+            freeFilters.ForEach(x => ReorderNodes(store, x.Dependencies.ToArray(), x));
             freeFilters.ForEach(x => AssignFilter(store, x));
+            store.Tree.ReorderedNodes.ForEach(x=>AssignExistsFilter(x.Item1, x.Item2));
+        }
+
+        private static void AssignExistsFilter(INode node, IFilter absorber)
+        {
+            var filter = CreateCvFilter(items => items.Any(x => x.MeetsConditions), node.Token, absorber, null);
+            node.Parent.FilterInfo.Group.Filters.Add(filter);
         }
     }
 }
