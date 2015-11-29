@@ -16,5 +16,10 @@
         public IFilterToken Token { get; } = new Token();
         public DiagInfo DiagInfo { get; }
         public IFailure Absorber { get; }
+
+        public override string ToString()
+        {
+            return GetType().Name;
+        }
     }
 }

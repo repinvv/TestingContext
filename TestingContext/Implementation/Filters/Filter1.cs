@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Interfaces;
@@ -36,5 +37,10 @@
 
         public IEnumerable<IDependency> Dependencies { get; }
         public IEnumerable<IToken> ForTokens { get; }
+
+        public override string ToString()
+        {
+            return $"filter for {Dependencies.First().Token}";
+        }
     }
 }

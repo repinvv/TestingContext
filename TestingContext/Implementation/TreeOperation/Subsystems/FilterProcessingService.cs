@@ -12,7 +12,7 @@
     {
         public static void ProcessFilterGroup(IFilterGroup filterGroup, List<IFilter> freeFilters, TokenStore store)
         {
-            if (!(filterGroup is AndGroup))
+            if (filterGroup == null)
             {
                 return;
             }
