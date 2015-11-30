@@ -2,12 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq.Expressions;
+    using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Resolution;
-    using TestingContextCore.Interfaces.Tokens;
+    using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.PublicMembers;
     using TestingContextCore.PublicMembers.Exceptions;
 
@@ -71,50 +71,31 @@
             store.Tree = null;
         }
 
-        public static void SaveToken<T>(this TokenStore store, string name, IToken<T> token)
+        public static void SaveToken<T>(this TokenStore store, string name, IToken<T> token, string file, int line, string member)
         {
             if (store.Tokens.Get<IToken<T>>(name) != null)
             {
-                throw new RegistrationException($"Definition for {token} is already registered");
+                throw new RegistrationException($"Definition for {token} is already registered", DiagInfo.Create(file, line, member));
             }
 
             token.Name = name;
             store.Tokens.Set(token, name);
+        }
+
+        public static IHaveToken<T> GetHaveToken<T>(this TokenStore store, string name, string file, int line, string member)
+        {
+            var token = store.GetToken<T>(name);
+            if (token != null)
+            {
+                return new HaveToken<T>(token);
+            }
+
+            return new LazyHaveToken<T>(() => store.Tokens.Get<IToken<T>>(name), DiagInfo.Create(file, line, member));
         }
 
         public static IToken<T> GetToken<T>(this TokenStore store, string name)
         {
-            var token = store.Tokens.Get<IToken<T>>(name);
-            if (token == null)
-            {
-                throw new RegistrationException($"Entity for {typeof(T).Name} {name} is not registered.");
-            }
-
-            return token;
-        }
-
-        public static Func<IToken<T>> GetTokenFunc<T>(this TokenStore store, string name) => () => store.GetToken<T>(name);
-
-        public static void SaveFilterToken(this TokenStore store, string name, IFilterToken token)
-        {
-            if (store.Tokens.Get<IFilterToken>(name) != null)
-            {
-                throw new RegistrationException($"Filter with name {name} is already registered");
-            }
-
-            token.Name = name;
-            store.Tokens.Set(token, name);
-        }
-
-        public static IFilterToken GetFilterToken(this TokenStore store, string name)
-        {
-            var token = store.Tokens.Get<IFilterToken>(name);
-            if (token == null)
-            {
-                throw new RegistrationException($"Filter with name {name} is not registered.");
-            }
-
-            return token;
+            return store.Tokens.Get<IToken<T>>(name);
         }
 
         public static void RegisterCvFilter(this TokenStore store, IFilter filter, IFilterGroup group)

@@ -2,12 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-    using TestingContextCore.Implementation.Tokens;
-    using TestingContextCore.Interfaces;
-    using TestingContextCore.Interfaces.Register;
-    using TestingContextCore.Interfaces.Tokens;
+    using TestingContext.Interface;
+    using TestingContext.LimitedInterface;
 
-    internal partial class Registration : IRegister
+    internal class Registration : IRegister
     {
         private readonly TokenStore store;
         private readonly InnerRegistration inner;
@@ -18,8 +16,46 @@
             this.inner = inner;
         }
 
-        public IFor<T> For<T>(Func<IToken<T>> getToken) => inner.For(new LazyHaveToken<T>(getToken));
+        #region groups
+        public IFilterToken Not(Action<ITokenRegister> action, string file, int line, string member)
+            => inner.Not(action, file, line, member);
 
-        public IFor<IEnumerable<T>> ForCollection<T>(Func<IToken<T>> getToken) => inner.ForCollection(new LazyHaveToken<T>(getToken));
+        public IFilterToken Or(Action<ITokenRegister> action, Action<ITokenRegister> action2,
+                               Action<ITokenRegister> action3, Action<ITokenRegister> action4,
+                               Action<ITokenRegister> action5, string file, int line, string member)
+            => inner.Or(action, action2, action3, action4, action5, file, line, member);
+
+        public IFilterToken Xor(Action<ITokenRegister> action, Action<ITokenRegister> action2, string file, int line, string member) 
+            => inner.Xor(action, action2, file, line, member);
+
+        public IFilterToken Not(Action<IRegister> action, string file, int line, string member) => inner.Not(action, file, line, member);
+
+        public IFilterToken Or(Action<IRegister> action, Action<IRegister> action2,
+                               Action<IRegister> action3, Action<IRegister> action4,
+                               Action<IRegister> action5, string file, int line, string member)
+            => inner.Or(action, action2, action3, action4, action5, file, line, member);
+
+        public IFilterToken Xor(Action<IRegister> action, Action<IRegister> action2, string file, int line, string member) 
+            => inner.Xor(action, action2, file, line, member);
+        #endregion
+
+        #region For
+        IFor<T> IRegister.For<T>(IHaveToken<T> haveToken) => inner.For(haveToken);
+        IFor<IEnumerable<T>> IRegister.ForCollection<T>(IHaveToken<T> haveToken) => inner.ForCollection(haveToken);
+        IForToken<T> ITokenRegister.For<T>(IHaveToken<T> haveToken) => inner.For(haveToken);
+        IForToken<IEnumerable<T>> ITokenRegister.ForCollection<T>(IHaveToken<T> haveToken) => inner.ForCollection(haveToken);
+
+        public IFor<T> For<T>(string name, string file, int line, string member) 
+            => inner.For(store.GetHaveToken<T>(name, file, line, member));
+
+        public IFor<IEnumerable<T>> ForCollection<T>(string name, string file, int line, string member)
+        => inner.ForCollection(store.GetHaveToken<T>(name, file, line, member));
+        #endregion
+
+        public IHaveToken<T> Exists<T>(Func<IEnumerable<T>> srcFunc, string file, int line, string member) 
+            => inner.Exists(srcFunc, file, line, member);
+
+        public void Exists<T>(string name, Func<IEnumerable<T>> srcFunc, string file, int line, string member) 
+            => store.SaveToken(name, inner.Exists(srcFunc, file, line, member).Token, file, line, member);
     }
 }

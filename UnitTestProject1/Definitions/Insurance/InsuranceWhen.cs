@@ -1,7 +1,7 @@
 ﻿namespace UnitTestProject1.Definitions.Insurance
 {
     using TechTalk.SpecFlow;
-    using TestingContextCore.Interfaces;
+    using TestingContext.Interface;
     using UnitTestProject1.Entities;
 
     [Binding]

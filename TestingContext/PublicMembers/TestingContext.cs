@@ -2,13 +2,11 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using global::TestingContext.Interface;
+    using global::TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Registrations;
-    using TestingContextCore.Interfaces;
-    using TestingContextCore.Interfaces.Inversion;
-    using TestingContextCore.Interfaces.Register;
-    using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.PublicMembers.Exceptions;
     using static Implementation.TreeOperation.TreeOperationService;
 
@@ -27,6 +25,16 @@
             return RegistrationFactory.GetRegistration(store);
         }
 
+        public IHaveToken<T> GetToken<T>(string name, string file, int line, string member)
+        {
+            return store.GetHaveToken<T>(name, file, line, member);
+        }
+
+        public void SetToken<T>(string name, IHaveToken<T> haveToken, string file, int line, string member)
+        {
+            store.SaveToken(name, haveToken.Token, file, line, member);
+        }
+
         public IInversion Inversion { get; }
 
         public bool FoundMatch()
@@ -35,7 +43,7 @@
             return tree.RootContext.MeetsConditions;
         }
 
-        public IFailure GetFailure()
+        private IFilter GetFailedFilter()
         {
             if (FoundMatch() || store.DisabledFilter != null)
             {
@@ -53,6 +61,8 @@
             return failure;
         }
 
+        public IFailure GetFailure() => GetFailedFilter();
+
         public IEnumerable<IResolutionContext<T>> BestCandidates<T>(IToken<T> token, IFailure failure = null)
         {
             if (FoundMatch())
@@ -60,7 +70,7 @@
                 return All(token);
             }
 
-            var filterToken = ((failure ?? GetFailure()) as IFilter)?.Token;
+            var filterToken = ((failure as IFilter) ?? GetFailedFilter())?.Token;
             if (filterToken == null)
             {
                 throw new AlgorythmException("Failure is not found.");
@@ -80,7 +90,7 @@
         }
 
         public IEnumerable<IResolutionContext<T>> All<T>(string name) => All(store.GetToken<T>(name));
-
-        public Storage Storage { get; } = new Storage();
+        
+        public IStorage Storage { get; } = new Storage();
     }
 }

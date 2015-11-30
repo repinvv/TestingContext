@@ -1,10 +1,9 @@
 ﻿namespace TestingContextCore.Implementation.Resolution
 {
     using System.Collections.Generic;
+    using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Nodes;
-    using TestingContextCore.Interfaces.Tokens;
-
     internal interface IResolutionContext : IFailureReporter
     {
         bool MeetsConditions { get; }

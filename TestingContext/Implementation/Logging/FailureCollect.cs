@@ -1,6 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Logging
 {
-    using TestingContextCore.Interfaces;
+    using TestingContextCore.Implementation.Filters;
 
     internal class FailureCollect
     {
@@ -11,9 +11,9 @@
             currentWeight = new int[0];
         }
 
-        public IFailure Failure { get; private set; }
+        public IFilter Failure { get; private set; }
 
-        public void ReportFailure(int[] failureWeight, IFailure faiure)
+        public void ReportFailure(int[] failureWeight, IFilter faiure)
         {
             if (WeightIsBigger(failureWeight))
             {

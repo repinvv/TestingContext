@@ -2,10 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Resolution;
-    using TestingContextCore.Interfaces.Tokens;
 
     internal class Tree
     {

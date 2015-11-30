@@ -2,9 +2,10 @@
 {
     using System;
     using System.Linq.Expressions;
+    using global::TestingContext.Interface;
     using static ExpressionToCodeLib.ExpressionToCode;
 
-    public class DiagInfo
+    public class DiagInfo : IDiagInfo
     {
         private static Func<DiagInfo> diagFactory;
 
@@ -13,17 +14,20 @@
             diagFactory = factory;
         }
 
-        internal static DiagInfo Create(string file, int line, string member, Expression filterExpression = null)
+        internal static DiagInfo Create(string file, int line, string member, string additionalInfo)
         {
-            var diagInfo = diagFactory == null ? new DiagInfo() : diagFactory();
-            diagInfo.FilterString = filterExpression == null ? null : AnnotatedToCode(filterExpression);
+            var diagInfo = diagFactory?.Invoke() ?? new DiagInfo();
+            diagInfo.AdditionalInfo = additionalInfo;
             diagInfo.File = file;
             diagInfo.Line = line;
             diagInfo.Member = member;
             return diagInfo;
         }
 
-        public string FilterString { get; internal set; }
+        internal static DiagInfo Create(string file, int line, string member, Expression filterExpression = null) 
+            => Create(file, line, member, filterExpression == null ? null : AnnotatedToCode(filterExpression));
+
+        public string AdditionalInfo { get; internal set; }
 
         public string File { get; internal set; }
 

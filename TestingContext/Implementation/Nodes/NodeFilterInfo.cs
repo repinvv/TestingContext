@@ -1,11 +1,11 @@
 ﻿namespace TestingContextCore.Implementation.Nodes
 {
+    using TestingContext.Interface;
     using TestingContextCore.Implementation.Filters;
-    using TestingContextCore.PublicMembers;
 
     internal class NodeFilterInfo
     {
-        public NodeFilterInfo(DiagInfo inversionInfo)
+        public NodeFilterInfo(IDiagInfo inversionInfo)
         {
             var and = new AndGroup();
             Group = and;

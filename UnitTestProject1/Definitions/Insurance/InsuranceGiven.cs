@@ -1,7 +1,7 @@
 ﻿namespace UnitTestProject1.Definitions.Insurance
 {
     using TechTalk.SpecFlow;
-    using TestingContextCore.Interfaces;
+    using TestingContext.Interface;
     using UnitTestProject1.Entities;
     using UnitTestProject1.TestSource;
 
@@ -35,27 +35,30 @@
         {
             context.Register()
                    .For<Insurance>(key1)
-                   .DoesNotExist<Insurance>(key2, p => InsurancesSource.Insurances);
+                   .Declare<Insurance>(p => InsurancesSource.Insurances)
+                   .DoesNotExist(key2);
         }
 
         [Given(@"insuranse(?:\s)?(.*) matches high level OR condition")]
         public void GivenInsuranseMatchesHiLevelORCondition(string key)
         {
+            var token = context.GetToken<Insurance>(key);
             context.Register()
-                   .Or(x => x.InsuranceHasFederalTax(key),
-                       x => x.InsuranceHasMaximumDependents(key),
-                       x => x.InsuranceHasDependentAssignment(key));
+                   .Or(x => x.InsuranceHasFederalTax(token),
+                       x => x.InsuranceHasMaximumDependents(token),
+                       x => x.InsuranceHasDependentAssignment(token));
         }
 
         [Given(@"insuranse(?:\s)?(.*) matches high level NOT condition")]
         public void GivenInsuranseMatchesHiLevelNOTCondition(string key)
         {
+            var token = context.GetToken<Insurance>(key);
             context.Register()
                    .Not(x =>
                    {
-                       x.InsuranceHasMaximumDependents(key);
-                       x.InsuranceHasDependentAssignment(key);
-                       x.InsuranceHasFederalTax(key);
+                       x.InsuranceHasMaximumDependents(token);
+                       x.InsuranceHasDependentAssignment(token);
+                       x.InsuranceHasFederalTax(token);
                    });
         }
     }

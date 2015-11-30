@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
-    using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.PublicMembers.Exceptions;
     using TestingContextCore.UsefulExtensions;
     using static NodeReorderingService;
@@ -38,7 +38,7 @@
 
             foreach (var node in nodes.Where(node => !assigned.Contains(node.Token)))
             {
-                throw new RegistrationException($"Could not put {node} to the resolution tree, please check registrations.");
+                throw new RegistrationException($"Could not put {node} to the resolution tree, please check registrations.", node.Provider.CollectionValidityFilter.DiagInfo);
             }
         }
 

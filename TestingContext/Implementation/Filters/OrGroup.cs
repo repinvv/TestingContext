@@ -2,24 +2,23 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
-    using TestingContextCore.Interfaces;
-    using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.PublicMembers;
 
     internal class OrGroup : BaseFilter, IFilterGroup
     {
         public OrGroup(DiagInfo diagInfo, IFilter absorber) : base(diagInfo, absorber) { }
 
-        public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFailure failure)
+        public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFilter failure)
         {
             failureWeight = FilterConstant.EmptyArray;
             failure = this;
             foreach (var filter in Filters)
             {
                 int[] innerWeight;
-                IFailure innerFailure;
+                IFilter innerFailure;
                 if (filter.MeetsCondition(context, out innerWeight, out innerFailure))
                 {
                     return true;

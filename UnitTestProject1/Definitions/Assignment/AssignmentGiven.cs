@@ -2,7 +2,8 @@
 {
     using System.Linq;
     using TechTalk.SpecFlow;
-    using TestingContextCore.Interfaces;
+    using TestingContext.Interface;
+    using TestingContext.LimitedInterface;
     using UnitTestProject1.Entities;
 
     [Binding]
@@ -52,13 +53,14 @@
         {
             context.Register()
                    .For<Insurance>(insuranceKey)
-                   .Exists<Assignment>(assignmentKey, insurance => insurance.Assignments);
+                   .Declare<Assignment>(insurance => insurance.Assignments)
+                   .Exists(assignmentKey);
         }
 
         [Given(@"there is no suitable assignment(?:\s)?(.*)")]
         public void GivenThereIsNoSuitableAssignment(string key)
         {
-            context.Inversion.InvertCollectionValidity<Assignment>(key);
+            context.Inversion.InvertCollectionValidity<Assignment>(context.GetToken<Assignment>(key));
         }
 
         [Given(@"assignment(?:\s)?(.*) is created at the same day as assignment(?:\s)?(.*)")]
@@ -110,7 +112,8 @@
         {
             context.Register()
                    .For<Insurance>(insuranceKey)
-                   .Each<Assignment>(assignmentKey, x => x.Assignments);
+                   .Declare<Assignment>(x => x.Assignments)
+                   .Each(assignmentKey);
         }
     }
 }

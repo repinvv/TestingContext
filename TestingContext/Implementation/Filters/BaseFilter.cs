@@ -1,21 +1,20 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
+    using TestingContext.Interface;
+    using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Tokens;
-    using TestingContextCore.Interfaces;
-    using TestingContextCore.Interfaces.Tokens;
-    using TestingContextCore.PublicMembers;
 
     internal class BaseFilter
     {
-        public BaseFilter(DiagInfo diagInfo, IFilter absorber)
+        public BaseFilter(IDiagInfo diagInfo, IFilter absorber)
         {
             DiagInfo = diagInfo;
             Absorber = absorber;
         }
 
         public IFilterToken Token { get; } = new Token();
-        public DiagInfo DiagInfo { get; }
-        public IFailure Absorber { get; }
+        public IDiagInfo DiagInfo { get; }
+        public IFilter Absorber { get; }
 
         public override string ToString()
         {

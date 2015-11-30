@@ -2,7 +2,7 @@
 {
     using BoDi;
     using TechTalk.SpecFlow;
-    using TestingContextCore.Interfaces;
+    using TestingContext.Interface;
     using TestingContextCore.PublicMembers;
 
     [Binding]

@@ -1,7 +1,7 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation
 {
+    using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Nodes;
-    using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.PublicMembers.Exceptions;
 
     internal static class GetNodeService
@@ -11,7 +11,7 @@
             INode node;
             if (!tree.Nodes.TryGetValue(token, out node))
             {
-                throw new RegistrationException($"Entity {token} is not registered.");
+                throw new AlgorythmException($"Node for {token} is not created.");
             }
 
             return node;

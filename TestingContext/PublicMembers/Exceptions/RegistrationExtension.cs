@@ -1,9 +1,15 @@
 ﻿namespace TestingContextCore.PublicMembers.Exceptions
 {
     using System;
+    using global::TestingContext.Interface;
 
     public class RegistrationException : Exception
     {
-        public RegistrationException(string message) : base(message) { }
+        public IDiagInfo Diag { get; set; }
+
+        public RegistrationException(string message, IDiagInfo diag) : base(message)
+        {
+            Diag = diag;
+        }
     }
 }

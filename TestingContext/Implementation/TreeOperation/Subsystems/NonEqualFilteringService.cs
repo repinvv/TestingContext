@@ -1,12 +1,12 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation.Subsystems
 {
     using System;
+    using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
-    using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.PublicMembers;
     using static FilterAssignmentService;
 

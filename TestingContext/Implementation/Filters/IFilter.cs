@@ -1,11 +1,16 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
+    using TestingContext.Interface;
+    using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
-    using TestingContextCore.Interfaces;
 
     internal interface IFilter : IHaveDependencies, IFailure
     {
-        bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFailure failure);
+        IFilterToken Token { get; }
+
+        IFilter Absorber { get; }
+
+        bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFilter failure);
     }
 }

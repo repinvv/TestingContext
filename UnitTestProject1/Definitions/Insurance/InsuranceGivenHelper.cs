@@ -1,30 +1,33 @@
 ﻿namespace UnitTestProject1.Definitions.Insurance
 {
-    using TestingContextCore.Interfaces.Register;
+    using TestingContext.Interface;
+    using TestingContext.LimitedInterface;
     using UnitTestProject1.Entities;
 
     public static class InsuranceGivenHelper
     {
-        public static void InsuranceHasMaximumDependents(this IRegister register, string insuranceKey)
+        public static void InsuranceHasMaximumDependents(this ITokenRegister register, IHaveToken<Insurance> insurance)
         {
-            register.For<Insurance>(insuranceKey)
+            register.For(insurance)
                     .IsTrue(x => x.MaximumDependents > 0);
         }
 
-        public static void InsuranceHasFederalTax(this IRegister register, string insuranceKey)
+        public static void InsuranceHasFederalTax(this IRegister register, IHaveToken<Insurance> insurance)
         {
             var taxToken = register
-                .For<Insurance>(insuranceKey)
-                .Exists<Tax>(x => x.Taxes);
+                .For(insurance)
+                .Declare<Tax>(x => x.Taxes)
+                .Exists();
             register.For(taxToken)
                     .IsTrue(x => x.Type == TaxType.Federal);
         }
 
-        public static void InsuranceHasDependentAssignment(this IRegister register, string insuranceKey)
+        public static void InsuranceHasDependentAssignment(this IRegister register, IHaveToken<Insurance> insurance)
         {
             var assignmentToken = register
-                .For<Insurance>(insuranceKey)
-                .Exists<Assignment>(x => x.Assignments);
+                .For(insurance)
+                .Declare(x => x.Assignments)
+                .Exists();
             register.For(assignmentToken)
                     .IsTrue(x => x.Type == AssignmentType.Dependent);
         }

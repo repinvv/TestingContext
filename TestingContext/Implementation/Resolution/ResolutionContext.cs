@@ -3,11 +3,12 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Runtime.CompilerServices;
+    using TestingContext.Interface;
+    using TestingContext.LimitedInterface;
+    using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
-    using TestingContextCore.Interfaces;
-    using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.UsefulExtensions;
 
     internal class ResolutionContext<T> : IResolutionContext<T>, IResolutionContext
@@ -17,7 +18,7 @@
         private readonly Dictionary<IToken, IEnumerable<IResolutionContext>> childResolutions 
             = new Dictionary<IToken, IEnumerable<IResolutionContext>>();
         private readonly int[] failureWeight;
-        private readonly IFailure failure;
+        private readonly IFilter failure;
 
         public ResolutionContext(T value,
             INode node,

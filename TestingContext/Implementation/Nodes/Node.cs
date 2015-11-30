@@ -1,10 +1,10 @@
 ﻿namespace TestingContextCore.Implementation.Nodes
 {
     using System.Collections.Generic;
+    using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.TreeOperation;
-    using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.UsefulExtensions;
 
     internal class Node : INode

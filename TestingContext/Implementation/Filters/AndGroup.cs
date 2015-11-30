@@ -2,22 +2,21 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Resolution;
-    using TestingContextCore.Interfaces;
-    using TestingContextCore.Interfaces.Tokens;
 
     internal class AndGroup : BaseFilter, IFilterGroup
     {
         public AndGroup(IFilter absorber = null) : base(null, absorber) { }
 
-        public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFailure failure)
+        public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFilter failure)
         {
             for (int i = 0; i < Filters.Count; i++)
             {
                 int[] innerWeight;
-                IFailure innerFailure;
+                IFilter innerFailure;
                 if (!Filters[i].MeetsCondition(context, out innerWeight, out innerFailure))
                 {
                     failure = innerFailure;

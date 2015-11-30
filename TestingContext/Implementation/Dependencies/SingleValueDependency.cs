@@ -1,9 +1,8 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
+    using TestingContext.Interface;
+    using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Resolution;
-    using TestingContextCore.Implementation.Tokens;
-    using TestingContextCore.Interfaces;
-    using TestingContextCore.Interfaces.Tokens;
 
     internal class SingleValueDependency<TItem> : IDependency<TItem>
     {

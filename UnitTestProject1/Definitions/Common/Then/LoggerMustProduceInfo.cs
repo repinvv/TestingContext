@@ -33,10 +33,10 @@
 
             var f = context.GetFailure();
 
-            log = $"name: {f.Token.Name}\r\nentities: {string.Join(", ", f.ForTokens.Select(x => x.ToString()))}:\r\n" +
+            log = $"entities: {string.Join(", ", f.ForTokens.Select(x => x.ToString()))}:\r\n" +
                   $"{f.DiagInfo.File}, Line: {f.DiagInfo.Line}\r\n" +
                   $"{f.DiagInfo.Member}\r\n" +
-                  $"{f.DiagInfo.FilterString}\r\n";
+                  $"{f.DiagInfo.AdditionalInfo}\r\n";
             Console.Write(log);
             Debug.Write(log);
         }

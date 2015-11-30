@@ -3,10 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
-    using TestingContextCore.Interfaces;
-    using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.PublicMembers;
 
     internal class Filter1<T1> : BaseFilter, IFilter
@@ -22,7 +21,7 @@
             ForTokens = new[] { dependency.Token };
         }
 
-        public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFailure failure)
+        public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFilter failure)
         {
             T1 argument;
             failureWeight = FilterConstant.EmptyArray;

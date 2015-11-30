@@ -1,8 +1,8 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
     using System.Collections.Generic;
+    using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Resolution;
-    using TestingContextCore.Interfaces.Tokens;
 
     internal class CollectionDependency : IDependency<IEnumerable<IResolutionContext>>
     {

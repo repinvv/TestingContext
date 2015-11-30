@@ -1,9 +1,10 @@
 ﻿namespace TestingContextCore.PublicMembers
 {
     using System.Collections.Generic;
+    using global::TestingContext.Interface;
     using TestingContextCore.Implementation;
 
-    public class Storage
+    public class Storage : IStorage
     {
         private readonly Dictionary<Definition, object> store = new Dictionary<Definition, object>();
 
@@ -13,11 +14,10 @@
         }
 
         public T Get<T>(string key = null)
-            where T : class
         {
             object value;
             store.TryGetValue(Definition.Define<T>(key), out value);
-            return value as T;
+            return (T)value;
         }
     }
 }

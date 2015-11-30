@@ -66,18 +66,11 @@
     <Compile Include="Implementation\Registrations\Registration0\InnerRegistration.cs" />
     <Compile Include="Implementation\Registrations\Registration1\InnerRegistration1.cs" />
     <Compile Include="Implementation\Registrations\Inversion.cs" />
-    <Compile Include="Implementation\Registrations\Registration1\NameRegistration1.cs" />
-    <Compile Include="Implementation\Registrations\Registration1\TokenRegistration1.cs" />
-    <Compile Include="Implementation\Registrations\Registration2\NameRegistration2.cs" />
     <Compile Include="Implementation\Registrations\Registration2\Registration2.cs" />
     <Compile Include="Implementation\Registrations\Registration2\InnerRegistration2.cs" />
-    <Compile Include="Implementation\Registrations\Registration2\TokenRegistration2.cs" />
     <Compile Include="Implementation\Registrations\RegistrationFactory.cs" />
-    <Compile Include="Implementation\Registrations\Registration0\NameRegistration.cs" />
-    <Compile Include="Implementation\Registrations\Registration0\TokenRegistration.cs" />
     <Compile Include="Implementation\Registrations\StoreExtension.cs" />
     <Compile Include="Implementation\Resolution\ResolutionContext.cs" />
-    <Compile Include="Implementation\Tokens\LazyHaveToken.cs" />
     <Compile Include="Implementation\TreeOperation\GetNodeService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\FilterProcessingService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\RandomServices.cs" />
@@ -88,18 +81,9 @@
     <Compile Include="Implementation\TreeOperation\Subsystems\TreeBuilder.cs" />
     <Compile Include="Implementation\TreeOperation\Tree.cs" />
     <Compile Include="Implementation\TreeOperation\TreeOperationService.cs" />
-    <Compile Include="Interfaces\For1\IForName.cs" />
-    <Compile Include="Interfaces\For1\IForToken.cs" />
-    <Compile Include="Interfaces\For2\IForName.cs" />
-    <Compile Include="Interfaces\For2\IForToken.cs" />
-    <Compile Include="Interfaces\Inversion\IInversion.cs" />
-    <Compile Include="Interfaces\Inversion\INameInversion.cs" />
-    <Compile Include="Interfaces\Inversion\ITokenInversion.cs" />
-    <Compile Include="Interfaces\Register\IRegisterName.cs" />
-    <Compile Include="Interfaces\Register\IRegisterToken.cs" />
-    <Compile Include="Interfaces\Tokens\IFilterToken.cs" />
     <Compile Include="PublicMembers\Exceptions\AlgorythmException.cs" />
     <Compile Include="PublicMembers\Exceptions\RegistrationExtension.cs" />
+    <Compile Include="Implementation\Tokens\LazyHaveToken.cs" />
     <Compile Include="UsefulExtensions\CachingEnumerable.cs" />
     <Compile Include="UsefulExtensions\DictionaryExtension.cs" />
     <Compile Include="Implementation\Definition.cs" />
@@ -121,24 +105,24 @@
     <Compile Include="Implementation\Tokens\Token.cs" />
     <Compile Include="Implementation\Tokens\HaveToken.cs" />
     <Compile Include="Implementation\Tokens\TokenGen.cs" />
-    <Compile Include="Interfaces\IResolutionContext.cs" />
     <Compile Include="PublicMembers\Storage.cs" />
     <Compile Include="PublicMembers\DiagInfo.cs" />
-    <Compile Include="Interfaces\InterfaceExtensions.cs" />
-    <Compile Include="Interfaces\IFailure.cs" />
-    <Compile Include="Interfaces\For1\IFor.cs" />
-    <Compile Include="Interfaces\For2\IFor.cs" />
-    <Compile Include="Implementation\Tokens\IHaveToken.cs" />
-    <Compile Include="Interfaces\Register\IRegister.cs" />
-    <Compile Include="Interfaces\ITestingContext.cs" />
-    <Compile Include="Interfaces\Tokens\IToken.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicMembers\TestingContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\TestingContext.Interface\TestingContext.Interface.csproj">
+      <Project>{3f8e40ca-a8c8-4cf1-af15-52128ac726ec}</Project>
+      <Name>TestingContext.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestingContext.LimitedInterface\TestingContext.LimitedInterface.csproj">
+      <Project>{22d094c0-9620-4847-9a13-20d817058d8e}</Project>
+      <Name>TestingContext.LimitedInterface</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -2,7 +2,7 @@
 {
     using System.Linq;
     using TechTalk.SpecFlow;
-    using TestingContextCore.Interfaces;
+    using TestingContext.Interface;
     using UnitTestProject1.Entities;
 
     [Binding]
@@ -20,7 +20,8 @@
         {
             context.Register()
                    .For<Insurance>(insuranceKey)
-                   .Exists<Tax>(taxKey, insurance => insurance.Taxes);
+                   .Declare(insurance => insurance.Taxes)
+                   .Exists(taxKey);
         }
 
         [Given(@"tax(?:\s)?(.*) amounts to at least (.*)\$")]
@@ -50,7 +51,7 @@
         [Given(@"there is no suitable tax(?:\s)?(.*)")]
         public void GivenThereIsNoSuitableTax(string key)
         {
-            context.Inversion.InvertCollectionValidity<Tax>(key);
+            context.Inversion.InvertCollectionValidity(context.GetToken<Tax>(key));
         }
 
         [Given(@"assignment(?:\s)?(.*) is created at the same day as tax(?:\s)?(.*)")]
@@ -74,7 +75,8 @@
         {
             context.Register()
                    .For<Insurance>(insuranceKey)
-                   .Each<Tax>(taxKey, x => x.Taxes);
+                   .Declare<Tax>(x => x.Taxes)
+                   .Each();
         }
     }
 }

@@ -1,12 +1,12 @@
 ﻿namespace TestingContextCore.Implementation.Registrations
 {
     using System.Collections.Generic;
+    using TestingContext.Interface;
+    using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.Implementation.TreeOperation;
-    using TestingContextCore.Interfaces;
-    using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.PublicMembers;
 
     internal class TokenStore
@@ -18,7 +18,7 @@
 
         public ITestingContext Context { get; }
 
-        public Storage Tokens { get; } = new Storage();
+        public IStorage Tokens { get; } = new Storage();
 
         public IToken<Root> RootToken { get; } = new Token<Root>();
 
@@ -30,11 +30,11 @@
 
         public Tree Tree { get; set; }
 
-        public Dictionary<IToken, DiagInfo> ItemInversions { get; } =new Dictionary<IToken, DiagInfo>();
+        public Dictionary<IToken, IDiagInfo> ItemInversions { get; } =new Dictionary<IToken, IDiagInfo>();
 
-        public Dictionary<IToken, DiagInfo> CollectionInversions { get; } = new Dictionary<IToken, DiagInfo>();
+        public Dictionary<IToken, IDiagInfo> CollectionInversions { get; } = new Dictionary<IToken, IDiagInfo>();
 
-        public Dictionary<IFilterToken, DiagInfo> FilterInversions { get; } = new Dictionary<IFilterToken, DiagInfo>();
+        public Dictionary<IFilterToken, IDiagInfo> FilterInversions { get; } = new Dictionary<IFilterToken, IDiagInfo>();
 
         public IFilterToken DisabledFilter { get; set; }
     }

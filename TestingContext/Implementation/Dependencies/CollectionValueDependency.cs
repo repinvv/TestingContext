@@ -2,10 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using TestingContext.Interface;
+    using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Resolution;
-    using TestingContextCore.Implementation.Tokens;
-    using TestingContextCore.Interfaces;
-    using TestingContextCore.Interfaces.Tokens;
 
     internal class CollectionValueDependency<TItem> : IDependency<IEnumerable<TItem>>
     {

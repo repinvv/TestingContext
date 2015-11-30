@@ -3,7 +3,7 @@
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;
-    using TestingContextCore.Interfaces;
+    using TestingContext.Interface;
     using TestingContextCore.PublicMembers;
     using UnitTestProject1.Entities;
 

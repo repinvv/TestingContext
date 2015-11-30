@@ -1,6 +1,5 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation.Subsystems
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.Dependencies;

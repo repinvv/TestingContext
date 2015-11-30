@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.TreeOperation;
-    using TestingContextCore.Interfaces.Tokens;
     using TestingContextCore.UsefulExtensions;
     using static TreeOperation.Subsystems.NodeClosestParentService;
 

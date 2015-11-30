@@ -159,6 +159,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TestingContext.Interface\TestingContext.Interface.csproj">
+      <Project>{3f8e40ca-a8c8-4cf1-af15-52128ac726ec}</Project>
+      <Name>TestingContext.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestingContext.LimitedInterface\TestingContext.LimitedInterface.csproj">
+      <Project>{22d094c0-9620-4847-9a13-20d817058d8e}</Project>
+      <Name>TestingContext.LimitedInterface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestingContext\TestingContext.csproj">
       <Project>{2af3b9c9-8329-4171-9515-30471815ab41}</Project>
       <Name>TestingContext</Name>
