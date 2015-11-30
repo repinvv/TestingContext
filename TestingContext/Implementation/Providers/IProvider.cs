@@ -8,7 +8,7 @@
 
     internal interface IProvider : IHaveDependencies
     {
-        IFilter CollectionValidityFilter { get; }
+        IFilter CollectionValidityFilter { get; set; }
 
         IEnumerable<IResolutionContext> Resolve(IResolutionContext parentContext, INode node);
     }

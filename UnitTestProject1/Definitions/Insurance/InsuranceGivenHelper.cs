@@ -16,8 +16,7 @@
         {
             var taxToken = register
                 .For(insurance)
-                .Declare<Tax>(x => x.Taxes)
-                .Exists();
+                .Exists<Tax>(x => x.Taxes);
             register.For(taxToken)
                     .IsTrue(x => x.Type == TaxType.Federal);
         }
@@ -26,8 +25,7 @@
         {
             var assignmentToken = register
                 .For(insurance)
-                .Declare(x => x.Assignments)
-                .Exists();
+                .Exists(x => x.Assignments);
             register.For(assignmentToken)
                     .IsTrue(x => x.Type == AssignmentType.Dependent);
         }

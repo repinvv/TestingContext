@@ -35,8 +35,7 @@
         {
             context.Register()
                    .For<Insurance>(key1)
-                   .Declare<Insurance>(p => InsurancesSource.Insurances)
-                   .DoesNotExist(key2);
+                   .DoesNotExist<Insurance>(key2, p => InsurancesSource.Insurances);
         }
 
         [Given(@"insuranse(?:\s)?(.*) matches high level OR condition")]

@@ -25,9 +25,10 @@
             store.Filters.Add(filter);
         }
 
-        public static void RegisterProvider(this TokenStore store, IProvider provider, IToken token)
+        public static void RegisterProvider(this TokenStore store, IProvider provider, IToken token, IFilterGroup group)
         {
-            store.PreRegister();
+            store.RegisterFilter(provider.CollectionValidityFilter, group);
+            store.CvFilters.Add(provider.CollectionValidityFilter);
             store.Providers.Add(token, provider);
         }
 
@@ -96,12 +97,6 @@
         public static IToken<T> GetToken<T>(this TokenStore store, string name)
         {
             return store.Tokens.Get<IToken<T>>(name);
-        }
-
-        public static void RegisterCvFilter(this TokenStore store, IFilter filter, IFilterGroup group)
-        {
-            store.RegisterFilter(filter, group);
-            store.CvFilters.Add(filter);
         }
 
         public static IFilter CreateCvFilter(Func<IEnumerable<IResolutionContext>, bool> filterExpr,

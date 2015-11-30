@@ -53,8 +53,7 @@
         {
             context.Register()
                    .For<Insurance>(insuranceKey)
-                   .Declare<Assignment>(insurance => insurance.Assignments)
-                   .Exists(assignmentKey);
+                   .Exists<Assignment>(assignmentKey, insurance => insurance.Assignments);
         }
 
         [Given(@"there is no suitable assignment(?:\s)?(.*)")]
@@ -112,8 +111,7 @@
         {
             context.Register()
                    .For<Insurance>(insuranceKey)
-                   .Declare<Assignment>(x => x.Assignments)
-                   .Each(assignmentKey);
+                   .Each<Assignment>(assignmentKey, x => x.Assignments);
         }
     }
 }

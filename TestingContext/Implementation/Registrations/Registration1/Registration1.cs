@@ -29,28 +29,28 @@
         public IFor<T1, T2> For<T2>(string name, string file, int line, string member)
             => inner.For(store.GetHaveToken<T2>(name, file, line, member));
 
-        public IFor<T1, IEnumerable<T2>> ForCollection<T2>(string name, string file, int line, string member) 
+        public IFor<T1, IEnumerable<T2>> ForCollection<T2>(string name, string file, int line, string member)
             => inner.ForCollection(store.GetHaveToken<T2>(name, file, line, member));
         #endregion
 
-        IDeclare<T2> IFor<T1>.Declare<T2>(Func<T1, IEnumerable<T2>> srcFunc)
-        {
-            return null;
-        }
+        #region declare
+        public IHaveToken<T2> Exists<T2>(Func<T1, IEnumerable<T2>> srcFunc, string file, int line, string member)
+            => inner.Declare(srcFunc).Exists(file, line, member);
 
-        IDeclareSingle<T2> IFor<T1>.DeclareSingle<T2>(Func<T1, T2> srcFunc)
-        {
-            return null;
-        }
+        public IHaveToken<T2> DoesNotExist<T2>(Func<T1, IEnumerable<T2>> srcFunc, string file, int line, string member)
+            => inner.Declare(srcFunc).DoesNotExist(file, line, member);
 
-        public ITokenDeclare<T2> Declare<T2>(Func<T1, IEnumerable<T2>> srcFunc)
-        {
-            return null;
-        }
+        public IHaveToken<T2> Each<T2>(Func<T1, IEnumerable<T2>> srcFunc, string file, int line, string member)
+            => inner.Declare(srcFunc).Each(file, line, member);
 
-        public ITokenDeclareSingle<T2> DeclareSingle<T2>(Func<T1, T2> srcFunc)
-        {
-            return null;
-        }
+        public void Exists<T2>(string name, Func<T1, IEnumerable<T2>> srcFunc, string file, int line, string member)
+            => store.SaveToken(name, inner.Declare(srcFunc).Exists(file, line, member).Token, file, line, member);
+
+        public void DoesNotExist<T2>(string name, Func<T1, IEnumerable<T2>> srcFunc, string file, int line, string member)
+            => store.SaveToken(name, inner.Declare(srcFunc).DoesNotExist(file, line, member).Token, file, line, member);
+
+        public void Each<T2>(string name, Func<T1, IEnumerable<T2>> srcFunc, string file, int line, string member)
+            => store.SaveToken(name, inner.Declare(srcFunc).Each(file, line, member).Token, file, line, member);
+        #endregion
     }
 }

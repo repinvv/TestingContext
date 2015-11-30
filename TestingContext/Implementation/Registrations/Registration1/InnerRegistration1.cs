@@ -45,26 +45,11 @@
             return RegistrationFactory.GetRegistration2(store, dependency, new CollectionValueDependency<T2>(haveToken), group);
         }
 
-        public IToken<T2> Exists<T2>(Func<T1, IEnumerable<T2>> srcFunc, string file, int line, string member)
-            => CreateDefinition(srcFunc, x => x.Any(y => y.MeetsConditions), file, line, member);
-        public IToken<T2> DoesNotExist<T2>(Func<T1, IEnumerable<T2>> srcFunc, string file, int line, string member)
-            => CreateDefinition(srcFunc, x => !x.Any(y => y.MeetsConditions), file, line, member);
-        public IToken<T2> Each<T2>(Func<T1, IEnumerable<T2>> srcFunc, string file, int line, string member)
-            => CreateDefinition(srcFunc,x => x.GroupBy(item => item).All(grp => grp.Any(item => item.MeetsConditions)), file, line, member);
-
-        internal IToken<T2> CreateDefinition<T2>(Func<T1, IEnumerable<T2>> srcFunc,
-            Expression<Func<IEnumerable<IResolutionContext>, bool>> filterExpr,
-            string file,
-            int line,
-            string member)
+        public Declarator<T2> Declare<T2>(Func<T1, IEnumerable<T2>> srcFunc)
         {
             var token = new Token<T2>();
-            var diag = DiagInfo.Create(file, line, member, filterExpr);
-            var cvfilter = CreateCvFilter(filterExpr.Compile(), token, group, diag);
-            var provider = new Provider<T1, T2>(dependency, srcFunc, cvfilter, store);
-            store.RegisterProvider(provider, token);
-            store.RegisterCvFilter(cvfilter, group);
-            return token;
+            var provider = new Provider<T1, T2>(dependency, srcFunc, store);
+            return new Declarator<T2>(store, token, provider, group);
         }
     }
 }

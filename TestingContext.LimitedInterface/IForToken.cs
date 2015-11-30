@@ -16,8 +16,19 @@
 
         IForToken<T1, IEnumerable<T2>> ForCollection<T2>(IHaveToken<T2> haveToken);
 
-        ITokenDeclare<T2> Declare<T2>(Func<T1, IEnumerable<T2>> srcFunc);
+        IHaveToken<T2> Exists<T2>(Func<T1, IEnumerable<T2>> srcFunc,
+            [CallerFilePath] string file = "",
+            [CallerLineNumber] int line = 0,
+            [CallerMemberName] string member = "");
 
-        ITokenDeclareSingle<T2> DeclareSingle<T2>(Func<T1, T2> srcFunc);
+        IHaveToken<T2> DoesNotExist<T2>(Func<T1, IEnumerable<T2>> srcFunc,
+            [CallerFilePath] string file = "",
+            [CallerLineNumber] int line = 0,
+            [CallerMemberName] string member = "");
+
+        IHaveToken<T2> Each<T2>(Func<T1, IEnumerable<T2>> srcFunc,
+            [CallerFilePath] string file = "",
+            [CallerLineNumber] int line = 0,
+            [CallerMemberName] string member = "");
     }
 }

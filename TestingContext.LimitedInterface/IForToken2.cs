@@ -12,8 +12,19 @@
                     [CallerLineNumber] int line = 0,
                     [CallerMemberName] string member = "");
 
-        ITokenDeclare<T3> Declare<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc);
+        IHaveToken<T3> Exists<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc,
+            [CallerFilePath] string file = "",
+            [CallerLineNumber] int line = 0,
+            [CallerMemberName] string member = "");
 
-        ITokenDeclareSingle<T3> DeclareSingle<T3>(Func<T1, T2, T3> srcFunc);
+        IHaveToken<T3> DoesNotExist<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc,
+            [CallerFilePath] string file = "",
+            [CallerLineNumber] int line = 0,
+            [CallerMemberName] string member = "");
+
+        IHaveToken<T3> Each<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc,
+            [CallerFilePath] string file = "",
+            [CallerLineNumber] int line = 0,
+            [CallerMemberName] string member = "");
     }
 }

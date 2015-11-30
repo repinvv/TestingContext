@@ -18,19 +18,17 @@
 
         public Provider(IDependency<TSource> dependency,
             Func<TSource, IEnumerable<T>> sourceFunc,
-            IFilter cvFilter,
             TokenStore store)
         {
             this.dependency = dependency;
             this.sourceFunc = sourceFunc;
             this.store = store;
-            CollectionValidityFilter = cvFilter;
             Dependencies = new IDependency[] { dependency };
         }
 
         public IEnumerable<IDependency> Dependencies { get; }
 
-        public IFilter CollectionValidityFilter { get; }
+        public IFilter CollectionValidityFilter { get; set; }
 
         public IEnumerable<IResolutionContext> Resolve(IResolutionContext parentContext, INode node)
         {

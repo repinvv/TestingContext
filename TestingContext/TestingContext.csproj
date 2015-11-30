@@ -63,6 +63,7 @@
     <Compile Include="Implementation\Providers\IProvider.cs" />
     <Compile Include="Implementation\Providers\Provider.cs" />
     <Compile Include="Implementation\Providers\Provider2.cs" />
+    <Compile Include="Implementation\Registrations\Declarator.cs" />
     <Compile Include="Implementation\Registrations\Registration0\InnerRegistration.cs" />
     <Compile Include="Implementation\Registrations\Registration1\InnerRegistration1.cs" />
     <Compile Include="Implementation\Registrations\Inversion.cs" />
