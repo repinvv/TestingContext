@@ -1,6 +1,5 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
-    using System;
     using TestingContext.Interface;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;

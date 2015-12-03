@@ -6,7 +6,6 @@
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
-    using TestingContextCore.Implementation.TreeOperation;
 
     internal class ExistsFilter : BaseFilter, IFilter
     {

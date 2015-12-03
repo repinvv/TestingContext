@@ -4,7 +4,6 @@
     using System.Linq;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
-    using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Resolution;
 
     internal class AndGroup : BaseFilter, IFilterGroup

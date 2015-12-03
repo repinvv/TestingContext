@@ -3,9 +3,8 @@
     using System.Collections.Generic;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Filters;
-    using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Nodes;
-    internal interface IResolutionContext : IFailureReporter
+    internal interface IResolutionContext
     {
         bool MeetsConditions { get; }
 

@@ -4,7 +4,6 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;
     using TestingContext.Interface;
-    using TestingContextCore.PublicMembers;
     using UnitTestProject1.Entities;
 
     [Binding]

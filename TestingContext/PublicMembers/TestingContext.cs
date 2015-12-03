@@ -2,14 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using global::TestingContext.Interface;
     using global::TestingContext.LimitedInterface;
     using TestingContextCore.Implementation;
-    using TestingContextCore.Implementation.Filters;
-    using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Registrations;
-    using TestingContextCore.PublicMembers.Exceptions;
     using static Implementation.TreeOperation.TreeOperationService;
 
     public class TestingContext : ITestingContext

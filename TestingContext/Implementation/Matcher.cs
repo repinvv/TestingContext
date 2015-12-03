@@ -5,7 +5,6 @@
     using TestingContext.Interface;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Filters;
-    using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.PublicMembers.Exceptions;

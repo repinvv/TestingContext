@@ -3,7 +3,6 @@
     using System.Linq;
     using TechTalk.SpecFlow;
     using TestingContext.Interface;
-    using TestingContext.LimitedInterface;
     using UnitTestProject1.Entities;
 
     [Binding]

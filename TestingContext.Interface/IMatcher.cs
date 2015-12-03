@@ -1,7 +1,6 @@
 ﻿namespace TestingContext.Interface
 {
     using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
     using TestingContext.LimitedInterface;
 
     public interface IMatcher

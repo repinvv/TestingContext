@@ -19,10 +19,8 @@
                 throw new AlgorythmException("XOR group can only contain two filters");
             }
 
-
             var result1 = Filters[0].GetFailingFilter(context) == null;
             var result2 = Filters[1].GetFailingFilter(context) == null;
-
             if (result1 ^ result2)
             {
                 return null;

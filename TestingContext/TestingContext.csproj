@@ -57,7 +57,6 @@
     <Compile Include="Implementation\Filters\NotGroup.cs" />
     <Compile Include="Implementation\Filters\OrGroup.cs" />
     <Compile Include="Implementation\Filters\XorGroup.cs" />
-    <Compile Include="Implementation\Logging\ArrayExtension.cs" />
     <Compile Include="Implementation\Matcher.cs" />
     <Compile Include="Implementation\Nodes\Node.cs" />
     <Compile Include="Implementation\Nodes\NodeFilterInfo.cs" />
@@ -98,8 +97,6 @@
     <Compile Include="Implementation\Dependencies\SingleValueDependency.cs" />
     <Compile Include="Implementation\Filters\IFilter.cs" />
     <Compile Include="Implementation\Filters\IFilterGroup.cs" />
-    <Compile Include="Implementation\Logging\FailureCollect.cs" />
-    <Compile Include="Implementation\Logging\IFailureReporter.cs" />
     <Compile Include="Implementation\Nodes\INode.cs" />
     <Compile Include="Implementation\Registrations\Registration0\Registration.cs" />
     <Compile Include="Implementation\Registrations\Registration1\Registration1.cs" />
