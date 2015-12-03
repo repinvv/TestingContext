@@ -17,9 +17,8 @@
         public Filter2(IDependency<T1> dependency1,
             IDependency<T2> dependency2,
             Func<T1, T2, bool> filter, 
-            DiagInfo diagInfo,
-            IFilter absorber) 
-            : base(diagInfo, absorber)
+            DiagInfo diagInfo) 
+            : base(diagInfo)
         {
             this.dependency1 = dependency1;
             this.dependency2 = dependency2;
@@ -28,15 +27,19 @@
             ForTokens = new[] { dependency1.Token, dependency2.Token };
         }
 
-        public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFilter failure)
+        public IFilter GetFailingFilter(IResolutionContext context)
         {
             T1 argument1;
             T2 argument2;
-            failureWeight = FilterConstant.EmptyArray;
-            failure = this;
 
-            return dependency1.TryGetValue(context, out argument1) && dependency2.TryGetValue(context, out argument2) 
-                && filter(argument1, argument2);
+            if (dependency1.TryGetValue(context, out argument1)
+                && dependency2.TryGetValue(context, out argument2)
+                && filter(argument1, argument2))
+            {
+                return null;
+            }
+
+            return this;
         }
 
         public IEnumerable<IDependency> Dependencies { get; }

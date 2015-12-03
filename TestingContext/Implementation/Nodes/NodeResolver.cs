@@ -11,7 +11,6 @@
     internal class NodeResolver
     {
         internal delegate IEnumerable<IResolutionContext> Resolve(IToken token, IResolutionContext context);
-        private readonly Tree tree;
         private readonly Dictionary<IToken, List<INode>> nodeChains = new Dictionary<IToken, List<INode>>();
         private readonly Dictionary<IToken, IToken> closestParents = new Dictionary<IToken, IToken>();
         private readonly Dictionary<IToken, IToken> closestSourceParents = new Dictionary<IToken, IToken>();
@@ -20,9 +19,8 @@
         private readonly Dictionary<IToken, Resolve> resolvers = new Dictionary<IToken, Resolve>();
         private readonly Dictionary<IToken, Resolve> fitResolvers = new Dictionary<IToken, Resolve>();
 
-        public NodeResolver(Tree tree, INode node)
+        public NodeResolver(INode node)
         {
-            this.tree = tree;
             this.node = node;
         }
 
@@ -41,7 +39,7 @@
         #region cached get implementers
         private Resolve GetAllResolver(IToken token)
         {
-            var resolveNode = tree.GetNode(token);
+            var resolveNode = node.Tree.GetNode(token);
             if (resolveNode.IsChildOf(node))
             {
                 return ResolveDown;
@@ -58,7 +56,7 @@
 
         private Resolve GetFitResolver(IToken token)
         {
-            var resolveNode = tree.GetNode(token);
+            var resolveNode = node.Tree.GetNode(token);
             if (resolveNode.IsChildOf(node))
             {
                 return GetFitMethod(ResolveDown);
@@ -107,7 +105,7 @@
         #region common methods
         private IToken GetClosestParent(IToken token)
         {
-            var chain = tree.GetNode(token).GetParentalChain();
+            var chain = node.Tree.GetNode(token).GetParentalChain();
             var thisChain = node.GetParentalChain();
             var index = FindClosestParent(chain, thisChain);
             return chain[index].Token;
@@ -115,7 +113,7 @@
 
         private IToken GetClosestSourceParent(IToken token)
         {
-            var chain = tree.GetNode(token).GetSourceChain();
+            var chain = node.Tree.GetNode(token).GetSourceChain();
             var thisChain = node.GetSourceChain();
             var index = FindClosestParent(chain, thisChain);
             return chain[index].Token;
@@ -123,7 +121,7 @@
 
         private List<INode> GetNodesChain(IToken token)
         {
-            return nodeChains.GetOrAdd(token, () => tree.GetNode(token).GetParentalChain());
+            return nodeChains.GetOrAdd(token, () => node.Tree.GetNode(token).GetParentalChain());
         }
         #endregion
     }

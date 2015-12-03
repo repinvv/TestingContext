@@ -31,7 +31,7 @@
         public IFilterToken IsTrue(Expression<Func<T1, T2, bool>> filterFunc, string file, int line, string member)
         {
             var diagInfo = DiagInfo.Create(file, line, member, filterFunc);
-            var filter = new Filter2<T1, T2>(dependency1, dependency2, filterFunc.Compile(), diagInfo, group);
+            var filter = new Filter2<T1, T2>(dependency1, dependency2, filterFunc.Compile(), diagInfo);
             store.RegisterFilter(filter, group);
             return filter.Token;
         }

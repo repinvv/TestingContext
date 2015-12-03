@@ -10,21 +10,25 @@
 
     internal class XorGroup : BaseFilter, IFilterGroup
     {
-        public XorGroup(IDiagInfo diagInfo, IFilter absorber) : base(diagInfo, absorber) { }
+        public XorGroup(IDiagInfo diagInfo) : base(diagInfo) { }
 
-        public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFilter failure)
+        public IFilter GetFailingFilter(IResolutionContext context)
         {
             if (Filters.Count != 2)
             {
                 throw new AlgorythmException("XOR group can only contain two filters");
             }
 
-            failureWeight = FilterConstant.EmptyArray;
-            failure = this;
-            IFilter innerFailure;
-            int[] innerWeight;
-            return Filters[0].MeetsCondition(context, out innerWeight, out innerFailure) 
-                ^ Filters[1].MeetsCondition(context, out innerWeight, out innerFailure);
+
+            var result1 = Filters[0].GetFailingFilter(context) == null;
+            var result2 = Filters[1].GetFailingFilter(context) == null;
+
+            if (result1 ^ result2)
+            {
+                return null;
+            }
+
+            return this;
         }
 
         public List<IFilter> Filters { get; } = new List<IFilter>();

@@ -9,23 +9,16 @@
 
     internal class OrGroup : BaseFilter, IFilterGroup
     {
-        public OrGroup(DiagInfo diagInfo, IFilter absorber) : base(diagInfo, absorber) { }
+        public OrGroup(DiagInfo diagInfo) : base(diagInfo) { }
 
-        public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFilter failure)
+        public IFilter GetFailingFilter(IResolutionContext context)
         {
-            failureWeight = FilterConstant.EmptyArray;
-            failure = this;
-            foreach (var filter in Filters)
+            if (Filters.Any(filter => filter.GetFailingFilter(context) == null))
             {
-                int[] innerWeight;
-                IFilter innerFailure;
-                if (filter.MeetsCondition(context, out innerWeight, out innerFailure))
-                {
-                    return true;
-                }
+                return null;
             }
 
-            return false;
+            return this;
         }
 
         public List<IFilter> Filters { get; } = new List<IFilter>();

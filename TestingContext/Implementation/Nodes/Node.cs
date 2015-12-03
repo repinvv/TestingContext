@@ -14,8 +14,11 @@
             Token = token;
             Provider = provider;
             FilterInfo = filterInfo;
-            Resolver = new NodeResolver(tree, this);
+            Tree = tree;
+            Resolver = new NodeResolver(this);
         }
+
+        public Tree Tree { get; }
 
         public IToken Token { get; }
 

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
@@ -82,13 +83,23 @@
             return store.Tokens.Get<IToken<T>>(name);
         }
 
-        public static IFilter CreateCvFilter(Func<IEnumerable<IResolutionContext>, bool> filterExpr,
+        public static IFilter CreateCvFilter(Expression<Func<IEnumerable<IResolutionContext>, bool>> filterExpr,
+            IToken token, IFilter absorber,
+            string file, int line, string member)
+        {
+            var diagInfo = DiagInfo.Create(file, line, member, filterExpr);
+            var cv = new CollectionDependency(token);
+            return new Filter1<IEnumerable<IResolutionContext>>(cv, filterExpr.Compile(), diagInfo);
+        }
+
+        public static IFilter CreateExistsFilter(
             IToken token,
             IFilter absorber,
-            DiagInfo diagInfo)
+            string file, int line, string member)
         {
-            var cv = new CollectionDependency(token);
-            return new Filter1<IEnumerable<IResolutionContext>>(cv, filterExpr, diagInfo, absorber);
+            var diagInfo = DiagInfo.Create(file, line, member, "x => x.Any(y => y.MeetsCondition)");
+            var dependency = new CollectionDependency(token);
+            return new ExistsFilter(dependency, diagInfo);
         }
     }
 }

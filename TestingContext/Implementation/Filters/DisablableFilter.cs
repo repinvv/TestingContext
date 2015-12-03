@@ -23,21 +23,25 @@
         public IFilterToken Token => innerFilter.Token;
         public IFilter Absorber => null;
 
-        public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFilter failure)
+        public IFilter GetFailingFilter(IResolutionContext context)
         {
-            if (!disabled)
+            if (disabled)
             {
-                return innerFilter.MeetsCondition(context, out failureWeight, out failure);
+                return null;
             }
 
-            failureWeight = FilterConstant.EmptyArray;
-            failure = null;
-            return true;
+            var failure = innerFilter.GetFailingFilter(context);
+            return failure == innerFilter ? this : failure;
         }
 
         public void Disable()
         {
             disabled = true;
+        }
+
+        public override string ToString()
+        {
+            return "Disablable filter. Inner filter: " + innerFilter;
         }
     }
 }

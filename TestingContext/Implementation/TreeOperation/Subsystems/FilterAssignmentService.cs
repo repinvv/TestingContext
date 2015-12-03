@@ -28,7 +28,15 @@
             }
 
             var node = GetAssignmentNode(store.Tree, filter);
-            node.FilterInfo.Group.Filters.Add(new DisablableFilter(filter));
+            AssignFilterToNode(filter, node);
+        }
+
+        public static void AssignFilterToNode(IFilter filter, INode node)
+        {
+            var disablable = new DisablableFilter(filter);
+            node.FilterInfo.Group.Filters.Add(disablable);
+            var newIndex = node.Tree.FilterIndex.Any() ? (node.Tree.FilterIndex.Values.Max() + 1) : 0;
+            node.Tree.FilterIndex[disablable] = newIndex;
         }
 
         public static void AssignFilters(TokenStore store)
@@ -47,8 +55,8 @@
 
         private static void AssignExistsFilter(INode node, IFilter absorber)
         {
-            var filter = CreateCvFilter(items => items.Any(x => x.MeetsConditions), node.Token, absorber, null);
-            node.Parent.FilterInfo.Group.Filters.Add(filter);
+            var filter = CreateExistsFilter(node.Token, absorber, string.Empty, 0, string.Empty);
+            AssignFilterToNode(filter, node.Parent);
         }
     }
 }

@@ -30,7 +30,7 @@
         public IFilterToken IsTrue(Expression<Func<T1, bool>> filterFunc, string file, int line, string member)
         {
             var diagInfo = DiagInfo.Create(file, line, member, filterFunc);
-            var filter = new Filter1<T1>(dependency, filterFunc.Compile(), diagInfo, group);
+            var filter = new Filter1<T1>(dependency, filterFunc.Compile(), diagInfo);
             store.RegisterFilter(filter, group);
             return filter.Token;
         }

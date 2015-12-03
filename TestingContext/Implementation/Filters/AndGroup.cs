@@ -9,25 +9,13 @@
 
     internal class AndGroup : BaseFilter, IFilterGroup
     {
-        public AndGroup(IFilter absorber = null) : base(null, absorber) { }
+        public AndGroup() : base(null) { }
 
-        public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFilter failure)
+        public IFilter GetFailingFilter(IResolutionContext context)
         {
-            for (int i = 0; i < Filters.Count; i++)
-            {
-                int[] innerWeight;
-                IFilter innerFailure;
-                if (!Filters[i].MeetsCondition(context, out innerWeight, out innerFailure))
-                {
-                    failure = innerFailure;
-                    failureWeight = new[] { i }.Add(innerWeight);
-                    return false;
-                }
-            }
-
-            failureWeight = FilterConstant.EmptyArray;
-            failure = this;
-            return true;
+            return Filters
+                .Select(t => t.GetFailingFilter(context))
+                .FirstOrDefault(filter => filter != null);
         }
 
         public IEnumerable<IDependency> Dependencies => Filters.SelectMany(x => x.Dependencies);

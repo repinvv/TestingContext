@@ -18,5 +18,7 @@
         public List<Tuple<INode,IFilter>> ReorderedNodes { get; } = new List<Tuple<INode, IFilter>>();
 
         public HashSet<Tuple<IToken, IToken>> NonEqualFilters { get; } = new HashSet<Tuple<IToken, IToken>>();
+
+        public Dictionary<IFilter, int> FilterIndex { get; } = new Dictionary<IFilter, int>();
     }
 }

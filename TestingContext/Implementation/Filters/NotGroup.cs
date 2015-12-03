@@ -10,25 +10,26 @@
 
     internal class NotGroup : BaseFilter, IFilterGroup
     {
-        public NotGroup(IDiagInfo diagInfo, IFilter absorber) : base(diagInfo, absorber) { }
+        public NotGroup(IDiagInfo diagInfo) : base(diagInfo) { }
 
-        public NotGroup(IFilter inner, IDiagInfo diagInfo, IFilter absorber = null) : base(diagInfo, absorber)
+        public NotGroup(IFilter inner, IDiagInfo diagInfo, IFilter absorber = null) : base(diagInfo)
         {
             Filters.Add(inner);
         }
 
-        public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFilter failure)
+        public IFilter GetFailingFilter(IResolutionContext context)
         {
             if (Filters.Count != 1)
             {
                 throw new AlgorythmException("NOT group can only contain one filter");
             }
 
-            failureWeight = FilterConstant.EmptyArray;
-            failure = this;
-            IFilter innerFailure;
-            int[] innerWeight;
-            return !Filters[0].MeetsCondition(context, out innerWeight, out innerFailure);
+            if (Filters[0].GetFailingFilter(context) == null)
+            {
+                return this;
+            }
+
+            return null;
         }
 
         public List<IFilter> Filters { get; } = new List<IFilter>();

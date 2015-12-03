@@ -3,9 +3,12 @@
     using System.Collections.Generic;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Providers;
+    using TestingContextCore.Implementation.TreeOperation;
 
     internal interface INode
     {
+        Tree Tree { get; }
+
         IToken Token { get; }
 
         INode SourceParent { get; set; }

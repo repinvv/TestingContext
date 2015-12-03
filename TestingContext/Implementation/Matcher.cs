@@ -34,20 +34,12 @@
 
         private DisablableFilter GetFailedFilter()
         {
-            if (FoundMatch() || failedFilter != null)
+            if (FoundMatch())
             {
-                return failedFilter;
+                return null;
             }
 
-            var collect = new FailureCollect();
-            rootContext.ReportFailure(collect, new int[0]);
-            var failure = collect.Failure;
-            while (failure?.Absorber != null)
-            {
-                failure = failure.Absorber;
-            }
-
-            return failedFilter = failure as DisablableFilter;
+            return failedFilter ?? (failedFilter = rootContext.FailingFilter as DisablableFilter);
         }
 
         public IEnumerable<IResolutionContext<T>> BestCandidates<T>(IToken<T> token)

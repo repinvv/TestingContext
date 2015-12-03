@@ -25,7 +25,7 @@
         #region groups
         public IFilterToken Not(Action<IRegister> action, string file, int line, string member)
         {
-            var notGroup = new NotGroup(DiagInfo.Create(file, line, member), group);
+            var notGroup = new NotGroup(DiagInfo.Create(file, line, member));
             store.RegisterFilter(notGroup, group);
             RegisterSubgroup(action, notGroup);
             return notGroup.Token;
@@ -40,7 +40,7 @@
             int line,
             string member)
         {
-            var orGroup = new OrGroup(DiagInfo.Create(file, line, member), group);
+            var orGroup = new OrGroup(DiagInfo.Create(file, line, member));
             store.RegisterFilter(orGroup, group);
             RegisterSubgroup(action, orGroup);
             RegisterSubgroup(action2, orGroup);
@@ -52,7 +52,7 @@
 
         public IFilterToken Xor(Action<IRegister> action, Action<IRegister> action2, string file, int line, string member)
         {
-            var xorGroup = new XorGroup(DiagInfo.Create(file, line, member), group);
+            var xorGroup = new XorGroup(DiagInfo.Create(file, line, member));
             store.RegisterFilter(xorGroup, group);
             RegisterSubgroup(action, xorGroup);
             RegisterSubgroup(action2, xorGroup);
@@ -66,7 +66,7 @@
                 return;
             }
 
-            var andGroup = new AndGroup(parentGroup);
+            var andGroup = new AndGroup();
             parentGroup.Filters.Add(andGroup);
             action(RegistrationFactory.GetRegistration(store, andGroup));
         }

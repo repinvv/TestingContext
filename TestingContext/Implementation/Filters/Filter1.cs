@@ -13,7 +13,7 @@
         private readonly IDependency<T1> dependency;
         private readonly Func<T1, bool> filter;
 
-        public Filter1(IDependency<T1> dependency, Func<T1, bool> filter, DiagInfo diagInfo, IFilter absorber) : base(diagInfo, absorber)
+        public Filter1(IDependency<T1> dependency, Func<T1, bool> filter, DiagInfo diagInfo) : base(diagInfo)
         {
             this.dependency = dependency;
             this.filter = filter;
@@ -21,17 +21,15 @@
             ForTokens = new[] { dependency.Token };
         }
 
-        public bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFilter failure)
+        public IFilter GetFailingFilter(IResolutionContext context)
         {
             T1 argument;
-            failureWeight = FilterConstant.EmptyArray;
-            failure = this;
-            if (!dependency.TryGetValue(context, out argument))
+            if (dependency.TryGetValue(context, out argument) && filter(argument))
             {
-                return false;
+                return null;
             }
 
-            return filter(argument);
+            return this;
         }
 
         public IEnumerable<IDependency> Dependencies { get; }

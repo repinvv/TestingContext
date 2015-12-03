@@ -6,7 +6,6 @@
     using TestingContext.Interface;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Filters;
-    using TestingContextCore.Implementation.Logging;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.UsefulExtensions;
@@ -15,10 +14,8 @@
     {
         private readonly IResolutionContext parent;
         private readonly TokenStore store;
-        private Dictionary<IToken, IEnumerable<IResolutionContext>> childResolutions 
+        private Dictionary<IToken, IEnumerable<IResolutionContext>> childResolutions
             = new Dictionary<IToken, IEnumerable<IResolutionContext>>();
-        private int[] failureWeight;
-        private IFilter failure;
 
         public ResolutionContext(T value,
             INode node,
@@ -35,10 +32,12 @@
         public void Evaluate()
         {
             childResolutions = new Dictionary<IToken, IEnumerable<IResolutionContext>>();
-            MeetsConditions = Node.FilterInfo.ItemFilter.MeetsCondition(this, out failureWeight, out failure);
+            FailingFilter = Node.FilterInfo.ItemFilter.GetFailingFilter(this);
         }
 
-        public bool MeetsConditions { get; private set; }
+        public bool MeetsConditions => FailingFilter == null;
+
+        public IFilter FailingFilter { get; private set; }
 
         public INode Node { get; }
 
@@ -75,8 +74,8 @@
 
         public IEnumerable<IResolutionContext> ResolveFromClosestParent(IToken token, IToken parentToken)
         {
-            return parentToken == Node.Token 
-                ? GetFromTree(token) 
+            return parentToken == Node.Token
+                ? GetFromTree(token)
                 : parent.ResolveFromClosestParent(token, parentToken);
         }
         #endregion
@@ -89,28 +88,6 @@
         private IEnumerable<IResolutionContext> GetChildResolution(INode nextNode)
         {
             return childResolutions.GetOrAdd(nextNode.Token, () => nextNode.Provider.Resolve(this, nextNode));
-        }
-
-        public void ReportFailure(FailureCollect collect, int[] startingWeight)
-        {
-            collect.ReportFailure(startingWeight.Add(0).Add(failureWeight), failure);
-            var children = childResolutions.Values.ToArray();
-            for (int i = 0; i < children.Length; i++)
-            {
-                if (children[i].Any(x => x.MeetsConditions))
-                {
-                    continue;
-                }
-
-                var cascadeWeight = startingWeight.Add(1, i);
-                if (collect.CanCascade(cascadeWeight))
-                {
-                    foreach (var item in children[i])
-                    {
-                       item.ReportFailure(collect, cascadeWeight);   
-                    }
-                }
-            }
         }
 
         public override bool Equals(object obj)

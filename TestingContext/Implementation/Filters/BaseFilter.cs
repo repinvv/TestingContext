@@ -6,15 +6,13 @@
 
     internal abstract class BaseFilter
     {
-        protected BaseFilter(IDiagInfo diagInfo, IFilter absorber)
+        protected BaseFilter(IDiagInfo diagInfo)
         {
             DiagInfo = diagInfo;
-            Absorber = absorber;
         }
 
         public IFilterToken Token { get; } = new Token();
         public IDiagInfo DiagInfo { get; }
-        public IFilter Absorber { get; }
 
         public override string ToString()
         {

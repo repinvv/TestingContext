@@ -10,8 +10,6 @@
     {
         IFilterToken Token { get; }
 
-        IFilter Absorber { get; }
-
-        bool MeetsCondition(IResolutionContext context, out int[] failureWeight, out IFilter failure);
+        IFilter GetFailingFilter(IResolutionContext context);
     }
 }

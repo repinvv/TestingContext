@@ -50,6 +50,7 @@
     <Compile Include="Implementation\Filters\AndGroup.cs" />
     <Compile Include="Implementation\Filters\BaseFilter.cs" />
     <Compile Include="Implementation\Filters\DisablableFilter.cs" />
+    <Compile Include="Implementation\Filters\ExistsFilter.cs" />
     <Compile Include="Implementation\Filters\Filter1.cs" />
     <Compile Include="Implementation\Filters\Filter2.cs" />
     <Compile Include="Implementation\Filters\FilterConstant.cs" />

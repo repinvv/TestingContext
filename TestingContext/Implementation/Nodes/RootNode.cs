@@ -10,9 +10,12 @@
     {
         public RootNode(Tree tree, IToken token )
         {
+            Tree = tree;
             Token = token;
-            Resolver = new NodeResolver(tree, this);
+            Resolver = new NodeResolver(this);
         }
+
+        public Tree Tree { get; }
 
         public IToken Token { get; }
 
