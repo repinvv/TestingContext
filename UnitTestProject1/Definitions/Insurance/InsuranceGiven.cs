@@ -18,23 +18,20 @@
         [Given(@"insurance(?:\s)?(.*) is created in year (.*)")]
         public void GivenInsuranceIsCreatedInYear(string key, int year)
         {
-            context.Register()
-                   .For<Insurance>(key)
+            context.For<Insurance>(key)
                    .IsTrue(insurance => insurance.Created.Year == year);
         }
 
         [Given(@"insurance(?:\s)?(.*) is taken from insurancesSource")]
         public void GivenInsuranceIsTakenFromPoliciesSource(string key)
         {
-            context.Register()
-                   .Exists<Insurance>(key, () => InsurancesSource.Insurances);
+            context.Exists<Insurance>(key, () => InsurancesSource.Insurances);
         }
 
         [Given(@"for insurance(?:\s)?(.*) there is no insurance(?:\s)?(.*) in insurancesSource that meet requirements")]
         public void GivenForInsuranceThereIsNoInsuranceInPoliciesSourceThatMeetRequirements(string key1, string key2)
         {
-            context.Register()
-                   .For<Insurance>(key1)
+            context.For<Insurance>(key1)
                    .DoesNotExist<Insurance>(key2, p => InsurancesSource.Insurances);
         }
 
@@ -42,8 +39,7 @@
         public void GivenInsuranseMatchesHiLevelORCondition(string key)
         {
             var token = context.GetToken<Insurance>(key);
-            context.Register()
-                   .Or(x => x.InsuranceHasFederalTax(token),
+            context.Or(x => x.InsuranceHasFederalTax(token),
                        x => x.InsuranceHasMaximumDependents(token),
                        x => x.InsuranceHasDependentAssignment(token));
         }
@@ -52,8 +48,7 @@
         public void GivenInsuranseMatchesHiLevelNOTCondition(string key)
         {
             var token = context.GetToken<Insurance>(key);
-            context.Register()
-                   .Not(x =>
+            context.Not(x =>
                    {
                        x.InsuranceHasMaximumDependents(token);
                        x.InsuranceHasDependentAssignment(token);

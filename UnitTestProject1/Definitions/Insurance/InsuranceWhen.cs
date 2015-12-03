@@ -17,7 +17,7 @@
         [When(@"insurance(?:\s)?(.*) resolves")]
         public void WhenInsuranceResolves(string key)
         {
-            var value = context.All<Insurance>(key);
+            var value = context.GetMatcher().All<Insurance>(key);
         }
     }
 }

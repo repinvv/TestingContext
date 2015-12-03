@@ -5,33 +5,40 @@
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;
+    using TestingContext.Interface;
     using TestingContextCore.PublicMembers;
 
     [Binding]
     internal class LoggerMustProduceInfo
     {
-        private readonly TestingContext context;
+        private readonly ITestingContext context;
+        private IStorage storage;
         private string log;
 
-        public LoggerMustProduceInfo(TestingContext context)
+        public LoggerMustProduceInfo(ITestingContext context)
         {
             this.context = context;
+            storage = context.Storage;
         }
 
-        [BeforeScenarioBlock]
+        [AfterScenarioBlock]
         public void BindLogger()
         {
-            if (ScenarioContext.Current.CurrentScenarioBlock != ScenarioBlock.Then)
+            if (ScenarioContext.Current.CurrentScenarioBlock != ScenarioBlock.Given)
+            {
+                return;
+            }
+            var matcher = context.SetTestMatcher();
+            if (matcher.FoundMatch())
             {
                 return;
             }
 
-            if (context.FoundMatch())
+            var f = matcher.GetFailure();
+            if (f == null)
             {
                 return;
             }
-
-            var f = context.GetFailure();
 
             log = $"entities: {string.Join(", ", f.ForTokens.Select(x => x.ToString()))}:\r\n" +
                   $"{f.DiagInfo.File}, Line: {f.DiagInfo.Line}\r\n" +

@@ -15,10 +15,10 @@
     {
         private readonly IResolutionContext parent;
         private readonly TokenStore store;
-        private readonly Dictionary<IToken, IEnumerable<IResolutionContext>> childResolutions 
+        private Dictionary<IToken, IEnumerable<IResolutionContext>> childResolutions 
             = new Dictionary<IToken, IEnumerable<IResolutionContext>>();
-        private readonly int[] failureWeight;
-        private readonly IFilter failure;
+        private int[] failureWeight;
+        private IFilter failure;
 
         public ResolutionContext(T value,
             INode node,
@@ -29,10 +29,16 @@
             Node = node;
             this.parent = parent;
             this.store = store;
-            MeetsConditions = node.FilterInfo.ItemFilter.MeetsCondition(this, out failureWeight, out failure);
+            Evaluate();
         }
 
-        public bool MeetsConditions { get; }
+        public void Evaluate()
+        {
+            childResolutions = new Dictionary<IToken, IEnumerable<IResolutionContext>>();
+            MeetsConditions = Node.FilterInfo.ItemFilter.MeetsCondition(this, out failureWeight, out failure);
+        }
+
+        public bool MeetsConditions { get; private set; }
 
         public INode Node { get; }
 

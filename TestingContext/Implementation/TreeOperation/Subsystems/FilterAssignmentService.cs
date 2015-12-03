@@ -22,13 +22,13 @@
 
         public static void AssignFilter(TokenStore store, IFilter filter)
         {
-            if (!filter.Dependencies.Any() || store.DisabledFilter == filter.Token)
+            if (!filter.Dependencies.Any())
             {
                 return;
             }
 
             var node = GetAssignmentNode(store.Tree, filter);
-            node.FilterInfo.Group.Filters.Add(filter);
+            node.FilterInfo.Group.Filters.Add(new DisablableFilter(filter));
         }
 
         public static void AssignFilters(TokenStore store)

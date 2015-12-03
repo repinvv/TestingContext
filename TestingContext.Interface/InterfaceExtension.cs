@@ -18,12 +18,12 @@
             return output;
         }
 
-        public static T Value<T>(this ITestingContext context, IToken<T> token)
+        public static T Value<T>(this IMatcher context, IToken<T> token)
             => context.All(token)
                       .Select(x => x.Value)
                       .FirstOrDefault();
 
-        public static T Value<T>(this ITestingContext context, string name)
+        public static T Value<T>(this IMatcher context, string name)
             => context.All<T>(name)
                       .Select(x => x.Value)
                       .FirstOrDefault();

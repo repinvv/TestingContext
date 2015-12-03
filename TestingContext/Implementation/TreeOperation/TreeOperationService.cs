@@ -11,11 +11,6 @@
     {
         public static Tree GetTree(TokenStore store)
         {
-            return store.Tree ?? CreateTree(store);
-        }
-
-        private static Tree CreateTree(TokenStore store)
-        {
             var tree = store.Tree = new Tree();
             tree.Root = new RootNode(tree, store.RootToken);
             var nodes = store.Providers.Select(x => Node.CreateNode(x.Key, x.Value, store, tree)).ToList();

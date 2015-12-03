@@ -19,19 +19,19 @@
         [Then(@"assignment(?:\s)?(.*) Id must be (.*)")]
         public void ThenAssignmentIdMustBe(string key, int id)
         {
-            Assert.AreEqual(id, context.Value<Assignment>(key).Id);
+            Assert.AreEqual(id, context.TestMatcher().Value<Assignment>(key).Id);
         }
 
         [Then(@"assignment(?:\s)?(.*) must exist")]
         public void ThenAssignmentMustExist(string key)
         {
-            Assert.IsNotNull(context.Value<Assignment>(key));
+            Assert.IsNotNull(context.TestMatcher().Value<Assignment>(key));
         }
 
         [Then(@"for assignment(?:\s)?(.*) with id (.*) there must be provided assignments(?:\s)?(.*) with ids (.*)")]
         public void ThenForAssignmentWithIdThereMustBeProvidedAssignmentsWithIds(string key1, int id, string key2, string ids)
         {
-            var assignment1 = context.All<Assignment>(key1).First(x => x.Value.Id == id);
+            var assignment1 = context.TestMatcher().All<Assignment>(key1).First(x => x.Value.Id == id);
             var assignments2Ids = assignment1
                 .Get<Assignment>(key2)
                 .Select(x => x.Value.Id).ToArray();

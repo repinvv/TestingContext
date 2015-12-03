@@ -49,6 +49,7 @@
     <Compile Include="Implementation\Dependencies\SingleDependency.cs" />
     <Compile Include="Implementation\Filters\AndGroup.cs" />
     <Compile Include="Implementation\Filters\BaseFilter.cs" />
+    <Compile Include="Implementation\Filters\DisablableFilter.cs" />
     <Compile Include="Implementation\Filters\Filter1.cs" />
     <Compile Include="Implementation\Filters\Filter2.cs" />
     <Compile Include="Implementation\Filters\FilterConstant.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Implementation\Filters\OrGroup.cs" />
     <Compile Include="Implementation\Filters\XorGroup.cs" />
     <Compile Include="Implementation\Logging\ArrayExtension.cs" />
+    <Compile Include="Implementation\Matcher.cs" />
     <Compile Include="Implementation\Nodes\Node.cs" />
     <Compile Include="Implementation\Nodes\NodeFilterInfo.cs" />
     <Compile Include="Implementation\Nodes\NodeResolver.cs" />

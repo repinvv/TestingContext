@@ -21,5 +21,7 @@
         #region cached method
         IEnumerable<IResolutionContext> GetFromTree(IToken token);
         #endregion
+
+        void Evaluate();
     }
 }

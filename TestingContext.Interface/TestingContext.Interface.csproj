@@ -52,6 +52,7 @@
     <Compile Include="IStorage.cs" />
     <Compile Include="IRegister.cs" />
     <Compile Include="IResolutionContext.cs" />
+    <Compile Include="IMatcher.cs" />
     <Compile Include="ITestingContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

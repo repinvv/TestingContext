@@ -4,9 +4,9 @@
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Tokens;
 
-    internal class BaseFilter
+    internal abstract class BaseFilter
     {
-        public BaseFilter(IDiagInfo diagInfo, IFilter absorber)
+        protected BaseFilter(IDiagInfo diagInfo, IFilter absorber)
         {
             DiagInfo = diagInfo;
             Absorber = absorber;

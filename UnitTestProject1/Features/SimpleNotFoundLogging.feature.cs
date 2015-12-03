@@ -14,7 +14,8 @@
 namespace UnitTestProject1.Features
 {
     using TechTalk.SpecFlow;
-
+    
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
@@ -49,7 +50,7 @@ namespace UnitTestProject1.Features
             if (((TechTalk.SpecFlow.FeatureContext.Current != null) 
                         && (TechTalk.SpecFlow.FeatureContext.Current.FeatureInfo.Title != "SimpleNotFoundLogging")))
             {
-                FeatureSetup(null);
+                UnitTestProject1.Features.SimpleNotFoundLoggingFeature.FeatureSetup(null);
             }
         }
         
@@ -120,12 +121,12 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Two entities in cascade failed find should print an \"empty source\" message")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Two entities in cascade failed find should print a collection validity filter")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "SimpleNotFoundLogging")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("notFoundLogging3")]
-        public virtual void TwoEntitiesInCascadeFailedFindShouldPrintAnEmptySourceMessage()
+        public virtual void TwoEntitiesInCascadeFailedFindShouldPrintACollectionValidityFilter()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Two entities in cascade failed find should print an \"empty source\" message", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Two entities in cascade failed find should print a collection validity filter", new string[] {
                         "notFoundLogging3"});
 #line 23
 this.ScenarioSetup(scenarioInfo);

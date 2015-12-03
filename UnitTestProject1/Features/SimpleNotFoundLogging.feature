@@ -20,7 +20,7 @@ Scenario: Two entities in cascade failed find should print a filter
 	Then resolution logger must produce info for filter, mentioning 'Assignment "B"' and 'Undefined'
 
 @notFoundLogging3
-Scenario: Two entities in cascade failed find should print an "empty source" message
+Scenario: Two entities in cascade failed find should print a collection validity filter
 	Given insurance B is taken from insurancesSource
 	  And insurance B is created in year 2009
 	  And for insurance B exists an assignment B

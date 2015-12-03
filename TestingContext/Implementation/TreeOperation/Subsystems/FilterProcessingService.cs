@@ -46,7 +46,7 @@
 
         public static void AddFilter(IFilter filter, List<IFilter> filters, TokenStore store)
         {
-            if (!filter.Dependencies.Any() || store.DisabledFilter == filter.Token)
+            if (!filter.Dependencies.Any())
             {
                 return;
             }
