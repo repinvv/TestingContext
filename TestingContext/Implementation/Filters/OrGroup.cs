@@ -13,12 +13,7 @@
 
         public IFilter GetFailingFilter(IResolutionContext context)
         {
-            if (Filters.Any(filter => filter.GetFailingFilter(context) == null))
-            {
-                return null;
-            }
-
-            return this;
+            return Filters.Any(filter => filter.GetFailingFilter(context) == null) ? null : this;
         }
 
         public List<IFilter> Filters { get; } = new List<IFilter>();
