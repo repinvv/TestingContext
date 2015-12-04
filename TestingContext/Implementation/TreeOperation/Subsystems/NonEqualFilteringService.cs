@@ -12,7 +12,7 @@
 
     internal static class NonEqualFilteringService
     {
-        public static void AssignNonEqualFilter(TokenStore store, INode node1, INode node2)
+        public static void AssignNonEqualFilter(Tree tree, INode node1, INode node2)
         {
             if (node1.Token.Type != node2.Token.Type)
             {
@@ -21,17 +21,17 @@
 
             var tuple = new Tuple<IToken, IToken>(node1.Token, node2.Token);
             var reverseTuple = new Tuple<IToken, IToken>(node2.Token, node1.Token);
-            if (store.Tree.NonEqualFilters.Contains(tuple) || store.Tree.NonEqualFilters.Contains(reverseTuple))
+            if (tree.NonEqualFilters.Contains(tuple) || tree.NonEqualFilters.Contains(reverseTuple))
             {
                 return;
             }
 
-            store.Tree.NonEqualFilters.Add(tuple);
+            tree.NonEqualFilters.Add(tuple);
             var dep1 = new SingleDependency(node1.Token);
             var dep2 = new SingleDependency(node2.Token);
             var dummyDiag = DiagInfo.Create(string.Empty, 0, $"Non-equal filter for {node1.Token} and {node2.Token}");
             var filter = new Filter2<IResolutionContext, IResolutionContext>(dep1, dep2, (x, y) => !x.Equals(y), dummyDiag);
-            AssignFilter(store, filter);
+            AssignFilter(tree, filter);
         }
     }
 }

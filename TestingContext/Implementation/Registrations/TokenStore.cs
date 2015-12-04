@@ -28,8 +28,6 @@
 
         public HashSet<IFilter> CvFilters { get; } = new HashSet<IFilter>();
 
-        public Tree Tree { get; set; }
-
         public Dictionary<IToken, IDiagInfo> ItemInversions { get; } =new Dictionary<IToken, IDiagInfo>();
 
         public Dictionary<IToken, IDiagInfo> CollectionInversions { get; } = new Dictionary<IToken, IDiagInfo>();

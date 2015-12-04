@@ -22,7 +22,7 @@
 
         public IMatcher GetMatcher()
         {
-            return new Matcher(GetTree(store).RootContext, store);
+            return new Matcher(CreateTree(store).RootContext, store);
         }
 
         #region ITestingContext members

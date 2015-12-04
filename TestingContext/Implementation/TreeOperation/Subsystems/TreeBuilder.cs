@@ -4,18 +4,17 @@
     using System.Linq;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Nodes;
-    using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.PublicMembers.Exceptions;
     using TestingContextCore.UsefulExtensions;
     using static NodeReorderingService;
 
     internal static class TreeBuilder
     {
-        public static void BuildNodesTree(TokenStore store, List<Node> nodes)
+        public static void BuildNodesTree(Tree tree, List<Node> nodes)
         {
             var dict = GroupNodes(nodes);
-            var nodesQueue = new Queue<INode>(new[] { store.Tree.Root });
-            var assigned = new HashSet<IToken> { store.Tree.Root.Token };
+            var nodesQueue = new Queue<INode>(new[] { tree.Root });
+            var assigned = new HashSet<IToken> { tree.Root.Token };
             while (nodesQueue.Any())
             {
                 var current = nodesQueue.Dequeue();
@@ -27,8 +26,8 @@
 
                 foreach (var child in children.Where(child => child.Provider.Dependencies.All(x => assigned.Contains(x.Token))))
                 {
-                    ReorderNodes(store, child.Provider.Dependencies.ToArray(), child.Provider.CollectionValidityFilter);
-                    var parent = FilterAssignmentService.GetAssignmentNode(store.Tree, child.Provider);
+                    ReorderNodes(tree, child.Provider.Dependencies.ToArray(), child.Provider.CollectionValidityFilter);
+                    var parent = FilterAssignmentService.GetAssignmentNode(tree, child.Provider);
                     child.Parent = parent;
                     child.SourceParent = parent;
                     assigned.Add(child.Token);

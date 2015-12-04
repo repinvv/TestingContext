@@ -16,7 +16,6 @@
     {
         public static void RegisterFilter(this TokenStore store, IFilter filter, IFilterGroup group)
         {
-            store.PreRegister();
             if (group != null)
             {
                 group.Filters.Add(filter);
@@ -35,27 +34,18 @@
 
         public static void InvertFilter(this TokenStore store, IFilterToken token, DiagInfo diagInfo)
         {
-            store.PreRegister();
             store.FilterInversions.Add(token, diagInfo);
         }
 
         public static void InvertCollectionValidity(this TokenStore store, IToken token, DiagInfo diagInfo)
         {
-            store.PreRegister();
             store.CollectionInversions.Add(token, diagInfo);
         }
 
         public static void InvertItemValidity(this TokenStore store, IToken token, DiagInfo diagInfo)
         {
-            store.PreRegister();
             store.ItemInversions.Add(token, diagInfo);
         }
-
-        private static void PreRegister(this TokenStore store)
-        {
-            store.Tree = null;
-        }
-
         public static void SaveToken<T>(this TokenStore store, string name, IToken<T> token, string file, int line, string member)
         {
             if (store.Tokens.Get<IToken<T>>(name) != null)

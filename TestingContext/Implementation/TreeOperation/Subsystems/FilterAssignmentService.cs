@@ -20,14 +20,14 @@
                        .First();
         }
 
-        public static void AssignFilter(TokenStore store, IFilter filter)
+        public static void AssignFilter(Tree tree, IFilter filter)
         {
             if (!filter.Dependencies.Any())
             {
                 return;
             }
 
-            var node = GetAssignmentNode(store.Tree, filter);
+            var node = GetAssignmentNode(tree, filter);
             AssignFilterToNode(filter, node);
         }
 
@@ -39,18 +39,18 @@
             node.Tree.FilterIndex[disablable] = newIndex;
         }
 
-        public static void AssignFilters(TokenStore store)
+        public static void AssignFilters(TokenStore store, Tree tree)
         {
             var freeFilters = new List<IFilter>();
             foreach (var filter in store.Filters)
             {
-                ProcessFilterGroup(filter as IFilterGroup, freeFilters, store);
+                ProcessFilterGroup(filter as IFilterGroup, freeFilters, store, tree);
                 AddFilter(filter, freeFilters, store);
             }
 
-            freeFilters.ForEach(x => ReorderNodes(store, x.Dependencies.ToArray(), x));
-            freeFilters.ForEach(x => AssignFilter(store, x));
-            store.Tree.ReorderedNodes.ForEach(x=>AssignExistsFilter(x.Item1, x.Item2));
+            freeFilters.ForEach(x => ReorderNodes(tree, x.Dependencies.ToArray(), x));
+            freeFilters.ForEach(x => AssignFilter(tree, x));
+            tree.ReorderedNodes.ForEach(x=>AssignExistsFilter(x.Item1, x.Item2));
         }
 
         private static void AssignExistsFilter(INode node, IFilter absorber)

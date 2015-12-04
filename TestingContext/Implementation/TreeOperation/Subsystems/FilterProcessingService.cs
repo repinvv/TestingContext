@@ -10,7 +10,7 @@
 
     internal static class FilterProcessingService
     {
-        public static void ProcessFilterGroup(IFilterGroup filterGroup, List<IFilter> freeFilters, TokenStore store)
+        public static void ProcessFilterGroup(IFilterGroup filterGroup, List<IFilter> freeFilters, TokenStore store, Tree tree)
         {
             if (filterGroup == null)
             {
@@ -23,10 +23,10 @@
 
             foreach (var filter in groupFilters)
             {
-                ProcessFilterGroup(filter as IFilterGroup, freeFilters, store);
+                ProcessFilterGroup(filter as IFilterGroup, freeFilters, store, tree);
                 var targetList = cvFilters
                     .Where(x=>x!= filter)
-                    .Any(x => FilterIsAbsorbed(filter, store.Tree.Nodes[x.Dependencies.First().Token], store.Tree))
+                    .Any(x => FilterIsAbsorbed(filter, tree.Nodes[x.Dependencies.First().Token], tree))
                     ? freeFilters
                     : filterGroup.Filters;
                 AddFilter(filter, targetList, store);
