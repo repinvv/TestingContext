@@ -102,5 +102,13 @@
             context.For<Insurance>(insuranceKey)
                    .Each<Assignment>(assignmentKey, x => x.Assignments);
         }
+
+        [Given(@"assignment(?:\s)?(.*) has more people than assignments(?:\s)?(.*)")]
+        public void GivenAssignmentHasMorePeopleThanAssignments(string key1, string key2)
+        {
+            var token1 = context.GetToken<Assignment>(key1);
+            var token2 = context.GetToken<Assignment>(key2);
+            context.AssignmentHasMorePeopleThanAssignments(token1, token2);
+        }
     }
 }

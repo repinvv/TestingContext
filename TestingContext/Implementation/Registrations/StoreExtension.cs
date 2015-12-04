@@ -7,6 +7,7 @@
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Providers;
+    using TestingContextCore.Implementation.Registrations.LoopDetection;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.PublicMembers;
@@ -16,6 +17,7 @@
     {
         public static void RegisterFilter(this TokenStore store, IFilter filter, IFilterGroup group)
         {
+            LoopDetectionService.DetectRegistrationLoop(store, filter);
             if (group != null)
             {
                 group.Filters.Add(filter);
@@ -27,6 +29,7 @@
 
         public static void RegisterProvider(this TokenStore store, IProvider provider, IToken token, IFilterGroup group)
         {
+            LoopDetectionService.DetectRegistrationLoop(store, provider, token);
             store.RegisterFilter(provider.CollectionValidityFilter, group);
             store.CvFilters.Add(provider.CollectionValidityFilter);
             store.Providers.Add(token, provider);

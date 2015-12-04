@@ -57,6 +57,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Definitions\Assignment\AssignmentGiven.cs" />
+    <Compile Include="Definitions\Assignment\AssignmentGivenHelper.cs" />
     <Compile Include="Definitions\Assignment\AssignmentThen.cs" />
     <Compile Include="Definitions\Common\Register.cs" />
     <Compile Include="Definitions\Insurance\InsuranceGiven.cs" />
@@ -73,6 +74,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Performance.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\RegistrationsLoopDetection.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RegistrationsLoopDetection.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\RemoveLimitations.feature.cs">
       <AutoGen>True</AutoGen>
@@ -132,6 +138,10 @@
     <None Include="Features\Performance.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Performance.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\RegistrationsLoopDetection.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>RegistrationsLoopDetection.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\RemoveLimitations.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

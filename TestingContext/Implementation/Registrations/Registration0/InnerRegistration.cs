@@ -19,7 +19,6 @@
         {
             this.store = store;
             this.group = group;
-            
         }
 
         #region groups

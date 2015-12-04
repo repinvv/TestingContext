@@ -66,6 +66,8 @@
     <Compile Include="Implementation\Providers\Provider.cs" />
     <Compile Include="Implementation\Providers\Provider2.cs" />
     <Compile Include="Implementation\Registrations\Declarator.cs" />
+    <Compile Include="Implementation\Registrations\LoopDetection\LoopDetectionService.cs" />
+    <Compile Include="Implementation\Registrations\LoopDetection\Reliance.cs" />
     <Compile Include="Implementation\Registrations\Registration0\InnerRegistration.cs" />
     <Compile Include="Implementation\Registrations\Registration1\InnerRegistration1.cs" />
     <Compile Include="Implementation\Registrations\Inversion.cs" />
@@ -87,6 +89,7 @@
     <Compile Include="PublicMembers\Exceptions\AlgorythmException.cs" />
     <Compile Include="PublicMembers\Exceptions\RegistrationExtension.cs" />
     <Compile Include="Implementation\Tokens\LazyHaveToken.cs" />
+    <Compile Include="PublicMembers\Exceptions\RegistrationsLoopException.cs" />
     <Compile Include="UsefulExtensions\CachingEnumerable.cs" />
     <Compile Include="UsefulExtensions\DictionaryExtension.cs" />
     <Compile Include="Implementation\Definition.cs" />

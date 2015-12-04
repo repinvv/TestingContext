@@ -19,20 +19,21 @@ namespace UnitTestProject1.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class RemoveLimitationsFeature
+    public partial class RegistrationsLoopDetectionFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "RemoveLimitations.feature"
+#line 1 "RegistrationsLoopDetection.feature"
 #line hidden
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute()]
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "RemoveLimitations", "In order to write the test the way i like\r\nI want to specify filters without limi" +
-                    "tations", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Registrations loop detection", "In order to understand why registrations do not work\t\nI want to be presented with" +
+                    " meaningful exception at registration time\ninstead of \"stack overflow\" at execut" +
+                    "ion time.", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -47,9 +48,9 @@ namespace UnitTestProject1.Features
         public virtual void TestInitialize()
         {
             if (((TechTalk.SpecFlow.FeatureContext.Current != null) 
-                        && (TechTalk.SpecFlow.FeatureContext.Current.FeatureInfo.Title != "RemoveLimitations")))
+                        && (TechTalk.SpecFlow.FeatureContext.Current.FeatureInfo.Title != "Registrations loop detection")))
             {
-                UnitTestProject1.Features.RemoveLimitationsFeature.FeatureSetup(null);
+                UnitTestProject1.Features.RegistrationsLoopDetectionFeature.FeatureSetup(null);
             }
         }
         
@@ -70,27 +71,31 @@ namespace UnitTestProject1.Features
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("\"Each\" filter in scenario with tree reordering")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "RemoveLimitations")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("limitationRemoval2")]
-        public virtual void EachFilterInScenarioWithTreeReordering()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Loop Detection 1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Registrations loop detection")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("loopDetection")]
+        public virtual void LoopDetection1()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("\"Each\" filter in scenario with tree reordering", new string[] {
-                        "limitationRemoval2"});
-#line 6
-this.ScenarioSetup(scenarioInfo);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Loop Detection 1", new string[] {
+                        "loopDetection"});
 #line 7
-   testRunner.Given("insurance B is taken from insurancesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 8
-     testRunner.And("insurance B is created in year 2018", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("insurance B is taken from insurancesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
-  testRunner.And("all assignments B in insurance B meet following criteria", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("for insurance B exists an assignment B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10
-  testRunner.And("all taxes B in insurance B meet following criteria", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("for insurance B exists an assignment C", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
-  testRunner.And("assignment B is created at the same day as tax B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("for insurance B exists an assignment D", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 12
-   testRunner.Then("insurance B name must contain \' @limitationRemoval2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+   testRunner.And("assignment B has more people than assignments C", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 13
+   testRunner.And("assignment C has more people than assignments D", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 14
+ testRunner.When("I try register that assignment D has more people than assignments B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 15
+ testRunner.Then("i should get an exception with information about assignment D", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
