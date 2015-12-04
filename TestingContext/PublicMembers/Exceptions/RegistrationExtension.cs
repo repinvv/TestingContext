@@ -7,7 +7,7 @@
     {
         public IDiagInfo Diag { get; set; }
 
-        public RegistrationException(string message, IDiagInfo diag) : base(message)
+        public RegistrationException(string message, IDiagInfo diag) : base(message + Environment.NewLine + "Diagnostics: " + diag)
         {
             Diag = diag;
         }

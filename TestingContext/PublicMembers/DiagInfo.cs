@@ -7,21 +7,23 @@
 
     public class DiagInfo : IDiagInfo
     {
-        private static Func<DiagInfo> diagFactory;
+        private static Func<string, int, string, string, DiagInfo> diagFactory;
 
-        public static void SetCustomFactory(Func<DiagInfo> factory)
+        public static void SetCustomFactory(Func<string, int, string, string, DiagInfo> factory)
         {
             diagFactory = factory;
         }
 
         internal static DiagInfo Create(string file, int line, string member, string additionalInfo)
         {
-            var diagInfo = diagFactory?.Invoke() ?? new DiagInfo();
-            diagInfo.AdditionalInfo = additionalInfo;
-            diagInfo.File = file;
-            diagInfo.Line = line;
-            diagInfo.Member = member;
-            return diagInfo;
+            return diagFactory?.Invoke(file, line, member, additionalInfo)
+                   ?? new DiagInfo
+                      {
+                          AdditionalInfo = additionalInfo,
+                          File = file,
+                          Line = line,
+                          Member = member
+                      };
         }
 
         internal static DiagInfo Create(string file, int line, string member, Expression filterExpression = null) 
@@ -34,5 +36,11 @@
         public int Line { get; internal set; }
 
         public string Member { get; internal set; }
+
+        public override string ToString()
+        {
+            return $"File: {File}, line: {Line}{Environment.NewLine}" +
+                   $"Member: {Member}, Additional info: {AdditionalInfo}";
+        }
     }
 }
