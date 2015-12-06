@@ -42,10 +42,10 @@
             return RegistrationFactory.GetRegistration2(store, dependency, new CollectionValueDependency<T2>(haveToken), group);
         }
 
-        public Declarator<T2> Declare<T2>(Func<T1, IEnumerable<T2>> srcFunc)
+        public Declarator<T2> Declare<T2>(Func<T1, IEnumerable<T2>> srcFunc, IDiagInfo diagInfo)
         {
             var token = new Token<T2>();
-            var provider = new Provider<T1, T2>(dependency, srcFunc, store);
+            var provider = new Provider<T1, T2>(dependency, srcFunc, store, diagInfo);
             return new Declarator<T2>(store, token, provider, group);
         }
     }

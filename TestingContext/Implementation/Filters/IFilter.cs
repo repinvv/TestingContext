@@ -5,7 +5,7 @@
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
 
-    internal interface IFilter : IHaveDependencies, IFailure
+    internal interface IFilter : IDepend, IFailure
     {
         IFilterToken Token { get; }
 

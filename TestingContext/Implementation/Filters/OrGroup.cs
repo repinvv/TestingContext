@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using TestingContext.Interface;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
@@ -9,7 +10,7 @@
 
     internal class OrGroup : BaseFilter, IFilterGroup
     {
-        public OrGroup(DiagInfo diagInfo) : base(diagInfo) { }
+        public OrGroup(IDiagInfo diagInfo) : base(diagInfo) { }
 
         public IFilter GetFailingFilter(IResolutionContext context)
         {

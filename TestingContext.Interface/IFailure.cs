@@ -7,6 +7,6 @@
     {
         IEnumerable<IToken> ForTokens { get; }
 
-        IDiagInfo DiagInfo { get; }
+        IDiagInfo Diagnostics { get; }
     }
 }

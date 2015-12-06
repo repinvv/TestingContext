@@ -2,9 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Linq.Expressions;
     using TestingContext.Interface;
     using TestingContext.LimitedInterface;
+    using TestingContextCore.PublicMembers;
 
     internal class Registration2<T1, T2> : IFor<T1, T2>
     {
@@ -20,22 +22,74 @@
         public IFilterToken IsTrue(Expression<Func<T1, T2, bool>> filter, string file, int line, string member)
             => inner.IsTrue(filter, file, line, member);
 
-        public IHaveToken<T3> Exists<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, string file, int line, string member)
-            => inner.Declare(srcFunc).Exists(file, line, member);
+        public IHaveToken<T3> Exists<T3>(Expression<Func<T1, T2, IEnumerable<T3>>> srcFunc, string file, int line, string member)
+        {
+            var diagInfo = DiagInfo.Create(file, line, member, srcFunc);
+            return inner.Declare(srcFunc.Compile(), diagInfo).Exists(diagInfo);
+        }
 
-        public IHaveToken<T3> DoesNotExist<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, string file, int line, string member)
-            => inner.Declare(srcFunc).DoesNotExist(file, line, member);
+        public IHaveToken<T3> DoesNotExist<T3>(Expression<Func<T1, T2, IEnumerable<T3>>> srcFunc, string file, int line, string member)
+        {
+            var diagInfo = DiagInfo.Create(file, line, member, srcFunc);
+            return inner.Declare(srcFunc.Compile(), diagInfo).DoesNotExist(diagInfo);
+        }
 
-        public IHaveToken<T3> Each<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, string file, int line, string member)
-            => inner.Declare(srcFunc).Each(file, line, member);
+        public IHaveToken<T3> Each<T3>(Expression<Func<T1, T2, IEnumerable<T3>>> srcFunc, string file, int line, string member)
+        {
+            var diagInfo = DiagInfo.Create(file, line, member, srcFunc);
+            return inner.Declare(srcFunc.Compile(), diagInfo).Each(diagInfo);
+        }
 
-        public void Exists<T3>(string name, Func<T1, T2, IEnumerable<T3>> srcFunc, string file, int line, string member)
-            => store.SaveToken(name, inner.Declare(srcFunc).Exists(file, line, member).Token, file, line, member);
+        public IHaveToken<T3> ExistsSingle<T3>(Expression<Func<T1, T2, T3>> srcFunc, string file, int line, string member)
+        {
+            var diagInfo = DiagInfo.Create(file, line, member, srcFunc);
+            return inner.Declare(SingleFunc(srcFunc), diagInfo).Exists(diagInfo);
+        }
 
-        public void DoesNotExist<T3>(string name, Func<T1, T2, IEnumerable<T3>> srcFunc, string file, int line, string member)
-            => store.SaveToken(name, inner.Declare(srcFunc).DoesNotExist(file, line, member).Token, file, line, member);
+        public IHaveToken<T3> DoesNotExistSingle<T3>(Expression<Func<T1, T2, T3>> srcFunc, string file, int line, string member)
+        {
+            var diagInfo = DiagInfo.Create(file, line, member, srcFunc);
+            return inner.Declare(SingleFunc(srcFunc), diagInfo).DoesNotExist(diagInfo);
+        }
 
-        public void Each<T3>(string name, Func<T1, T2, IEnumerable<T3>> srcFunc, string file, int line, string member)
-            => store.SaveToken(name, inner.Declare(srcFunc).Each(file, line, member).Token, file, line, member);
+        public void Exists<T3>(string name, Expression<Func<T1, T2, IEnumerable<T3>>> srcFunc, string file, int line, string member)
+        {
+            var diag = DiagInfo.Create(file, line, member, srcFunc);
+            store.SaveToken(name, inner.Declare(srcFunc.Compile(), diag).Exists(diag).Token, diag);
+        }
+
+        public void DoesNotExist<T3>(string name, Expression<Func<T1, T2, IEnumerable<T3>>> srcFunc, string file, int line, string member)
+        {
+            var diag = DiagInfo.Create(file, line, member, srcFunc);
+            store.SaveToken(name, inner.Declare(srcFunc.Compile(), diag).DoesNotExist(diag).Token, diag);
+        }
+
+        public void Each<T3>(string name, Expression<Func<T1, T2, IEnumerable<T3>>> srcFunc, string file, int line, string member)
+        {
+            var diag = DiagInfo.Create(file, line, member, srcFunc);
+            store.SaveToken(name, inner.Declare(srcFunc.Compile(), diag).Each(diag).Token, diag);
+        }
+
+        public void ExistsSingle<T3>(string name, Expression<Func<T1, T2, T3>> srcFunc, string file, int line, string member)
+        {
+            var diag = DiagInfo.Create(file, line, member, srcFunc);
+            store.SaveToken(name, inner.Declare(SingleFunc(srcFunc), diag).Exists(diag).Token, diag);
+        }
+
+        public void DoesNotExistSingle<T3>(string name, Expression<Func<T1, T2, T3>> srcFunc, string file, int line, string member)
+        {
+            var diag = DiagInfo.Create(file, line, member, srcFunc);
+            store.SaveToken(name, inner.Declare(SingleFunc(srcFunc), diag).DoesNotExist(diag).Token, diag);
+        }
+
+        private static Func<T1, T2, IEnumerable<T3>> SingleFunc<T3>(Expression<Func<T1, T2, T3>> srcFunc)
+        {
+            var compiled = srcFunc.Compile();
+            return (x, y) =>
+            {
+                var item = compiled(x, y);
+                return item == null ? Enumerable.Empty<T3>() : new[] { item };
+            };
+        }
     }
 }

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
+    using TestingContext.Interface;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
@@ -33,10 +34,10 @@
             return filter.Token;
         }
 
-        public Declarator<T3> Declare<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc)
+        public Declarator<T3> Declare<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc, IDiagInfo diagInfo)
         {
             var token = new Token<T3>();
-            var provider = new Provider2<T1, T2, T3>(dependency1, dependency2, srcFunc, store);
+            var provider = new Provider2<T1, T2, T3>(dependency1, dependency2, srcFunc, store, diagInfo);
             return new Declarator<T3>(store, token, provider, group);
         }
     }

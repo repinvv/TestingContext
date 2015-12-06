@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using TestingContext.Interface;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
@@ -13,27 +14,21 @@
         private readonly IDependency<T1> dependency;
         private readonly Func<T1, bool> filter;
 
-        public Filter1(IDependency<T1> dependency, Func<T1, bool> filter, DiagInfo diagInfo) : base(diagInfo)
+        public Filter1(IDependency<T1> dependency, Func<T1, bool> filter, IDiagInfo diagInfo) : base(diagInfo)
         {
             this.dependency = dependency;
             this.filter = filter;
             Dependencies = new IDependency[] { dependency };
-            ForTokens = new[] { dependency.Token };
         }
 
         public IFilter GetFailingFilter(IResolutionContext context)
         {
-            T1 argument;
-            if (dependency.TryGetValue(context, out argument) && filter(argument))
-            {
-                return null;
-            }
-
-            return this;
+            T1 argument = dependency.GetValue(context);
+            return filter(argument) ? null : this;
         }
 
         public IEnumerable<IDependency> Dependencies { get; }
-        public IEnumerable<IToken> ForTokens { get; }
+        public IEnumerable<IToken> ForTokens => Dependencies.Select(x => x.Token);
 
         public override string ToString()
         {

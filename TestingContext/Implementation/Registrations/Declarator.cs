@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
+    using TestingContext.Interface;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Providers;
@@ -26,25 +27,23 @@
             this.group = group;
         }
 
-        public IHaveToken<T> Exists(string file, int line, string member)
+        public IHaveToken<T> Exists(IDiagInfo diagInfo)
         {
-            provider.CollectionValidityFilter = CreateExistsFilter(token, group, file, line, member);
+            provider.CollectionValidityFilter = CreateExistsFilter(token, diagInfo);
             store.RegisterProvider(provider, token, group);
             return new HaveToken<T>(token);
         }
 
-        public IHaveToken<T> DoesNotExist(string file, int line, string member) 
-            => CreateDefinition(x => !x.Any(y => y.MeetsConditions), file, line, member);
+        public IHaveToken<T> DoesNotExist(IDiagInfo diagInfo) 
+            => CreateDefinition(x => !x.Any(y => y.MeetsConditions), diagInfo);
 
-        public IHaveToken<T> Each(string file, int line, string member) 
-            => CreateDefinition(x => x.GroupBy(item => item).All(grp => grp.Any(item => item.MeetsConditions)), file, line, member);
+        public IHaveToken<T> Each(IDiagInfo diagInfo) 
+            => CreateDefinition(x => x.GroupBy(item => item).All(grp => grp.Any(item => item.MeetsConditions)), diagInfo);
 
         internal IHaveToken<T> CreateDefinition(Expression<Func<IEnumerable<IResolutionContext>, bool>> filterExpr,
-            string file,
-            int line,
-            string member)
+            IDiagInfo diagInfo)
         {
-            provider.CollectionValidityFilter = CreateCvFilter(filterExpr, token, group, file, line, member);
+            provider.CollectionValidityFilter = CreateCvFilter(filterExpr, token, diagInfo);
             store.RegisterProvider(provider, token, group);
             return new HaveToken<T>(token);
         }

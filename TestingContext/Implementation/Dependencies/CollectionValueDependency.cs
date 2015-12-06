@@ -1,5 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using TestingContext.Interface;
@@ -22,14 +23,9 @@
                            .Select(x => x.Value);
         }
 
-        public bool TryGetValue(IResolutionContext context, out IEnumerable<TItem> value)
-        {
-            value = GetValue(context);
-            return true;
-        }
-
         public IToken Token => haveToken.Token;
 
         public DependencyType Type => DependencyType.Collection;
+        public Type SourceType => typeof(TItem);
     }
 }

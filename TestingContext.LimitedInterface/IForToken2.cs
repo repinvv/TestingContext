@@ -8,23 +8,33 @@
     public interface IForToken<T1, T2>
     {
         IFilterToken IsTrue(Expression<Func<T1, T2, bool>> filter,
-                    [CallerFilePath] string file = "",
-                    [CallerLineNumber] int line = 0,
-                    [CallerMemberName] string member = "");
+                            [CallerFilePath] string file = "",
+                            [CallerLineNumber] int line = 0,
+                            [CallerMemberName] string member = "");
 
-        IHaveToken<T3> Exists<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "");
+        IHaveToken<T3> Exists<T3>(Expression<Func<T1, T2, IEnumerable<T3>>> srcFunc,
+                                  [CallerFilePath] string file = "",
+                                  [CallerLineNumber] int line = 0,
+                                  [CallerMemberName] string member = "");
 
-        IHaveToken<T3> DoesNotExist<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "");
+        IHaveToken<T3> DoesNotExist<T3>(Expression<Func<T1, T2, IEnumerable<T3>>> srcFunc,
+                                        [CallerFilePath] string file = "",
+                                        [CallerLineNumber] int line = 0,
+                                        [CallerMemberName] string member = "");
 
-        IHaveToken<T3> Each<T3>(Func<T1, T2, IEnumerable<T3>> srcFunc,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "");
+        IHaveToken<T3> Each<T3>(Expression<Func<T1, T2, IEnumerable<T3>>> srcFunc,
+                                [CallerFilePath] string file = "",
+                                [CallerLineNumber] int line = 0,
+                                [CallerMemberName] string member = "");
+
+        IHaveToken<T3> ExistsSingle<T3>(Expression<Func<T1, T2, T3>> srcFunc,
+                                        [CallerFilePath] string file = "",
+                                        [CallerLineNumber] int line = 0,
+                                        [CallerMemberName] string member = "");
+
+        IHaveToken<T3> DoesNotExistSingle<T3>(Expression<Func<T1, T2, T3>> srcFunc,
+                                             [CallerFilePath] string file = "",
+                                             [CallerLineNumber] int line = 0,
+                                             [CallerMemberName] string member = "");
     }
 }

@@ -58,10 +58,10 @@
             return All(token);
         }
 
-        public IEnumerable<IResolutionContext<T>> BestCandidates<T>(string name) => BestCandidates(store.GetToken<T>(name));
+        public IEnumerable<IResolutionContext<T>> BestCandidates<T>(string name) => BestCandidates(store.Tokens.Get<IToken<T>>(name));
 
         public IEnumerable<IResolutionContext<T>> All<T>(IToken<T> token) => rootContext.GetFromTree(token).Cast<IResolutionContext<T>>();
 
-        public IEnumerable<IResolutionContext<T>> All<T>(string name) => All(store.GetToken<T>(name));
+        public IEnumerable<IResolutionContext<T>> All<T>(string name) => All(store.Tokens.Get<IToken<T>>(name));
     }
 }

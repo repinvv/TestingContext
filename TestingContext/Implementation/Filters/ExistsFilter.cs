@@ -1,5 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using TestingContext.Interface;
@@ -16,16 +17,16 @@
         {
             this.dependency = dependency;
             Dependencies = new[] { dependency };
-            ForTokens = new[] { dependency.Token };
         }
 
         public IEnumerable<IDependency> Dependencies { get; }
-        public IEnumerable<IToken> ForTokens { get; }
+        public IEnumerable<IToken> ForTokens => Dependencies.Select(x => x.Token);
 
         public IFilter GetFailingFilter(IResolutionContext context)
         {
-            IEnumerable<IResolutionContext> argument;
-            if (!dependency.TryGetValue(context, out argument) || !argument.Any())
+            IEnumerable<IResolutionContext> argument = dependency.GetValue(context);
+
+            if (!argument.Any())
             {
                 return this;
             }

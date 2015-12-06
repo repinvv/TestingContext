@@ -34,7 +34,5 @@
         public Dictionary<IToken, IDiagInfo> CollectionInversions { get; } = new Dictionary<IToken, IDiagInfo>();
 
         public Dictionary<IFilterToken, IDiagInfo> FilterInversions { get; } = new Dictionary<IFilterToken, IDiagInfo>();
-
-        public List<Reliance> Reliances { get; } = new List<Reliance>();
     }
 }

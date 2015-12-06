@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
     using System.Runtime.CompilerServices;
     using TestingContext.LimitedInterface;
 
@@ -41,13 +42,13 @@
                        [CallerLineNumber] int line = 0,
                        [CallerMemberName] string member = "");
 
-        IHaveToken<T> Exists<T>(Func<IEnumerable<T>> srcFunc,
+        IHaveToken<T> Exists<T>(Expression<Func<IEnumerable<T>>> srcFunc,
                                 [CallerFilePath] string file = "",
                                 [CallerLineNumber] int line = 0,
                                 [CallerMemberName] string member = "");
 
         void Exists<T>(string name,
-                       Func<IEnumerable<T>> srcFunc,
+                       Expression<Func<IEnumerable<T>>> srcFunc,
                        [CallerFilePath] string file = "",
                        [CallerLineNumber] int line = 0,
                        [CallerMemberName] string member = "");

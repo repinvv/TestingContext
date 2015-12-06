@@ -31,9 +31,9 @@ namespace UnitTestProject1.Features
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Registrations loop detection", "In order to understand why registrations do not work\t\nI want to be presented with" +
-                    " meaningful exception at registration time\ninstead of \"stack overflow\" at execut" +
-                    "ion time.", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Registrations loop detection", "In order to understand why registrations do not work\t\r\nI want to be presented wit" +
+                    "h meaningful exception at registration time\r\ninstead of \"stack overflow\" at exec" +
+                    "ution time.", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -83,15 +83,15 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
  testRunner.Given("insurance B is taken from insurancesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
-   testRunner.And("for insurance B exists an assignment B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 10
-   testRunner.And("for insurance B exists an assignment C", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 11
-   testRunner.And("for insurance B exists an assignment D", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 12
    testRunner.And("assignment B has more people than assignments C", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 13
+#line 10
    testRunner.And("assignment C has more people than assignments D", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 11
+   testRunner.And("for insurance B exists an assignment B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 12
+   testRunner.And("for insurance B exists an assignment C", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 13
+   testRunner.And("for insurance B exists an assignment D", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 14
  testRunner.When("I try register that assignment D has more people than assignments B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 15

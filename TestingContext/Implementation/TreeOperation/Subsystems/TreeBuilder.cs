@@ -46,6 +46,7 @@
             var dict = new Dictionary<IToken, List<Node>>();
             foreach (var node in nodes)
             {
+                DependencyCheck.CheckDependencies(node.Provider, node.Token);
                 foreach (var dependency in node.Provider.Dependencies)
                 {
                     dict.GetList(dependency.Token).Add(node);

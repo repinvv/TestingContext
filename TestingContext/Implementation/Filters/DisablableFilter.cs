@@ -18,6 +18,7 @@
 
         public IEnumerable<IDependency> Dependencies => innerFilter.Dependencies;
         public IEnumerable<IToken> ForTokens => innerFilter.ForTokens;
+        public IDiagInfo Diagnostics => innerFilter.DiagInfo;
         public IDiagInfo DiagInfo => innerFilter.DiagInfo;
         public IFilterToken Token => innerFilter.Token;
         public IFilter Absorber => null;

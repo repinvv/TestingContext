@@ -13,6 +13,7 @@
 
         public IFilterToken Token { get; } = new Token();
         public IDiagInfo DiagInfo { get; }
+        public IDiagInfo Diagnostics => DiagInfo;
 
         public override string ToString()
         {

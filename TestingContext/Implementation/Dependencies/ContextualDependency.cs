@@ -1,5 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
+    using System;
     using System.Collections.Generic;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Resolution;
@@ -11,13 +12,14 @@
             Token = token;
         }
 
-        public bool TryGetValue(IResolutionContext context, out IEnumerable<IResolutionContext> value)
+        public IEnumerable<IResolutionContext> GetValue(IResolutionContext context)
         {
-            value = context.Node.Resolver.GetAllItems(Token, context);
-            return true;
+            return context.Node.Resolver.GetAllItems(Token, context);
         }
+
         public IToken Token { get; }
         public DependencyType Type => DependencyType.Collection;
+        public Type SourceType => Token?.Type;
     }
 }
 

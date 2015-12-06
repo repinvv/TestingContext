@@ -1,5 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
+    using System;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Resolution;
 
@@ -8,10 +9,12 @@
         IToken Token { get; }
 
         DependencyType Type { get; }
+
+        Type SourceType { get; }
     }
 
     internal interface IDependency<TSource> : IDependency
     {
-        bool TryGetValue(IResolutionContext context, out TSource value);
+        TSource GetValue(IResolutionContext context);
     }
 }

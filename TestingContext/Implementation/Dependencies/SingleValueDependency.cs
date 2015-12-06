@@ -1,5 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
+    using System;
     using TestingContext.Interface;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Resolution;
@@ -13,14 +14,14 @@
             this.haveToken = haveToken;
         }
 
-        public bool TryGetValue(IResolutionContext context, out TItem value)
+        public TItem GetValue(IResolutionContext context)
         {
             var definedcontext = context.ResolveSingle(Token) as IResolutionContext<TItem>;
-            value = definedcontext.Value;
-            return true;
+            return definedcontext.Value;
         }
 
         public IToken Token => haveToken.Token;
         public DependencyType Type => DependencyType.Single;
+        public Type SourceType => typeof(TItem);
     }
 }

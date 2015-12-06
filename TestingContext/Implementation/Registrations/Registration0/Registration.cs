@@ -2,8 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
     using TestingContext.Interface;
     using TestingContext.LimitedInterface;
+    using TestingContextCore.PublicMembers;
 
     internal class Registration : IRegister
     {
@@ -52,10 +54,13 @@
         => inner.ForCollection(store.GetHaveToken<T>(name, file, line, member));
         #endregion
 
-        public IHaveToken<T> Exists<T>(Func<IEnumerable<T>> srcFunc, string file, int line, string member) 
-            => inner.Exists(srcFunc, file, line, member);
+        public IHaveToken<T> Exists<T>(Expression<Func<IEnumerable<T>>> srcFunc, string file, int line, string member)
+            => inner.Exists(srcFunc.Compile(), DiagInfo.Create(file, line, member, srcFunc));
 
-        public void Exists<T>(string name, Func<IEnumerable<T>> srcFunc, string file, int line, string member) 
-            => store.SaveToken(name, inner.Exists(srcFunc, file, line, member).Token, file, line, member);
+        public void Exists<T>(string name, Expression<Func<IEnumerable<T>>> srcFunc, string file, int line, string member)
+        {
+            var diagInfo = DiagInfo.Create(file, line, member, srcFunc);
+            store.SaveToken(name, inner.Exists(srcFunc.Compile(), diagInfo).Token, diagInfo);
+        }
     }
 }

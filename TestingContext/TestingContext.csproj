@@ -77,6 +77,7 @@
     <Compile Include="Implementation\Registrations\StoreExtension.cs" />
     <Compile Include="Implementation\Resolution\ResolutionContext.cs" />
     <Compile Include="Implementation\TreeOperation\GetNodeService.cs" />
+    <Compile Include="Implementation\TreeOperation\Subsystems\DependencyCheck.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\FilterProcessingService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\RandomServices.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\FilterAssignmentService.cs" />
@@ -87,7 +88,7 @@
     <Compile Include="Implementation\TreeOperation\Tree.cs" />
     <Compile Include="Implementation\TreeOperation\TreeOperationService.cs" />
     <Compile Include="PublicMembers\Exceptions\AlgorythmException.cs" />
-    <Compile Include="PublicMembers\Exceptions\RegistrationExtension.cs" />
+    <Compile Include="PublicMembers\Exceptions\RegistrationException.cs" />
     <Compile Include="Implementation\Tokens\LazyHaveToken.cs" />
     <Compile Include="PublicMembers\Exceptions\RegistrationsLoopException.cs" />
     <Compile Include="UsefulExtensions\CachingEnumerable.cs" />
@@ -96,7 +97,7 @@
     <Compile Include="Implementation\Dependencies\CollectionValueDependency.cs" />
     <Compile Include="Implementation\Dependencies\DependencyType.cs" />
     <Compile Include="Implementation\Dependencies\IDependency.cs" />
-    <Compile Include="Implementation\Dependencies\IHaveDependencies.cs" />
+    <Compile Include="Implementation\Dependencies\IDepend.cs" />
     <Compile Include="Implementation\Dependencies\SingleValueDependency.cs" />
     <Compile Include="Implementation\Filters\IFilter.cs" />
     <Compile Include="Implementation\Filters\IFilterGroup.cs" />

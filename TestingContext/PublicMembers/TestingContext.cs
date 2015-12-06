@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
     using global::TestingContext.Interface;
     using global::TestingContext.LimitedInterface;
     using TestingContextCore.Implementation;
@@ -20,14 +21,14 @@
             rootRegister = RegistrationFactory.GetRegistration(store);
         }
 
+        public int RegistrationsCount => store.Filters.Count;
+
         public IMatcher GetMatcher()
         {
             return new Matcher(CreateTree(store).RootContext, store);
         }
 
         #region ITestingContext members
-
-
 
         public IHaveToken<T> GetToken<T>(string name, string file, int line, string member)
         {
@@ -36,7 +37,7 @@
 
         public void SetToken<T>(string name, IHaveToken<T> haveToken, string file, int line, string member)
         {
-            store.SaveToken(name, haveToken.Token, file, line, member);
+            store.SaveToken(name, haveToken.Token, DiagInfo.Create(file, line, member));
         }
 
         public IInversion Inversion { get; }
@@ -62,10 +63,10 @@
         public IFor<IEnumerable<T>> ForCollection<T>(string name, string file, int line, string member) 
             => rootRegister.ForCollection<T>(name, file, line, member);
 
-        public IHaveToken<T> Exists<T>(Func<IEnumerable<T>> srcFunc, string file, int line, string member)
+        public IHaveToken<T> Exists<T>(Expression<Func<IEnumerable<T>>> srcFunc, string file = "", int line = 0, string member = "")
             => rootRegister.Exists(srcFunc, file, line, member);
 
-        public void Exists<T>(string name, Func<IEnumerable<T>> srcFunc, string file, int line, string member)
+        public void Exists<T>(string name, Expression<Func<IEnumerable<T>>> srcFunc, string file = "", int line = 0, string member = "")
             => rootRegister.Exists(name, srcFunc, file, line, member);
 
         public IFilterToken Not(Action<IRegister> action, string file, int line, string member)

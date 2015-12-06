@@ -6,13 +6,14 @@
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
+    using TestingContextCore.PublicMembers;
     using static FilterProcessingService;
     using static NodeReorderingService;
     using static TestingContextCore.Implementation.Registrations.StoreExtension;
 
     internal static class FilterAssignmentService
     {
-        public static INode GetAssignmentNode(Tree tree, IHaveDependencies have)
+        public static INode GetAssignmentNode(Tree tree, IDepend have)
         {
             return have.Dependencies
                        .Select(x => x.GetDependencyNode(tree))
@@ -26,7 +27,7 @@
             {
                 return;
             }
-
+            
             var node = GetAssignmentNode(tree, filter);
             AssignFilterToNode(filter, node);
         }
@@ -41,21 +42,22 @@
 
         public static void AssignFilters(TokenStore store, Tree tree)
         {
+            store.Filters.ForEach(DependencyCheck.CheckDependencies);
             var freeFilters = new List<IFilter>();
             foreach (var filter in store.Filters)
             {
                 ProcessFilterGroup(filter as IFilterGroup, freeFilters, store, tree);
                 AddFilter(filter, freeFilters, store);
             }
-
+            
             freeFilters.ForEach(x => ReorderNodes(tree, x.Dependencies.ToArray(), x));
             freeFilters.ForEach(x => AssignFilter(tree, x));
             tree.ReorderedNodes.ForEach(x=>AssignExistsFilter(x.Item1, x.Item2));
         }
 
-        private static void AssignExistsFilter(INode node, IFilter absorber)
+        private static void AssignExistsFilter(INode node, IFilter fromFilter)
         {
-            var filter = CreateExistsFilter(node.Token, absorber, string.Empty, 0, string.Empty);
+            var filter = CreateExistsFilter(node.Token, fromFilter.DiagInfo);
             AssignFilterToNode(filter, node.Parent);
         }
     }

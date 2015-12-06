@@ -121,12 +121,12 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Two entities in cascade failed find should print a collection validity filter")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Two entities in cascade failed find should print a collection declaration")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "SimpleNotFoundLogging")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("notFoundLogging3")]
-        public virtual void TwoEntitiesInCascadeFailedFindShouldPrintACollectionValidityFilter()
+        public virtual void TwoEntitiesInCascadeFailedFindShouldPrintACollectionDeclaration()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Two entities in cascade failed find should print a collection validity filter", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Two entities in cascade failed find should print a collection declaration", new string[] {
                         "notFoundLogging3"});
 #line 23
 this.ScenarioSetup(scenarioInfo);
@@ -142,10 +142,7 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.When("insurance B resolves", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 29
  testRunner.Then("resolution logger must produce info for filter, mentioning \'Assignment \"B\"\' and \'" +
-                    "Any\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 30
-  testRunner.And("resolution logger must produce info for filter, mentioning \'Assignment \"B\"\' and \'" +
-                    "MeetsCondition\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                    "insurance.Assignments\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -52,7 +52,7 @@
 
         public IEnumerable<IResolutionContext<TOther>> Get<TOther>(string name)
         {
-            return Get(store.GetToken<TOther>(name));
+            return Get(store.Tokens.Get<IToken<TOther>>(name));
         }
 
         #region after cache methods

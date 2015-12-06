@@ -6,7 +6,7 @@
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Resolution;
 
-    internal interface IProvider : IHaveDependencies
+    internal interface IProvider : IDepend
     {
         IFilter CollectionValidityFilter { get; set; }
 

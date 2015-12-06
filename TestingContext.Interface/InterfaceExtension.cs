@@ -27,51 +27,5 @@
             => context.All<T>(name)
                       .Select(x => x.Value)
                       .FirstOrDefault();
-
-        public static void Exists<T1, T2>(this IFor<T1> ifor,
-            string name,
-            Func<T1, T2> srcFunc,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "") => ifor.Exists(name, ItemFunc(srcFunc), file, line, member);
-
-        public static void DoesNotExist<T1, T2>(this IFor<T1> ifor,
-            string name,
-            Func<T1, T2> srcFunc,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "") => ifor.DoesNotExist(name, ItemFunc(srcFunc), file, line, member);
-
-        private static Func<T1, IEnumerable<T2>> ItemFunc<T1, T2>(Func<T1, T2> srcFunc)
-        {
-            return x =>
-            {
-                var item = srcFunc(x);
-                return item == null ? Enumerable.Empty<T2>() : new[] { item };
-            };
-        }
-
-        public static void Exists<T1, T2, T3>(this IFor<T1, T2> ifor,
-            string name,
-            Func<T1, T2, T3> srcFunc,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "") => ifor.Exists(name, ItemFunc(srcFunc), file, line, member);
-
-        public static void DoesNotExist<T1, T2, T3>(this IFor<T1, T2> ifor,
-            string name,
-            Func<T1, T2, T3> srcFunc,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "") => ifor.DoesNotExist(name, ItemFunc(srcFunc), file, line, member);
-
-        private static Func<T1, T2, IEnumerable<T3>> ItemFunc<T1, T2, T3>(Func<T1, T2, T3> srcFunc)
-        {
-            return (x, y) =>
-            {
-                var item = srcFunc(x, y);
-                return item == null ? Enumerable.Empty<T3>() : new[] { item };
-            };
-        }
     }
 }

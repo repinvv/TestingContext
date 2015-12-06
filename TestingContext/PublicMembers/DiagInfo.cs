@@ -7,14 +7,14 @@
 
     public class DiagInfo : IDiagInfo
     {
-        private static Func<string, int, string, string, DiagInfo> diagFactory;
+        private static Func<string, int, string, string, IDiagInfo> diagFactory;
 
-        public static void SetCustomFactory(Func<string, int, string, string, DiagInfo> factory)
+        public static void SetCustomFactory(Func<string, int, string, string, IDiagInfo> factory)
         {
             diagFactory = factory;
         }
 
-        internal static DiagInfo Create(string file, int line, string member, string additionalInfo)
+        internal static IDiagInfo Create(string file, int line, string member, string additionalInfo)
         {
             return diagFactory?.Invoke(file, line, member, additionalInfo)
                    ?? new DiagInfo
@@ -26,7 +26,7 @@
                       };
         }
 
-        internal static DiagInfo Create(string file, int line, string member, Expression filterExpression = null) 
+        internal static IDiagInfo Create(string file, int line, string member, Expression filterExpression = null) 
             => Create(file, line, member, filterExpression == null ? null : AnnotatedToCode(filterExpression));
 
         public string AdditionalInfo { get; internal set; }

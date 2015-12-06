@@ -81,10 +81,10 @@
             return RegistrationFactory.GetRegistration1(store, new CollectionValueDependency<T>(haveToken), group);
         }
         
-        public IHaveToken<T> Exists<T>(Func<IEnumerable<T>> srcFunc, string file, int line, string member)
+        public IHaveToken<T> Exists<T>(Func<IEnumerable<T>> srcFunc, IDiagInfo diagInfo)
         {
             var dependency = new SingleValueDependency<Root>(new HaveToken<Root>(store.RootToken));
-            return new InnerRegistration1<Root>(store,dependency,group).Declare(x => srcFunc()).Exists(file, line, member);
+            return new InnerRegistration1<Root>(store,dependency,group).Declare(x => srcFunc(), diagInfo).Exists(diagInfo);
         }
     }
 }

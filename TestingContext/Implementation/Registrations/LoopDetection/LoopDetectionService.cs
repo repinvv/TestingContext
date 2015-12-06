@@ -14,41 +14,69 @@
 
     internal static class LoopDetectionService
     {
-        private static IToken[] empty = new IToken[0];
+        private static readonly IToken[] empty = new IToken[0];
 
         public static void DetectRegistrationLoop(TokenStore store, IProvider provider, IToken token)
         {
+            return;
+            
             var reliances = GetReliances(provider, token).ToList();
-            DetectReliancesLoop(reliances, store.Reliances, provider.CollectionValidityFilter.DiagInfo);
+            DetectReliancesLoop(reliances, GetAllReliances(store), provider.CollectionValidityFilter.DiagInfo);
         }
 
         public static void DetectRegistrationLoop(TokenStore store, IFilter filter)
         {
+            return;
+
             var reliances = GetReliances(filter).ToList();
-            DetectReliancesLoop(reliances, store.Reliances, filter.DiagInfo);
+            DetectReliancesLoop(reliances, GetAllReliances(store), filter.DiagInfo);
+        }
+
+        private static List<Reliance> GetAllReliances(TokenStore store)
+        {
+            var providerReliances = store.Providers.SelectMany(x => GetReliances(x.Value, x.Key));
+            var filterReliances = store.Filters.SelectMany(GetReliances);
+            return providerReliances.Concat(filterReliances).ToList();
         }
 
         private static IEnumerable<Reliance> GetReliances(IProvider provider, IToken token)
         {
-            var providerReliesOn = provider.CollectionDependencies()
-                                           .Select(dependency => new Reliance { Token = token, ReliesOn = dependency.Token });
-            var relyOnProvider = provider.SingleDependencies()
-                                         .Select(dependency => new Reliance { Token = dependency.Token, ReliesOn = token });
+            var providerReliesOn = provider
+                .CollectionDependencies()
+                .Where(x => x.Token != null)
+                .Select(dependency => new Reliance { Token = token, ReliesOn = dependency.Token });
+            var relyOnProvider = provider
+                .SingleDependencies()
+                .Where(x => x.Token != null)
+                .Select(dependency => new Reliance { Token = dependency.Token, ReliesOn = token });
             return providerReliesOn.Concat(relyOnProvider);
         }
 
-        private static IEnumerable<IDependency> CollectionDependencies(this IHaveDependencies have)
+        private static IEnumerable<IDependency> CollectionDependencies(this IDepend have)
             => have.Dependencies.Where(dependency => dependency.Type == DependencyType.Collection);
 
-        private static IEnumerable<IDependency> SingleDependencies(this IHaveDependencies have)
+        private static IEnumerable<IDependency> SingleDependencies(this IDepend have)
             => have.Dependencies.Where(dependency => dependency.Type != DependencyType.Collection);
 
         private static IEnumerable<Reliance> GetReliances(IFilter filter)
         {
+            var group = filter as IFilterGroup;
+            if (group != null)
+            {
+                return group.Filters.SelectMany(GetReliances);
+            }
+
             var collectionDependencies = filter.CollectionDependencies().ToList();
-            return from dependency in filter.SingleDependencies()
-                   from collectionDependency in collectionDependencies
-                   select new Reliance { Token = dependency.Token, ReliesOn = collectionDependency.Token };
+            var list = new List<Reliance>();
+            foreach (IDependency dependency in filter.SingleDependencies().Where(x => x.Token != null))
+            {
+                foreach (var collectionDependency in collectionDependencies.Where(x => x.Token != null))
+                {
+                    list.Add(new Reliance { Token = dependency.Token, ReliesOn = collectionDependency.Token });
+                }
+            }
+
+            return list;
         }
 
         private static void DetectReliancesLoop(List<Reliance> newReliances, List<Reliance> reliances, IDiagInfo diag)
