@@ -34,11 +34,16 @@
             return new HaveToken<T>(token);
         }
 
-        public IHaveToken<T> DoesNotExist(IDiagInfo diagInfo) 
-            => CreateDefinition(x => !x.Any(y => y.MeetsConditions), diagInfo);
+        public IHaveToken<T> DoesNotExist(IDiagInfo diagInfo)
+        {
+            return CreateDefinition(x => !x.Any(y => y.MeetsConditions), diagInfo);
+        }
 
-        public IHaveToken<T> Each(IDiagInfo diagInfo) 
-            => CreateDefinition(x => x.GroupBy(item => item).All(grp => grp.Any(item => item.MeetsConditions)), diagInfo);
+        public IHaveToken<T> Each(IDiagInfo diagInfo)
+        {
+            return CreateDefinition(x => x.GroupBy(item => item)
+                                          .All(grp => grp.Any(item => item.MeetsConditions)), diagInfo);
+        }
 
         internal IHaveToken<T> CreateDefinition(Expression<Func<IEnumerable<IResolutionContext>, bool>> filterExpr,
             IDiagInfo diagInfo)

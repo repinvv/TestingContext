@@ -1,19 +1,17 @@
 ﻿namespace TestingContextCore.Implementation
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using TestingContext.Interface;
     using TestingContext.LimitedInterface;
-    using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
-    using TestingContextCore.PublicMembers.Exceptions;
 
     internal class Matcher : IMatcher
     {
         private readonly IResolutionContext rootContext;
         private readonly TokenStore store;
-        private DisablableFilter failedFilter;
 
         public Matcher(IResolutionContext rootContext, TokenStore store)
         {
@@ -28,40 +26,21 @@
 
         public IFailure GetFailure()
         {
-            return GetFailedFilter();
+            return rootContext.FailingFilter;
         }
 
-        private DisablableFilter GetFailedFilter()
-        {
-            if (FoundMatch())
-            {
-                return null;
-            }
+        public IEnumerable<IResolutionContext<T>> All<T>(IToken<T> token) 
+            => rootContext.GetFromTree(token).Cast<IResolutionContext<T>>();
 
-            return failedFilter ?? (failedFilter = rootContext.FailingFilter as DisablableFilter);
-        }
+        public IEnumerable<IResolutionContext<T>> All<T>(string name) 
+            => All(store.GetToken<T>(name));
 
-        public IEnumerable<IResolutionContext<T>> BestCandidates<T>(IToken<T> token)
-        {
-            if (FoundMatch())
-            {
-                return All(token);
-            }
-            var failure = GetFailedFilter();
-            if (failure == null)
-            {
-                throw new AlgorythmException("Failure is not found.");
-            }
+        public IEnumerable<Tuple<IFailure, T>> Candidates<T>(string name) 
+            => Candidates(store.GetToken<T>(name));
 
-            failure.Disable();
-            rootContext.Evaluate();
-            return All(token);
-        }
-
-        public IEnumerable<IResolutionContext<T>> BestCandidates<T>(string name) => BestCandidates(store.Tokens.Get<IToken<T>>(name));
-
-        public IEnumerable<IResolutionContext<T>> All<T>(IToken<T> token) => rootContext.GetFromTree(token).Cast<IResolutionContext<T>>();
-
-        public IEnumerable<IResolutionContext<T>> All<T>(string name) => All(store.Tokens.Get<IToken<T>>(name));
+        public IEnumerable<Tuple<IFailure, T>> Candidates<T>(IToken<T> token)
+            => rootContext.Node.Resolver.GetItems(token, rootContext)
+                          .Select(x => new Tuple<IFailure, T>(x.FailingFilter,
+                                                              (x as IResolutionContext<T>).Value));
     }
 }

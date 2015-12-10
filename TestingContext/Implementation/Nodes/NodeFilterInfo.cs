@@ -7,7 +7,7 @@
     {
         public NodeFilterInfo(IDiagInfo inversionInfo)
         {
-            var and = new AndGroup();
+            var and = new AndGroup ();
             Group = and;
             ItemFilter = inversionInfo == null ? (IFilter)and : new NotGroup(and, inversionInfo);
         }

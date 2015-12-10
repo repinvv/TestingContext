@@ -17,13 +17,15 @@
         private readonly IDependency<T1> dependency1;
         private readonly IDependency<T2> dependency2;
         private readonly IFilterGroup group;
+        private readonly int priority;
 
-        public InnerRegistration2(TokenStore store, IDependency<T1> dependency1, IDependency<T2> dependency2, IFilterGroup group)
+        public InnerRegistration2(TokenStore store, IDependency<T1> dependency1, IDependency<T2> dependency2, IFilterGroup @group, int priority)
         {
             this.store = store;
             this.dependency1 = dependency1;
             this.dependency2 = dependency2;
             this.group = group;
+            this.priority = priority;
         }
 
         public IFilterToken IsTrue(Expression<Func<T1, T2, bool>> filterFunc, string file, int line, string member)

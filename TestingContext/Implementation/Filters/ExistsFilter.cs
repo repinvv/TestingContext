@@ -1,6 +1,5 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using TestingContext.Interface;

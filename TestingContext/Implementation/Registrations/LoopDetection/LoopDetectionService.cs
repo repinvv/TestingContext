@@ -6,11 +6,11 @@
     using System.Text;
     using TestingContext.Interface;
     using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.PublicMembers.Exceptions;
-    using TestingContextCore.UsefulExtensions;
 
     internal static class LoopDetectionService
     {
@@ -21,7 +21,7 @@
             return;
             
             var reliances = GetReliances(provider, token).ToList();
-            DetectReliancesLoop(reliances, GetAllReliances(store), provider.CollectionValidityFilter.DiagInfo);
+            DetectReliancesLoop(reliances, GetAllReliances(store), provider.DiagInfo);
         }
 
         public static void DetectRegistrationLoop(TokenStore store, IFilter filter)

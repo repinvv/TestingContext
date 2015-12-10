@@ -1,4 +1,7 @@
 ﻿namespace TestingContext.LimitedInterface
 {
-    public interface IFilterToken { }
+    public interface IFilterToken
+    {
+        string Name { get; set; }
+    }
 }

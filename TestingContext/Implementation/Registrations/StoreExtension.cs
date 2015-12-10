@@ -11,7 +11,6 @@
     using TestingContextCore.Implementation.Registrations.LoopDetection;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.Tokens;
-    using TestingContextCore.PublicMembers;
     using TestingContextCore.PublicMembers.Exceptions;
 
     internal static class StoreExtension
@@ -19,6 +18,7 @@
         public static void RegisterFilter(this TokenStore store, IFilter filter, IFilterGroup group)
         {
             LoopDetectionService.DetectRegistrationLoop(store, filter);
+            filter.Id = store.NextId;
             if (group != null)
             {
                 group.Filters.Add(filter);
@@ -53,7 +53,7 @@
 
         public static void SaveToken<T>(this TokenStore store, string name, IToken<T> token, IDiagInfo diagInfo)
         {
-            if (store.Tokens.Get<IToken<T>>(name) != null)
+            if (store.GetToken<T>(name) != null)
             {
                 throw new RegistrationException($"Definition for {token} is already registered", diagInfo);
             }
@@ -69,14 +69,17 @@
 
         public static IHaveToken<T> GetHaveToken<T>(this TokenStore store, string name, string file, int line, string member)
         {
-            var token = store.Tokens.Get<IToken<T>>(name);
+            var token = store.GetToken<T>(name);
             if (token != null)
             {
                 return new HaveToken<T>(token);
             }
 
-            return new LazyHaveToken<T>(() => store.Tokens.Get<IToken<T>>(name));
+            return new LazyHaveToken<T>(() => store.GetToken<T>(name));
         }
+
+        public static IToken<T> GetToken<T>(this TokenStore store, string name) 
+            => store.Tokens.Get<IToken<T>>(name);
 
         public static IFilter CreateCvFilter(Expression<Func<IEnumerable<IResolutionContext>, bool>> filterExpr,
             IToken token, IDiagInfo diagInfo)

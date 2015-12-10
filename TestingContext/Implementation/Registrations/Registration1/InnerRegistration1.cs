@@ -16,12 +16,14 @@
         private readonly TokenStore store;
         private readonly IDependency<T1> dependency;
         private readonly IFilterGroup group;
+        private readonly int priority;
 
-        public InnerRegistration1(TokenStore store, IDependency<T1> dependency, IFilterGroup group)
+        public InnerRegistration1(TokenStore store, IDependency<T1> dependency, IFilterGroup @group, int priority)
         {
             this.store = store;
             this.dependency = dependency;
             this.group = group;
+            this.priority = priority;
         }
 
         public IFilterToken IsTrue(Expression<Func<T1, bool>> filterFunc, string file, int line, string member)
@@ -34,12 +36,12 @@
 
         public IFor<T1, T2> For<T2>(IHaveToken<T2> haveToken)
         {
-            return RegistrationFactory.GetRegistration2(store, dependency, new SingleValueDependency<T2>(haveToken), group);
+            return RegistrationFactory.GetRegistration2(store, dependency, new SingleValueDependency<T2>(haveToken), group, priority);
         }
 
         public IFor<T1, IEnumerable<T2>> ForCollection<T2>(IHaveToken<T2> haveToken)
         {
-            return RegistrationFactory.GetRegistration2(store, dependency, new CollectionValueDependency<T2>(haveToken), group);
+            return RegistrationFactory.GetRegistration2(store, dependency, new CollectionValueDependency<T2>(haveToken), group, priority);
         }
 
         public Declarator<T2> Declare<T2>(Func<T1, IEnumerable<T2>> srcFunc, IDiagInfo diagInfo)

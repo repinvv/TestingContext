@@ -13,7 +13,8 @@
         {
             var tree = new Tree();
             tree.Root = new RootNode(tree, store.RootToken);
-            var nodes = store.Providers.Select(x => Node.CreateNode(x.Key, x.Value, store, tree)).ToList();
+            int i = 0;
+            var nodes = store.Providers.Select(x => Node.CreateNode(x.Key, x.Value, store, tree, i++)).ToList();
             nodes.ForEach(x => tree.Nodes.Add(x.Token, x));
             tree.Nodes.Add(store.RootToken, tree.Root);
             BuildNodesTree(tree, nodes);

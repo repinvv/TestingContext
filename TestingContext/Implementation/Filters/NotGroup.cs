@@ -24,12 +24,7 @@
                 throw new AlgorythmException("NOT group can only contain one filter");
             }
 
-            if (Filters[0].GetFailingFilter(context) == null)
-            {
-                return this;
-            }
-
-            return null;
+            return Filters[0].GetFailingFilter(context) == null ? this : null;
         }
 
         public List<IFilter> Filters { get; } = new List<IFilter>();

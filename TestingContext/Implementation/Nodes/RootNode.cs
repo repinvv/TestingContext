@@ -15,6 +15,8 @@
             Resolver = new NodeResolver(this);
         }
 
+        public int Index => -1;
+
         public Tree Tree { get; }
 
         public IToken Token { get; }

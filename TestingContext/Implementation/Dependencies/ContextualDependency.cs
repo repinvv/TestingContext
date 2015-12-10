@@ -14,7 +14,7 @@
 
         public IEnumerable<IResolutionContext> GetValue(IResolutionContext context)
         {
-            return context.Node.Resolver.GetAllItems(Token, context);
+            return context.Node.Resolver.GetItems(Token, context);
         }
 
         public IToken Token { get; }

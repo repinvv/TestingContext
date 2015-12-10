@@ -7,7 +7,7 @@
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
-    using TestingContextCore.PublicMembers;
+    using TestingContextCore.PublicMembers.Exceptions;
 
     internal class Filter2<T1, T2> : BaseFilter, IFilter
     {
@@ -31,7 +31,14 @@
         {
             T1 argument1 = dependency1.GetValue(context);
             T2 argument2 = dependency2.GetValue(context);
-            return filter(argument1, argument2) ? null : this;
+            try
+            {
+                return filter(argument1, argument2) ? null : this;
+            }
+            catch (Exception ex)
+            {
+                throw new RegistrationException($"Exception in registered expression for a filter", DiagInfo, ex);
+            }
         }
 
         public IEnumerable<IDependency> Dependencies { get; }
@@ -39,7 +46,7 @@
 
         public override string ToString()
         {
-            return $"filter for {Dependencies.First() .Token} and {Dependencies.Last() .Token}";
+            return $"filter for {Dependencies.First() .Token} and {Dependencies.Last() .Token}, Id: {Id}";
         }
     }
 }

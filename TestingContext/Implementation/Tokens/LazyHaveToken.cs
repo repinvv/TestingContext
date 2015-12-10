@@ -1,10 +1,7 @@
 ﻿namespace TestingContextCore.Implementation.Tokens
 {
     using System;
-    using TestingContext.Interface;
     using TestingContext.LimitedInterface;
-    using TestingContextCore.PublicMembers;
-    using TestingContextCore.PublicMembers.Exceptions;
 
     internal class LazyHaveToken<T> : IHaveToken<T>
     {

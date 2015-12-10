@@ -6,7 +6,6 @@
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
-    using TestingContextCore.PublicMembers;
 
     internal class OrGroup : BaseFilter, IFilterGroup
     {

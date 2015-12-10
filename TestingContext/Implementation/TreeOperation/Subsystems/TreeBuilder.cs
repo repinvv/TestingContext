@@ -3,9 +3,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.PublicMembers.Exceptions;
-    using TestingContextCore.UsefulExtensions;
     using static NodeReorderingService;
 
     internal static class TreeBuilder
@@ -26,7 +26,7 @@
 
                 foreach (var child in children.Where(child => child.Provider.Dependencies.All(x => assigned.Contains(x.Token))))
                 {
-                    ReorderNodes(tree, child.Provider.Dependencies.ToArray(), child.Provider.CollectionValidityFilter);
+                    ReorderNodes(tree, child.Provider.Dependencies.ToArray(), child.Provider.DiagInfo);
                     var parent = FilterAssignmentService.GetAssignmentNode(tree, child.Provider);
                     child.Parent = parent;
                     child.SourceParent = parent;

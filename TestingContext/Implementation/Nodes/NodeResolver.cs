@@ -3,9 +3,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.TreeOperation;
-    using TestingContextCore.UsefulExtensions;
     using static TreeOperation.Subsystems.NodeClosestParentService;
 
     internal class NodeResolver
@@ -17,20 +17,13 @@
         private readonly INode node;
 
         private readonly Dictionary<IToken, Resolve> resolvers = new Dictionary<IToken, Resolve>();
-        private readonly Dictionary<IToken, Resolve> fitResolvers = new Dictionary<IToken, Resolve>();
 
         public NodeResolver(INode node)
         {
             this.node = node;
         }
 
-        public IEnumerable<IResolutionContext> GetFitItems(IToken token, IResolutionContext context)
-        {
-            var resolver = fitResolvers.GetOrAdd(token, () => GetFitResolver(token));
-            return resolver(token, context);
-        }
-
-        public IEnumerable<IResolutionContext> GetAllItems(IToken token, IResolutionContext context)
+        public IEnumerable<IResolutionContext> GetItems(IToken token, IResolutionContext context)
         {
             var resolver = resolvers.GetOrAdd(token, () => GetAllResolver(token));
             return resolver(token, context);
@@ -52,28 +45,6 @@
 
             var chain = node.GetSourceChain();
             return chain.Contains(resolveNode) ? (Resolve)ResolveSingleParent : ResolveSameBranch;
-        }
-
-        private Resolve GetFitResolver(IToken token)
-        {
-            var resolveNode = node.Tree.GetNode(token);
-            if (resolveNode.IsChildOf(node))
-            {
-                return GetFitMethod(ResolveDown);
-            }
-
-            if (!node.IsChildOf(resolveNode))
-            {
-                return GetFitMethod(ResolveOtherBranch);
-            }
-
-            var chain = node.GetSourceChain();
-            return chain.Contains(resolveNode) ? (Resolve)ResolveSingleParent : GetFitMethod(ResolveSameBranch);
-        }
-
-        private Resolve GetFitMethod(Resolve input)
-        {
-            return (x, y) => input(x, y).Where(rc => rc.MeetsConditions).Distinct();
         }
         #endregion
         #region resolvers

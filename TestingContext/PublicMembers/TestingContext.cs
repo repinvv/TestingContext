@@ -7,6 +7,7 @@
     using global::TestingContext.LimitedInterface;
     using TestingContextCore.Implementation;
     using TestingContextCore.Implementation.Registrations;
+    using static TestingContextCore.Implementation.Registrations.RegistrationFactory;
     using static Implementation.TreeOperation.TreeOperationService;
 
     public class TestingContext : ITestingContext
@@ -18,7 +19,7 @@
         {
             store = new TokenStore(this);
             Inversion = new Inversion(store);
-            rootRegister = RegistrationFactory.GetRegistration(store);
+            rootRegister = GetRegistration(store, null, DefaultPriority);
         }
 
         public int RegistrationsCount => store.Filters.Count;
@@ -26,6 +27,11 @@
         public IMatcher GetMatcher()
         {
             return new Matcher(CreateTree(store).RootContext, store);
+        }
+
+        public IRegister Priority(int priority)
+        {
+            return GetRegistration(store, null, priority);
         }
 
         #region ITestingContext members

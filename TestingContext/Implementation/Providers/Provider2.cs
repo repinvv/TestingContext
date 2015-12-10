@@ -4,13 +4,13 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContext.Interface;
+    using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.PublicMembers.Exceptions;
-    using TestingContextCore.UsefulExtensions;
 
     internal class Provider2<TSource1, TSource2, T> : IProvider
     {
@@ -50,7 +50,7 @@
             }
             catch (Exception ex)
             {
-                throw new RegistrationException($"Exception in registered expression", DiagInfo, ex);
+                throw new RegistrationException($"Exception in registered expression a provider of type {typeof(T).Name}", DiagInfo, ex);
             }
             
             return source

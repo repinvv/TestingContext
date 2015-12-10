@@ -1,6 +1,5 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation.Subsystems
 {
-    using System.IO;
     using System.Linq;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Filters;

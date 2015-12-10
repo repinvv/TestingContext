@@ -5,10 +5,10 @@
     using System.Runtime.CompilerServices;
     using TestingContext.Interface;
     using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
-    using TestingContextCore.UsefulExtensions;
 
     internal class ResolutionContext<T> : IResolutionContext<T>, IResolutionContext
     {
@@ -82,7 +82,7 @@
 
         public IEnumerable<IResolutionContext> GetFromTree(IToken token)
         {
-            return Node.Resolver.GetFitItems(token, this);
+            return Node.Resolver.GetItems(token, this).Where(x => x.MeetsConditions);
         }
 
         private IEnumerable<IResolutionContext> GetChildResolution(INode nextNode)

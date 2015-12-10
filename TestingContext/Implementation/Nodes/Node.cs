@@ -2,21 +2,24 @@
 {
     using System.Collections.Generic;
     using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.TreeOperation;
-    using TestingContextCore.UsefulExtensions;
 
     internal class Node : INode
     {
-        public Node(Tree tree, IToken token, IProvider provider, NodeFilterInfo filterInfo)
+        public Node(Tree tree, IToken token, IProvider provider, NodeFilterInfo filterInfo, int index)
         {
             Token = token;
             Provider = provider;
             FilterInfo = filterInfo;
+            Index = index;
             Tree = tree;
             Resolver = new NodeResolver(this);
         }
+
+        public int Index { get; }
 
         public Tree Tree { get; }
 
@@ -50,9 +53,9 @@
 
         public override string ToString() => Token.ToString();
 
-        public static Node CreateNode(IToken token, IProvider provider, TokenStore store, Tree tree)
+        public static Node CreateNode(IToken token, IProvider provider, TokenStore store, Tree tree, int index)
         {
-            return new Node(tree, token, provider, new NodeFilterInfo(store.ItemInversions.SafeGet(token)));
+            return new Node(tree, token, provider, new NodeFilterInfo(store.ItemInversions.SafeGet(token)), index);
         }
     }
 }

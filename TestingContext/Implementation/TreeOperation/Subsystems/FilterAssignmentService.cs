@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using TestingContext.Interface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
@@ -34,10 +35,9 @@
 
         public static void AssignFilterToNode(IFilter filter, INode node)
         {
-            var disablable = new DisablableFilter(filter);
-            node.FilterInfo.Group.Filters.Add(disablable);
+            node.FilterInfo.Group.Filters.Add(filter);
             var newIndex = node.Tree.FilterIndex.Any() ? (node.Tree.FilterIndex.Values.Max() + 1) : 0;
-            node.Tree.FilterIndex[disablable] = newIndex;
+            node.Tree.FilterIndex[filter] = newIndex;
         }
 
         public static void AssignFilters(TokenStore store, Tree tree)
@@ -50,14 +50,14 @@
                 AddFilter(filter, freeFilters, store);
             }
             
-            freeFilters.ForEach(x => ReorderNodes(tree, x.Dependencies.ToArray(), x));
+            freeFilters.ForEach(x => ReorderNodes(tree, x.Dependencies.ToArray(), x.DiagInfo));
             freeFilters.ForEach(x => AssignFilter(tree, x));
             tree.ReorderedNodes.ForEach(x=>AssignExistsFilter(x.Item1, x.Item2));
         }
 
-        private static void AssignExistsFilter(INode node, IFilter fromFilter)
+        private static void AssignExistsFilter(INode node, IDiagInfo diagInfo)
         {
-            var filter = CreateExistsFilter(node.Token, fromFilter.DiagInfo);
+            var filter = CreateExistsFilter(node.Token, diagInfo);
             AssignFilterToNode(filter, node.Parent);
         }
     }

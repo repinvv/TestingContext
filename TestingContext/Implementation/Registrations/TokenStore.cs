@@ -5,13 +5,13 @@
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Providers;
-    using TestingContextCore.Implementation.Registrations.LoopDetection;
     using TestingContextCore.Implementation.Tokens;
-    using TestingContextCore.Implementation.TreeOperation;
     using TestingContextCore.PublicMembers;
 
     internal class TokenStore
     {
+        private int currentId = 1;
+
         public TokenStore(ITestingContext context)
         {
             Context = context;
@@ -34,5 +34,7 @@
         public Dictionary<IToken, IDiagInfo> CollectionInversions { get; } = new Dictionary<IToken, IDiagInfo>();
 
         public Dictionary<IFilterToken, IDiagInfo> FilterInversions { get; } = new Dictionary<IFilterToken, IDiagInfo>();
+
+        public int NextId => currentId++;
     }
 }

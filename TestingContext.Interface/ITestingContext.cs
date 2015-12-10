@@ -7,6 +7,8 @@
     {
         IMatcher GetMatcher();
 
+        IRegister Priority(int priority);
+
         IHaveToken<T> GetToken<T>(string name,
                           [CallerFilePath] string file = "",
                           [CallerLineNumber] int line = 0,
