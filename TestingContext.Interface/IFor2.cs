@@ -6,7 +6,7 @@
     using System.Runtime.CompilerServices;
     using TestingContext.LimitedInterface;
 
-    public interface IFor<T1, T2> : IForToken<T1, T2>
+    public interface IFor<T1, T2> : IForToken<T1, T2>, IHighLevelOperations<IRegister>
     {
         void Exists<T3>(string name,
                         Expression<Func<T1, T2, IEnumerable<T3>>> srcFunc,
@@ -26,13 +26,13 @@
                       [CallerLineNumber] int line = 0,
                       [CallerMemberName] string member = "");
 
-        void ExistsSingle<T3>(string name,
+        void Is<T3>(string name,
                               Expression<Func<T1, T2, T3>> srcFunc,
                               [CallerFilePath] string file = "",
                               [CallerLineNumber] int line = 0,
                               [CallerMemberName] string member = "");
 
-        void DoesNotExistSingle<T3>(string name,
+        void IsNot<T3>(string name,
                                     Expression<Func<T1, T2, T3>> srcFunc,
                                     [CallerFilePath] string file = "",
                                     [CallerLineNumber] int line = 0,

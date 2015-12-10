@@ -17,7 +17,6 @@
     {
         public static void RegisterFilter(this TokenStore store, IFilter filter, IFilterGroup group)
         {
-            LoopDetectionService.DetectRegistrationLoop(store, filter);
             filter.Id = store.NextId;
             if (group != null)
             {
@@ -30,7 +29,6 @@
 
         public static void RegisterProvider(this TokenStore store, IProvider provider, IToken token, IFilterGroup group)
         {
-            LoopDetectionService.DetectRegistrationLoop(store, provider, token);
             store.RegisterFilter(provider.CollectionValidityFilter, group);
             store.CvFilters.Add(provider.CollectionValidityFilter);
             store.Providers.Add(token, provider);

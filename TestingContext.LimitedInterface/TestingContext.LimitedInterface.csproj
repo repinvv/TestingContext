@@ -45,6 +45,7 @@
     <Compile Include="IForToken.cs" />
     <Compile Include="IForToken2.cs" />
     <Compile Include="IHaveToken.cs" />
+    <Compile Include="IHighLevelOperations.cs" />
     <Compile Include="InterfaceExtension.cs" />
     <Compile Include="ITokenDeclare.cs" />
     <Compile Include="ITokenDeclareSingle.cs" />

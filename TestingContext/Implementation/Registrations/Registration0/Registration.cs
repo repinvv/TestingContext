@@ -5,42 +5,21 @@
     using System.Linq.Expressions;
     using TestingContext.Interface;
     using TestingContext.LimitedInterface;
+    using TestingContextCore.Implementation.Registrations.HighLevel;
     using TestingContextCore.PublicMembers;
 
-    internal class Registration : IRegister
+    internal class Registration : HighLevelRegistrations, IRegister
     {
         private readonly TokenStore store;
         private readonly InnerRegistration inner;
 
-        public Registration(TokenStore store, InnerRegistration inner)
+        public Registration(TokenStore store, InnerRegistration inner, InnerHighLevelRegistration innerHighLevel)
+            : base(innerHighLevel)
         {
             this.store = store;
             this.inner = inner;
         }
-
-        #region groups
-        public IFilterToken Not(Action<ITokenRegister> action, string file, int line, string member)
-            => inner.Not(action, file, line, member);
-
-        public IFilterToken Or(Action<ITokenRegister> action, Action<ITokenRegister> action2,
-                               Action<ITokenRegister> action3, Action<ITokenRegister> action4,
-                               Action<ITokenRegister> action5, string file, int line, string member)
-            => inner.Or(action, action2, action3, action4, action5, file, line, member);
-
-        public IFilterToken Xor(Action<ITokenRegister> action, Action<ITokenRegister> action2, string file, int line, string member) 
-            => inner.Xor(action, action2, file, line, member);
-
-        public IFilterToken Not(Action<IRegister> action, string file, int line, string member) => inner.Not(action, file, line, member);
-
-        public IFilterToken Or(Action<IRegister> action, Action<IRegister> action2,
-                               Action<IRegister> action3, Action<IRegister> action4,
-                               Action<IRegister> action5, string file, int line, string member)
-            => inner.Or(action, action2, action3, action4, action5, file, line, member);
-
-        public IFilterToken Xor(Action<IRegister> action, Action<IRegister> action2, string file, int line, string member) 
-            => inner.Xor(action, action2, file, line, member);
-        #endregion
-
+        
         #region For
         IFor<T> IRegister.For<T>(IHaveToken<T> haveToken) => inner.For(haveToken);
         IFor<IEnumerable<T>> IRegister.ForCollection<T>(IHaveToken<T> haveToken) => inner.ForCollection(haveToken);

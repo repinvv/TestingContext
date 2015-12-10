@@ -18,7 +18,7 @@
         private readonly IFilterGroup group;
         private readonly int priority;
 
-        public InnerRegistration1(TokenStore store, IDependency<T1> dependency, IFilterGroup @group, int priority)
+        public InnerRegistration1(TokenStore store, IDependency<T1> dependency, IFilterGroup group, int priority)
         {
             this.store = store;
             this.dependency = dependency;

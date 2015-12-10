@@ -5,7 +5,7 @@
     using System.Linq.Expressions;
     using System.Runtime.CompilerServices;
 
-    public interface IForToken<T1>
+    public interface IForToken<T1> : IHighLevelOperations<ITokenRegister>
     {
         IFilterToken IsTrue(Expression<Func<T1, bool>> filter,
                             [CallerFilePath] string file = "",
@@ -31,12 +31,12 @@
                                 [CallerLineNumber] int line = 0,
                                 [CallerMemberName] string member = "");
 
-        IHaveToken<T2> ExistsSingle<T2>(Expression<Func<T1, T2>> srcFunc,
+        IHaveToken<T2> Is<T2>(Expression<Func<T1, T2>> srcFunc,
                                         [CallerFilePath] string file = "",
                                         [CallerLineNumber] int line = 0,
                                         [CallerMemberName] string member = "");
 
-        IHaveToken<T2> DoesNotExistSingle<T2>(Expression<Func<T1, T2>> srcFunc,
+        IHaveToken<T2> IsNot<T2>(Expression<Func<T1, T2>> srcFunc,
                                         [CallerFilePath] string file = "",
                                         [CallerLineNumber] int line = 0,
                                         [CallerMemberName] string member = "");

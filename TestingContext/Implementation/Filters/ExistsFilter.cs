@@ -39,5 +39,10 @@
                            .OrderByDescending(x => context.Node.Tree.FilterIndex[x])
                            .First();
         }
+
+        public override string ToString()
+        {
+            return $"ExistsFilter for {ForTokens.First()}, Id: {Id}";
+        }
     }
 }

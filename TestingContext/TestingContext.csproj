@@ -65,8 +65,10 @@
     <Compile Include="Implementation\Providers\Provider.cs" />
     <Compile Include="Implementation\Providers\Provider2.cs" />
     <Compile Include="Implementation\Registrations\Declarator.cs" />
-    <Compile Include="Implementation\Registrations\LoopDetection\LoopDetectionService.cs" />
-    <Compile Include="Implementation\Registrations\LoopDetection\Reliance.cs" />
+    <Compile Include="Implementation\Registrations\HighLevel\HighLevelRegistrations.cs" />
+    <Compile Include="Implementation\Registrations\HighLevel\InnerHighLevelRegistration.cs" />
+    <Compile Include="Implementation\TreeOperation\LoopDetection\LoopDetectionService.cs" />
+    <Compile Include="Implementation\TreeOperation\LoopDetection\Reliance.cs" />
     <Compile Include="Implementation\Registrations\Registration0\InnerRegistration.cs" />
     <Compile Include="Implementation\Registrations\Registration1\InnerRegistration1.cs" />
     <Compile Include="Implementation\Registrations\Inversion.cs" />
