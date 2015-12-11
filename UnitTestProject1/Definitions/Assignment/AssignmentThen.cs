@@ -40,27 +40,12 @@
             CollectionAssert.AreEquivalent(sourceIds, assignments2Ids);
         }
 
-        [When(@"I try register that assignment(?:\s)?(.*) has more people than assignments(?:\s)?(.*)")]
-        public void WhenITryRegisterThatAssignmentHasMorePeopleThanAssignments(string key1, string key2)
-        {
-            var token1 = context.GetToken<Assignment>(key1);
-            var token2 = context.GetToken<Assignment>(key2);
-            try
-            {
-                context.AssignmentHasMorePeopleThanAssignments(token1, token2);
-            }
-            catch (RegistrationException ex)
-            {
-                context.Storage.Set(ex);
-            }
-        }
-
-        [Then(@"i should get an exception with information about assignment(?:\s)?(.*)")]
-        public void ThenIShouldGetAnExceptionWithInformationAboutAssignment(string key)
+        [Then(@"i should get an exception with information about (.*)")]
+        public void ThenIShouldGetAnExceptionWithInformationAbout(string text)
         {
             var ex = context.Storage.Get<RegistrationException>();
             Assert.IsNotNull(ex);
-            Assert.IsTrue(ex.Message.Contains($"Assignment \"{key}\""));
+            Assert.IsTrue(ex.Message.Contains(text));
         }
     }
 }

@@ -67,6 +67,7 @@
     <Compile Include="Implementation\Registrations\Declarator.cs" />
     <Compile Include="Implementation\Registrations\HighLevel\HighLevelRegistrations.cs" />
     <Compile Include="Implementation\Registrations\HighLevel\InnerHighLevelRegistration.cs" />
+    <Compile Include="Implementation\Tokens\GroupToken.cs" />
     <Compile Include="Implementation\TreeOperation\LoopDetection\LoopDetectionService.cs" />
     <Compile Include="Implementation\TreeOperation\LoopDetection\Reliance.cs" />
     <Compile Include="Implementation\Registrations\Registration0\InnerRegistration.cs" />
@@ -106,7 +107,7 @@
     <Compile Include="Implementation\Registrations\TokenStore.cs" />
     <Compile Include="Implementation\Resolution\IResolutionContext.cs" />
     <Compile Include="Implementation\Root.cs" />
-    <Compile Include="Implementation\Tokens\Token.cs" />
+    <Compile Include="Implementation\Tokens\FilterToken.cs" />
     <Compile Include="Implementation\Tokens\HaveToken.cs" />
     <Compile Include="Implementation\Tokens\TokenGen.cs" />
     <Compile Include="PublicMembers\Storage.cs" />

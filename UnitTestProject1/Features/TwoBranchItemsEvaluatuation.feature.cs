@@ -14,7 +14,8 @@
 namespace UnitTestProject1.Features
 {
     using TechTalk.SpecFlow;
-
+    
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
@@ -48,7 +49,7 @@ namespace UnitTestProject1.Features
             if (((TechTalk.SpecFlow.FeatureContext.Current != null) 
                         && (TechTalk.SpecFlow.FeatureContext.Current.FeatureInfo.Title != "TwoBranchItemsEvaluatuation")))
             {
-                FeatureSetup(null);
+                UnitTestProject1.Features.TwoBranchItemsEvaluatuationFeature.FeatureSetup(null);
             }
         }
         
@@ -129,7 +130,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 28
    testRunner.And("average payment per person in assignments B, specified in taxes B is over 17$", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 29
- testRunner.When("insurance B resolves", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("i try resolving insurance B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 30
  testRunner.Then("resolution logger must produce info for filter, mentioning \'Assignment \"B\"\' and \'" +
                     "17\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

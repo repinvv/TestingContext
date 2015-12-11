@@ -2,6 +2,7 @@
 {
     using TechTalk.SpecFlow;
     using TestingContext.Interface;
+    using TestingContextCore.PublicMembers.Exceptions;
     using UnitTestProject1.Entities;
 
     [Binding]
@@ -14,10 +15,17 @@
             this.context = context;
         }
 
-        [When(@"insurance(?:\s)?(.*) resolves")]
+        [When(@"i try resolving insurance(?:\s)?(.*)")]
         public void WhenInsuranceResolves(string key)
         {
-            var value = context.GetMatcher().All<Insurance>(key);
+            try
+            {
+                var value = context.GetMatcher().All<Insurance>(key);
+            }
+            catch (RegistrationException ex)
+            {
+                context.Storage.Set(ex);
+            }
         }
     }
 }

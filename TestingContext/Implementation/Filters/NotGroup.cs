@@ -6,26 +6,27 @@
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
+    using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.PublicMembers.Exceptions;
 
     internal class NotGroup : BaseFilter, IFilterGroup
     {
-        public NotGroup(IDiagInfo diagInfo) : base(diagInfo) { }
+        public NotGroup(IDiagInfo diagInfo) : base(diagInfo)
+        {
+            GroupToken = new GroupToken(GetType());
+        }
 
-        public NotGroup(IFilter inner, IDiagInfo diagInfo, IFilter absorber = null) : base(diagInfo)
+        public NotGroup(IFilter inner, IDiagInfo diagInfo) : base(diagInfo)
         {
             Filters.Add(inner);
         }
 
         public IFilter GetFailingFilter(IResolutionContext context)
         {
-            if (Filters.Count != 1)
-            {
-                throw new AlgorythmException("NOT group can only contain one filter");
-            }
-
-            return Filters[0].GetFailingFilter(context) == null ? this : null;
+            return Filters.All(x => x.GetFailingFilter(context) == null) ? this : null;
         }
+
+        public IToken GroupToken { get; }
 
         public List<IFilter> Filters { get; } = new List<IFilter>();
 

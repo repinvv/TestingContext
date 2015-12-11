@@ -6,10 +6,16 @@
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
+    using TestingContextCore.Implementation.Tokens;
 
     internal class OrGroup : BaseFilter, IFilterGroup
     {
-        public OrGroup(IDiagInfo diagInfo) : base(diagInfo) { }
+        public IToken GroupToken { get;}
+
+        public OrGroup(IDiagInfo diagInfo) : base(diagInfo)
+        {
+            GroupToken = new GroupToken(GetType());
+        }
 
         public IFilter GetFailingFilter(IResolutionContext context)
         {

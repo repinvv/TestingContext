@@ -80,10 +80,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RegistrationsLoopDetection.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\RemoveLimitations.feature.cs">
+    <Compile Include="Features\ForbidUncertainReordering.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RemoveLimitations.feature</DependentUpon>
+      <DependentUpon>ForbidUncertainReordering.feature</DependentUpon>
     </Compile>
     <Compile Include="Entities\Tax.cs" />
     <Compile Include="Entities\TaxType.cs" />
@@ -143,9 +143,9 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>RegistrationsLoopDetection.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\RemoveLimitations.feature">
+    <None Include="Features\ForbidUncertainReordering.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>RemoveLimitations.feature.cs</LastGenOutput>
+      <LastGenOutput>ForbidUncertainReordering.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\BreakSomething.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

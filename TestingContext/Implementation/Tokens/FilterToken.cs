@@ -2,7 +2,7 @@
 {
     using TestingContext.LimitedInterface;
 
-    internal class Token : IFilterToken
+    internal class FilterToken : IFilterToken
     {
         public string Name { get; set; }
 

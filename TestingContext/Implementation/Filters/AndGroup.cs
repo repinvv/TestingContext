@@ -2,13 +2,17 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using TestingContext.Interface;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
+    using TestingContextCore.Implementation.Tokens;
 
     internal class AndGroup : BaseFilter, IFilterGroup
     {
-        public AndGroup() : base(null) { }
+        public IToken GroupToken { get; }
+
+        public AndGroup(IDiagInfo diagInfo = null) : base(diagInfo) { }
 
         public IFilter GetFailingFilter(IResolutionContext context)
         {

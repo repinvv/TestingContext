@@ -26,5 +26,5 @@ Scenario: Two branch search failure with condition between collections of those 
 	  And for insurance B exists a tax B
 	  And tax B has type 'Federal'	  
 	  And average payment per person in assignments B, specified in taxes B is over 17$
-	When insurance B resolves
+	When i try resolving insurance B
 	Then resolution logger must produce info for filter, mentioning 'Assignment "B"' and '17'

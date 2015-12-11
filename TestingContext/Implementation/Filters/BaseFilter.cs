@@ -10,9 +10,9 @@
         {
             DiagInfo = diagInfo;
         }
-
+        
         public int Id { get; set; }
-        public IFilterToken Token { get; } = new Token();
+        public IFilterToken Token { get; } = new FilterToken();
         public IDiagInfo DiagInfo { get; }
         public IDiagInfo Diagnostics => DiagInfo;
 

@@ -85,7 +85,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 9
    testRunner.And("insurance B is created in year 2005", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10
- testRunner.When("insurance B resolves", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("i try resolving insurance B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 11
  testRunner.Then("resolution logger must produce info for filter, mentioning \'Insurance \"B\"\' and \'2" +
                     "005\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -112,7 +112,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 18
    testRunner.And("assignment B has type \'Undefined\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 19
- testRunner.When("insurance B resolves", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("i try resolving insurance B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 20
  testRunner.Then("resolution logger must produce info for filter, mentioning \'Assignment \"B\"\' and \'" +
                     "Undefined\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -139,7 +139,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 27
    testRunner.And("assignment B has type \'Undefined\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 28
- testRunner.When("insurance B resolves", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("i try resolving insurance B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 29
  testRunner.Then("resolution logger must produce info for filter, mentioning \'Assignment \"B\"\' and \'" +
                     "insurance.Assignments\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

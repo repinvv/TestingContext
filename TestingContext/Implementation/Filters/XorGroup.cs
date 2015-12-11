@@ -6,11 +6,15 @@
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
+    using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.PublicMembers.Exceptions;
 
     internal class XorGroup : BaseFilter, IFilterGroup
     {
-        public XorGroup(IDiagInfo diagInfo) : base(diagInfo) { }
+        public XorGroup(IDiagInfo diagInfo) : base(diagInfo)
+        {
+            GroupToken = new GroupToken(GetType());
+        }
 
         public IFilter GetFailingFilter(IResolutionContext context)
         {
@@ -29,6 +33,7 @@
             return this;
         }
 
+        public IToken GroupToken { get; }
         public List<IFilter> Filters { get; } = new List<IFilter>();
 
         public IEnumerable<IDependency> Dependencies => Filters.SelectMany(x => x.Dependencies);

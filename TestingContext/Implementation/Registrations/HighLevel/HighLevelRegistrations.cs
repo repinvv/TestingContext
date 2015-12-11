@@ -3,7 +3,6 @@
     using System;
     using TestingContext.Interface;
     using TestingContext.LimitedInterface;
-    using TestingContextCore.Implementation.Filters;
     using TestingContextCore.PublicMembers;
 
     internal class HighLevelRegistrations

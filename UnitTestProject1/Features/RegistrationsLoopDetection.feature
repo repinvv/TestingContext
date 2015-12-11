@@ -11,5 +11,6 @@ Scenario: Loop Detection 1
 	  And for insurance B exists an assignment B
 	  And for insurance B exists an assignment C
 	  And for insurance B exists an assignment D
-	When I try register that assignment D has more people than assignments B
-	Then i should get an exception with information about assignment D
+	  And assignment D has more people than assignments C
+	When i try resolving insurance B
+	Then i should get an exception with information about Assignment "D"

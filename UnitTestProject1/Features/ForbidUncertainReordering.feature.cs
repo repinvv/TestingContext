@@ -19,20 +19,20 @@ namespace UnitTestProject1.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class RemoveLimitationsFeature
+    public partial class ForbidReorderingInCaseWhenOrderOfEntitiesIsNotExplicitlySpecifiedFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "RemoveLimitations.feature"
+#line 1 "ForbidUncertainReordering.feature"
 #line hidden
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute()]
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "RemoveLimitations", "In order to write the test the way i like\r\nI want to specify filters without limi" +
-                    "tations", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Forbid reordering in case when order of entities is not explicitly specified", "In order to avoid resolution uncertainty\r\nI want to get the exception mentoning i" +
+                    "tems for which the order is not explicitly specified", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -47,9 +47,9 @@ namespace UnitTestProject1.Features
         public virtual void TestInitialize()
         {
             if (((TechTalk.SpecFlow.FeatureContext.Current != null) 
-                        && (TechTalk.SpecFlow.FeatureContext.Current.FeatureInfo.Title != "RemoveLimitations")))
+                        && (TechTalk.SpecFlow.FeatureContext.Current.FeatureInfo.Title != "Forbid reordering in case when order of entities is not explicitly specified")))
             {
-                UnitTestProject1.Features.RemoveLimitationsFeature.FeatureSetup(null);
+                UnitTestProject1.Features.ForbidReorderingInCaseWhenOrderOfEntitiesIsNotExplicitlySpecifiedFeature.FeatureSetup(null);
             }
         }
         
@@ -70,13 +70,13 @@ namespace UnitTestProject1.Features
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("\"Each\" filter in scenario with tree reordering")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "RemoveLimitations")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("limitationRemoval2")]
-        public virtual void EachFilterInScenarioWithTreeReordering()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Two \"Each\" filters with simple reordering")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Forbid reordering in case when order of entities is not explicitly specified")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("reorderingLimitation")]
+        public virtual void TwoEachFiltersWithSimpleReordering()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("\"Each\" filter in scenario with tree reordering", new string[] {
-                        "limitationRemoval2"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Two \"Each\" filters with simple reordering", new string[] {
+                        "reorderingLimitation"});
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line 7
@@ -90,7 +90,11 @@ this.ScenarioSetup(scenarioInfo);
 #line 11
   testRunner.And("assignment B is created at the same day as tax B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 12
-   testRunner.Then("insurance B name must contain \' @limitationRemoval2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.When("i try resolving insurance B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 13
+    testRunner.Then("i should get an exception with information about Assignment \"B\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 14
+     testRunner.And("i should get an exception with information about Tax \"B\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
