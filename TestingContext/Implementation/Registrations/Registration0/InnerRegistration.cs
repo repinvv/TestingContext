@@ -25,14 +25,24 @@
 
         public IFor<T> For<T>(IHaveToken<T> haveToken)
         {
+            if (haveToken == null)
+            {
+                throw new ArgumentNullException(nameof(haveToken));
+            }
+
             return RegistrationFactory.GetRegistration1(store, new SingleValueDependency<T>(haveToken), group, priority);
         }
 
         public IFor<IEnumerable<T>> ForCollection<T>(IHaveToken<T> haveToken)
         {
+            if (haveToken == null)
+            {
+                throw new ArgumentNullException(nameof(haveToken));
+            }
+
             return RegistrationFactory.GetRegistration1(store, new CollectionValueDependency<T>(haveToken), group, priority);
         }
-        
+
         public IHaveToken<T> Exists<T>(Func<IEnumerable<T>> srcFunc, IDiagInfo diagInfo)
         {
             var dependency = new SingleValueDependency<Root>(new HaveToken<Root>(store.RootToken));

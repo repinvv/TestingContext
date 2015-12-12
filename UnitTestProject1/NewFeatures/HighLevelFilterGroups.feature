@@ -30,7 +30,7 @@ Background:
 	| 3  | 2            | proj3 | 50     |	
 	And I have companies property
 	| Id | CompanyId | Name             | Type         |
-	| 1  | 5         | Software of Peter | Intellectual |
+	| 1  | 5         | Software of Alex | Intellectual |
 
 Scenario: use OrGroup to find company with department with either employees, projects or department type
 	When i search for company
@@ -53,10 +53,10 @@ Scenario: have Exception, notifying that you should specify direct relation betw
 	Then searching for company should result exception mentioning "Not", "Employee" and "CompanyProperty"
 
 Scenario: when explicitly stated, NotGroup should allow to find data
-	When i search for company
-	 And i need company to have a department
+	When i search for company	
+	 And i need company to have a department	 
 	 And i need company to have "Intellectual" property
-	 And for company property i need department to either be "Business" type or have "PartTime" employee or have project with budjet 100 or more 	 	 
-	 #this goes under "Or"
+	 And for company property i need department to NOT have all three, "Business" type, "PartTime" employee, project budjet 100 or more 	 	 
+	 #this goes under "Not"
 	 And I need employee name mentioned in company property	 
 	Then companies "MeraRu" should be found for company requirements

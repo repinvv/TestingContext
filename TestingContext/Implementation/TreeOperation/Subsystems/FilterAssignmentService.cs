@@ -42,7 +42,6 @@
 
         public static void AssignFilters(TokenStore store, Tree tree)
         {
-            store.Filters.ForEach(DependencyCheck.CheckDependencies);
             var freeFilters = new List<IFilter>();
             foreach (var filter in store.Filters)
             {

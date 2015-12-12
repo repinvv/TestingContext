@@ -80,7 +80,6 @@
     <Compile Include="Implementation\Registrations\StoreExtension.cs" />
     <Compile Include="Implementation\Resolution\ResolutionContext.cs" />
     <Compile Include="Implementation\TreeOperation\GetNodeService.cs" />
-    <Compile Include="Implementation\TreeOperation\Subsystems\DependencyCheck.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\FilterProcessingService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\RandomServices.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\FilterAssignmentService.cs" />

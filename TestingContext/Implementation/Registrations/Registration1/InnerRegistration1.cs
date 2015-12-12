@@ -10,6 +10,7 @@
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.PublicMembers;
+    using TestingContextCore.PublicMembers.Exceptions;
 
     internal class InnerRegistration1<T1>
     {
@@ -36,11 +37,21 @@
 
         public IFor<T1, T2> For<T2>(IHaveToken<T2> haveToken)
         {
+            if (haveToken == null)
+            {
+                throw new ArgumentNullException(nameof(haveToken));
+            }
+
             return RegistrationFactory.GetRegistration2(store, dependency, new SingleValueDependency<T2>(haveToken), group, priority);
         }
 
         public IFor<T1, IEnumerable<T2>> ForCollection<T2>(IHaveToken<T2> haveToken)
         {
+            if (haveToken == null)
+            {
+                throw new ArgumentNullException(nameof(haveToken));
+            }
+
             return RegistrationFactory.GetRegistration2(store, dependency, new CollectionValueDependency<T2>(haveToken), group, priority);
         }
 

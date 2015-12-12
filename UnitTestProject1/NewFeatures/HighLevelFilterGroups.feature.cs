@@ -181,7 +181,7 @@ namespace UnitTestProject1.NewFeatures
             table5.AddRow(new string[] {
                         "1",
                         "5",
-                        "Software of Peter",
+                        "Software of Alex",
                         "Intellectual"});
 #line 31
  testRunner.And("I have companies property", ((string)(null)), table5, "And ");
@@ -287,8 +287,8 @@ this.FeatureBackground();
 #line 58
   testRunner.And("i need company to have \"Intellectual\" property", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 59
-  testRunner.And("for company property i need department to either be \"Business\" type or have \"Part" +
-                    "Time\" employee or have project with budjet 100 or more", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("for company property i need department to NOT have all three, \"Business\" type, \"P" +
+                    "artTime\" employee, project budjet 100 or more", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 61
   testRunner.And("I need employee name mentioned in company property", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 62
