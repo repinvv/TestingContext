@@ -25,7 +25,7 @@
             int priority)
         {
             var inner = new InnerRegistration1<T1>(store, dependency, group, priority);
-            var innerHighLevel = new InnerHighLevelRegistration(store, group, priority);
+            var innerHighLevel = new InnerHighLevelRegistration(store, group, priority, dependency);
             return new Registration1<T1>(store, inner, innerHighLevel);
         }
 
@@ -36,7 +36,7 @@
             int priority)
         {
             var inner = new InnerRegistration2<T1, T2>(store, dependency1, dependency2, group, priority);
-            var innerHighLevel = new InnerHighLevelRegistration(store, group, priority);
+            var innerHighLevel = new InnerHighLevelRegistration(store, group, priority, dependency1, dependency2);
             return new Registration2<T1, T2>(store, inner, innerHighLevel);
         }
     }
