@@ -55,10 +55,10 @@
         public IFilterToken Not(Action<ITokenRegister> action, string file, int line, string member)
             => rootRegister.Not(action, file, line, member);
 
-        public IFilterToken Or(Action<ITokenRegister> action, Action<ITokenRegister> action2,
+        public IFilterToken Either(Action<ITokenRegister> action, Action<ITokenRegister> action2,
                                Action<ITokenRegister> action3, Action<ITokenRegister> action4,
                                Action<ITokenRegister> action5, string file, int line, string member)
-            => rootRegister.Or(action, action2, action3, action4, action5, file, line, member);
+            => rootRegister.Either(action, action2, action3, action4, action5, file, line, member);
         
         public IFilterToken Xor(Action<ITokenRegister> action, Action<ITokenRegister> action2, string file, int line, string member)
             => rootRegister.Xor(action, action2, file, line, member);
@@ -78,10 +78,10 @@
         public IFilterToken Not(Action<IRegister> action, string file, int line, string member)
             => rootRegister.Not(action, file, line, member);
 
-        public IFilterToken Or(Action<IRegister> action, Action<IRegister> action2,
+        public IFilterToken Either(Action<IRegister> action, Action<IRegister> action2,
                                Action<IRegister> action3, Action<IRegister> action4,
                                Action<IRegister> action5, string file, int line, string member)
-            => rootRegister.Or(action, action2, action3, action4, action5, file, line, member);
+            => rootRegister.Either(action, action2, action3, action4, action5, file, line, member);
 
         public IFilterToken Xor(Action<IRegister> action, Action<IRegister> action2, string file, int line, string member)
             => rootRegister.Xor(action, action2, file, line, member);

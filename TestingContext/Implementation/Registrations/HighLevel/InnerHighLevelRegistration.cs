@@ -24,20 +24,20 @@
 
         public IFilterToken Not(Action<IRegister> action, IDiagInfo diagInfo)
         {
-            var notGroup = new NotGroup(diagInfo);
+            var notGroup = new NotGroup(dependencies, diagInfo);
             store.RegisterFilter(notGroup, group);
             action(RegistrationFactory.GetRegistration(store, notGroup, priority));
             return notGroup.Token;
         }
 
-        public IFilterToken Or(Action<IRegister> action,
+        public IFilterToken Either(Action<IRegister> action,
             Action<IRegister> action2,
             Action<IRegister> action3,
             Action<IRegister> action4,
             Action<IRegister> action5,
             IDiagInfo diagInfo)
         {
-            var orGroup = new OrGroup(diagInfo);
+            var orGroup = new OrGroup(dependencies, diagInfo);
             store.RegisterFilter(orGroup, group);
             RegisterSubgroup(action, orGroup);
             RegisterSubgroup(action2, orGroup);
@@ -49,7 +49,7 @@
 
         public IFilterToken Xor(Action<IRegister> action, Action<IRegister> action2, IDiagInfo diagInfo)
         {
-            var xorGroup = new XorGroup(diagInfo);
+            var xorGroup = new XorGroup(dependencies, diagInfo);
             store.RegisterFilter(xorGroup, group);
             RegisterSubgroup(action, xorGroup);
             RegisterSubgroup(action2, xorGroup);

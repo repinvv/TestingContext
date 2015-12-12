@@ -9,12 +9,11 @@
     using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.PublicMembers.Exceptions;
 
-    internal class XorGroup : BaseFilter, IFilterGroup
+    internal class XorGroup : BaseFilterGroup, IFilterGroup
     {
-        public XorGroup(IDiagInfo diagInfo) : base(diagInfo)
-        {
-            GroupToken = new GroupToken(GetType());
-        }
+        public XorGroup(IDependency[] dependencies, IDiagInfo diagInfo) 
+            : base(dependencies, diagInfo)
+        { }
 
         public IFilter GetFailingFilter(IResolutionContext context)
         {
@@ -32,12 +31,5 @@
 
             return this;
         }
-
-        public IToken GroupToken { get; }
-        public List<IFilter> Filters { get; } = new List<IFilter>();
-
-        public IEnumerable<IDependency> Dependencies => Filters.SelectMany(x => x.Dependencies);
-
-        public IEnumerable<IToken> ForTokens => Dependencies.Select(x => x.Token);
     }
 }

@@ -73,7 +73,7 @@
                 return new HaveToken<T>(token);
             }
 
-            return new LazyHaveToken<T>(() => store.GetToken<T>(name));
+            return new LazyHaveToken<T>(() => store.GetToken<T>(name), name);
         }
 
         public static IToken<T> GetToken<T>(this TokenStore store, string name) 

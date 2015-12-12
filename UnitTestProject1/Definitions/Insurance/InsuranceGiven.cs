@@ -39,7 +39,7 @@
         public void GivenInsuranseMatchesHiLevelORCondition(string key)
         {
             var token = context.GetToken<Insurance>(key);
-            context.Or(x => x.InsuranceHasFederalTax(token),
+            context.Either(x => x.InsuranceHasFederalTax(token),
                        x => x.InsuranceHasMaximumDependents(token),
                        x => x.InsuranceHasDependentAssignment(token));
         }

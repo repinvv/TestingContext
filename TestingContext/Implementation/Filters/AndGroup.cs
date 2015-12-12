@@ -8,11 +8,10 @@
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.Tokens;
 
-    internal class AndGroup : BaseFilter, IFilterGroup
+    internal class AndGroup : BaseFilterGroup, IFilterGroup
     {
-        public IToken GroupToken { get; }
-
-        public AndGroup(IDiagInfo diagInfo = null) : base(diagInfo) { }
+        public AndGroup(IDependency[] dependencies = null, IDiagInfo diagInfo = null) 
+            : base(dependencies ?? new IDependency[0], diagInfo) { }
 
         public IFilter GetFailingFilter(IResolutionContext context)
         {
@@ -20,11 +19,5 @@
                 .Select(t => t.GetFailingFilter(context))
                 .FirstOrDefault(filter => filter != null);
         }
-
-        public IEnumerable<IDependency> Dependencies => Filters.SelectMany(x => x.Dependencies);
-
-        public List<IFilter> Filters { get; } = new List<IFilter>();
-
-        public IEnumerable<IToken> ForTokens => Dependencies.Select(x => x.Token);
     }
 }

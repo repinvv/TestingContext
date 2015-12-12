@@ -49,6 +49,7 @@
     <Compile Include="Implementation\Dependencies\SingleDependency.cs" />
     <Compile Include="Implementation\Filters\AndGroup.cs" />
     <Compile Include="Implementation\Filters\BaseFilter.cs" />
+    <Compile Include="Implementation\Filters\BaseFilterGroup.cs" />
     <Compile Include="Implementation\Filters\ExistsFilter.cs" />
     <Compile Include="Implementation\Filters\Filter1.cs" />
     <Compile Include="Implementation\Filters\Filter2.cs" />
@@ -92,7 +93,7 @@
     <Compile Include="PublicMembers\Exceptions\AlgorythmException.cs" />
     <Compile Include="PublicMembers\Exceptions\RegistrationException.cs" />
     <Compile Include="Implementation\Tokens\LazyHaveToken.cs" />
-    <Compile Include="PublicMembers\Exceptions\RegistrationsLoopException.cs" />
+    <Compile Include="PublicMembers\Exceptions\DetailedRegistrationsException.cs" />
     <Compile Include="Implementation\Definition.cs" />
     <Compile Include="Implementation\Dependencies\CollectionValueDependency.cs" />
     <Compile Include="Implementation\Dependencies\DependencyType.cs" />

@@ -70,6 +70,30 @@
     <Compile Include="Entities\AssignmentType.cs" />
     <Compile Include="Entities\Assignment.cs" />
     <Compile Include="Entities\Insurance.cs" />
+    <Compile Include="NewDefinitions\Companies\CompanyThen.cs" />
+    <Compile Include="NewDefinitions\Companies\CompanyWhen.cs" />
+    <Compile Include="NewDefinitions\CompanyProperties\CompanyPropertyWhen.cs" />
+    <Compile Include="NewDefinitions\CompanyProperties\PropertyGiven.cs" />
+    <Compile Include="NewDefinitions\Departments\DepartmentWhen.cs" />
+    <Compile Include="NewDefinitions\Employees\EmployeeGiven.cs" />
+    <Compile Include="NewDefinitions\Employees\EmployeeWhen.cs" />
+    <Compile Include="NewDefinitions\Extensions\DepartmentExtension.cs" />
+    <Compile Include="NewDefinitions\WorkProjects\WorkProjectGiven.cs" />
+    <Compile Include="NewEntities\DepartmentType.cs" />
+    <Compile Include="NewEntities\EmploymentType.cs" />
+    <Compile Include="NewEntities\PropertType.cs" />
+    <Compile Include="NewEntities\Company.cs" />
+    <Compile Include="NewEntities\CompanyProperty.cs" />
+    <Compile Include="NewEntities\Department.cs" />
+    <Compile Include="NewEntities\Employee.cs" />
+    <Compile Include="NewEntities\WorkProject.cs" />
+    <Compile Include="NewDefinitions\Companies\CompanyGiven.cs" />
+    <Compile Include="NewDefinitions\Departments\DepartmentGiven.cs" />
+    <Compile Include="NewFeatures\HighLevelFilterGroups.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HighLevelFilterGroups.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Performance.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -79,11 +103,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RegistrationsLoopDetection.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Features\ForbidUncertainReordering.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ForbidUncertainReordering.feature</DependentUpon>
     </Compile>
     <Compile Include="Entities\Tax.cs" />
     <Compile Include="Entities\TaxType.cs" />
@@ -135,6 +154,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="NewFeatures\HighLevelFilterGroups.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>HighLevelFilterGroups.feature.cs</LastGenOutput>
+    </None>
     <None Include="Features\Performance.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Performance.feature.cs</LastGenOutput>
@@ -142,10 +165,6 @@
     <None Include="Features\RegistrationsLoopDetection.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>RegistrationsLoopDetection.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\ForbidUncertainReordering.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>ForbidUncertainReordering.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\BreakSomething.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

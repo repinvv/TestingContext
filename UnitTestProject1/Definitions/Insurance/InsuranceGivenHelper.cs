@@ -12,7 +12,7 @@
                     .IsTrue(x => x.MaximumDependents > 0);
         }
 
-        public static void InsuranceHasFederalTax(this IRegister register, IHaveToken<Insurance> insurance)
+        public static void InsuranceHasFederalTax(this ITokenRegister register, IHaveToken<Insurance> insurance)
         {
             var taxToken = register
                 .For(insurance)
@@ -21,7 +21,7 @@
                     .IsTrue(x => x.Type == TaxType.Federal);
         }
 
-        public static void InsuranceHasDependentAssignment(this IRegister register, IHaveToken<Insurance> insurance)
+        public static void InsuranceHasDependentAssignment(this ITokenRegister register, IHaveToken<Insurance> insurance)
         {
             var assignmentToken = register
                 .For(insurance)
