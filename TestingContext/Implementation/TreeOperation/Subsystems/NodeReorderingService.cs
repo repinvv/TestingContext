@@ -65,7 +65,7 @@
 
             var exceptionMessage = $"There is an uncertainty between {chain1.Last()} (a) and {chain2.Last()} (b)" + Environment.NewLine+
                 $"{GetInvalidateString("a", chain1.Last(), invalidNode1)}{GetInvalidateString("b", chain2.Last(), invalidNode2)}" +
-                $"To deal with this uncertainty, you can either make {fixNode1} depend on {fixNode2} or the other way around";
+                $"To deal with this uncertainty, you can either make {fixNode1} depend on {chain2.Last()} or {fixNode2} depend on {chain1.Last()}";
             var tuples = new List<Tuple<IToken, IDiagInfo>>
                          {
                              GetNodeTuple(fixNode1),
