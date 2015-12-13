@@ -9,18 +9,15 @@
 
     internal class Node : INode
     {
-        public Node(Tree tree, IToken token, IProvider provider, NodeFilterInfo filterInfo, int index)
+        public Node(Tree tree, IToken token, IProvider provider, NodeFilterInfo filterInfo)
         {
             Token = token;
             Provider = provider;
             FilterInfo = filterInfo;
-            Index = index;
             Tree = tree;
             Resolver = new NodeResolver(this);
         }
-
-        public int Index { get; }
-
+        
         public Tree Tree { get; }
 
         public IToken Token { get; }
@@ -28,6 +25,8 @@
         public INode Parent { get; set; }
         
         public INode SourceParent { get; set; }
+
+        public bool IsNegative { get; set; }
 
         public bool IsChildOf(INode node) => Parent == node || Parent.IsChildOf(node);
 
@@ -53,9 +52,9 @@
 
         public override string ToString() => Token.ToString();
 
-        public static Node CreateNode(IToken token, IProvider provider, TokenStore store, Tree tree, int index)
+        public static Node CreateNode(IToken token, IProvider provider, TokenStore store, Tree tree)
         {
-            return new Node(tree, token, provider, new NodeFilterInfo(store.ItemInversions.SafeGet(token)), index);
+            return new Node(tree, token, provider, new NodeFilterInfo(store.ItemInversions.SafeGet(token)));
         }
     }
 }

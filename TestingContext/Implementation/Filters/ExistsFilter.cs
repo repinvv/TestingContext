@@ -5,14 +5,15 @@
     using TestingContext.Interface;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
+    using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Resolution;
 
     internal class ExistsFilter : BaseFilter, IFilter
     {
         private readonly IDependency<IEnumerable<IResolutionContext>> dependency;
 
-        public ExistsFilter(IDependency<IEnumerable<IResolutionContext>> dependency, IDiagInfo diagInfo)
-            : base(diagInfo)
+        public ExistsFilter(IDependency<IEnumerable<IResolutionContext>> dependency, IFilterGroup group, IDiagInfo diagInfo)
+            : base(group, diagInfo)
         {
             this.dependency = dependency;
             Dependencies = new[] { dependency };

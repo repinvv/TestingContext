@@ -7,19 +7,22 @@
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
-    using TestingContextCore.PublicMembers;
     using static FilterProcessingService;
     using static NodeReorderingService;
     using static TestingContextCore.Implementation.Registrations.StoreExtension;
 
     internal static class FilterAssignmentService
     {
-        public static INode GetAssignmentNode(Tree tree, IDepend have)
+        public static INode GetAssignmentNode(Tree tree, IDepend depend)
         {
-            return have.Dependencies
-                       .Select(x => x.GetDependencyNode(tree))
-                       .OrderByDescending(x => x.GetParentalChain().Count)
-                       .First();
+            var nodes = depend.Dependencies.Select(x => x.GetDependencyNode(tree)).ToList();
+            if (depend.Group != null)
+            {
+                nodes.Add(tree.GetNode(depend.Group.GroupToken));
+            }
+
+            return nodes.OrderByDescending(x => x.GetParentalChain().Count)
+                         .First();
         }
 
         public static void AssignFilter(Tree tree, IFilter filter)
@@ -43,20 +46,16 @@
         public static void AssignFilters(TokenStore store, Tree tree)
         {
             var freeFilters = new List<IFilter>();
-            foreach (var filter in store.Filters)
-            {
-                ProcessFilterGroup(filter as IFilterGroup, freeFilters, store, tree);
-                AddFilter(filter, freeFilters, store);
-            }
-            
-            freeFilters.ForEach(x => ReorderNodes(tree, x.Dependencies.ToArray(), x.DiagInfo));
-            freeFilters.ForEach(x => AssignFilter(tree, x));
-            tree.ReorderedNodes.ForEach(x=>AssignExistsFilter(x.Item1, x.Item2));
+            ProcessFilterGroups(store.Filters, freeFilters, store, tree);
+            var filters = store.Filters.Concat(freeFilters).ToList();
+            filters.ForEach(x => ReorderNodes(tree, x));
+            filters.ForEach(x => AssignFilter(tree, x));
+            tree.NodesToCreateExistsFilter.ForEach(x => AssignExistsFilter(x.Item1, x.Item2));
         }
 
         private static void AssignExistsFilter(INode node, IDiagInfo diagInfo)
         {
-            var filter = CreateExistsFilter(node.Token, diagInfo);
+            var filter = CreateExistsFilter(node.Token, null, diagInfo);
             AssignFilterToNode(filter, node.Parent);
         }
     }

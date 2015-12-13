@@ -7,6 +7,7 @@
     using TestingContext.Interface;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.Tokens;
@@ -29,7 +30,7 @@
 
         public IHaveToken<T> Exists(IDiagInfo diagInfo)
         {
-            provider.CollectionValidityFilter = CreateExistsFilter(token, diagInfo);
+            store.RegisterCvFilter(CreateExistsFilter(token, group, diagInfo), group);
             store.RegisterProvider(provider, token, group);
             return new HaveToken<T>(token);
         }
@@ -45,10 +46,10 @@
                                           .All(grp => grp.Any(item => item.MeetsConditions)), diagInfo);
         }
 
-        internal IHaveToken<T> CreateDefinition(Expression<Func<IEnumerable<IResolutionContext>, bool>> filterExpr,
+        internal IHaveToken<T> CreateDefinition(Func<IEnumerable<IResolutionContext>, bool> filterFunc,
             IDiagInfo diagInfo)
         {
-            provider.CollectionValidityFilter = CreateCvFilter(filterExpr, token, diagInfo);
+            store.RegisterCvFilter(CreateCvFilter(filterFunc, token, group, diagInfo), group);
             store.RegisterProvider(provider, token, group);
             return new HaveToken<T>(token);
         }

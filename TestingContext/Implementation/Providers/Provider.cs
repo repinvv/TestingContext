@@ -7,6 +7,7 @@
     using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
@@ -21,8 +22,10 @@
         public Provider(IDependency<TSource> dependency,
             Func<TSource, IEnumerable<T>> sourceFunc,
             TokenStore store,
+            IFilterGroup group,
             IDiagInfo diagInfo)
         {
+            Group = group;
             DiagInfo = diagInfo;
             this.dependency = dependency;
             this.sourceFunc = sourceFunc;
@@ -30,7 +33,10 @@
             Dependencies = new IDependency[] { dependency };
         }
 
+        public IFilterGroup Group { get; set; }
+
         public IDiagInfo DiagInfo { get; }
+
         public IEnumerable<IDependency> Dependencies { get; }
 
         public IFilter CollectionValidityFilter { get; set; }

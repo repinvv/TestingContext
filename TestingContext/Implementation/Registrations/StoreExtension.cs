@@ -2,13 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Linq.Expressions;
     using TestingContext.Interface;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Providers;
-    using TestingContextCore.Implementation.Registrations.LoopDetection;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.PublicMembers.Exceptions;
@@ -27,10 +28,14 @@
             store.Filters.Add(filter);
         }
 
+        public static void RegisterCvFilter(this TokenStore store, IFilter filter, IFilterGroup group)
+        {
+            store.RegisterFilter(filter, group);
+            store.CvFilters.Add(filter.Dependencies.First().Token, filter);
+        }
+
         public static void RegisterProvider(this TokenStore store, IProvider provider, IToken token, IFilterGroup group)
         {
-            store.RegisterFilter(provider.CollectionValidityFilter, group);
-            store.CvFilters.Add(provider.CollectionValidityFilter);
             store.Providers.Add(token, provider);
         }
 
@@ -79,19 +84,23 @@
         public static IToken<T> GetToken<T>(this TokenStore store, string name) 
             => store.Tokens.Get<IToken<T>>(name);
 
-        public static IFilter CreateCvFilter(Expression<Func<IEnumerable<IResolutionContext>, bool>> filterExpr,
-            IToken token, IDiagInfo diagInfo)
+        public static IFilter CreateCvFilter(
+            Func<IEnumerable<IResolutionContext>, bool> filterFunc,
+            IToken token,
+            IFilterGroup group,
+            IDiagInfo diagInfo)
         {
             var cv = new CollectionDependency(token);
-            return new Filter1<IEnumerable<IResolutionContext>>(cv, filterExpr.Compile(), diagInfo);
+            return new Filter1<IEnumerable<IResolutionContext>>(cv, filterFunc, group, diagInfo);
         }
 
         public static IFilter CreateExistsFilter(
             IToken token,
+            IFilterGroup group,
             IDiagInfo diagInfo)
         {
             var dependency = new CollectionDependency(token);
-            return new ExistsFilter(dependency, diagInfo);
+            return new ExistsFilter(dependency, group, diagInfo);
         }
     }
 }

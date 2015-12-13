@@ -6,6 +6,7 @@
     using TestingContext.Interface;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
+    using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.PublicMembers.Exceptions;
 
@@ -17,9 +18,10 @@
 
         public Filter2(IDependency<T1> dependency1,
             IDependency<T2> dependency2,
-            Func<T1, T2, bool> filter, 
+            Func<T1, T2, bool> filter,
+            IFilterGroup group, 
             IDiagInfo diagInfo) 
-            : base(diagInfo)
+            : base(group, diagInfo)
         {
             this.dependency1 = dependency1;
             this.dependency2 = dependency2;

@@ -47,21 +47,23 @@
   <ItemGroup>
     <Compile Include="Implementation\Dependencies\ContextualDependency.cs" />
     <Compile Include="Implementation\Dependencies\SingleDependency.cs" />
-    <Compile Include="Implementation\Filters\AndGroup.cs" />
+    <Compile Include="Implementation\Filters\Groups\AndGroup.cs" />
     <Compile Include="Implementation\Filters\BaseFilter.cs" />
-    <Compile Include="Implementation\Filters\BaseFilterGroup.cs" />
+    <Compile Include="Implementation\Filters\Groups\BaseFilterGroup.cs" />
     <Compile Include="Implementation\Filters\ExistsFilter.cs" />
     <Compile Include="Implementation\Filters\Filter1.cs" />
     <Compile Include="Implementation\Filters\Filter2.cs" />
     <Compile Include="Implementation\Filters\FilterConstant.cs" />
-    <Compile Include="Implementation\Filters\NotGroup.cs" />
-    <Compile Include="Implementation\Filters\OrGroup.cs" />
-    <Compile Include="Implementation\Filters\XorGroup.cs" />
+    <Compile Include="Implementation\Filters\Groups\NotGroup.cs" />
+    <Compile Include="Implementation\Filters\Groups\OrGroup.cs" />
+    <Compile Include="Implementation\Filters\Groups\XorGroup.cs" />
+    <Compile Include="Implementation\Filters\Inverter.cs" />
     <Compile Include="Implementation\Matcher.cs" />
     <Compile Include="Implementation\Nodes\Node.cs" />
     <Compile Include="Implementation\Nodes\NodeFilterInfo.cs" />
     <Compile Include="Implementation\Nodes\NodeResolver.cs" />
     <Compile Include="Implementation\Nodes\RootNode.cs" />
+    <Compile Include="Implementation\Providers\GroupProvider.cs" />
     <Compile Include="Implementation\Providers\IProvider.cs" />
     <Compile Include="Implementation\Providers\Provider.cs" />
     <Compile Include="Implementation\Providers\Provider2.cs" />
@@ -81,6 +83,9 @@
     <Compile Include="Implementation\Resolution\ResolutionContext.cs" />
     <Compile Include="Implementation\TreeOperation\GetNodeService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\FilterProcessingService.cs" />
+    <Compile Include="Implementation\TreeOperation\Subsystems\GroupFiltersService.cs" />
+    <Compile Include="Implementation\TreeOperation\Subsystems\GroupNodesService.cs" />
+    <Compile Include="Implementation\TreeOperation\Subsystems\NodesCreationService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\RandomServices.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\FilterAssignmentService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NodeClosestParentService.cs" />
@@ -100,7 +105,7 @@
     <Compile Include="Implementation\Dependencies\IDepend.cs" />
     <Compile Include="Implementation\Dependencies\SingleValueDependency.cs" />
     <Compile Include="Implementation\Filters\IFilter.cs" />
-    <Compile Include="Implementation\Filters\IFilterGroup.cs" />
+    <Compile Include="Implementation\Filters\Groups\IFilterGroup.cs" />
     <Compile Include="Implementation\Nodes\INode.cs" />
     <Compile Include="Implementation\Registrations\Registration0\Registration.cs" />
     <Compile Include="Implementation\Registrations\Registration1\Registration1.cs" />

@@ -6,6 +6,7 @@
     using TestingContextCore.Implementation.Resolution;
     using static Subsystems.TreeBuilder;
     using static Subsystems.FilterAssignmentService;
+    using static TestingContextCore.Implementation.TreeOperation.Subsystems.NodesCreationService;
 
     internal static class TreeOperationService
     {
@@ -13,11 +14,8 @@
         {
             var tree = new Tree();
             tree.Root = new RootNode(tree, store.RootToken);
-            int i = 0;
-            var nodes = store.Providers.Select(x => Node.CreateNode(x.Key, x.Value, store, tree, i++)).ToList();
-            nodes.ForEach(x => tree.Nodes.Add(x.Token, x));
             tree.Nodes.Add(store.RootToken, tree.Root);
-            BuildNodesTree(tree, nodes);
+            BuildNodesTree(tree, GetNodesWithDependencies(store, tree));
             AssignFilters(store, tree);
             tree.RootContext = new ResolutionContext<Root>(Root.Instance, tree.Root, null, store);
             return tree;

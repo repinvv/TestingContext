@@ -1,16 +1,13 @@
-﻿namespace TestingContextCore.Implementation.Registrations.LoopDetection
+﻿namespace TestingContextCore.Implementation.TreeOperation.LoopDetection
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using TestingContext.Interface;
     using TestingContext.LimitedInterface;
-    using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Providers;
-    using TestingContextCore.PublicMembers.Exceptions;
+    using TestingContextCore.Implementation.Registrations;
 
     internal static class LoopDetectionService
     {

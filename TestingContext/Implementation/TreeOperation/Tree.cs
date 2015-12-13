@@ -7,7 +7,6 @@
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Resolution;
-    using TestingContextCore.PublicMembers;
 
     internal class Tree
     {
@@ -17,7 +16,7 @@
 
         public IResolutionContext RootContext { get; set; }
 
-        public List<Tuple<INode, IDiagInfo>> ReorderedNodes { get; } = new List<Tuple<INode, IDiagInfo>>();
+        public List<Tuple<INode, IDiagInfo>> NodesToCreateExistsFilter { get; } = new List<Tuple<INode, IDiagInfo>>();
 
         public HashSet<Tuple<IToken, IToken>> NonEqualFilters { get; } = new HashSet<Tuple<IToken, IToken>>();
 

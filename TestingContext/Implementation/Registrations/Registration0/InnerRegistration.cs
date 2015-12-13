@@ -6,9 +6,9 @@
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Registrations.Registration1;
     using TestingContextCore.Implementation.Tokens;
-    using TestingContextCore.PublicMembers;
 
     internal class InnerRegistration
     {

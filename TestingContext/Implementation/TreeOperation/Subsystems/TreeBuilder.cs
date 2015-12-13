@@ -6,28 +6,33 @@
     using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.PublicMembers.Exceptions;
+    using static FilterAssignmentService;
     using static NodeReorderingService;
 
     internal static class TreeBuilder
     {
-        public static void BuildNodesTree(Tree tree, List<Node> nodes)
+        public static void BuildNodesTree(Tree tree, Dictionary<IToken, List<INode>> nodeDependencies)
         {
-            var dict = GroupNodes(nodes);
             var nodesQueue = new Queue<INode>(new[] { tree.Root });
             var assigned = new HashSet<IToken> { tree.Root.Token };
             while (nodesQueue.Any())
             {
                 var current = nodesQueue.Dequeue();
-                List<Node> children;
-                if (!dict.TryGetValue(current.Token, out children))
+                List<INode> children;
+                if (!nodeDependencies.TryGetValue(current.Token, out children))
                 {
                     continue;
                 }
 
                 foreach (var child in children.Where(child => child.Provider.Dependencies.All(x => assigned.Contains(x.Token))))
                 {
-                    ReorderNodes(tree, child.Provider.Dependencies.ToArray(), child.Provider.DiagInfo);
-                    var parent = FilterAssignmentService.GetAssignmentNode(tree, child.Provider);
+                    if (child.Provider.Group != null && !assigned.Contains(child.Provider.Group.GroupToken))
+                    {
+                        continue;
+                    }
+
+                    ReorderNodes(tree, child.Provider);
+                    var parent = GetAssignmentNode(tree, child.Provider);
                     child.Parent = parent;
                     child.SourceParent = parent;
                     assigned.Add(child.Token);
@@ -35,24 +40,10 @@
                 }
             }
 
-            foreach (var node in nodes.Where(node => !assigned.Contains(node.Token)))
+            foreach (var node in nodeDependencies.SelectMany(x=>x.Value).Distinct().Where(node => !assigned.Contains(node.Token)))
             {
-                throw new RegistrationException($"Could not put {node} to the resolution tree, please check registrations.", node.Provider.CollectionValidityFilter.DiagInfo);
+                throw new RegistrationException($"Could not put {node} to the resolution tree, please check registrations.", node.Provider.DiagInfo);
             }
-        }
-
-        private static Dictionary<IToken, List<Node>> GroupNodes(List<Node> nodes)
-        {
-            var dict = new Dictionary<IToken, List<Node>>();
-            foreach (var node in nodes)
-            {
-                foreach (var dependency in node.Provider.Dependencies)
-                {
-                    dict.GetList(dependency.Token).Add(node);
-                }
-            }
-            
-            return dict;
         }
     }
 }

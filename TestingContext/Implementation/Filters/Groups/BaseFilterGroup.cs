@@ -1,18 +1,18 @@
-﻿namespace TestingContextCore.Implementation.Filters
+﻿namespace TestingContextCore.Implementation.Filters.Groups
 {
     using System.Collections.Generic;
     using System.Linq;
     using TestingContext.Interface;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
-    using TestingContextCore.Implementation.Tokens;
 
     internal abstract class BaseFilterGroup : BaseFilter
     {
-        protected BaseFilterGroup(IDependency[] dependencies, IDiagInfo diagInfo) : base(diagInfo)
+        protected BaseFilterGroup(IToken groupToken, IDependency[] dependencies, IFilterGroup group, IDiagInfo diagInfo) 
+            : base(group, diagInfo)
         {
             GroupDependencies = dependencies;
-            GroupToken = new GroupToken(GetType());
+            GroupToken = groupToken;
         }
 
         public IDependency[] GroupDependencies { get; }

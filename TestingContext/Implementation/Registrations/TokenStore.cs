@@ -27,7 +27,7 @@
 
         public List<IFilter> Filters { get; } = new List<IFilter>();
 
-        public HashSet<IFilter> CvFilters { get; } = new HashSet<IFilter>();
+        public Dictionary<IToken, IFilter> CvFilters { get; } = new Dictionary<IToken, IFilter>();
 
         public Dictionary<IToken, IDiagInfo> ItemInversions { get; } =new Dictionary<IToken, IDiagInfo>();
 

@@ -8,8 +8,6 @@
 
     internal interface IProvider : IDepend
     {
-        IFilter CollectionValidityFilter { get; set; }
-
         IEnumerable<IResolutionContext> Resolve(IResolutionContext parentContext, INode node);
     }
 }

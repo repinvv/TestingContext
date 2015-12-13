@@ -3,6 +3,7 @@
     using TestingContext.Interface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Registrations.HighLevel;
     using TestingContextCore.Implementation.Registrations.Registration0;
     using TestingContextCore.Implementation.Registrations.Registration1;

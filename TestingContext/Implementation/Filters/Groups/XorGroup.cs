@@ -1,9 +1,6 @@
-﻿namespace TestingContextCore.Implementation.Filters
+﻿namespace TestingContextCore.Implementation.Filters.Groups
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using TestingContext.Interface;
-    using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.Tokens;
@@ -11,8 +8,8 @@
 
     internal class XorGroup : BaseFilterGroup, IFilterGroup
     {
-        public XorGroup(IDependency[] dependencies, IDiagInfo diagInfo) 
-            : base(dependencies, diagInfo)
+        public XorGroup(IDependency[] dependencies, IFilterGroup group, IDiagInfo diagInfo) 
+            : base(new GroupToken(typeof(XorGroup)), dependencies, group, diagInfo)
         { }
 
         public IFilter GetFailingFilter(IResolutionContext context)

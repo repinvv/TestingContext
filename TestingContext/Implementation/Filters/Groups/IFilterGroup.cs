@@ -1,4 +1,4 @@
-﻿namespace TestingContextCore.Implementation.Filters
+﻿namespace TestingContextCore.Implementation.Filters.Groups
 {
     using System.Collections.Generic;
     using TestingContext.LimitedInterface;

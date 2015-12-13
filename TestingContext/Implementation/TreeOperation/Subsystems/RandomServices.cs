@@ -1,5 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation.Subsystems
 {
+    using System.Linq;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
@@ -9,7 +10,7 @@
     {
         public static bool IsCvFilter(this TokenStore store, IFilter filter)
         {
-            return store.CvFilters.Contains(filter);
+            return store.CvFilters[filter.Dependencies.First().Token] == filter;
         }
 
         public static INode GetDependencyNode(this IDependency dependency, Tree tree)

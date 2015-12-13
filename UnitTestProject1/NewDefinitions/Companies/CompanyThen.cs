@@ -1,7 +1,6 @@
 ﻿namespace UnitTestProject1.NewDefinitions.Companies
 {
     using System;
-    using System.ComponentModel.Design;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;

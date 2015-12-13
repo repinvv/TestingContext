@@ -7,8 +7,6 @@
 
     internal interface INode
     {
-        int Index { get; }
-
         Tree Tree { get; }
 
         IToken Token { get; }
@@ -22,6 +20,8 @@
         NodeResolver Resolver { get; }
 
         IProvider Provider { get; }
+
+        bool IsNegative { get; }
 
         bool IsChildOf(INode node);
 

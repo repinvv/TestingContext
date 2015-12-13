@@ -1,6 +1,5 @@
 ﻿namespace UnitTestProject1.Definitions.Insurance
 {
-    using TestingContext.Interface;
     using TestingContext.LimitedInterface;
     using UnitTestProject1.Entities;
 

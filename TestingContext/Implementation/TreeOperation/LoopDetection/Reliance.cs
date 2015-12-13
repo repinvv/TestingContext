@@ -1,4 +1,4 @@
-namespace TestingContextCore.Implementation.Registrations.LoopDetection
+namespace TestingContextCore.Implementation.TreeOperation.LoopDetection
 {
     using TestingContext.LimitedInterface;
 

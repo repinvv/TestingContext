@@ -7,6 +7,7 @@
     using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
@@ -23,8 +24,10 @@
             IDependency<TSource2> dependency2,
             Func<TSource1, TSource2, IEnumerable<T>> sourceFunc,
             TokenStore store,
+            IFilterGroup group,
             IDiagInfo diagInfo)
         {
+            Group = group;
             DiagInfo = diagInfo;
             this.dependency1 = dependency1;
             this.dependency2 = dependency2;
@@ -32,6 +35,8 @@
             this.store = store;
             Dependencies = new IDependency[] { dependency1, dependency2 };
         }
+
+        public IFilterGroup Group { get; set; }
 
         public IDiagInfo DiagInfo { get; }
 

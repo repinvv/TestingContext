@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.TreeOperation;
 
@@ -14,8 +15,6 @@
             Token = token;
             Resolver = new NodeResolver(this);
         }
-
-        public int Index => -1;
 
         public Tree Tree { get; }
 
@@ -32,6 +31,8 @@
         public NodeFilterInfo FilterInfo { get; } = new NodeFilterInfo(null);
 
         public IProvider Provider => null;
+
+        public bool IsNegative => false;
 
         public bool IsChildOf(INode node) => false;
 

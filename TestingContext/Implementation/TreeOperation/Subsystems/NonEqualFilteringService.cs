@@ -1,9 +1,11 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation.Subsystems
 {
     using System;
+    using TestingContext.Interface;
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.PublicMembers;
@@ -11,7 +13,7 @@
 
     internal static class NonEqualFilteringService
     {
-        public static void AssignNonEqualFilter(Tree tree, INode node1, INode node2)
+        public static void AssignNonEqualFilter(Tree tree, INode node1, INode node2, IFilterGroup group, IDiagInfo diagInfo)
         {
             if (node1.Token.Type != node2.Token.Type)
             {
@@ -28,8 +30,9 @@
             tree.NonEqualFilters.Add(tuple);
             var dep1 = new SingleDependency(node1.Token);
             var dep2 = new SingleDependency(node2.Token);
-            var dummyDiag = DiagInfo.Create(string.Empty, 0, $"Non-equal filter for {node1.Token} and {node2.Token}");
-            var filter = new Filter2<IResolutionContext, IResolutionContext>(dep1, dep2, (x, y) => !x.Equals(y), dummyDiag);
+            
+            // var dummyDiag = DiagInfo.Create(string.Empty, 0, $"Non-equal filter for {node1.Token} and {node2.Token}");
+            var filter = new Filter2<IResolutionContext, IResolutionContext>(dep1, dep2, (x, y) => !x.Equals(y), group, diagInfo);
             AssignFilter(tree, filter);
         }
     }
