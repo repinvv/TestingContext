@@ -12,5 +12,10 @@
 
         public string Name { get; set; }
         public Type Type { get; }
+
+        public override string ToString()
+        {
+            return Type.Name;
+        }
     }
 }

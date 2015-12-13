@@ -29,12 +29,12 @@
         [Then(@"searching for company(?:\s)?(.*) should result exception mentioning ""(.*)"", ""(.*)"" and ""(.*)""")]
         public void ThenSearchingForCompanyShouldResultExceptionMentioningAnd(string name, string detail1, string detail2, string detail3)
         {
-            DetailedRegistrationsException ex = null;
+            DetailedRegistrationException ex = null;
             try
             {
                 var companies = context.GetMatcher().All<Company>(name);
             }
-            catch (DetailedRegistrationsException ex1)
+            catch (DetailedRegistrationException ex1)
             {
                 ex = ex1;
             }
@@ -45,7 +45,7 @@
             CheckException(ex, detail3);
         }
 
-        private void CheckException(DetailedRegistrationsException ex, string detail)
+        private void CheckException(DetailedRegistrationException ex, string detail)
         {
             Assert.IsTrue(ex.Message.Contains(detail));
             Assert.IsTrue(ex.DetailedDiagnostics.Any(x => x.Item1.Type.Name.Contains(detail)));

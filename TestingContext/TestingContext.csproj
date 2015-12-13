@@ -97,7 +97,7 @@
     <Compile Include="PublicMembers\Exceptions\AlgorythmException.cs" />
     <Compile Include="PublicMembers\Exceptions\RegistrationException.cs" />
     <Compile Include="Implementation\Tokens\LazyHaveToken.cs" />
-    <Compile Include="PublicMembers\Exceptions\DetailedRegistrationsException.cs" />
+    <Compile Include="PublicMembers\Exceptions\DetailedRegistrationException.cs" />
     <Compile Include="Implementation\Definition.cs" />
     <Compile Include="Implementation\Dependencies\CollectionValueDependency.cs" />
     <Compile Include="Implementation\Dependencies\DependencyType.cs" />

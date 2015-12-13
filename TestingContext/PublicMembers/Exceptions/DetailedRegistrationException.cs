@@ -5,12 +5,12 @@
     using global::TestingContext.Interface;
     using global::TestingContext.LimitedInterface;
 
-    public class DetailedRegistrationsException : Exception
+    public class DetailedRegistrationException : RegistrationException
     {
         public List<Tuple<IToken, IDiagInfo>> DetailedDiagnostics{ get; }
 
-        public DetailedRegistrationsException(string message,  List<Tuple<IToken, IDiagInfo>> detailedDiagnostics)
-            : base(message)
+        public DetailedRegistrationException(string message,  List<Tuple<IToken, IDiagInfo>> detailedDiagnostics, IDiagInfo diagInfo)
+            : base(message, diagInfo)
         {
             DetailedDiagnostics = detailedDiagnostics;
         }
