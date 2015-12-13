@@ -66,7 +66,7 @@
 
         private void RegisterSubgroup(Action<IRegister> action, IFilterGroup parentGroup)
         {
-            var andGroup = new AndGroup(parentGroup.GroupToken) { Id = store.NextId };
+            var andGroup = new AndGroup(parentGroup.GroupToken, null, parentGroup) { Id = store.NextId };
             parentGroup.Filters.Add(andGroup);
             action(RegistrationFactory.GetRegistration(store, andGroup, priority));
         }
