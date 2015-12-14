@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Runtime.CompilerServices;
-    using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Tokens;
 
     public static class InterfaceExtension
     {

@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using TestingContext.Interface;
-    using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
-    using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Registrations.Registration1;
     using TestingContextCore.Implementation.Tokens;
@@ -43,11 +43,11 @@
             return RegistrationFactory.GetRegistration1(store, new CollectionValueDependency<T>(haveToken), group, priority);
         }
 
-        public IHaveToken<T> Exists<T>(Func<IEnumerable<T>> srcFunc, IDiagInfo diagInfo)
+        public IHaveToken<T> Exists<T>(IDiagInfo diagInfo, Func<IEnumerable<T>> srcFunc)
         {
             var dependency = new SingleValueDependency<Root>(new HaveToken<Root>(store.RootToken));
             return new InnerRegistration1<Root>(store, dependency, group, priority)
-                .Declare(x => srcFunc(), diagInfo)
+                .Declare(diagInfo, x => srcFunc())
                 .Exists(diagInfo);
         }
     }

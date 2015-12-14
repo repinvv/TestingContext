@@ -2,9 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq.Expressions;
-    using System.Runtime.CompilerServices;
     using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.Tokens;
 
     public interface IRegister : ITokenRegister
     {
@@ -12,45 +12,20 @@
 
         new IFor<IEnumerable<T>> ForCollection<T>(IHaveToken<T> haveToken);
 
-        IFor<T> For<T>(string name,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "");
+        IFor<T> For<T>(IDiagInfo diagInfo, string name);
 
-        IFor<IEnumerable<T>> ForCollection<T>(string name,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "");
+        IFor<IEnumerable<T>> ForCollection<T>(IDiagInfo diagInfo, string name);
 
-        IHaveToken<T> Exists<T>(Expression<Func<IEnumerable<T>>> srcFunc,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "");
 
-        void Exists<T>(string name,
-            Expression<Func<IEnumerable<T>>> srcFunc,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "");
+        IHaveToken<T> Exists<T>(IDiagInfo diagInfo, Func<IEnumerable<T>> srcFunc);
 
-        IFilterToken Not(Action<IRegister> action,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "");
+        void Exists<T>(IDiagInfo diagInfo, string name, Func<IEnumerable<T>> srcFunc);
 
-        IFilterToken Either(Action<IRegister> action,
-            Action<IRegister> action2,
-            Action<IRegister> action3 = null,
-            Action<IRegister> action4 = null,
-            Action<IRegister> action5 = null,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "");
 
-        IFilterToken Xor(Action<IRegister> action,
-            Action<IRegister> action2,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "");
+        IFilterToken Not(IDiagInfo diagInfo, Action<IRegister> action);
+
+        IFilterToken Either(IDiagInfo diagInfo, params Action<IRegister>[] actions);
+
+        IFilterToken Xor(IDiagInfo diagInfo, Action<IRegister> action, Action<IRegister> action2);
     }
 }

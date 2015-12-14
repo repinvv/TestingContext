@@ -1,8 +1,9 @@
 ﻿namespace TestingContextCore.Implementation.Registrations
 {
     using System.Collections.Generic;
-    using TestingContext.Interface;
-    using TestingContext.LimitedInterface;
+    using global::TestingContext.Interface;
+    using global::TestingContext.LimitedInterface.Diag;
+    using global::TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Tokens;
@@ -11,13 +12,7 @@
     internal class TokenStore
     {
         private int currentId = 1;
-
-        public TokenStore(ITestingContext context)
-        {
-            Context = context;
-        }
-
-        public ITestingContext Context { get; }
+        
 
         public IStorage Tokens { get; } = new Storage();
 

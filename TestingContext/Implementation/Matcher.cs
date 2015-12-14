@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContext.Interface;
-    using TestingContext.LimitedInterface;
+    using global::TestingContext.Interface;
+    using global::TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
 

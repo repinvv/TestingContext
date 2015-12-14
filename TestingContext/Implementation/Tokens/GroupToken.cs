@@ -1,7 +1,7 @@
 ﻿namespace TestingContextCore.Implementation.Tokens
 {
     using System;
-    using TestingContext.LimitedInterface;
+    using global::TestingContext.LimitedInterface.Tokens;
 
     internal class GroupToken : IToken
     {

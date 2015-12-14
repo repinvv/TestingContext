@@ -1,6 +1,6 @@
 namespace TestingContextCore.Implementation.TreeOperation.LoopDetection
 {
-    using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Tokens;
 
     internal class Reliance
     {

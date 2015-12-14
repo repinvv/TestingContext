@@ -1,7 +1,8 @@
 ﻿namespace TestingContext.Interface
 {
     using System.Collections.Generic;
-    using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.Tokens;
 
     public interface IFailure
     {

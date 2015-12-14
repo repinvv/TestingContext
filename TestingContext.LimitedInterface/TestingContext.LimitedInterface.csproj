@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ExpressionToCodeLib, Version=1.5.4.0, Culture=neutral, PublicKeyToken=b43a6eb33831e563, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExpressionToCodeLib.1.5.4.0\lib\net40-Client\ExpressionToCodeLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,18 +45,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IFilterToken.cs" />
+    <Compile Include="Diag\DiagInfo.cs" />
+    <Compile Include="Expressional\DiagInfoExpressionFactory.cs" />
+    <Compile Include="Diag\IDiagInfo.cs" />
+    <Compile Include="Tokens\IFilterToken.cs" />
     <Compile Include="IForToken.cs" />
     <Compile Include="IForToken2.cs" />
-    <Compile Include="IHaveToken.cs" />
-    <Compile Include="InterfaceExtension.cs" />
-    <Compile Include="ITokenDeclare.cs" />
-    <Compile Include="ITokenDeclareSingle.cs" />
+    <Compile Include="Tokens\IHaveToken.cs" />
     <Compile Include="ITokenRegister.cs" />
-    <Compile Include="IToken.cs" />
+    <Compile Include="Tokens\IToken.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsefulExtensions\CachingEnumerable.cs" />
     <Compile Include="UsefulExtensions\DictionaryExtension.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Functional\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

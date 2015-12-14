@@ -2,15 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq.Expressions;
     using TestingContext.Interface;
-    using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Tokens;
-    using TestingContextCore.PublicMembers;
 
     internal class InnerRegistration1<T1>
     {
@@ -27,10 +26,9 @@
             this.priority = priority;
         }
 
-        public IFilterToken IsTrue(Expression<Func<T1, bool>> filterFunc, string file, int line, string member)
+        public IFilterToken IsTrue(IDiagInfo diagInfo, Func<T1, bool> filterFunc)
         {
-            var diagInfo = DiagInfo.Create(file, line, member, filterFunc);
-            var filter = new Filter1<T1>(dependency, filterFunc.Compile(), group, diagInfo);
+            var filter = new Filter1<T1>(dependency, filterFunc, group, diagInfo);
             store.RegisterFilter(filter, group);
             return filter.Token;
         }
@@ -55,7 +53,7 @@
             return RegistrationFactory.GetRegistration2(store, dependency, new CollectionValueDependency<T2>(haveToken), group, priority);
         }
 
-        public Declarator<T2> Declare<T2>(Func<T1, IEnumerable<T2>> srcFunc, IDiagInfo diagInfo)
+        public Declarator<T2> Declare<T2>(IDiagInfo diagInfo, Func<T1, IEnumerable<T2>> srcFunc)
         {
             var token = new Token<T2>();
             var provider = new Provider<T1, T2>(dependency, srcFunc, store, group, diagInfo);

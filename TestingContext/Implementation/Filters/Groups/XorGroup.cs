@@ -1,6 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Filters.Groups
 {
-    using TestingContext.Interface;
+    using global::TestingContext.LimitedInterface.Diag;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.Tokens;

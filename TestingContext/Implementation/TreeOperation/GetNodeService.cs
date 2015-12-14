@@ -1,6 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation
 {
-    using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.PublicMembers.Exceptions;
 

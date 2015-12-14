@@ -41,12 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDeclareSingle.cs" />
     <Compile Include="IFor.cs" />
     <Compile Include="IFor2.cs" />
-    <Compile Include="IDiagInfo.cs" />
     <Compile Include="IFailure.cs" />
-    <Compile Include="IDeclare.cs" />
     <Compile Include="IInversion.cs" />
     <Compile Include="InterfaceExtension.cs" />
     <Compile Include="IStorage.cs" />
@@ -61,6 +58,10 @@
       <Project>{22d094c0-9620-4847-9a13-20d817058d8e}</Project>
       <Name>TestingContext.LimitedInterface</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Expressional\" />
+    <Folder Include="Functional\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

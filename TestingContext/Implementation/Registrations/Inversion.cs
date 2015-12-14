@@ -1,8 +1,8 @@
 ﻿namespace TestingContextCore.Implementation.Registrations
 {
     using TestingContext.Interface;
-    using TestingContext.LimitedInterface;
-    using TestingContextCore.PublicMembers;
+    using TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.Tokens;
 
     internal class Inversion : IInversion
     {
@@ -13,13 +13,13 @@
             this.store = store;
         }
 
-        public void InvertFilter(IFilterToken token, string file, int line, string member)
-            => store.InvertFilter(token, DiagInfo.Create(file, line, member));
+        public void InvertFilter(IDiagInfo diagInfo, IFilterToken token) 
+            => store.FilterInversions.Add(token, diagInfo);
 
-        public void InvertCollectionValidity<T>(IHaveToken<T> token, string file = "", int line = 0, string member = "")
-            => store.InvertCollectionValidity(token.Token, DiagInfo.Create(file, line, member));
+        public void InvertCollectionValidity<T>(IDiagInfo diagInfo, IHaveToken<T> token) 
+            => store.CollectionInversions.Add(token.Token, diagInfo);
 
-        public void InvertItemValidity<T>(IHaveToken<T> token, string file = "", int line = 0, string member = "")
-            => store.InvertItemValidity(token.Token, DiagInfo.Create(file, line, member));
+        public void InvertItemValidity<T>(IDiagInfo diagInfo, IHaveToken<T> token) 
+            => store.ItemInversions.Add(token.Token, diagInfo);
     }
 }

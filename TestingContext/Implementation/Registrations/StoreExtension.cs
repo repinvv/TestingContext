@@ -3,9 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Linq.Expressions;
-    using TestingContext.Interface;
-    using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
@@ -39,22 +38,7 @@
             store.Providers.Add(token, provider);
         }
 
-        public static void InvertFilter(this TokenStore store, IFilterToken token, IDiagInfo diagInfo)
-        {
-            store.FilterInversions.Add(token, diagInfo);
-        }
-
-        public static void InvertCollectionValidity(this TokenStore store, IToken token, IDiagInfo diagInfo)
-        {
-            store.CollectionInversions.Add(token, diagInfo);
-        }
-
-        public static void InvertItemValidity(this TokenStore store, IToken token, IDiagInfo diagInfo)
-        {
-            store.ItemInversions.Add(token, diagInfo);
-        }
-
-        public static void SaveToken<T>(this TokenStore store, string name, IToken<T> token, IDiagInfo diagInfo)
+        public static void SaveToken<T>(this TokenStore store, IDiagInfo diagInfo, string name, IToken<T> token)
         {
             if (store.GetToken<T>(name) != null)
             {
@@ -70,7 +54,7 @@
             token.Name = name;
         }
 
-        public static IHaveToken<T> GetHaveToken<T>(this TokenStore store, string name, string file, int line, string member)
+        public static IHaveToken<T> GetHaveToken<T>(this TokenStore store, IDiagInfo diagInfo, string name)
         {
             var token = store.GetToken<T>(name);
             if (token != null)
@@ -78,7 +62,7 @@
                 return new HaveToken<T>(token);
             }
 
-            return new LazyHaveToken<T>(() => store.GetToken<T>(name), name);
+            return new LazyHaveToken<T>(() => store.GetToken<T>(name), name, diagInfo);
         }
 
         public static IToken<T> GetToken<T>(this TokenStore store, string name) 

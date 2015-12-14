@@ -3,7 +3,6 @@
     using BoDi;
     using TechTalk.SpecFlow;
     using TestingContext.Interface;
-    using TestingContextCore.PublicMembers;
 
     [Binding]
     public class Register

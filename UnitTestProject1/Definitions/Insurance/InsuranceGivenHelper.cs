@@ -1,6 +1,7 @@
 ﻿namespace UnitTestProject1.Definitions.Insurance
 {
     using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Tokens;
     using UnitTestProject1.Entities;
 
     public static class InsuranceGivenHelper

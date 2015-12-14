@@ -1,9 +1,10 @@
 ﻿namespace TestingContextCore.Implementation.Registrations.HighLevel
 {
     using System;
-    using TestingContext.Interface;
-    using TestingContext.LimitedInterface;
-    using TestingContextCore.PublicMembers;
+    using global::TestingContext.Interface;
+    using global::TestingContext.LimitedInterface;
+    using global::TestingContext.LimitedInterface.Diag;
+    using global::TestingContext.LimitedInterface.Tokens;
 
     internal class HighLevelRegistrations
     {
@@ -14,26 +15,22 @@
             this.inner = inner;
         }
 
-        public IFilterToken Not(Action<ITokenRegister> action, string file, int line, string member)
-            => inner.Not(action, DiagInfo.Create(file, line, member));
+        public IFilterToken Not(IDiagInfo diagInfo, Action<ITokenRegister> action)
+            => inner.Not(diagInfo, action);
 
-        public IFilterToken Either(Action<ITokenRegister> action, Action<ITokenRegister> action2,
-                               Action<ITokenRegister> action3, Action<ITokenRegister> action4,
-                               Action<ITokenRegister> action5, string file, int line, string member)
-            => inner.Either(action, action2, action3, action4, action5, DiagInfo.Create(file, line, member));
+        public IFilterToken Either(IDiagInfo diagInfo, params Action<ITokenRegister>[] actions)
+            => inner.Either(diagInfo, actions);
 
-        public IFilterToken Xor(Action<ITokenRegister> action, Action<ITokenRegister> action2, string file, int line, string member)
-            => inner.Xor(action, action2, DiagInfo.Create(file, line, member));
+        public IFilterToken Xor(IDiagInfo diagInfo, Action<ITokenRegister> action, Action<ITokenRegister> action2)
+            => inner.Xor(diagInfo, action, action2);
 
-        public IFilterToken Not(Action<IRegister> action, string file, int line, string member) 
-            => inner.Not(action, DiagInfo.Create(file, line, member));
+        public IFilterToken Not(IDiagInfo diagInfo, Action<IRegister> action) 
+            => inner.Not(diagInfo, action);
 
-        public IFilterToken Either(Action<IRegister> action, Action<IRegister> action2,
-                               Action<IRegister> action3, Action<IRegister> action4,
-                               Action<IRegister> action5, string file, int line, string member)
-            => inner.Either(action, action2, action3, action4, action5, DiagInfo.Create(file, line, member));
+        public IFilterToken Either(IDiagInfo diagInfo, params Action<IRegister>[] actions)
+            => inner.Either(diagInfo, actions);
 
-        public IFilterToken Xor(Action<IRegister> action, Action<IRegister> action2, string file, int line, string member)
-            => inner.Xor(action, action2, DiagInfo.Create(file, line, member));
+        public IFilterToken Xor(IDiagInfo diagInfo, Action<IRegister> action, Action<IRegister> action2)
+            => inner.Xor(diagInfo, action, action2);
     }
 }

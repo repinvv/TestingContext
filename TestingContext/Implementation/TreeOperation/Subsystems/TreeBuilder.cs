@@ -2,8 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContext.LimitedInterface;
-    using TestingContext.LimitedInterface.UsefulExtensions;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.PublicMembers.Exceptions;
     using static FilterAssignmentService;

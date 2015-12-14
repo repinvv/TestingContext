@@ -1,6 +1,7 @@
 ﻿namespace UnitTestProject1.NewDefinitions.Extensions
 {
     using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Tokens;
     using UnitTestProject1.NewEntities;
 
     public static class DepartmentExtension

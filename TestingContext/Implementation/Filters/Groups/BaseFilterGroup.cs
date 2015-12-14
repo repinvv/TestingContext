@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContext.Interface;
-    using TestingContext.LimitedInterface;
+    using global::TestingContext.LimitedInterface.Diag;
+    using global::TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
 
     internal abstract class BaseFilterGroup : BaseFilter

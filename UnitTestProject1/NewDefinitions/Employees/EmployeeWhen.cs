@@ -2,7 +2,7 @@
 {
     using TechTalk.SpecFlow;
     using TestingContext.Interface;
-    using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Tokens;
     using UnitTestProject1.NewEntities;
 
     [Binding]

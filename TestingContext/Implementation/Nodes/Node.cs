@@ -2,8 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Linq.Expressions;
-    using TestingContext.LimitedInterface;
+    using global::TestingContext.LimitedInterface.Tokens;
     using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Registrations;
@@ -11,11 +10,9 @@
 
     internal class Node : INode
     {
-        private static int count;
-
-        public Node(Tree tree, IToken token, IProvider provider, NodeFilterInfo filterInfo)
+        public Node(Tree tree, IToken token, IProvider provider, NodeFilterInfo filterInfo, int id)
         {
-            Id = count++;
+            Id = id;
             Token = token;
             Provider = provider;
             FilterInfo = filterInfo;
@@ -63,7 +60,7 @@
 
         public static Node CreateNode(IToken token, IProvider provider, TokenStore store, Tree tree)
         {
-            return new Node(tree, token, provider, new NodeFilterInfo(store.ItemInversions.SafeGet(token)));
+            return new Node(tree, token, provider, new NodeFilterInfo(store.ItemInversions.SafeGet(token)), store.NextId);
         }
     }
 }

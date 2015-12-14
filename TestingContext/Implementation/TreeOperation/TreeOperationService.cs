@@ -1,6 +1,5 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation
 {
-    using System.Linq;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;

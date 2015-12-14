@@ -1,8 +1,7 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
     using System.Collections.Generic;
-    using TestingContext.Interface;
-    using TestingContextCore.Implementation.Filters;
+    using global::TestingContext.LimitedInterface.Diag;
     using TestingContextCore.Implementation.Filters.Groups;
 
     internal interface IDepend
