@@ -7,6 +7,8 @@
 
     internal interface INode
     {
+        int Id { get; }
+
         Tree Tree { get; }
 
         IToken Token { get; }
@@ -14,6 +16,8 @@
         INode SourceParent { get; set; }
 
         INode Parent { get; set; }
+
+        List<INode> Children { get; }
 
         NodeFilterInfo FilterInfo { get; }
 

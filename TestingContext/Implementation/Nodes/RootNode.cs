@@ -16,6 +16,8 @@
             Resolver = new NodeResolver(this);
         }
 
+        public int Id => 0;
+
         public Tree Tree { get; }
 
         public IToken Token { get; }
@@ -27,6 +29,8 @@
         public AndGroup Filters { get; } = new AndGroup();
 
         public NodeResolver Resolver { get; }
+
+        public List<INode> Children => null;
 
         public NodeFilterInfo FilterInfo { get; } = new NodeFilterInfo(null);
 

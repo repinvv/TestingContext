@@ -10,7 +10,7 @@
     {
         public static bool IsCvFilter(this TokenStore store, IFilter filter)
         {
-            return store.CvFilters[filter.Dependencies.First().Token] == filter;
+            return filter.Dependencies.Count() == 1 && store.CvFilters[filter.Dependencies.First().Token] == filter;
         }
 
         public static INode GetDependencyNode(this IDependency dependency, Tree tree)

@@ -23,5 +23,7 @@
         public IToken Token => haveToken.Token;
         public DependencyType Type => DependencyType.Single;
         public Type SourceType => typeof(TItem);
+
+        public override string ToString() => $"SingleValueDependency {Token}";
     }
 }

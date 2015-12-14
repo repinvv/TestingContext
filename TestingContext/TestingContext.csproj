@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementation\Dependencies\ContextualDependency.cs" />
+    <Compile Include="Implementation\Dependencies\CollectionDependency.cs" />
     <Compile Include="Implementation\Dependencies\SingleDependency.cs" />
     <Compile Include="Implementation\Filters\Groups\AndGroup.cs" />
     <Compile Include="Implementation\Filters\BaseFilter.cs" />

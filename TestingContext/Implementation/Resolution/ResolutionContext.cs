@@ -10,6 +10,11 @@
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
 
+    public static class Counter
+    {
+        public static int Count = 0;
+    }
+
     internal class ResolutionContext<T> : IResolutionContext<T>, IResolutionContext
     {
         private readonly IResolutionContext parent;
@@ -22,6 +27,7 @@
             IResolutionContext parent,
             TokenStore store)
         {
+            Counter.Count++;
             Value = value;
             Node = node;
             this.parent = parent;

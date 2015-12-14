@@ -40,6 +40,10 @@
 
             var groupDependencies = new HashSet<IDependency>(filterGroup.GroupDependencies);
             var inGroupTokens = new HashSet<IToken>(GetInGroupTokens(filterGroup, store));
+            if (!inGroupTokens.Any())
+            {
+                return;
+            }
 
             foreach (var dependency in inGroupTokens
                 .SelectMany(x => store.Providers[x].Dependencies)
@@ -48,8 +52,8 @@
             {
                 groupDependencies.Add(dependency);
             }
-
-            var node = Node.CreateNode(filterGroup.GroupToken, new GroupProvider(groupDependencies, filterGroup.Group, store), store, tree);
+            var provider = new GroupProvider(groupDependencies, filterGroup.Group, store, filterGroup.DiagInfo);
+            var node = Node.CreateNode(filterGroup.GroupToken, provider, store, tree);
             node.IsNegative = true;
             tree.Nodes.Add(node.Token, node);
             tree.NodesToCreateExistsFilter.Add(new Tuple<INode, IDiagInfo>(node, filterGroup.DiagInfo));

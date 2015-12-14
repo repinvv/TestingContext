@@ -27,5 +27,7 @@
 
         public DependencyType Type => DependencyType.Collection;
         public Type SourceType => typeof(TItem);
+
+        public override string ToString() => $"CollectionValueDependency {Token}";
     }
 }

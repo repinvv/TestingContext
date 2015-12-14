@@ -21,5 +21,7 @@
         public DependencyType Type => DependencyType.Single;
 
         public Type SourceType => Token?.Type;
+
+        public override string ToString() => $"SingleDependency {Token}";
     }
 }

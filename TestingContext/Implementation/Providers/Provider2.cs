@@ -19,6 +19,8 @@
         private readonly IDependency<TSource2> dependency2;
         private readonly Func<TSource1, TSource2, IEnumerable<T>> sourceFunc;
         private readonly TokenStore store;
+        private readonly Dictionary<Tuple<TSource1, TSource2>, IEnumerable<T>> resolves 
+            = new Dictionary<Tuple<TSource1, TSource2>, IEnumerable<T>>();
 
         public Provider2(IDependency<TSource1> dependency1, 
             IDependency<TSource2> dependency2,
@@ -51,7 +53,8 @@
             IEnumerable<T> source;
             try
             {
-                source = sourceFunc(sourceValue1, sourceValue2) ?? Enumerable.Empty<T>();
+                source = resolves.GetOrAdd(new Tuple<TSource1, TSource2>(sourceValue1, sourceValue2),
+                                           () => sourceFunc(sourceValue1, sourceValue2) ?? Enumerable.Empty<T>());
             }
             catch (Exception ex)
             {

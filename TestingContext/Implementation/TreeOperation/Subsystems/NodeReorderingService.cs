@@ -46,9 +46,18 @@
             var chain2 = node2.GetParentalChain();
             var closestParentIndex = FindClosestParent(chain1, chain2);
             ValidateReordering(chain1, chain2, closestParentIndex, diagInfo);
+            var firstChild1 = chain1[closestParentIndex + 1];
             var firstChild2 = chain2[closestParentIndex + 1];
-            firstChild2.Parent = node1;
-            tree.NodesToCreateExistsFilter.Add(new Tuple<INode, IDiagInfo>(firstChild2, diagInfo));
+            if (firstChild2.Id > firstChild1.Id)
+            {
+                firstChild2.Parent = node1;
+                tree.NodesToCreateExistsFilter.Add(new Tuple<INode, IDiagInfo>(firstChild2, diagInfo));
+            }
+            else
+            {
+                firstChild1.Parent = node2;
+                tree.NodesToCreateExistsFilter.Add(new Tuple<INode, IDiagInfo>(firstChild1, diagInfo));
+            }
         }
 
         private static void ValidateReordering(List<INode> chain1, List<INode> chain2, int closestParentIndex, IDiagInfo diagInfo)

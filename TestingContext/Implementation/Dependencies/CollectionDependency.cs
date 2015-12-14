@@ -20,6 +20,8 @@
         public IToken Token { get; }
         public DependencyType Type => DependencyType.Collection;
         public Type SourceType => Token?.Type;
+
+        public override string ToString() => $"CollectionDependency {Token}";
     }
 }
 

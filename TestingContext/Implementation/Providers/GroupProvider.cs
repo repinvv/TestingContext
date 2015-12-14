@@ -14,14 +14,15 @@
     {
         private readonly TokenStore store;
 
-        public GroupProvider(IEnumerable<IDependency> dependencies, IFilterGroup group, TokenStore store)
+        public GroupProvider(IEnumerable<IDependency> dependencies, IFilterGroup group, TokenStore store, IDiagInfo diagInfo)
         {
             Dependencies = dependencies;
             Group = group;
+            DiagInfo = diagInfo;
             this.store = store;
         }
 
-        public IDiagInfo DiagInfo => null;
+        public IDiagInfo DiagInfo { get; }
 
         public IEnumerable<IDependency> Dependencies { get; }
 
