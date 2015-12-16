@@ -31,11 +31,11 @@
         IForToken<T1, T2> IForToken<T1>.For<T2>(IHaveToken<T2> haveToken) => Inner.For(haveToken);
         IForToken<T1, IEnumerable<T2>> IForToken<T1>.ForCollection<T2>(IHaveToken<T2> haveToken) => Inner.ForCollection(haveToken);
 
-        public IFor<T1, T2> For<T2>(IDiagInfo diagInfo, string name)
-            => Inner.For(store.GetHaveToken<T2>(diagInfo, name));
+        public IFor<T1, T2> For<T2>(string name, string file, int line, string member)
+            => Inner.For(store.GetHaveToken<T2>(DiagInfo.Create(file, line, member), name));
 
-        public IFor<T1, IEnumerable<T2>> ForCollection<T2>(IDiagInfo diagInfo, string name)
-            => Inner.ForCollection(store.GetHaveToken<T2>(diagInfo, name));
+        public IFor<T1, IEnumerable<T2>> ForCollection<T2>(string name, string file, int line, string member)
+            => Inner.ForCollection(store.GetHaveToken<T2>(DiagInfo.Create(file, line, member), name));
         #endregion
 
         #region declare

@@ -19,7 +19,7 @@
             EmploymentType employmentType)
         {
             var employee = register.For(department)
-                                   .Exists<Employee>(dep => dep.Employees);
+                                   .Exists(dep => dep.Employees);
             register.For(employee)
                     .IsTrue(emp => emp.EmploymentType == employmentType);
             return employee;
@@ -30,7 +30,7 @@
             int budget)
         {
             var project = register.For(department)
-                                  .Exists<WorkProject>(dep => dep.Projects);
+                                  .Exists(dep => dep.Projects);
             register.For(project)
                     .IsTrue(proj => proj.Budget >= budget);
         }

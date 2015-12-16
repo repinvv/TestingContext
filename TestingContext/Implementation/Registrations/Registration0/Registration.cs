@@ -19,22 +19,18 @@
             this.store = store;
             this.inner = inner;
         }
-        
+
         #region For
         IFor<T> IRegister.For<T>(IHaveToken<T> haveToken) => inner.For(haveToken);
         IFor<IEnumerable<T>> IRegister.ForCollection<T>(IHaveToken<T> haveToken) => inner.ForCollection(haveToken);
+        IForToken<T> ITokenRegister.For<T>(IHaveToken<T> haveToken) => inner.For(haveToken);
+        IForToken<IEnumerable<T>> ITokenRegister.ForCollection<T>(IHaveToken<T> haveToken) => inner.ForCollection(haveToken);
 
-        public IFor<T> For<T>(string name, string file = "", int line = 0, string member = "") 
+        public IFor<T> For<T>(string name, string file, int line, string member) 
             => inner.For(store.GetHaveToken<T>(DiagInfo.Create(file, line, member), name));
 
-        public IFor<IEnumerable<T>> ForCollection<T>(string name, string file = "", int line = 0, string member = "")
+        public IFor<IEnumerable<T>> ForCollection<T>(string name, string file, int line, string member)
             => inner.ForCollection(store.GetHaveToken<T>(DiagInfo.Create(file, line, member), name));
-
-        public IFor<T> For<T>(IDiagInfo diagInfo, string name) 
-            => inner.For(store.GetHaveToken<T>(diagInfo, name));
-
-        public IFor<IEnumerable<T>> ForCollection<T>(IDiagInfo diagInfo, string name)
-            => inner.ForCollection(store.GetHaveToken<T>(diagInfo, name));
         #endregion
 
         public IHaveToken<T> Exists<T>(IDiagInfo diagInfo, Func<IEnumerable<T>> srcFunc)

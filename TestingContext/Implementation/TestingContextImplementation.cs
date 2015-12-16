@@ -27,10 +27,11 @@
 
         public IRegister Priority(int priority) => RegistrationFactory.GetRegistration(store, null, priority);
 
-        public IHaveToken<T> GetToken<T>(IDiagInfo diagInfo, string name) => store.GetHaveToken<T>(diagInfo, name);
+        public IHaveToken<T> GetToken<T>(string name, string file, int line, string member) 
+            => store.GetHaveToken<T>(DiagInfo.Create(file, line, member), name);
 
-        public void SetToken<T>(IDiagInfo diagInfo, string name, IHaveToken<T> haveToken) 
-            => store.SaveToken<T>(diagInfo, name, haveToken.Token);
+        public void SetToken<T>(string name, IHaveToken<T> haveToken, string file, int line, string member) 
+            => store.SaveToken<T>(DiagInfo.Create(file, line, member), name, haveToken.Token);
 
         public IInversion Inversion { get; }
 

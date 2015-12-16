@@ -16,7 +16,7 @@
         {
             var taxToken = register
                 .For(insurance)
-                .Exists<Tax>(x => x.Taxes);
+                .Exists(x => x.Taxes);
             register.For(taxToken)
                     .IsTrue(x => x.Type == TaxType.Federal);
         }

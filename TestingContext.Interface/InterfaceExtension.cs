@@ -37,118 +37,36 @@
 
         #endregion
 
-        #region ITestingContext
-
-        public static IHaveToken<T> GetToken<T>(this ITestingContext context,
-            string name,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "")
-        {
-            var diag = DiagInfo.Create(file, line, member);
-            return context.GetToken<T>(diag, name);
-        }
-
-        public static void SetToken<T>(this ITestingContext context,
-            string name,
-            IHaveToken<T> haveToken,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "")
-        {
-            var diag = DiagInfo.Create(file, line, member);
-            context.SetToken(diag, name, haveToken);
-        }
-
-        #endregion
-
         #region IRegister
-
-        public static IFilterToken Not(this IRegister register,
-            Action<IRegister> action,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "")
-        {
-            var diag = DiagInfo.Create(file, line, member);
-            return register.Not(diag, action);
-        }
 
         public static IRegister Not(this IRegister register,
             [CallerFilePath] string file = "",
             [CallerLineNumber] int line = 0,
             [CallerMemberName] string member = "")
         {
-            var diag = DiagInfo.Create(file, line, member);
             IRegister output = null;
-            register.Not(diag, x => output = x);
+            register.Not(x => output = x);
             return output;
         }
 
-        public static IFilterToken Either(this IRegister register,
-            Action<IRegister> action,
-            Action<IRegister> action2,
-            Action<IRegister> action3 = null,
-            Action<IRegister> action4 = null,
-            Action<IRegister> action5 = null,
+        public static IRegister Not<T>(this IFor<T> ifor,
             [CallerFilePath] string file = "",
             [CallerLineNumber] int line = 0,
             [CallerMemberName] string member = "")
         {
-            var diag = DiagInfo.Create(file, line, member);
-            var actions = LimitedInterface.InterfaceExtensions.Actions(action, action2, action3, action4, action5);
-            return register.Either(diag, actions);
+            IRegister output = null;
+            ifor.Not(x => output = x);
+            return output;
         }
 
-        public static IFilterToken Xor(this IRegister register,
-            Action<IRegister> action,
-            Action<IRegister> action2,
+        public static IRegister Not<T1, T2>(this IFor<T1, T2> ifor,
             [CallerFilePath] string file = "",
             [CallerLineNumber] int line = 0,
             [CallerMemberName] string member = "")
         {
-            var diag = DiagInfo.Create(file, line, member);
-            return register.Xor(diag, action, action2);
-        }
-
-        #endregion
-
-        #region IFor
-
-        public static IFilterToken Not<T>(this IFor<T> ifor,
-            Action<IRegister> action,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "")
-        {
-            var diag = DiagInfo.Create(file, line, member);
-            return ifor.Not(diag, action);
-        }
-
-        public static IFilterToken Either<T>(this IFor<T> ifor,
-            Action<IRegister> action,
-            Action<IRegister> action2,
-            Action<IRegister> action3 = null,
-            Action<IRegister> action4 = null,
-            Action<IRegister> action5 = null,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "")
-        {
-            var diag = DiagInfo.Create(file, line, member);
-            var actions = LimitedInterface.InterfaceExtensions.Actions(action, action2, action3, action4, action5);
-            return ifor.Either(diag, actions);
-        }
-
-        public static IFilterToken Xor<T>(this IFor<T> ifor,
-            Action<IRegister> action,
-            Action<IRegister> action2,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "")
-        {
-            var diag = DiagInfo.Create(file, line, member);
-            return ifor.Xor(diag, action, action2);
+            IRegister output = null;
+            ifor.Not(x => output = x);
+            return output;
         }
 
         #endregion

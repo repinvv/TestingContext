@@ -29,12 +29,26 @@
         void DoesNotExist<T2>(IDiagInfo diagInfo, string name, Func<T1, IEnumerable<T2>> srcFunc);
 
         void Each<T2>(IDiagInfo diagInfo, string name, Func<T1, IEnumerable<T2>> srcFunc);
-        
 
-        IFilterToken Not(IDiagInfo diagInfo, Action<IRegister> action);
 
-        IFilterToken Either(IDiagInfo diagInfo, params Action<IRegister>[] actions);
+        IFilterToken Not(Action<IRegister> action,
+            [CallerFilePath] string file = "",
+            [CallerLineNumber] int line = 0,
+            [CallerMemberName] string member = "");
 
-        IFilterToken Xor(IDiagInfo diagInfo, Action<IRegister> action, Action<IRegister> action2);
+        IFilterToken Either(Action<IRegister> action,
+            Action<IRegister> action2,
+            Action<IRegister> action3 = null,
+            Action<IRegister> action4 = null,
+            Action<IRegister> action5 = null,
+            [CallerFilePath] string file = "",
+            [CallerLineNumber] int line = 0,
+            [CallerMemberName] string member = "");
+
+        IFilterToken Xor(Action<IRegister> action,
+            Action<IRegister> action2,
+            [CallerFilePath] string file = "",
+            [CallerLineNumber] int line = 0,
+            [CallerMemberName] string member = "");
     }
 }

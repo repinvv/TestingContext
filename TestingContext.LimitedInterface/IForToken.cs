@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
     using TestingContext.LimitedInterface.Diag;
     using TestingContext.LimitedInterface.Tokens;
 
@@ -20,11 +21,24 @@
 
         IHaveToken<T2> Each<T2>(IDiagInfo diagInfo, Func<T1, IEnumerable<T2>> srcFunc);
 
+        IFilterToken Not(Action<ITokenRegister> action,
+            [CallerFilePath] string file = "",
+            [CallerLineNumber] int line = 0,
+            [CallerMemberName] string member = "");
 
-        IFilterToken Not(IDiagInfo diagInfo, Action<ITokenRegister> action);
+        IFilterToken Either(Action<ITokenRegister> action,
+            Action<ITokenRegister> action2,
+            Action<ITokenRegister> action3 = null,
+            Action<ITokenRegister> action4 = null,
+            Action<ITokenRegister> action5 = null,
+            [CallerFilePath] string file = "",
+            [CallerLineNumber] int line = 0,
+            [CallerMemberName] string member = "");
 
-        IFilterToken Either(IDiagInfo diagInfo, params Action<ITokenRegister>[] actions);
-
-        IFilterToken Xor(IDiagInfo diagInfo, Action<ITokenRegister> action, Action<ITokenRegister> action2);
+        IFilterToken Xor(Action<ITokenRegister> action,
+            Action<ITokenRegister> action2,
+            [CallerFilePath] string file = "",
+            [CallerLineNumber] int line = 0,
+            [CallerMemberName] string member = "");
     }
 }
