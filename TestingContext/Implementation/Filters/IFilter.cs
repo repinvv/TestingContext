@@ -1,7 +1,7 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
-    using global::TestingContext.Interface;
-    using global::TestingContext.LimitedInterface.Tokens;
+    using TestingContext.Interface;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
 

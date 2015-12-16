@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using global::TestingContext.Interface;
-    using global::TestingContext.LimitedInterface.Tokens;
+    using TestingContext.Interface;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Resolution;
 
     internal class CollectionValueDependency<TItem> : IDependency<IEnumerable<TItem>>

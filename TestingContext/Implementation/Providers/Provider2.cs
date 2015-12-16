@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using global::TestingContext.LimitedInterface.Diag;
-    using global::TestingContext.LimitedInterface.UsefulExtensions;
+    using TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;

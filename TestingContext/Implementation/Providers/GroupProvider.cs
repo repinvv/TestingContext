@@ -1,7 +1,7 @@
 ﻿namespace TestingContextCore.Implementation.Providers
 {
     using System.Collections.Generic;
-    using global::TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.Diag;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Nodes;

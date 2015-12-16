@@ -1,6 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Registrations
 {
-    using global::TestingContext.Interface;
+    using TestingContext.Interface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Registrations.HighLevel;

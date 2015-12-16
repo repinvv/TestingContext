@@ -1,9 +1,9 @@
 ﻿namespace TestingContextCore.Implementation.Registrations.HighLevel
 {
     using System;
-    using global::TestingContext.Interface;
-    using global::TestingContext.LimitedInterface.Diag;
-    using global::TestingContext.LimitedInterface.Tokens;
+    using TestingContext.Interface;
+    using TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters.Groups;
 

@@ -1,7 +1,7 @@
 ﻿namespace TestingContextCore.Implementation.Tokens
 {
     using System;
-    using global::TestingContext.LimitedInterface.Tokens;
+    using TestingContext.LimitedInterface.Tokens;
 
     internal class Token<T> : IToken<T>
     {

@@ -48,6 +48,7 @@
     <Compile Include="Diag\DiagInfo.cs" />
     <Compile Include="Expressional\DiagInfoExpressionFactory.cs" />
     <Compile Include="Diag\IDiagInfo.cs" />
+    <Compile Include="InterfaceExtensions.cs" />
     <Compile Include="Tokens\IFilterToken.cs" />
     <Compile Include="IForToken.cs" />
     <Compile Include="IForToken2.cs" />

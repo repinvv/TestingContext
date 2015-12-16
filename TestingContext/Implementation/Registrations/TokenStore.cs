@@ -1,9 +1,9 @@
 ﻿namespace TestingContextCore.Implementation.Registrations
 {
     using System.Collections.Generic;
-    using global::TestingContext.Interface;
-    using global::TestingContext.LimitedInterface.Diag;
-    using global::TestingContext.LimitedInterface.Tokens;
+    using TestingContext.Interface;
+    using TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Tokens;

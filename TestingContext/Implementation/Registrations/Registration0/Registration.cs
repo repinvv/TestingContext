@@ -2,10 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-    using global::TestingContext.Interface;
-    using global::TestingContext.LimitedInterface;
-    using global::TestingContext.LimitedInterface.Diag;
-    using global::TestingContext.LimitedInterface.Tokens;
+    using TestingContext.Interface;
+    using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Registrations.HighLevel;
 
     internal class Registration : HighLevelRegistrations, IRegister

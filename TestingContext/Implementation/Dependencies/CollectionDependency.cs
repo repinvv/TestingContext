@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using global::TestingContext.LimitedInterface.Tokens;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Resolution;
 
     internal class CollectionDependency : IDependency<IEnumerable<IResolutionContext>>

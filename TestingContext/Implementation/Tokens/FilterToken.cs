@@ -1,6 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Tokens
 {
-    using global::TestingContext.LimitedInterface.Tokens;
+    using TestingContext.LimitedInterface.Tokens;
 
     internal class FilterToken : IFilterToken
     {
