@@ -3,6 +3,7 @@
     using BoDi;
     using TechTalk.SpecFlow;
     using TestingContext.Interface;
+    using TestingContextCore.PublicMembers;
 
     [Binding]
     public class Register
@@ -17,7 +18,7 @@
         [BeforeScenario]
         public void RegisterContext()
         {
-            var context = new TestingContext();
+            var context = TestingContextFactory.Create();
             objectContainer.RegisterInstanceAs<ITestingContext>(context);
         }
     }

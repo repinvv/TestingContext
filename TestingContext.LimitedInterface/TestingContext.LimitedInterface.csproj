@@ -46,8 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Diag\DiagInfo.cs" />
-    <Compile Include="Expressional\DiagInfoExpressionFactory.cs" />
+    <Compile Include="Diag\DiagInfoExpressionFactory.cs" />
     <Compile Include="Diag\IDiagInfo.cs" />
+    <Compile Include="ExpressionalInterfaceExtension.cs" />
     <Compile Include="InterfaceExtensions.cs" />
     <Compile Include="Tokens\IFilterToken.cs" />
     <Compile Include="IForToken.cs" />
@@ -59,9 +60,7 @@
     <Compile Include="UsefulExtensions\CachingEnumerable.cs" />
     <Compile Include="UsefulExtensions\DictionaryExtension.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Functional\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

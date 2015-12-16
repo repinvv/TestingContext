@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
     using TestingContext.LimitedInterface;
     using TestingContext.LimitedInterface.Diag;
     using TestingContext.LimitedInterface.Tokens;
@@ -12,9 +13,15 @@
 
         new IFor<IEnumerable<T>> ForCollection<T>(IHaveToken<T> haveToken);
 
-        IFor<T> For<T>(IDiagInfo diagInfo, string name);
+        IFor<T> For<T>(string name,
+            [CallerFilePath] string file = "",
+            [CallerLineNumber] int line = 0,
+            [CallerMemberName] string member = "");
 
-        IFor<IEnumerable<T>> ForCollection<T>(IDiagInfo diagInfo, string name);
+        IFor<IEnumerable<T>> ForCollection<T>(string name,
+            [CallerFilePath] string file = "",
+            [CallerLineNumber] int line = 0,
+            [CallerMemberName] string member = "");
 
 
         IHaveToken<T> Exists<T>(IDiagInfo diagInfo, Func<IEnumerable<T>> srcFunc);

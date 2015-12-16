@@ -1,5 +1,6 @@
 ﻿namespace UnitTestProject1.Definitions.Assignment
 {
+    using System.Linq;
     using TechTalk.SpecFlow;
     using TestingContext.Interface;
     using UnitTestProject1.Entities;
@@ -47,7 +48,7 @@
         public void GivenForInsuranceExistsAssignment(string insuranceKey, string assignmentKey)
         {
             context.For<Insurance>(insuranceKey)
-                   .Exists<Assignment>(assignmentKey, insurance => insurance.Assignments);
+                   .Exists(assignmentKey, insurance => insurance.Assignments);
         }
 
         [Given(@"there is no suitable assignment(?:\s)?(.*)")]
@@ -99,7 +100,7 @@
         public void GivenAllAssignmentsInInsuranceMeetFollowingCriteria(string assignmentKey, string insuranceKey)
         {
             context.For<Insurance>(insuranceKey)
-                   .Each<Assignment>(assignmentKey, x => x.Assignments);
+                   .Each(assignmentKey, x => x.Assignments);
         }
 
         [Given(@"assignment(?:\s)?(.*) has more people than assignments(?:\s)?(.*)")]

@@ -25,14 +25,14 @@
         [Given(@"insurance(?:\s)?(.*) is taken from insurancesSource")]
         public void GivenInsuranceIsTakenFromPoliciesSource(string key)
         {
-            context.Exists<Insurance>(key, () => InsurancesSource.Insurances);
+            context.Exists(key, () => InsurancesSource.Insurances);
         }
 
         [Given(@"for insurance(?:\s)?(.*) there is no insurance(?:\s)?(.*) in insurancesSource that meet requirements")]
         public void GivenForInsuranceThereIsNoInsuranceInPoliciesSourceThatMeetRequirements(string key1, string key2)
         {
             context.For<Insurance>(key1)
-                   .DoesNotExist<Insurance>(key2, p => InsurancesSource.Insurances);
+                   .DoesNotExist(key2, p => InsurancesSource.Insurances);
         }
 
         [Given(@"insuranse(?:\s)?(.*) matches high level OR condition")]

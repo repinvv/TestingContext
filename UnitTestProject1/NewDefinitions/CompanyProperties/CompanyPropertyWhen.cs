@@ -18,7 +18,7 @@
         public void WhenINeedCompanyToHaveProperty(string companyName, PropertyType type, string propertyName)
         {
             context.For<Company>(companyName)
-                   .Exists<CompanyProperty>(propertyName, company => company.CompanyProperty);
+                   .Exists(propertyName, company => company.CompanyProperty);
             context.For<CompanyProperty>(propertyName)
                    .IsTrue(property => property.Type == type);
         }

@@ -1,5 +1,6 @@
 ﻿namespace UnitTestProject1.Definitions.Tax
 {
+    using System.Linq;
     using TechTalk.SpecFlow;
     using TestingContext.Interface;
     using UnitTestProject1.Entities;
@@ -18,7 +19,7 @@
         public void GivenForInsuranceExistsATax(string insuranceKey, string taxKey)
         {
             context.For<Insurance>(insuranceKey)
-                   .Exists<Tax>(taxKey, insurance => insurance.Taxes);
+                   .Exists(taxKey, insurance => insurance.Taxes);
         }
 
         [Given(@"tax(?:\s)?(.*) amounts to at least (.*)\$")]
@@ -68,7 +69,7 @@
         public void GivenAllTaxesInInsuranceMeetFollowingCriteria(string insuranceKey, string taxKey)
         {
             context.For<Insurance>(insuranceKey)
-                   .Each<Tax>(taxKey, x => x.Taxes);
+                   .Each(taxKey, x => x.Taxes);
         }
     }
 }
