@@ -58,6 +58,8 @@
     <Compile Include="Implementation\Filters\Groups\OrGroup.cs" />
     <Compile Include="Implementation\Filters\Groups\XorGroup.cs" />
     <Compile Include="Implementation\Filters\Inverter.cs" />
+    <Compile Include="Implementation\Registrations\FilterRegistrations\FilterGroupRegistration.cs" />
+    <Compile Include="Implementation\Registrations\FilterRegistrations\IFilterRegistration.cs" />
     <Compile Include="Implementation\Matcher.cs" />
     <Compile Include="Implementation\Nodes\Node.cs" />
     <Compile Include="Implementation\Nodes\NodeFilterInfo.cs" />
@@ -68,6 +70,7 @@
     <Compile Include="Implementation\Providers\Provider.cs" />
     <Compile Include="Implementation\Providers\Provider2.cs" />
     <Compile Include="Implementation\Registrations\Declarator.cs" />
+    <Compile Include="Implementation\Registrations\FilterRegistrations\FilterRegistration.cs" />
     <Compile Include="Implementation\Registrations\HighLevel\HighLevelRegistrations.cs" />
     <Compile Include="Implementation\Registrations\HighLevel\InnerHighLevelRegistration.cs" />
     <Compile Include="Implementation\Tokens\GroupToken.cs" />
@@ -133,6 +136,7 @@
       <Name>TestingContext.LimitedInterface</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
