@@ -1,13 +1,18 @@
 ﻿namespace TestingContextCore.Implementation.Registrations.FilterRegistrations
 {
+    using System;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.RegistrationFilters;
 
     internal class FilterRegistration : IFilterRegistration
     {
-        public IFilter GetFilter()
+        private readonly Func<IFilter> filterConstructor;
+
+        public FilterRegistration(Func<IFilter> filterConstructor)
         {
-            return null;
+            this.filterConstructor = filterConstructor;
         }
+
+        public IFilter GetFilter() => filterConstructor();
     }
 }

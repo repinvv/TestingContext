@@ -4,7 +4,7 @@
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Dependencies;
 
-    internal interface IFilterGroup : IFilter
+    internal interface  IFilterGroup : IFilter
     {
         IDependency[] GroupDependencies { get; }
         
