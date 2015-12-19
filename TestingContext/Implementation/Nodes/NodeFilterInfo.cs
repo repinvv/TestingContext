@@ -1,6 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Nodes
 {
-    using TestingContext.Interface;
+    using TestingContext.LimitedInterface.Diag;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
 

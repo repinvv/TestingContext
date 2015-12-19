@@ -39,10 +39,7 @@
                 return;
             }
 
-            log = $"entities: {string.Join(", ", f.ForTokens.Select(x => x.ToString()))}:\r\n" +
-                  $"{f.Diagnostics.File}, Line: {f.Diagnostics.Line}\r\n" +
-                  $"{f.Diagnostics.Member}\r\n" +
-                  $"{f.Diagnostics.AdditionalInfo}\r\n";
+            log = $"entities: {string.Join(", ", f.ForTokens.Select(x => x.ToString()))}:\r\n" + f.Diagnostics;
             Console.Write(log);
             Debug.Write(log);
         }

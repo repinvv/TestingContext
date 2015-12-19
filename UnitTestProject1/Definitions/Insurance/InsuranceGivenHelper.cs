@@ -1,6 +1,7 @@
 ﻿namespace UnitTestProject1.Definitions.Insurance
 {
     using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Tokens;
     using UnitTestProject1.Entities;
 
     public static class InsuranceGivenHelper
@@ -15,7 +16,7 @@
         {
             var taxToken = register
                 .For(insurance)
-                .Exists<Tax>(x => x.Taxes);
+                .Exists(x => x.Taxes);
             register.For(taxToken)
                     .IsTrue(x => x.Type == TaxType.Federal);
         }

@@ -2,7 +2,6 @@
 {
     using TestingContext.Interface;
     using TestingContextCore.Implementation.Dependencies;
-    using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Registrations.HighLevel;
     using TestingContextCore.Implementation.Registrations.Registration0;
@@ -11,7 +10,7 @@
 
     internal static class RegistrationFactory
     {
-        public const int DefaultPriority = 0;
+       
 
         public static IRegister GetRegistration(TokenStore store, IFilterGroup group, int priority)
         {

@@ -2,9 +2,9 @@
 {
     using System;
     using TestingContext.Interface;
-    using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
-    using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
 
     internal class InnerHighLevelRegistration
@@ -22,7 +22,7 @@
             this.dependencies = dependencies;
         }
 
-        public IFilterToken Not(Action<IRegister> action, IDiagInfo diagInfo)
+        public IFilterToken Not(IDiagInfo diagInfo, Action<IRegister> action)
         {
             var notGroup = new NotGroup(dependencies, group, diagInfo);
             store.RegisterFilter(notGroup, group);
@@ -30,38 +30,25 @@
             return notGroup.Token;
         }
 
-        public IFilterToken Either(Action<IRegister> action,
-            Action<IRegister> action2,
-            Action<IRegister> action3,
-            Action<IRegister> action4,
-            Action<IRegister> action5,
-            IDiagInfo diagInfo)
+        public IFilterToken Either(IDiagInfo diagInfo, Action<IRegister>[] actions)
         {
             var orGroup = new OrGroup(dependencies, group, diagInfo);
             store.RegisterFilter(orGroup, group);
-            RegisterSubgroup(action, orGroup);
-            RegisterSubgroup(action2, orGroup);
-            CheckAndRegisterSubgroup(action3, orGroup);
-            CheckAndRegisterSubgroup(action4, orGroup);
-            CheckAndRegisterSubgroup(action5, orGroup);
+            foreach (var action in actions)
+            {
+                RegisterSubgroup(action, orGroup);
+            }
+
             return orGroup.Token;
         }
 
-        public IFilterToken Xor(Action<IRegister> action, Action<IRegister> action2, IDiagInfo diagInfo)
+        public IFilterToken Xor(IDiagInfo diagInfo, Action<IRegister> action, Action<IRegister> action2)
         {
             var xorGroup = new XorGroup(dependencies, group, diagInfo);
             store.RegisterFilter(xorGroup, group);
             RegisterSubgroup(action, xorGroup);
             RegisterSubgroup(action2, xorGroup);
             return xorGroup.Token;
-        }
-
-        private void CheckAndRegisterSubgroup(Action<IRegister> action, IFilterGroup parentGroup)
-        {
-            if (action != null)
-            {
-                RegisterSubgroup(action, parentGroup);
-            }
         }
 
         private void RegisterSubgroup(Action<IRegister> action, IFilterGroup parentGroup)

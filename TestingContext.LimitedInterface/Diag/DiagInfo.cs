@@ -1,9 +1,7 @@
-﻿namespace TestingContextCore.PublicMembers
+﻿namespace TestingContext.LimitedInterface.Diag
 {
     using System;
-    using System.Linq.Expressions;
-    using global::TestingContext.Interface;
-    using static ExpressionToCodeLib.ExpressionToCode;
+    using System.Runtime.CompilerServices;
 
     public class DiagInfo : IDiagInfo
     {
@@ -14,7 +12,10 @@
             diagFactory = factory;
         }
 
-        internal static IDiagInfo Create(string file, int line, string member, string additionalInfo)
+        public static IDiagInfo Create([CallerFilePath] string file = "",
+            [CallerLineNumber] int line = 0,
+            [CallerMemberName] string member = "",
+            string additionalInfo = null)
         {
             return diagFactory?.Invoke(file, line, member, additionalInfo)
                    ?? new DiagInfo
@@ -25,9 +26,6 @@
                           Member = member
                       };
         }
-
-        internal static IDiagInfo Create(string file, int line, string member, Expression filterExpression = null) 
-            => Create(file, line, member, filterExpression == null ? null : AnnotatedToCode(filterExpression));
 
         public string AdditionalInfo { get; internal set; }
 

@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Tokens;
     using UnitTestProject1.Entities;
 
     internal static class AssignmentGivenHelper

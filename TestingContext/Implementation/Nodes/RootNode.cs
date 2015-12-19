@@ -1,8 +1,7 @@
 ﻿namespace TestingContextCore.Implementation.Nodes
 {
     using System.Collections.Generic;
-    using TestingContext.LimitedInterface;
-    using TestingContextCore.Implementation.Filters;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.TreeOperation;

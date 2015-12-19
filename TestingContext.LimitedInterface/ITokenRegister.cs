@@ -3,12 +3,15 @@
     using System;
     using System.Collections.Generic;
     using System.Runtime.CompilerServices;
+    using TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.Tokens;
 
     public interface ITokenRegister
     {
         IForToken<T> For<T>(IHaveToken<T> haveToken);
 
         IForToken<IEnumerable<T>> ForCollection<T>(IHaveToken<T> haveToken);
+
 
         IFilterToken Not(Action<ITokenRegister> action,
             [CallerFilePath] string file = "",

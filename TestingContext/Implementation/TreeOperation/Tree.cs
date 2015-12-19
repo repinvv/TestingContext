@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using TestingContext.Interface;
-    using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Resolution;

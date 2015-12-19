@@ -2,7 +2,7 @@
 {
     using TechTalk.SpecFlow;
     using TestingContext.Interface;
-    using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Tokens;
     using UnitTestProject1.NewEntities;
     using UnitTestProject1.NewDefinitions.Extensions;
 
@@ -20,7 +20,7 @@
         public void WhenINeedCompanyToHaveADepartment(string companyName, string departmentName)
         {
             context.For<Company>(companyName)
-                   .Exists<Department>(departmentName, company => company.Departments);
+                   .Exists(departmentName, company => company.Departments);
         }
 
         [When(@"i need department(?:\s)?(.*) to either be ""(.*)"" type or have ""(.*)"" employee or have project with budjet (.*) or more")]

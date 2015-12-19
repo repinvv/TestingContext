@@ -2,9 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq.Expressions;
     using System.Runtime.CompilerServices;
     using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.Tokens;
 
     public interface IRegister : ITokenRegister
     {
@@ -22,16 +23,11 @@
             [CallerLineNumber] int line = 0,
             [CallerMemberName] string member = "");
 
-        IHaveToken<T> Exists<T>(Expression<Func<IEnumerable<T>>> srcFunc,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "");
 
-        void Exists<T>(string name,
-            Expression<Func<IEnumerable<T>>> srcFunc,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "");
+        IHaveToken<T> Exists<T>(IDiagInfo diagInfo, Func<IEnumerable<T>> srcFunc);
+
+        void Exists<T>(IDiagInfo diagInfo, string name, Func<IEnumerable<T>> srcFunc);
+
 
         IFilterToken Not(Action<IRegister> action,
             [CallerFilePath] string file = "",

@@ -2,7 +2,8 @@
 {
     using System.Collections.Generic;
     using TestingContext.Interface;
-    using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Registrations.FilterRegistrations;
@@ -12,13 +13,7 @@
     internal class TokenStore
     {
         private int currentId = 1;
-
-        public TokenStore(ITestingContext context)
-        {
-            Context = context;
-        }
-
-        public ITestingContext Context { get; }
+        
 
         public IStorage Tokens { get; } = new Storage();
 

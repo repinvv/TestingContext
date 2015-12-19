@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Tokens;
 
     public interface IMatcher
     {

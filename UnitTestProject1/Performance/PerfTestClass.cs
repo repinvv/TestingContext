@@ -6,6 +6,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;
     using TestingContext.Interface;
+    using TestingContext.LimitedInterface;
 
     [Binding]
     public class PerfTest

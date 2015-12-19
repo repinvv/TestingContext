@@ -1,7 +1,8 @@
 ﻿namespace TestingContext.Interface
 {
     using System.Runtime.CompilerServices;
-    using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.Tokens;
 
     public interface IInversion
     {

@@ -2,7 +2,7 @@
 {
     using System;
     using TestingContext.Interface;
-    using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Resolution;
 
     internal class SingleValueDependency<TItem> : IDependency<TItem>

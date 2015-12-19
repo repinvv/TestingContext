@@ -1,4 +1,4 @@
-﻿namespace TestingContext.LimitedInterface
+﻿namespace TestingContext.LimitedInterface.Tokens
 {
     public interface IFilterToken
     {

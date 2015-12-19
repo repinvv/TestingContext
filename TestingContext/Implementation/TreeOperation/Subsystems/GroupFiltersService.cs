@@ -2,8 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContext.LimitedInterface;
-    using TestingContextCore.Implementation.Filters;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Registrations;
 

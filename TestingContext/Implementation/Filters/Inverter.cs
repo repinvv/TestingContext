@@ -1,8 +1,8 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
     using System.Collections.Generic;
-    using TestingContext.Interface;
-    using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
 

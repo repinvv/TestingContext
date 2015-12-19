@@ -2,44 +2,24 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq.Expressions;
     using System.Runtime.CompilerServices;
+    using TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.Tokens;
 
     public interface IForToken<T1>
     {
-        IFilterToken IsTrue(Expression<Func<T1, bool>> filter,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "");
-
         IForToken<T1, T2> For<T2>(IHaveToken<T2> haveToken);
 
         IForToken<T1, IEnumerable<T2>> ForCollection<T2>(IHaveToken<T2> haveToken);
 
-        IHaveToken<T2> Exists<T2>(Expression<Func<T1, IEnumerable<T2>>> srcFunc,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "");
+        IFilterToken IsTrue(IDiagInfo diagInfo, Func<T1, bool> filter);
 
-        IHaveToken<T2> DoesNotExist<T2>(Expression<Func<T1, IEnumerable<T2>>> srcFunc,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "");
 
-        IHaveToken<T2> Each<T2>(Expression<Func<T1, IEnumerable<T2>>> srcFunc,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "");
+        IHaveToken<T2> Exists<T2>(IDiagInfo diagInfo, Func<T1, IEnumerable<T2>> srcFunc);
 
-        IHaveToken<T2> Is<T2>(Expression<Func<T1, T2>> srcFunc,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "");
+        IHaveToken<T2> DoesNotExist<T2>(IDiagInfo diagInfo, Func<T1, IEnumerable<T2>> srcFunc);
 
-        IHaveToken<T2> IsNot<T2>(Expression<Func<T1, T2>> srcFunc,
-            [CallerFilePath] string file = "",
-            [CallerLineNumber] int line = 0,
-            [CallerMemberName] string member = "");
+        IHaveToken<T2> Each<T2>(IDiagInfo diagInfo, Func<T1, IEnumerable<T2>> srcFunc);
 
         IFilterToken Not(Action<ITokenRegister> action,
             [CallerFilePath] string file = "",

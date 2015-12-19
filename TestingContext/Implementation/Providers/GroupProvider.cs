@@ -1,10 +1,8 @@
 ﻿namespace TestingContextCore.Implementation.Providers
 {
     using System.Collections.Generic;
-    using System.Linq;
-    using TestingContext.Interface;
+    using TestingContext.LimitedInterface.Diag;
     using TestingContextCore.Implementation.Dependencies;
-    using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;

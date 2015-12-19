@@ -2,11 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq.Expressions;
     using TestingContext.Interface;
     using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Registrations.HighLevel;
-    using TestingContextCore.PublicMembers;
 
     internal class Registration : HighLevelRegistrations, IRegister
     {
@@ -19,7 +19,7 @@
             this.store = store;
             this.inner = inner;
         }
-        
+
         #region For
         IFor<T> IRegister.For<T>(IHaveToken<T> haveToken) => inner.For(haveToken);
         IFor<IEnumerable<T>> IRegister.ForCollection<T>(IHaveToken<T> haveToken) => inner.ForCollection(haveToken);
@@ -27,19 +27,16 @@
         IForToken<IEnumerable<T>> ITokenRegister.ForCollection<T>(IHaveToken<T> haveToken) => inner.ForCollection(haveToken);
 
         public IFor<T> For<T>(string name, string file, int line, string member) 
-            => inner.For(store.GetHaveToken<T>(name, file, line, member));
+            => inner.For(store.GetHaveToken<T>(DiagInfo.Create(file, line, member), name));
 
         public IFor<IEnumerable<T>> ForCollection<T>(string name, string file, int line, string member)
-        => inner.ForCollection(store.GetHaveToken<T>(name, file, line, member));
+            => inner.ForCollection(store.GetHaveToken<T>(DiagInfo.Create(file, line, member), name));
         #endregion
 
-        public IHaveToken<T> Exists<T>(Expression<Func<IEnumerable<T>>> srcFunc, string file, int line, string member)
-            => inner.Exists(srcFunc.Compile(), DiagInfo.Create(file, line, member, srcFunc));
+        public IHaveToken<T> Exists<T>(IDiagInfo diagInfo, Func<IEnumerable<T>> srcFunc)
+            => inner.Exists(diagInfo, srcFunc);
 
-        public void Exists<T>(string name, Expression<Func<IEnumerable<T>>> srcFunc, string file, int line, string member)
-        {
-            var diagInfo = DiagInfo.Create(file, line, member, srcFunc);
-            store.SaveToken(name, inner.Exists(srcFunc.Compile(), diagInfo).Token, diagInfo);
-        }
+        public void Exists<T>(IDiagInfo diagInfo, string name, Func<IEnumerable<T>> srcFunc) 
+            => store.SaveToken(diagInfo, name, inner.Exists(diagInfo, srcFunc).Token);
     }
 }

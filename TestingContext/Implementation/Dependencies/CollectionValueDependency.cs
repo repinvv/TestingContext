@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContext.Interface;
-    using TestingContext.LimitedInterface;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Resolution;
 
     internal class CollectionValueDependency<TItem> : IDependency<IEnumerable<TItem>>

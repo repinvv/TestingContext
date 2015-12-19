@@ -1,7 +1,7 @@
 ﻿namespace TestingContextCore.PublicMembers.Exceptions
 {
     using System;
-    using global::TestingContext.Interface;
+    using TestingContext.LimitedInterface.Diag;
 
     public class RegistrationException : Exception
     {

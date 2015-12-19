@@ -18,7 +18,7 @@
         [BeforeScenario]
         public void RegisterContext()
         {
-            var context = new TestingContext();
+            var context = TestingContextFactory.Create();
             objectContainer.RegisterInstanceAs<ITestingContext>(context);
         }
     }

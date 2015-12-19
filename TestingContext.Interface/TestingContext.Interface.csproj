@@ -41,12 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDeclareSingle.cs" />
+    <Compile Include="ExpressionalInterfaceExtension.cs" />
     <Compile Include="IFor.cs" />
     <Compile Include="IFor2.cs" />
-    <Compile Include="IDiagInfo.cs" />
     <Compile Include="IFailure.cs" />
-    <Compile Include="IDeclare.cs" />
     <Compile Include="IInversion.cs" />
     <Compile Include="InterfaceExtension.cs" />
     <Compile Include="IStorage.cs" />
@@ -62,6 +60,7 @@
       <Name>TestingContext.LimitedInterface</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
