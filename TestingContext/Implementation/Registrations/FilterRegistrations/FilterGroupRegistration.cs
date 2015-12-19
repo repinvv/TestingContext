@@ -5,7 +5,6 @@
     using System.Linq;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
-    using TestingContextCore.Implementation.Filters.RegistrationFilters;
 
     internal class FilterGroupRegistration : IFilterRegistration
     {

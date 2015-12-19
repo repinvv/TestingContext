@@ -2,7 +2,6 @@
 {
     using System;
     using TestingContextCore.Implementation.Filters;
-    using TestingContextCore.Implementation.Filters.RegistrationFilters;
 
     internal class FilterRegistration : IFilterRegistration
     {
