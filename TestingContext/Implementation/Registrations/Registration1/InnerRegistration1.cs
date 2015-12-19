@@ -9,6 +9,7 @@
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Providers;
+    using TestingContextCore.Implementation.Registrations.FilterRegistrations;
     using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.PublicMembers;
 
@@ -31,6 +32,7 @@
         {
             var diagInfo = DiagInfo.Create(file, line, member, filterFunc);
             var filter = new Filter1<T1>(dependency, filterFunc.Compile(), group, diagInfo);
+            var filterRegistration = new FilterRegistration((grp, id) => new Filter1<T1>(dependency, filterFunc.Compile(), group, diagInfo))
             store.RegisterFilter(filter, group);
             return filter.Token;
         }

@@ -7,7 +7,7 @@
 
     internal interface IFilter : IDepend, IFailure
     {
-        int Id { get; set; }
+        int Id { get; }
 
         IFilterToken Token { get; }
 

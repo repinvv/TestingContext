@@ -7,13 +7,14 @@
 
     internal abstract class BaseFilter
     {
-        protected BaseFilter(IFilterGroup group, IDiagInfo diagInfo)
+        protected BaseFilter(IFilterGroup group, IDiagInfo diagInfo, int id)
         {
             Group = group;
             DiagInfo = diagInfo;
+            Id = id;
         }
 
-        public int Id { get; set; }
+        public int Id { get; }
         public IFilterToken Token { get; } = new FilterToken();
         public IFilterGroup Group { get; set; }
         public IDiagInfo DiagInfo { get; }

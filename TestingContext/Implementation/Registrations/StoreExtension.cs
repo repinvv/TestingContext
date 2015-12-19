@@ -10,18 +10,19 @@
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Providers;
+    using TestingContextCore.Implementation.Registrations.FilterRegistrations;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.PublicMembers.Exceptions;
 
     internal static class StoreExtension
     {
-        public static void RegisterFilter(this TokenStore store, IFilter filter, IFilterGroup group)
+        public static void RegisterFilter(this TokenStore store, IFilterRegistration filter, FilterGroupRegistration group)
         {
             filter.Id = store.NextId;
             if (group != null)
             {
-                group.Filters.Add(filter);
+                group.FilterRegistrations.Add(filter);
                 return;
             }
 

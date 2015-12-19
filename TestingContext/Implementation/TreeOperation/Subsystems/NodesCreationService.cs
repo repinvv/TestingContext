@@ -25,7 +25,7 @@
             }
 
             var nodeDependencies = GroupNodes(nodes);
-            CreateNodesForFilterGroups(store.Filters, nodeDependencies, store, tree);
+            CreateNodesForFilterGroups(tree.Filters, nodeDependencies, store, tree);
             return nodeDependencies;
         }
 

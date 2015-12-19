@@ -21,13 +21,6 @@
             return;
         }
 
-        private static List<Reliance> GetAllReliances(TokenStore store)
-        {
-            var providerReliances = store.Providers.SelectMany(x => GetReliances(x.Value, x.Key));
-            var filterReliances = store.Filters.SelectMany(GetReliances);
-            return providerReliances.Concat(filterReliances).ToList();
-        }
-
         private static IEnumerable<Reliance> GetReliances(IProvider provider, IToken token)
         {
             var providerReliesOn = provider

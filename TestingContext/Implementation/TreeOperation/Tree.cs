@@ -21,5 +21,7 @@
         public HashSet<Tuple<IToken, IToken>> NonEqualFilters { get; } = new HashSet<Tuple<IToken, IToken>>();
 
         public Dictionary<IFilter, int> FilterIndex { get; } = new Dictionary<IFilter, int>();
+
+        public List<IFilter> Filters { get; } = new List<IFilter>();
     }
 }

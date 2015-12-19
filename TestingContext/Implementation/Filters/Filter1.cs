@@ -15,8 +15,8 @@
         private readonly IDependency<T1> dependency;
         private readonly Func<T1, bool> filter;
 
-        public Filter1(IDependency<T1> dependency, Func<T1, bool> filter, IFilterGroup group, IDiagInfo diagInfo) 
-            : base(group, diagInfo)
+        public Filter1(IDependency<T1> dependency, Func<T1, bool> filter, IFilterGroup group, IDiagInfo diagInfo, int id) 
+            : base(group, diagInfo, id)
         {
             this.dependency = dependency;
             this.filter = filter;

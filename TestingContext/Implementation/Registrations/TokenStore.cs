@@ -5,6 +5,7 @@
     using TestingContext.LimitedInterface;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Providers;
+    using TestingContextCore.Implementation.Registrations.FilterRegistrations;
     using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.PublicMembers;
 
@@ -25,7 +26,7 @@
 
         public Dictionary<IToken, IProvider> Providers { get; } = new Dictionary<IToken, IProvider>();
 
-        public List<IFilter> Filters { get; } = new List<IFilter>();
+        public List<IFilterRegistration> Filters { get; } = new List<IFilterRegistration>();
 
         public Dictionary<IToken, IFilter> CvFilters { get; } = new Dictionary<IToken, IFilter>();
 

@@ -45,10 +45,11 @@
 
         public static void AssignFilters(TokenStore store, Tree tree)
         {
+            tree.Filters.AddRange(store.Filters.Select(x => x.GetFilter(null)));
             var freeFilters = new List<IFilter>();
-            ProcessFilterGroups(store.Filters, freeFilters, store, tree);
+            ProcessFilterGroups(tree.Filters, freeFilters, store, tree);
             var filters = new List<IFilter>();
-            store.Filters.ForEach(x=> AddFilter(x, filters, store)); 
+            tree.Filters.ForEach(x=> AddFilter(x, filters, store)); 
             filters.AddRange(freeFilters);
             filters.ForEach(x => ReorderNodes(tree, x));
             filters.ForEach(x => AssignFilter(tree, x));

@@ -8,19 +8,21 @@
 
     internal class FilterGroupRegistration : IFilterRegistration
     {
-        private readonly Func<IFilterGroup> groupConstructor;
+        private readonly Func<IFilterGroup, int, IFilterGroup> groupConstructor;
 
-        public FilterGroupRegistration(Func<IFilterGroup> groupConstructor)
+        public FilterGroupRegistration(Func<IFilterGroup, int, IFilterGroup> groupConstructor)
         {
             this.groupConstructor = groupConstructor;
         }
 
         public List<IFilterRegistration> FilterRegistrations { get; } = new List<IFilterRegistration>();
 
-        public IFilter GetFilter()
+        public int Id { private get; set; }
+
+        public IFilter GetFilter(IFilterGroup group)
         {
-            var result = groupConstructor();
-            result.Filters.AddRange(FilterRegistrations.Select(x => x.GetFilter()));
+            var result = groupConstructor(group, Id);
+            result.Filters.AddRange(FilterRegistrations.Select(x => x.GetFilter(result)));
             return result;
         }
     }
