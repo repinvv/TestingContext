@@ -73,12 +73,14 @@
     <Compile Include="NewDefinitions\Companies\CompanyThen.cs" />
     <Compile Include="NewDefinitions\Companies\CompanyWhen.cs" />
     <Compile Include="NewDefinitions\CompanyProperties\CompanyPropertyWhen.cs" />
-    <Compile Include="NewDefinitions\CompanyProperties\PropertyGiven.cs" />
+    <Compile Include="NewDefinitions\CompanyProperties\CompanyPropertyGiven.cs" />
     <Compile Include="NewDefinitions\Departments\DepartmentWhen.cs" />
     <Compile Include="NewDefinitions\Employees\EmployeeGiven.cs" />
     <Compile Include="NewDefinitions\Employees\EmployeeWhen.cs" />
     <Compile Include="NewDefinitions\Extensions\DepartmentExtension.cs" />
+    <Compile Include="NewDefinitions\ThenException.cs" />
     <Compile Include="NewDefinitions\WorkProjects\WorkProjectGiven.cs" />
+    <Compile Include="NewDefinitions\WorkProjects\WorkProjectWhen.cs" />
     <Compile Include="NewEntities\DepartmentType.cs" />
     <Compile Include="NewEntities\EmploymentType.cs" />
     <Compile Include="NewEntities\PropertType.cs" />

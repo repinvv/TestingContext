@@ -8,8 +8,8 @@
 
     internal class OrGroup : BaseFilterGroup, IFilterGroup
     {
-        public OrGroup(IDependency[] dependencies, IFilterGroup group, IDiagInfo diagInfo) 
-            : base(new GroupToken(typeof(OrGroup)), dependencies, group, diagInfo)
+        public OrGroup(IDependency[] dependencies, FilterInfo info) 
+            : base(new GroupToken(typeof(OrGroup)), dependencies, info)
         { }
 
         public IFilter GetFailingFilter(IResolutionContext context)

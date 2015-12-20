@@ -30,8 +30,8 @@
             var dep1 = new SingleDependency(node1.Token);
             var dep2 = new SingleDependency(node2.Token);
             
-            // var dummyDiag = DiagInfo.Create(string.Empty, 0, $"Non-equal filter for {node1.Token} and {node2.Token}");
-            var filter = new Filter2<IResolutionContext, IResolutionContext>(dep1, dep2, (x, y) => !x.Equals(y), group, diagInfo);
+            var info = new FilterInfo(diagInfo, null, group?.GroupToken);
+            var filter = new Filter2<IResolutionContext, IResolutionContext>(dep1, dep2, (x, y) => !x.Equals(y), info);
             AssignFilter(tree, filter);
         }
     }

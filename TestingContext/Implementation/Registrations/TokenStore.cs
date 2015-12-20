@@ -4,7 +4,6 @@
     using TestingContext.Interface;
     using TestingContext.LimitedInterface.Diag;
     using TestingContext.LimitedInterface.Tokens;
-    using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Registrations.FilterRegistrations;
     using TestingContextCore.Implementation.Tokens;
@@ -13,7 +12,6 @@
     internal class TokenStore
     {
         private int currentId = 1;
-        
 
         public IStorage Tokens { get; } = new Storage();
 
@@ -23,7 +21,7 @@
 
         public List<IFilterRegistration> Filters { get; } = new List<IFilterRegistration>();
 
-        public Dictionary<IToken, IFilter> CvFilters { get; } = new Dictionary<IToken, IFilter>();
+        public HashSet<IFilterToken> CvFilters { get; } = new HashSet<IFilterToken>();
 
         public Dictionary<IToken, IDiagInfo> ItemInversions { get; } =new Dictionary<IToken, IDiagInfo>();
 

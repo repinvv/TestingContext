@@ -16,55 +16,61 @@
 
     internal static class GroupNodesService
     {
-        public static void CreateNodesForFilterGroups(IEnumerable<IFilter> filters,
-                    Dictionary<IToken, List<INode>> nodeDependencies,
-                    TokenStore store,
-                    Tree tree)
-        {
-            foreach (var group in filters.OfType<IFilterGroup>())
-            {
-                CreateNodeForFilterGroup(group, nodeDependencies, store, tree);
-                CreateNodesForFilterGroups(group.Filters, nodeDependencies, store, tree);
-            }
-        }
-
-        private static void CreateNodeForFilterGroup(IFilterGroup filterGroup,
+        public static void CreateNodeForFilterGroup(IFilterGroup filterGroup,
             Dictionary<IToken, List<INode>> nodeDependencies,
             TokenStore store,
             Tree tree)
         {
-            if (filterGroup.GroupToken == filterGroup.Group?.GroupToken)
+            if (filterGroup.NodeToken == tree.GetParentGroup(filterGroup)?.NodeToken)
             {
+                // in case where AndGroup is created inside OrGroup or XorGroup, 
+                //it gets the token of parent group and does not get its own node
                 return;
             }
 
-            var groupDependencies = new HashSet<IDependency>(filterGroup.GroupDependencies);
             var inGroupTokens = new HashSet<IToken>(GetInGroupTokens(filterGroup, store));
             if (!inGroupTokens.Any())
             {
+                // if there are no declarations in the group, only filters, no node is needed
                 return;
             }
 
-            foreach (var dependency in inGroupTokens
-                .SelectMany(x => store.Providers[x].Dependencies)
-                .Concat(filterGroup.Dependencies)
-                .Where(dependency => !inGroupTokens.Contains(dependency.Token)))
-            {
-                groupDependencies.Add(dependency);
-            }
-            var provider = new GroupProvider(groupDependencies, filterGroup.Group, store, filterGroup.DiagInfo);
-            var node = Node.CreateNode(filterGroup.GroupToken, provider, store, tree);
-            node.IsNegative = true;
-            tree.Nodes.Add(node.Token, node);
-            tree.NodesToCreateExistsFilter.Add(new Tuple<INode, IDiagInfo>(node, filterGroup.DiagInfo));
-            foreach (var groupDependency in groupDependencies.Select( x=>x.Token).Distinct())
+            var groupDependencies = GetGroupDependencies(filterGroup, inGroupTokens, store);
+            var node = CreateGroupNode(filterGroup, store, tree, groupDependencies);
+            AddNodeToDependOnOtherNodes(node, groupDependencies, nodeDependencies);
+            AddInGroupNodesToDependOnNode(filterGroup, inGroupTokens, nodeDependencies, tree);
+        }
+
+        private static void AddInGroupNodesToDependOnNode(IFilterGroup filterGroup, 
+            HashSet<IToken> inGroupTokens, 
+            Dictionary<IToken, List<INode>> nodeDependencies, 
+            Tree tree)
+        {
+            // all in group nodes to depend on created node
+            var ingroupNodes = inGroupTokens.Select(inGroupToken => tree.Nodes[inGroupToken]);
+            nodeDependencies.GetList(filterGroup.NodeToken).AddRange(ingroupNodes);
+        }
+
+        private static void AddNodeToDependOnOtherNodes(Node node, 
+            HashSet<IDependency> groupDependencies, 
+            Dictionary<IToken, List<INode>> nodeDependencies)
+        {
+            // add node to depend on other nodes, as per group dependencies
+            foreach (var groupDependency in groupDependencies.Select(x => x.Token).Distinct())
             {
                 nodeDependencies.GetList(groupDependency).Add(node);
             }
+        }
 
-            //all in group nodes to depend on created node
-            var ingroupNodes = inGroupTokens.Select(inGroupToken => tree.Nodes[inGroupToken]);
-            nodeDependencies.GetList(filterGroup.GroupToken).AddRange(ingroupNodes);
+        private static Node CreateGroupNode(IFilterGroup filterGroup, TokenStore store, Tree tree, HashSet<IDependency> groupDependencies)
+        {
+            var parentGroup = tree.GetParentGroup(filterGroup);
+            var provider = new GroupProvider(groupDependencies, parentGroup, store, filterGroup.DiagInfo);
+            var node = Node.CreateNode(filterGroup.NodeToken, provider, store, tree);
+            node.IsNegative = true;
+            tree.Nodes.Add(node.Token, node);
+            tree.GroupNodes.Add(node);
+            return node;
         }
     }
 }

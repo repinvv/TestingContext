@@ -6,15 +6,13 @@
 
     internal class FilterRegistration : IFilterRegistration
     {
-        private readonly Func<IFilterGroup, int, IFilter> filterConstructor;
+        private readonly Func<IFilter> filterConstructor;
 
-        public FilterRegistration(Func<IFilterGroup, int, IFilter> filterConstructor)
+        public FilterRegistration(Func<IFilter> filterConstructor)
         {
             this.filterConstructor = filterConstructor;
         }
 
-        public int Id { private get; set; }
-
-        public IFilter GetFilter(IFilterGroup group) => filterConstructor(group, Id);
+        public IFilter GetFilter(IFilterGroup group) => filterConstructor();
     }
 }

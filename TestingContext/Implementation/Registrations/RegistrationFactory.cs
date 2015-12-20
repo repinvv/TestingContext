@@ -3,6 +3,7 @@
     using TestingContext.Interface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters.Groups;
+    using TestingContextCore.Implementation.Registrations.FilterRegistrations;
     using TestingContextCore.Implementation.Registrations.HighLevel;
     using TestingContextCore.Implementation.Registrations.Registration0;
     using TestingContextCore.Implementation.Registrations.Registration1;
@@ -10,9 +11,7 @@
 
     internal static class RegistrationFactory
     {
-       
-
-        public static IRegister GetRegistration(TokenStore store, IFilterGroup group, int priority)
+        public static IRegister GetRegistration(TokenStore store, FilterGroupRegistration group, int priority)
         {
             var inner = new InnerRegistration(store, group, priority);
             var innerHighLevel = new InnerHighLevelRegistration(store, group, priority);
@@ -21,7 +20,7 @@
 
         public static IFor<T1> GetRegistration1<T1>(TokenStore store, 
             IDependency<T1> dependency, 
-            IFilterGroup group,
+            FilterGroupRegistration group,
             int priority)
         {
             var inner = new InnerRegistration1<T1>(store, dependency, group, priority);
@@ -32,7 +31,7 @@
         public static IFor<T1,T2> GetRegistration2<T1, T2>(TokenStore store, 
             IDependency<T1> dependency1, 
             IDependency<T2> dependency2,
-            IFilterGroup group,
+            FilterGroupRegistration group,
             int priority)
         {
             var inner = new InnerRegistration2<T1, T2>(store, dependency1, dependency2, group, priority);

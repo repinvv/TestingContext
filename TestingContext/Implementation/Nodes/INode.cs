@@ -7,7 +7,7 @@
 
     internal interface INode
     {
-        int Id { get; }
+        int Weight { get; set; }
 
         Tree Tree { get; }
 

@@ -71,12 +71,12 @@ namespace UnitTestProject1.Features
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Loop Detection 1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Filter dependency loop detection")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Registrations loop detection")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("loopDetection")]
-        public virtual void LoopDetection1()
+        public virtual void FilterDependencyLoopDetection()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Loop Detection 1", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Filter dependency loop detection", new string[] {
                         "loopDetection"});
 #line 7
 this.ScenarioSetup(scenarioInfo);
@@ -98,6 +98,38 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.When("i try resolving insurance B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 16
  testRunner.Then("i should get an exception with information about Assignment \"D\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Entity dependency loop detection")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Registrations loop detection")]
+        public virtual void EntityDependencyLoopDetection()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Entity dependency loop detection", ((string[])(null)));
+#line 18
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Id",
+                        "Name"});
+#line 19
+    testRunner.Given("I have companies", ((string)(null)), table1, "Given ");
+#line 21
+ testRunner.When("i need a company", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 22
+  testRunner.And("i need company to have a department", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 23
+  testRunner.And("i specify that employee depends on department and project", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 24
+  testRunner.And("i specify that project depends on department and company property", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 25
+  testRunner.And("i specify that company property depends on company and employee", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 26
+    testRunner.Then("i should get a detailed exception trying to search for company", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 27
+  testRunner.And("Detailed exception should mention types \"Employee,WorkProject,CompanyProperty\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

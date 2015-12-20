@@ -23,5 +23,14 @@
                    .For<CompanyProperty>(name)
                    .IsTrue((emp, property) => property.Name.Contains(emp.Name));
         }
+
+        [When(@"i specify that employee(?:\s)?(.*) depends on department(?:\s)?(.*) and project(?:\s)?(.*)")]
+        public void WhenISpecifyThatEmployeeDependsOnDepartmentAndProject(string empKey, string depKey, string projKey)
+        {
+            context.For<Department>(depKey)
+                   .For<WorkProject>(projKey)
+                   .Exists(empKey, (department, project) => department.Employees);
+
+        }
     }
 }

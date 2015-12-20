@@ -7,22 +7,22 @@
 
     internal abstract class BaseFilter
     {
-        protected BaseFilter(IFilterGroup group, IDiagInfo diagInfo, int id)
+        protected BaseFilter(FilterInfo filterInfo)
         {
-            Group = group;
-            DiagInfo = diagInfo;
-            Id = id;
+            FilterInfo = filterInfo;
         }
 
-        public int Id { get; }
-        public IFilterToken Token { get; } = new FilterToken();
-        public IFilterGroup Group { get; set; }
-        public IDiagInfo DiagInfo { get; }
-        public IDiagInfo Diagnostics => DiagInfo;
+        public FilterInfo FilterInfo { get; set; }
+
+        public IDiagInfo Diagnostics => FilterInfo.DiagInfo;
+
+        public IFilterToken GroupToken => FilterInfo.GroupToken;
+
+        public IDiagInfo DiagInfo => FilterInfo.DiagInfo;
 
         public override string ToString()
         {
-            return $"{GetType().Name}, Id: {Id}";
+            return $"{GetType().Name}, Id: {FilterInfo.Id}";
         }
     }
 }

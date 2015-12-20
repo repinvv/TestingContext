@@ -15,7 +15,7 @@
             this.context = context;
         }
 
-        [When(@"i search for company(?:\s)?(.*)")]
+        [When(@"i need a company(?:\s)?(.*)")]
         public void WhenISearchInCompanies(string name)
         {
             context.Exists<Company>(name, () => context.Storage.Get<List<Company>>(null));

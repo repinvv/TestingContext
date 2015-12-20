@@ -15,7 +15,7 @@
             Resolver = new NodeResolver(this);
         }
 
-        public int Id => 0;
+        public int Weight { get; set; } = 0;
 
         public Tree Tree { get; }
 

@@ -8,8 +8,8 @@
     {
         IDependency[] GroupDependencies { get; }
         
-        IToken GroupToken { get; }
+        IToken NodeToken { get; }
 
-        List<IFilter> Filters { get; }
+        List<IFilter> Filters { get; set; }
     }
 }

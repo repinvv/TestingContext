@@ -7,6 +7,8 @@
 
     internal interface IProvider : IDepend
     {
+        bool IsNegative { get; set; }
+
         IEnumerable<IResolutionContext> Resolve(IResolutionContext parentContext, INode node);
     }
 }

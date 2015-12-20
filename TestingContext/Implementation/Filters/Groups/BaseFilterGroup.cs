@@ -8,18 +8,18 @@
 
     internal abstract class BaseFilterGroup : BaseFilter
     {
-        protected BaseFilterGroup(IToken groupToken, IDependency[] dependencies, IFilterGroup group, IDiagInfo diagInfo) 
-            : base(group, diagInfo)
+        protected BaseFilterGroup(IToken groupToken, IDependency[] dependencies, FilterInfo info) 
+            : base(info)
         {
             GroupDependencies = dependencies;
-            GroupToken = groupToken;
+            NodeToken = groupToken;
         }
 
         public IDependency[] GroupDependencies { get; }
 
-        public IToken GroupToken { get; }
+        public IToken NodeToken { get; }
 
-        public List<IFilter> Filters { get; } = new List<IFilter>();
+        public List<IFilter> Filters { get; set; }
 
         public IEnumerable<IDependency> Dependencies => Filters.SelectMany(x => x.Dependencies);
 

@@ -16,13 +16,13 @@
             foreach (var provider in store.Providers)
             {
                 var node = Node.CreateNode(provider.Key, provider.Value, store, tree);
-                node.IsNegative = !(store.CvFilters[node.Token] is ExistsFilter) || store.CollectionInversions.ContainsKey(node.Token);
+                node.IsNegative = provider.Value.IsNegative || store.CollectionInversions.ContainsKey(node.Token);
                 tree.Nodes.Add(node.Token, node);
                 nodes.Add(node);
             }
 
             var nodeDependencies = GroupNodes(nodes);
-            CreateNodesForFilterGroups(tree.Filters, nodeDependencies, store, tree);
+            tree.Filters.ForGroups(grp=> CreateNodeForFilterGroup(grp, nodeDependencies, store, tree));
             return nodeDependencies;
         }
 

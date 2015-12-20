@@ -7,9 +7,7 @@
 
     internal interface IFilter : IDepend, IFailure
     {
-        int Id { get; }
-
-        IFilterToken Token { get; }
+        FilterInfo FilterInfo { get; }
 
         IFilter GetFailingFilter(IResolutionContext context);
     }

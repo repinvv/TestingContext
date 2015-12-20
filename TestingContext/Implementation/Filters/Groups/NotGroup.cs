@@ -8,8 +8,8 @@
 
     internal class NotGroup : BaseFilterGroup, IFilterGroup
     {
-        public NotGroup(IDependency[] dependencies, IFilterGroup group, IDiagInfo diagInfo ) 
-            : base(new GroupToken(typeof(NotGroup)), dependencies, group, diagInfo) { }
+        public NotGroup(IDependency[] dependencies, FilterInfo info) 
+            : base(new GroupToken(typeof(NotGroup)), dependencies, info) { }
 
         public IFilter GetFailingFilter(IResolutionContext context)
         {

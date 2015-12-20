@@ -8,8 +8,8 @@
 
     internal class XorGroup : BaseFilterGroup, IFilterGroup
     {
-        public XorGroup(IDependency[] dependencies, IFilterGroup group, IDiagInfo diagInfo) 
-            : base(new GroupToken(typeof(XorGroup)), dependencies, group, diagInfo)
+        public XorGroup(IDependency[] dependencies, FilterInfo info) 
+            : base(new GroupToken(typeof(XorGroup)), dependencies, info)
         { }
 
         public IFilter GetFailingFilter(IResolutionContext context)

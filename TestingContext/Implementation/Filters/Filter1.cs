@@ -15,8 +15,8 @@
         private readonly IDependency<T1> dependency;
         private readonly Func<T1, bool> filter;
 
-        public Filter1(IDependency<T1> dependency, Func<T1, bool> filter, IFilterGroup group, IDiagInfo diagInfo, int id) 
-            : base(group, diagInfo, id)
+        public Filter1(IDependency<T1> dependency, Func<T1, bool> filter, FilterInfo info) 
+            : base(info)
         {
             this.dependency = dependency;
             this.filter = filter;
@@ -41,7 +41,7 @@
 
         public override string ToString()
         {
-            return $"filter for {Dependencies.First().Token}, Id: {Id}";
+            return $"filter for {Dependencies.First().Token}, Id: {FilterInfo.Id}";
         }
     }
 }

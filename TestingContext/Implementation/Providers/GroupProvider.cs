@@ -1,7 +1,9 @@
 ﻿namespace TestingContextCore.Implementation.Providers
 {
     using System.Collections.Generic;
+    using System.Text.RegularExpressions;
     using TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Nodes;
@@ -10,13 +12,14 @@
 
     internal class GroupProvider : IProvider 
     {
+        private readonly IFilterGroup group;
         private readonly TokenStore store;
 
         public GroupProvider(IEnumerable<IDependency> dependencies, IFilterGroup group, TokenStore store, IDiagInfo diagInfo)
         {
             Dependencies = dependencies;
-            Group = group;
             DiagInfo = diagInfo;
+            this.group = group;
             this.store = store;
         }
 
@@ -24,11 +27,13 @@
 
         public IEnumerable<IDependency> Dependencies { get; }
 
-        public IFilterGroup Group { get; }
+        public IFilterToken GroupToken => group?.FilterInfo.Token;
+
+        public bool IsNegative { get; set; } = true;
 
         public IEnumerable<IResolutionContext> Resolve(IResolutionContext parentContext, INode node)
         {
-            return new[] { new ResolutionContext<IFilterGroup>(Group, node, parentContext, store) };
+            return new[] { new ResolutionContext<IFilterGroup>(group, node, parentContext, store) };
         }
     }
 }

@@ -1,8 +1,7 @@
-﻿namespace TestingContext.LimitedInterface.Expressional
+﻿namespace TestingContext.LimitedInterface.Diag
 {
     using System.Linq.Expressions;
     using ExpressionToCodeLib;
-    using TestingContext.LimitedInterface.Diag;
 
     public static class DiagInfoExpressionFactory
     {

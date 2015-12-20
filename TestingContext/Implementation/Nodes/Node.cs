@@ -10,9 +10,8 @@
 
     internal class Node : INode
     {
-        public Node(Tree tree, IToken token, IProvider provider, NodeFilterInfo filterInfo, int id)
+        public Node(Tree tree, IToken token, IProvider provider, NodeFilterInfo filterInfo)
         {
-            Id = id;
             Token = token;
             Provider = provider;
             FilterInfo = filterInfo;
@@ -20,7 +19,7 @@
             Resolver = new NodeResolver(this);
         }
 
-        public int Id { get; }
+        public int Weight { get; set; } = 0;
 
         public Tree Tree { get; }
 
@@ -56,11 +55,11 @@
 
         public IProvider Provider { get; }
 
-        public override string ToString() => $"{Token} Id: {Id}";
+        public override string ToString() => $"{Token} Id: {Weight}";
 
         public static Node CreateNode(IToken token, IProvider provider, TokenStore store, Tree tree)
         {
-            return new Node(tree, token, provider, new NodeFilterInfo(store.ItemInversions.SafeGet(token)), store.NextId);
+            return new Node(tree, token, provider, new NodeFilterInfo(store.ItemInversions.SafeGet(token)));
         }
     }
 }

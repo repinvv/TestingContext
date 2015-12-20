@@ -10,7 +10,7 @@
     {
         private readonly IFilter filter;
 
-        public Inverter(IFilter filter, IDiagInfo diagInfo) : base(filter.Group, diagInfo)
+        public Inverter(IFilter filter, FilterInfo info) : base(info)
         {
             this.filter = filter;
         }

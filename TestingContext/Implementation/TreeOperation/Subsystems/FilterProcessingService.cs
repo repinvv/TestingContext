@@ -11,29 +11,20 @@
 
     internal static class FilterProcessingService
     {
-        public static void ProcessFilterGroups(IEnumerable<IFilter> filters, List<IFilter> freeFilters, TokenStore store, Tree tree)
+        public static void ProcessFilterGroup(IFilterGroup group, List<IFilter> freeFilters, TokenStore store, Tree tree)
         {
-            foreach (var group in filters.OfType<IFilterGroup>())
+            var groupFilters = new List<IFilter>();
+            var cvFilters = group.Filters.Where(store.IsCvFilter)
+                                 .ToList();
+            groupFilters.ForGroups(grp => ProcessFilterGroup(grp, freeFilters, store, tree));
+            foreach (var filter in group.Filters)
             {
-                ProcessFilterGroup(group, freeFilters, store, tree);
-            }
-        }
-
-        public static void ProcessFilterGroup(IFilterGroup filterGroup, List<IFilter> freeFilters, TokenStore store, Tree tree)
-        {
-            var groupFilters = filterGroup.Filters.ToList();
-            filterGroup.Filters.Clear();
-            var cvFilters = groupFilters.Where(store.IsCvFilter).ToList();
-            ProcessFilterGroups(groupFilters, freeFilters, store, tree);
-            foreach (var filter in groupFilters)
-            {
-                var targetList = cvFilters
+                var filterIsAbsorbed = cvFilters
                     .Where(x => x != filter)
-                    .Any(x => FilterIsAbsorbed(filter, tree.Nodes[x.Dependencies.First().Token], tree))
-                    ? freeFilters
-                    : filterGroup.Filters;
-                AddFilter(filter, targetList, store);
+                    .Any(x => FilterIsAbsorbed(filter, tree.Nodes[x.Dependencies.First().Token], tree));
+                AddFilter(filter, filterIsAbsorbed ? freeFilters : groupFilters, store);
             }
+            group.Filters = groupFilters;
         }
 
         private static bool FilterIsAbsorbed(IFilter filter, INode cvNode, Tree tree)
@@ -56,8 +47,31 @@
 
             var inversionDiag = store.IsCvFilter(filter)
                 ? store.CollectionInversions.SafeGet(filter.Dependencies.First().Token)
-                : store.FilterInversions.SafeGet(filter.Token);
-            filters.Add(inversionDiag != null ? new Inverter(filter, inversionDiag) : filter);
+                : store.FilterInversions.SafeGet(filter.FilterInfo.Token);
+
+            filters.Add(inversionDiag != null ? new Inverter(filter, new FilterInfo(inversionDiag)) : filter);
+        }
+
+        public static void SetupTreeFilters(TokenStore store, Tree tree)
+        {
+            tree.Filters = store.Filters.Select(x => x.GetFilter(null)).ToList();
+            tree.Filters.ForGroups(grp => tree.FilterGroups.GetOrAdd(grp.FilterInfo.Token, () => grp));
+        }
+
+        public static void ProcessTreeFilters(TokenStore store, Tree tree)
+        {
+            var filters = tree.Filters;
+            tree.Filters = new List<IFilter>();
+            foreach (var filter in filters.OrderByDescending(x => x.FilterInfo.Priority)
+                                          .ThenBy(x => x.FilterInfo.Id))
+            {
+                AddFilter(filter, tree.Filters, store);
+            }
+
+            var freeFilters = new List<IFilter>();
+            filters.ForGroups(grp => ProcessFilterGroup(grp, freeFilters, store, tree));
+            freeFilters.Reverse();
+            tree.Filters.AddRange(freeFilters);
         }
     }
 }

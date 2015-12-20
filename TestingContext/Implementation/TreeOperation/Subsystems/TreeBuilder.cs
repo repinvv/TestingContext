@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContext.LimitedInterface.Tokens;
+    using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.PublicMembers.Exceptions;
     using static FilterAssignmentService;
@@ -25,12 +26,14 @@
 
                 foreach (var child in children.Where(child => child.Provider.Dependencies.All(x => assigned.Contains(x.Token))))
                 {
-                    if (child.Provider.Group != null && !assigned.Contains(child.Provider.Group.GroupToken))
+                    var parentGroup = tree.GetParentGroup(child.Provider);
+                    if (parentGroup != null && !assigned.Contains(parentGroup.NodeToken))
                     {
                         continue;
                     }
 
-                    ReorderNodes(tree, child.Provider);
+                    IDepend depend = child.Provider;
+                    depend.ForDependencies((dep1, dep2) => ReorderNodes(depend, tree, dep1, dep2));
                     var parent = GetAssignmentNode(tree, child.Provider);
                     child.Parent = parent;
                     child.SourceParent = parent;
@@ -39,7 +42,7 @@
                 }
             }
 
-            foreach (var node in nodeDependencies.SelectMany(x=>x.Value).Distinct().Where(node => !assigned.Contains(node.Token)))
+            foreach (var node in nodeDependencies.SelectMany(x => x.Value).Distinct().Where(node => !assigned.Contains(node.Token)))
             {
                 throw new RegistrationException($"Could not put {node} to the resolution tree, please check registrations.", node.Provider.DiagInfo);
             }

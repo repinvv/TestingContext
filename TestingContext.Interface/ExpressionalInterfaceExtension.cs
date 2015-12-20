@@ -6,7 +6,7 @@
     using System.Runtime.CompilerServices;
     using TestingContext.LimitedInterface.Tokens;
     using static TestingContext.LimitedInterface.ExpressionalInterfaceExtension;
-    using static TestingContext.LimitedInterface.Expressional.DiagInfoExpressionFactory;
+    using static LimitedInterface.Diag.DiagInfoExpressionFactory;
 
     public static class ExpressionalInterfaceExtension
     {

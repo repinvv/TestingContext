@@ -2,18 +2,16 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContext.LimitedInterface.Diag;
     using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
-    using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Resolution;
 
     internal class ExistsFilter : BaseFilter, IFilter
     {
         private readonly IDependency<IEnumerable<IResolutionContext>> dependency;
 
-        public ExistsFilter(IDependency<IEnumerable<IResolutionContext>> dependency, IFilterGroup group, IDiagInfo diagInfo)
-            : base(group, diagInfo)
+        public ExistsFilter(IDependency<IEnumerable<IResolutionContext>> dependency, FilterInfo info)
+            : base(info)
         {
             this.dependency = dependency;
             Dependencies = new[] { dependency };
@@ -43,7 +41,7 @@
 
         public override string ToString()
         {
-            return $"ExistsFilter for {ForTokens.First()}, Id: {Id}";
+            return $"ExistsFilter for {ForTokens.First()}, Id: {FilterInfo.Id}";
         }
     }
 }

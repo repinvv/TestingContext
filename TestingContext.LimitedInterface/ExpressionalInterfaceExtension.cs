@@ -5,7 +5,7 @@
     using System.Linq.Expressions;
     using System.Runtime.CompilerServices;
     using TestingContext.LimitedInterface.Tokens;
-    using static TestingContext.LimitedInterface.Expressional.DiagInfoExpressionFactory;
+    using static Diag.DiagInfoExpressionFactory;
 
     public static class ExpressionalInterfaceExtension
     {

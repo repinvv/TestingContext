@@ -5,8 +5,6 @@
 
     internal interface IFilterRegistration
     {
-        int Id { set; }
-        
         IFilter GetFilter(IFilterGroup group);
     }
 }

@@ -16,10 +16,10 @@
     {
         private readonly TokenStore store;
         private readonly IDependency<T1> dependency;
-        private readonly IFilterGroup group;
+        private readonly FilterGroupRegistration group;
         private readonly int priority;
 
-        public InnerRegistration1(TokenStore store, IDependency<T1> dependency, IFilterGroup group, int priority)
+        public InnerRegistration1(TokenStore store, IDependency<T1> dependency, FilterGroupRegistration group, int priority)
         {
             this.store = store;
             this.dependency = dependency;
@@ -29,10 +29,10 @@
 
         public IFilterToken IsTrue(IDiagInfo diagInfo, Func<T1, bool> filterFunc)
         {
-            var filter = new Filter1<T1>(dependency, filterFunc, group, diagInfo);
-            var filterRegistration = new FilterRegistration((grp, id) => new Filter1<T1>(dependency, filterFunc.Compile(), group, diagInfo))
-            store.RegisterFilter(filter, group);
-            return filter.Token;
+            var info = new FilterInfo(diagInfo, new FilterToken(), group?.GroupToken, priority, store.NextId);
+            var filterRegistration = new FilterRegistration(() => new Filter1<T1>(dependency, filterFunc, info));
+            store.RegisterFilter(filterRegistration, group);
+            return info.Token;
         }
 
         public IFor<T1, T2> For<T2>(IHaveToken<T2> haveToken)
@@ -58,8 +58,8 @@
         public Declarator<T2> Declare<T2>(IDiagInfo diagInfo, Func<T1, IEnumerable<T2>> srcFunc)
         {
             var token = new Token<T2>();
-            var provider = new Provider<T1, T2>(dependency, srcFunc, store, group, diagInfo);
-            return new Declarator<T2>(store, token, provider, group);
+            var provider = new Provider<T1, T2>(dependency, srcFunc, store, group?.GroupToken, diagInfo);
+            return new Declarator<T2>(store, token, provider, group, priority);
         }
     }
 }

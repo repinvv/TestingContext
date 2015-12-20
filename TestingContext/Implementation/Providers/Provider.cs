@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContext.LimitedInterface.Diag;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
@@ -23,10 +24,10 @@
         public Provider(IDependency<TSource> dependency,
             Func<TSource, IEnumerable<T>> sourceFunc,
             TokenStore store,
-            IFilterGroup group,
+            IFilterToken groupToken,
             IDiagInfo diagInfo)
         {
-            Group = group;
+            GroupToken = groupToken;
             DiagInfo = diagInfo;
             this.dependency = dependency;
             this.sourceFunc = sourceFunc;
@@ -34,13 +35,15 @@
             Dependencies = new IDependency[] { dependency };
         }
 
-        public IFilterGroup Group { get; set; }
+        public IFilterToken GroupToken { get; set; }
 
         public IDiagInfo DiagInfo { get; }
 
         public IEnumerable<IDependency> Dependencies { get; }
 
         public IFilter CollectionValidityFilter { get; set; }
+
+        public bool IsNegative { get; set; }
 
         public IEnumerable<IResolutionContext> Resolve(IResolutionContext parentContext, INode node)
         {

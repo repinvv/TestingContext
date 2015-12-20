@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Implementation\Dependencies\CollectionDependency.cs" />
     <Compile Include="Implementation\Dependencies\SingleDependency.cs" />
+    <Compile Include="Implementation\Filters\FilterInfo.cs" />
     <Compile Include="Implementation\Filters\Groups\AndGroup.cs" />
     <Compile Include="Implementation\Filters\BaseFilter.cs" />
     <Compile Include="Implementation\Filters\Groups\BaseFilterGroup.cs" />
@@ -74,8 +75,7 @@
     <Compile Include="Implementation\Registrations\HighLevel\HighLevelRegistrations.cs" />
     <Compile Include="Implementation\Registrations\HighLevel\InnerHighLevelRegistration.cs" />
     <Compile Include="Implementation\Tokens\GroupToken.cs" />
-    <Compile Include="Implementation\TreeOperation\LoopDetection\LoopDetectionService.cs" />
-    <Compile Include="Implementation\TreeOperation\LoopDetection\Reliance.cs" />
+    <Compile Include="Implementation\TreeOperation\LoopDetection\ProviderVertex.cs" />
     <Compile Include="Implementation\Registrations\Registration0\InnerRegistration.cs" />
     <Compile Include="Implementation\Registrations\Registration1\InnerRegistration1.cs" />
     <Compile Include="Implementation\Registrations\Inversion.cs" />
@@ -85,16 +85,19 @@
     <Compile Include="Implementation\Registrations\StoreExtension.cs" />
     <Compile Include="Implementation\Resolution\ResolutionContext.cs" />
     <Compile Include="Implementation\TreeOperation\GetNodeService.cs" />
+    <Compile Include="Implementation\TreeOperation\LoopDetection\ProviderLoopDetectionService.cs" />
+    <Compile Include="Implementation\TreeOperation\LoopDetection\TarjanLoopDetection.cs" />
+    <Compile Include="Implementation\TreeOperation\LoopDetection\Vertex.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\FilterProcessingService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\GroupFiltersService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\GroupNodesService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NodesCreationService.cs" />
-    <Compile Include="Implementation\TreeOperation\Subsystems\RandomServices.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\FilterAssignmentService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NodeClosestParentService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NodeReorderingService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NonEqualFilteringService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\TreeBuilder.cs" />
+    <Compile Include="Implementation\TreeOperation\Subsystems\TreeBuildingExtensions.cs" />
     <Compile Include="Implementation\TreeOperation\Tree.cs" />
     <Compile Include="Implementation\TreeOperation\TreeOperationService.cs" />
     <Compile Include="PublicMembers\Exceptions\AlgorythmException.cs" />

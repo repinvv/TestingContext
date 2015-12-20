@@ -2,6 +2,7 @@
 {
     using TechTalk.SpecFlow;
     using TestingContext.Interface;
+    using TestingContextCore.PublicMembers.Exceptions;
     using UnitTestProject1.NewEntities;
 
     [Binding]
@@ -21,6 +22,14 @@
                    .Exists(propertyName, company => company.CompanyProperty);
             context.For<CompanyProperty>(propertyName)
                    .IsTrue(property => property.Type == type);
+        }
+
+        [When(@"i specify that company property(?:\s)?(.*) depends on company(?:\s)?(.*) and employee(?:\s)?(.*)")]
+        public void WhenITrySpecifyingThatCompanyPropertyDependsOnCompanyAndEmployee(string propKey, string companyKey, string empKey)
+        {
+            context.For<Company>(companyKey)
+                   .For<Employee>(empKey)
+                   .Exists(propKey, (company, employee) => company.CompanyProperty);
         }
     }
 }

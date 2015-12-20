@@ -26,29 +26,17 @@
             CollectionAssert.AreEquivalent(companiesList, foundCompanies);
         }
 
-        [Then(@"searching for company(?:\s)?(.*) should result exception mentioning ""(.*)"", ""(.*)"" and ""(.*)""")]
-        public void ThenSearchingForCompanyShouldResultExceptionMentioningAnd(string name, string detail1, string detail2, string detail3)
+        [Then(@"i should get a detailed exception trying to search for company(?:\s)?(.*)")]
+        public void ThenIGetADetailedExceptionTryingToSearchForCompany(string name)
         {
-            DetailedRegistrationException ex = null;
             try
             {
                 var companies = context.GetMatcher().All<Company>(name);
             }
-            catch (DetailedRegistrationException ex1)
+            catch (DetailedRegistrationException ex)
             {
-                ex = ex1;
+                context.Storage.Set(ex);
             }
-
-            Assert.IsNotNull(ex);
-            CheckException(ex, detail1);
-            CheckException(ex, detail2);
-            CheckException(ex, detail3);
-        }
-
-        private void CheckException(DetailedRegistrationException ex, string detail)
-        {
-            Assert.IsTrue(ex.Message.Contains(detail));
-            Assert.IsTrue(ex.DetailedDiagnostics.Any(x => x.Item1.Type.Name.Contains(detail)));
         }
     }
 }

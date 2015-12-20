@@ -8,8 +8,8 @@
 
     internal class AndGroup : BaseFilterGroup, IFilterGroup
     {
-        public AndGroup(IToken groupToken = null, IDependency[] dependencies = null, IFilterGroup group = null, IDiagInfo diagInfo = null) 
-            : base(groupToken, dependencies ?? new IDependency[0], group, diagInfo) { }
+        public AndGroup(IToken groupToken = null, IDependency[] dependencies = null, FilterInfo info = null) 
+            : base(groupToken, dependencies ?? new IDependency[0], info) { }
 
         public IFilter GetFailingFilter(IResolutionContext context)
         {

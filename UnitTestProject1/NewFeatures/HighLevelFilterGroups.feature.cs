@@ -201,7 +201,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line 36
- testRunner.When("i search for company", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("i need a company", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 37
   testRunner.And("i need company to have a department", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 38
@@ -227,7 +227,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line 42
- testRunner.When("i search for company", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("i need a company", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 43
   testRunner.And("i need company to have a department", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 44
@@ -253,7 +253,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line 48
- testRunner.When("i search for company", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("i need a company", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 49
   testRunner.And("i need company to have a department", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 50
@@ -264,8 +264,9 @@ this.FeatureBackground();
 #line 52
   testRunner.And("I need employee name mentioned in company property", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 53
- testRunner.Then("searching for company should result exception mentioning \"Not\", \"Employee\" and \"C" +
-                    "ompanyProperty\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("i should get a detailed exception trying to search for company", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 54
+  testRunner.And("Detailed exception should mention types \"Not,Employee,CompanyProperty\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -276,22 +277,22 @@ this.FeatureBackground();
         public virtual void WhenExplicitlyStatedNotGroupShouldAllowToFindData()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("when explicitly stated, NotGroup should allow to find data", ((string[])(null)));
-#line 55
+#line 56
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 56
- testRunner.When("i search for company", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 57
-  testRunner.And("i need company to have a department", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("i need a company", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 58
-  testRunner.And("i need company to have \"Intellectual\" property", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("i need company to have a department", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 59
+  testRunner.And("i need company to have \"Intellectual\" property", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 60
   testRunner.And("for company property i need department to NOT have all three, \"Business\" type, \"P" +
                     "artTime\" employee, project budjet 100 or more", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 61
-  testRunner.And("I need employee name mentioned in company property", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 62
+  testRunner.And("I need employee name mentioned in company property", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 63
  testRunner.Then("companies \"MeraRu\" should be found for company requirements", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

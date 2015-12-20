@@ -19,9 +19,8 @@
         public Filter2(IDependency<T1> dependency1,
             IDependency<T2> dependency2,
             Func<T1, T2, bool> filter,
-            IFilterGroup group, 
-            IDiagInfo diagInfo) 
-            : base(group, diagInfo)
+            FilterInfo info) 
+            : base(info)
         {
             this.dependency1 = dependency1;
             this.dependency2 = dependency2;
@@ -48,7 +47,7 @@
 
         public override string ToString()
         {
-            return $"filter for {Dependencies.First() .Token} and {Dependencies.Last() .Token}, Id: {Id}";
+            return $"filter for {Dependencies.First() .Token} and {Dependencies.Last() .Token}, Id: {FilterInfo.Id}";
         }
     }
 }

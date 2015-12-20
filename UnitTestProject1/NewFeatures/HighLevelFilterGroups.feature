@@ -33,27 +33,28 @@ Background:
 	| 1  | 5         | Software of Alex | Intellectual |
 
 Scenario: use OrGroup to find company with department with either employees, projects or department type
-	When i search for company
+	When i need a company
 	 And i need company to have a department
 	 And i need department to either be "Business" type or have "PartTime" employee or have project with budjet 100 or more 	 
 	Then companies "Adobe, Oracle, Kaspersky, MeraRu" should be found for company requirements
 
 Scenario: use NotGroup to find company with department that is not qualified to have all three conditions
-	When i search for company
+	When i need a company
 	 And i need company to have a department
 	 And i need department to NOT have all three, "Business" type, "PartTime" employee, project budjet 100 or more 	 
 	Then companies "Microsoft, Adobe, Oracle, Kaspersky" should be found for company requirements
 
 Scenario: have Exception, notifying that you should specify direct relation between property and NotGroup or between employee and property
-	When i search for company
+	When i need a company
 	 And i need company to have a department
 	 And i need company to have "Intellectual" property
 	 And i need department to NOT have all three, "Business" type, "PartTime" employee, project budjet 100 or more 
 	 And I need employee name mentioned in company property
-	Then searching for company should result exception mentioning "Not", "Employee" and "CompanyProperty"
+	Then i should get a detailed exception trying to search for company
+	 And Detailed exception should mention types "Not,Employee,CompanyProperty"
 
 Scenario: when explicitly stated, NotGroup should allow to find data
-	When i search for company	
+	When i need a company	
 	 And i need company to have a department	 
 	 And i need company to have "Intellectual" property
 	 And for company property i need department to NOT have all three, "Business" type, "PartTime" employee, project budjet 100 or more 	 	 

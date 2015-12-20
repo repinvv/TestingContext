@@ -7,16 +7,17 @@
     using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters.Groups;
+    using TestingContextCore.Implementation.Registrations.FilterRegistrations;
     using TestingContextCore.Implementation.Registrations.Registration1;
     using TestingContextCore.Implementation.Tokens;
 
     internal class InnerRegistration
     {
         private readonly TokenStore store;
-        private readonly IFilterGroup group;
+        private readonly FilterGroupRegistration group;
         private readonly int priority;
 
-        public InnerRegistration(TokenStore store, IFilterGroup group, int priority)
+        public InnerRegistration(TokenStore store, FilterGroupRegistration group, int priority)
         {
             this.store = store;
             this.group = group;

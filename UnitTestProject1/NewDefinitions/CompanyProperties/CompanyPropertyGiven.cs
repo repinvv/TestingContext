@@ -8,11 +8,11 @@
     using UnitTestProject1.NewEntities;
 
     [Binding]
-    public class PropertyGiven
+    public class CompanyPropertyGiven
     {
         private readonly ITestingContext context;
 
-        public PropertyGiven(ITestingContext context)
+        public CompanyPropertyGiven(ITestingContext context)
         {
             this.context = context;
         }

@@ -14,27 +14,20 @@
 
     internal static class NodeReorderingService
     {
-        public static void ReorderNodes(Tree tree, IDepend depend)
+        public static void ReorderNodes(IDepend depend, Tree tree, IDependency dependency1, IDependency dependency2)
         {
-            var dependencies = depend.Dependencies.ToArray();
-            for (int i = 0; i < dependencies.Length; i++)
+            var node1 = dependency1.GetDependencyNode(tree);
+            var node2 = dependency2.GetDependencyNode(tree);
+            if (node1 == node2)
             {
-                for (int j = i + 1; j < dependencies.Length; j++)
-                {
-                    var node1 = dependencies[i].GetDependencyNode(tree);
-                    var node2 = dependencies[j].GetDependencyNode(tree);
-                    if (node1 == node2)
-                    {
-                        continue;
-                    }
-
-                    ReorderNodes(tree, node1, node2, depend.DiagInfo);
-                    AssignNonEqualFilter(tree, node1, node2, depend.Group, depend.DiagInfo);
-                }
+                return;
             }
+
+            ReorderNodes(node1, node2, depend.DiagInfo);
+            AssignNonEqualFilter(tree, node1, node2, tree.GetParentGroup(depend), depend.DiagInfo);
         }
 
-        private static void ReorderNodes(Tree tree, INode node1, INode node2, IDiagInfo diagInfo)
+        private static void ReorderNodes(INode node1, INode node2, IDiagInfo diagInfo)
         {
             if (node1.IsChildOf(node2) || node2.IsChildOf(node1))
             {
@@ -45,18 +38,28 @@
             var chain2 = node2.GetParentalChain();
             var closestParentIndex = FindClosestParent(chain1, chain2);
             ValidateReordering(chain1, chain2, closestParentIndex, diagInfo);
-            var firstChild1 = chain1[closestParentIndex + 1];
-            var firstChild2 = chain2[closestParentIndex + 1];
-            if (firstChild2.Id > firstChild1.Id)
+            if (GetBranchWeight(chain1, closestParentIndex) >= GetBranchWeight(chain2, closestParentIndex))
             {
+                var firstChild2 = chain2[closestParentIndex + 1];
                 firstChild2.Parent = node1;
-                tree.NodesToCreateExistsFilter.Add(new Tuple<INode, IDiagInfo>(firstChild2, diagInfo));
             }
             else
             {
+                var firstChild1 = chain1[closestParentIndex + 1];
                 firstChild1.Parent = node2;
-                tree.NodesToCreateExistsFilter.Add(new Tuple<INode, IDiagInfo>(firstChild1, diagInfo));
             }
+        }
+
+        private static int GetBranchWeight(List<INode> chain1, int i)
+        {
+            i++;
+            int sum = 0;
+            for (; i < chain1.Count; i++)
+            {
+                sum += chain1[i].Weight;
+            }
+
+            return 0;
         }
 
         private static void ValidateReordering(List<INode> chain1, List<INode> chain2, int closestParentIndex, IDiagInfo diagInfo)

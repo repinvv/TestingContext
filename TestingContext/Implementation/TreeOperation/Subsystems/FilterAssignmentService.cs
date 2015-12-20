@@ -16,13 +16,13 @@
         public static INode GetAssignmentNode(Tree tree, IDepend depend)
         {
             var nodes = depend.Dependencies.Select(x => x.GetDependencyNode(tree)).ToList();
-            if (depend.Group != null)
+            var group = tree.GetParentGroup(depend);
+            if (group != null)
             {
-                nodes.Add(tree.GetNode(depend.Group.GroupToken));
+                nodes.Add(tree.GetNode(group.NodeToken));
             }
 
-            return nodes.OrderByDescending(x => x.GetParentalChain().Count)
-                         .First();
+            return nodes.OrderByDescending(x => x.GetParentalChain().Count).First();
         }
 
         public static void AssignFilter(Tree tree, IFilter filter)
@@ -45,20 +45,16 @@
 
         public static void AssignFilters(TokenStore store, Tree tree)
         {
-            tree.Filters.AddRange(store.Filters.Select(x => x.GetFilter(null)));
-            var freeFilters = new List<IFilter>();
-            ProcessFilterGroups(tree.Filters, freeFilters, store, tree);
-            var filters = new List<IFilter>();
-            tree.Filters.ForEach(x=> AddFilter(x, filters, store)); 
-            filters.AddRange(freeFilters);
-            filters.ForEach(x => ReorderNodes(tree, x));
-            filters.ForEach(x => AssignFilter(tree, x));
-            tree.NodesToCreateExistsFilter.ForEach(x => AssignExistsFilter(x.Item1, x.Item2));
+            tree.Filters.ForEach(x => x.ForDependencies((dep1, dep2) => ReorderNodes(x, tree, dep1, dep2)));
+            tree.Filters.ForEach(x => AssignFilter(tree, x));
+            tree.GroupNodes.ForEach(AssignExistsFilter);
         }
 
-        private static void AssignExistsFilter(INode node, IDiagInfo diagInfo)
+        private static void AssignExistsFilter(INode node)
         {
-            var filter = CreateExistsFilter(node.Token, null, diagInfo);
+            var info = new FilterInfo();
+            var dependency = new CollectionDependency(node.Token);
+            var filter = new ExistsFilter(dependency, info);
             AssignFilterToNode(filter, node.Parent);
         }
     }

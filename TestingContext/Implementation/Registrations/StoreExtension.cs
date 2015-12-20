@@ -18,7 +18,6 @@
     {
         public static void RegisterFilter(this TokenStore store, IFilterRegistration filter, FilterGroupRegistration group)
         {
-            filter.Id = store.NextId;
             if (group != null)
             {
                 group.FilterRegistrations.Add(filter);
@@ -28,13 +27,13 @@
             store.Filters.Add(filter);
         }
 
-        public static void RegisterCvFilter(this TokenStore store, IFilter filter, IFilterGroup group)
+        public static void RegisterCvFilter(this TokenStore store, IFilterRegistration filter, FilterGroupRegistration group, IFilterToken token)
         {
             store.RegisterFilter(filter, group);
-            store.CvFilters.Add(filter.Dependencies.First().Token, filter);
+            store.CvFilters.Add(token);
         }
 
-        public static void RegisterProvider(this TokenStore store, IProvider provider, IToken token, IFilterGroup group)
+        public static void RegisterProvider(this TokenStore store, IProvider provider, IToken token)
         {
             store.Providers.Add(token, provider);
         }
@@ -69,23 +68,13 @@
         public static IToken<T> GetToken<T>(this TokenStore store, string name) 
             => store.Tokens.Get<IToken<T>>(name);
 
-        public static IFilter CreateCvFilter(
-            Func<IEnumerable<IResolutionContext>, bool> filterFunc,
-            IToken token,
-            IFilterGroup group,
-            IDiagInfo diagInfo)
-        {
-            var cv = new CollectionDependency(token);
-            return new Filter1<IEnumerable<IResolutionContext>>(cv, filterFunc, group, diagInfo);
-        }
-
-        public static IFilter CreateExistsFilter(
-            IToken token,
-            IFilterGroup group,
-            IDiagInfo diagInfo)
-        {
-            var dependency = new CollectionDependency(token);
-            return new ExistsFilter(dependency, group, diagInfo);
-        }
+        //public static IFilter CreateExistsFilter(
+        //    IToken token,
+        //    IFilterGroup group,
+        //    IDiagInfo diagInfo)
+        //{
+        //    var dependency = new CollectionDependency(token);
+        //    return new ExistsFilter(dependency, group, diagInfo);
+        //}
     }
 }
