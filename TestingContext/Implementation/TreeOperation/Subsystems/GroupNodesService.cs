@@ -18,7 +18,6 @@
     {
         public static void CreateNodeForFilterGroup(IFilterGroup filterGroup,
             Dictionary<IToken, List<INode>> nodeDependencies,
-            TokenStore store,
             Tree tree)
         {
             if (filterGroup.NodeToken == tree.GetParentGroup(filterGroup)?.NodeToken)
@@ -28,15 +27,15 @@
                 return;
             }
 
-            var inGroupTokens = new HashSet<IToken>(GetInGroupTokens(filterGroup, store));
+            var inGroupTokens = new HashSet<IToken>(GetInGroupTokens(filterGroup, tree));
             if (!inGroupTokens.Any())
             {
                 // if there are no declarations in the group, only filters, no node is needed
                 return;
             }
 
-            var groupDependencies = GetGroupDependencies(filterGroup, inGroupTokens, store);
-            var node = CreateGroupNode(filterGroup, store, tree, groupDependencies);
+            var groupDependencies = GetGroupDependencies(filterGroup, inGroupTokens, tree);
+            var node = CreateGroupNode(filterGroup, tree, groupDependencies);
             AddNodeToDependOnOtherNodes(node, groupDependencies, nodeDependencies);
             AddInGroupNodesToDependOnNode(filterGroup, inGroupTokens, nodeDependencies, tree);
         }
@@ -62,11 +61,11 @@
             }
         }
 
-        private static Node CreateGroupNode(IFilterGroup filterGroup, TokenStore store, Tree tree, HashSet<IDependency> groupDependencies)
+        private static Node CreateGroupNode(IFilterGroup filterGroup, Tree tree, HashSet<IDependency> groupDependencies)
         {
             var parentGroup = tree.GetParentGroup(filterGroup);
-            var provider = new GroupProvider(groupDependencies, parentGroup, store, filterGroup.DiagInfo);
-            var node = Node.CreateNode(filterGroup.NodeToken, provider, store, tree);
+            var provider = new GroupProvider(groupDependencies, parentGroup, tree.Store, filterGroup.DiagInfo);
+            var node = Node.CreateNode(filterGroup.NodeToken, provider, tree);
             node.IsNegative = true;
             tree.Nodes.Add(node.Token, node);
             tree.GroupNodes.Add(node);

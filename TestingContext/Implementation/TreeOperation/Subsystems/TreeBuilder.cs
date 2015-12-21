@@ -1,5 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation.Subsystems
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using TestingContext.LimitedInterface.Tokens;
@@ -11,36 +12,17 @@
 
     internal static class TreeBuilder
     {
+        private static void AssignNode(INode node, Tree tree)
+        {
+            node.Provider.ForDependencies((dep1, dep2) => ReorderNodes(node.Provider, tree, dep1, dep2));
+            var parent = GetAssignmentNode(tree, node.Provider);
+            node.Parent = parent;
+            node.SourceParent = parent;
+        }
+
         public static void BuildNodesTree(Tree tree, Dictionary<IToken, List<INode>> nodeDependencies)
         {
-            var nodesQueue = new Queue<INode>(new[] { tree.Root });
-            var assigned = new HashSet<IToken> { tree.Root.Token };
-            while (nodesQueue.Any())
-            {
-                var current = nodesQueue.Dequeue();
-                List<INode> children;
-                if (!nodeDependencies.TryGetValue(current.Token, out children))
-                {
-                    continue;
-                }
-
-                foreach (var child in children.Where(child => child.Provider.Dependencies.All(x => assigned.Contains(x.Token))))
-                {
-                    var parentGroup = tree.GetParentGroup(child.Provider);
-                    if (parentGroup != null && !assigned.Contains(parentGroup.NodeToken))
-                    {
-                        continue;
-                    }
-
-                    IDepend depend = child.Provider;
-                    depend.ForDependencies((dep1, dep2) => ReorderNodes(depend, tree, dep1, dep2));
-                    var parent = GetAssignmentNode(tree, child.Provider);
-                    child.Parent = parent;
-                    child.SourceParent = parent;
-                    assigned.Add(child.Token);
-                    nodesQueue.Enqueue(child);
-                }
-            }
+            var assigned = nodeDependencies.ForNodes(tree, node => AssignNode(node, tree));
 
             foreach (var node in nodeDependencies.SelectMany(x => x.Value).Distinct().Where(node => !assigned.Contains(node.Token)))
             {

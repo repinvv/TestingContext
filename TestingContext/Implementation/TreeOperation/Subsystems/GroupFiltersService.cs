@@ -11,25 +11,25 @@
 
     internal static class GroupFiltersService
     { 
-        private static IEnumerable<IToken> GetCvTokens(IFilterGroup group, TokenStore store)
+        private static IEnumerable<IToken> GetCvTokens(IFilterGroup group, Tree tree)
         {
             return group.Filters
-                .Where(store.IsCvFilter)
+                .Where(tree.IsCvFilter)
                 .Select(filter => filter.Dependencies.First().Token);
         }
 
-        public static List<IToken> GetInGroupTokens(IFilterGroup filterGroup, TokenStore store)
+        public static List<IToken> GetInGroupTokens(IFilterGroup filterGroup, Tree tree)
         {
-            var tokens = GetCvTokens(filterGroup, store).ToList();
-            filterGroup.Filters.ForGroups(grp =>tokens.AddRange(GetCvTokens(grp, store)));
+            var tokens = GetCvTokens(filterGroup, tree).ToList();
+            filterGroup.Filters.ForGroups(grp =>tokens.AddRange(GetCvTokens(grp, tree)));
             return tokens;
         }
 
-        public static HashSet<IDependency> GetGroupDependencies(IFilterGroup group, HashSet<IToken> inGroupTokens, TokenStore store)
+        public static HashSet<IDependency> GetGroupDependencies(IFilterGroup group, HashSet<IToken> inGroupTokens, Tree tree)
         {
             var dependencies = new HashSet<IDependency>(group.GroupDependencies);
             foreach (var dependency in inGroupTokens
-                .SelectMany(x => store.Providers[x].Dependencies)
+                .SelectMany(x => tree.Store.Providers[x].Dependencies)
                 .Concat(group.Dependencies)
                 .Where(dependency => !inGroupTokens.Contains(dependency.Token)))
             {

@@ -7,10 +7,13 @@
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Nodes;
+    using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
 
     internal class Tree
     {
+        public TokenStore Store { get; set; }
+
         public RootNode Root { get; set; }
 
         public IResolutionContext RootContext { get; set; }
@@ -19,7 +22,7 @@
 
         public List<INode> GroupNodes { get; } = new List<INode>();
 
-        public Dictionary<IToken, List<IToken>> Parents { get; } = new Dictionary<IToken, List<IToken>>();
+        public Dictionary<IToken, HashSet<IToken>> Parents { get; } = new Dictionary<IToken, HashSet<IToken>>();
 
 
         public List<IFilter> Filters { get; set; }

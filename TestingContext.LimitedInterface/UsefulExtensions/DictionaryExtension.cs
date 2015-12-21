@@ -77,6 +77,19 @@
             return list;
         }
 
+        public static HashSet<T2> GetSet<T1, T2>(this Dictionary<T1, HashSet<T2>> dict, T1 key)
+        {
+            HashSet<T2> list;
+            if (dict.TryGetValue(key, out list))
+            {
+                return list;
+            }
+
+            list = new HashSet<T2>();
+            dict.Add(key, list);
+            return list;
+        }
+
         /// <summary>
         /// Regular ToList method forces creation of new list object,
         /// AsList will first try to cast it to list, and only then will make new list

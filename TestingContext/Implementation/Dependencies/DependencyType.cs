@@ -3,6 +3,7 @@
     internal enum DependencyType
     {
         Single,
-        Collection
+        Collection,
+        CollectionValidity
     }
 }

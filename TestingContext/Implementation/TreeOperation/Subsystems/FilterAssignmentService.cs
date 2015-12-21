@@ -43,7 +43,7 @@
             node.Tree.FilterIndex[filter] = newIndex;
         }
 
-        public static void AssignFilters(TokenStore store, Tree tree)
+        public static void AssignFilters(Tree tree)
         {
             tree.Filters.ForEach(x => x.ForDependencies((dep1, dep2) => ReorderNodes(x, tree, dep1, dep2)));
             tree.Filters.ForEach(x => AssignFilter(tree, x));

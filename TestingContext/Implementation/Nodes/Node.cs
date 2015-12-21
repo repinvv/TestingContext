@@ -57,9 +57,9 @@
 
         public override string ToString() => $"{Token} Id: {Weight}";
 
-        public static Node CreateNode(IToken token, IProvider provider, TokenStore store, Tree tree)
+        public static Node CreateNode(IToken token, IProvider provider, Tree tree)
         {
-            return new Node(tree, token, provider, new NodeFilterInfo(store.ItemInversions.SafeGet(token)));
+            return new Node(tree, token, provider, new NodeFilterInfo(tree.Store.ItemInversions.SafeGet(token)));
         }
     }
 }

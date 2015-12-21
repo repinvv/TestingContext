@@ -48,8 +48,7 @@
 
         public IHaveToken<T> Each(IDiagInfo diagInfo)
         {
-            return CreateDefinition(x => x.GroupBy(item => item)
-                                          .All(grp => grp.Any(item => item.MeetsConditions)), diagInfo);
+            return CreateDefinition(x => x.All(y => y.MeetsConditions), diagInfo);
         }
 
         internal IHaveToken<T> CreateDefinition(Func<IEnumerable<IResolutionContext>, bool> filterFunc,

@@ -13,6 +13,7 @@
     using static TestingContextCore.Implementation.TreeOperation.Subsystems.FilterProcessingService;
     using static TestingContextCore.Implementation.TreeOperation.Subsystems.NodesCreationService;
     using System;
+    using TestingContext.LimitedInterface.Tokens;
 
     internal static class TreeOperationService
     {
@@ -20,32 +21,18 @@
         {
             ProviderLoopDetectionService.DetectRegistrationsLoop(store);
 
-            var tree = new Tree();
+            var tree = new Tree { Store = store };
             tree.Root = new RootNode(tree, store.RootToken);
             tree.Nodes.Add(store.RootToken, tree.Root);
 
-            SetupTreeFilters(store, tree);
-            var nodeDependencies = GetNodesWithDependencies(store, tree);
-            
-            //CalculateNodeWeights(tree);
+            SetupTreeFilters(tree);
+            var nodeDependencies = GetNodesWithDependencies(tree);
+            ProcessTreeFilters(tree);
+            NodeWeigthsService.CalculateNodeWeights(tree, nodeDependencies);
             BuildNodesTree(tree, nodeDependencies);
-            ProcessTreeFilters(store, tree);
-            AssignFilters(store, tree);
+            AssignFilters(tree);
             tree.RootContext = new ResolutionContext<Root>(Root.Instance, tree.Root, null, store);
             return tree;
-        }
-
-        private static void CalculateNodeWeights(Tree tree)
-        {
-            var depends = new List<IDepend>();
-            depends.AddRange(tree.Nodes.Select(x => x.Value.Provider));
-            depends.AddRange(tree.Filters);
-            depends.ForEach(x => x.ForDependencies((dep1, dep2) => SetNodeWeights(tree, dep1, dep2)));
-        }
-
-        private static void SetNodeWeights(Tree tree, IDependency dep1, IDependency dep2)
-        {
-            
         }
     }
 }

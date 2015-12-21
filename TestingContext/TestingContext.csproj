@@ -95,6 +95,7 @@
     <Compile Include="Implementation\TreeOperation\Subsystems\FilterAssignmentService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NodeClosestParentService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NodeReorderingService.cs" />
+    <Compile Include="Implementation\TreeOperation\Subsystems\NodeWeigthsService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NonEqualFilteringService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\TreeBuilder.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\TreeBuildingExtensions.cs" />
