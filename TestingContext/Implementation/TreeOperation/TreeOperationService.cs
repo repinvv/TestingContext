@@ -31,6 +31,7 @@
             NodeWeigthsService.CalculateNodeWeights(tree, nodeDependencies);
             BuildNodesTree(tree, nodeDependencies);
             AssignFilters(tree);
+            FiltersLoopDetectionService.DetectFilterDependenciesLoop(tree);
             tree.RootContext = new ResolutionContext<Root>(Root.Instance, tree.Root, null, store);
             return tree;
         }

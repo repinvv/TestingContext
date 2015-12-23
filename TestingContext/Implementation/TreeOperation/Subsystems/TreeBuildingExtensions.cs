@@ -9,7 +9,6 @@
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Nodes;
-    using TestingContextCore.PublicMembers;
 
     internal static class TreeBuildingExtensions
     {

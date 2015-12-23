@@ -75,6 +75,8 @@
     <Compile Include="Implementation\Registrations\HighLevel\HighLevelRegistrations.cs" />
     <Compile Include="Implementation\Registrations\HighLevel\InnerHighLevelRegistration.cs" />
     <Compile Include="Implementation\Tokens\GroupToken.cs" />
+    <Compile Include="Implementation\TreeOperation\LoopDetection\FiltersLoopDetectionService.cs" />
+    <Compile Include="Implementation\TreeOperation\LoopDetection\FilterVertex.cs" />
     <Compile Include="Implementation\TreeOperation\LoopDetection\ProviderVertex.cs" />
     <Compile Include="Implementation\Registrations\Registration0\InnerRegistration.cs" />
     <Compile Include="Implementation\Registrations\Registration1\InnerRegistration1.cs" />
