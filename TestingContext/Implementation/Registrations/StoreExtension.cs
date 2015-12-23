@@ -1,16 +1,9 @@
 ﻿namespace TestingContextCore.Implementation.Registrations
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using TestingContext.LimitedInterface.Diag;
     using TestingContext.LimitedInterface.Tokens;
-    using TestingContextCore.Implementation.Dependencies;
-    using TestingContextCore.Implementation.Filters;
-    using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Registrations.FilterRegistrations;
-    using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.PublicMembers.Exceptions;
 
@@ -67,14 +60,5 @@
 
         public static IToken<T> GetToken<T>(this TokenStore store, string name) 
             => store.Tokens.Get<IToken<T>>(name);
-
-        //public static IFilter CreateExistsFilter(
-        //    IToken token,
-        //    IFilterGroup group,
-        //    IDiagInfo diagInfo)
-        //{
-        //    var dependency = new CollectionDependency(token);
-        //    return new ExistsFilter(dependency, group, diagInfo);
-        //}
     }
 }

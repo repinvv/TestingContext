@@ -13,6 +13,8 @@
     {
         private int currentId = 1;
 
+        public int NextId => currentId++;
+
         public IStorage Tokens { get; } = new Storage();
 
         public IToken<Root> RootToken { get; } = new Token<Root>();
@@ -28,7 +30,5 @@
         public Dictionary<IToken, IDiagInfo> CollectionInversions { get; } = new Dictionary<IToken, IDiagInfo>();
 
         public Dictionary<IFilterToken, IDiagInfo> FilterInversions { get; } = new Dictionary<IFilterToken, IDiagInfo>();
-
-        public int NextId => currentId++;
     }
 }

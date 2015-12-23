@@ -1,7 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
     using TestingContext.Interface;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
 

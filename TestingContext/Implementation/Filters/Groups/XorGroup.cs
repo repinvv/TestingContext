@@ -1,6 +1,5 @@
 ﻿namespace TestingContextCore.Implementation.Filters.Groups
 {
-    using TestingContext.LimitedInterface.Diag;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.Tokens;

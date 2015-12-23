@@ -2,8 +2,6 @@
 {
     using TestingContext.LimitedInterface.Diag;
     using TestingContext.LimitedInterface.Tokens;
-    using TestingContextCore.Implementation.Filters.Groups;
-    using TestingContextCore.Implementation.Tokens;
 
     internal abstract class BaseFilter
     {

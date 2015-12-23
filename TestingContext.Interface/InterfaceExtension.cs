@@ -45,7 +45,7 @@
             [CallerMemberName] string member = "")
         {
             IRegister output = null;
-            register.Not(x => output = x);
+            register.Not(x => output = x, file, line, member);
             return output;
         }
 

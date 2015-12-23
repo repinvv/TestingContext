@@ -1,7 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Providers
 {
     using System.Collections.Generic;
-    using System.Text.RegularExpressions;
     using TestingContext.LimitedInterface.Diag;
     using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
@@ -9,31 +8,33 @@
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
+    using TestingContextCore.Implementation.TreeOperation;
+    using TestingContextCore.Implementation.TreeOperation.Subsystems;
 
     internal class GroupProvider : IProvider 
     {
         private readonly IFilterGroup group;
-        private readonly TokenStore store;
+        private readonly Tree tree;
 
-        public GroupProvider(IEnumerable<IDependency> dependencies, IFilterGroup group, TokenStore store, IDiagInfo diagInfo)
+        public GroupProvider(IEnumerable<IDependency> dependencies, IFilterGroup group, Tree tree, IDiagInfo diagInfo)
         {
             Dependencies = dependencies;
             DiagInfo = diagInfo;
             this.group = group;
-            this.store = store;
+            this.tree = tree;
         }
 
         public IDiagInfo DiagInfo { get; }
 
         public IEnumerable<IDependency> Dependencies { get; }
 
-        public IFilterToken GroupToken => group?.FilterInfo.Token;
+        public IFilterToken GroupToken => tree.GetParentGroup(group)?.FilterInfo.Token;
 
         public bool IsNegative { get; set; } = true;
 
         public IEnumerable<IResolutionContext> Resolve(IResolutionContext parentContext, INode node)
         {
-            return new[] { new ResolutionContext<IFilterGroup>(group, node, parentContext, store) };
+            return new[] { new ResolutionContext<IFilterGroup>(group, node, parentContext, tree.Store) };
         }
     }
 }

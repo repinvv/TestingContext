@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using TestingContext.LimitedInterface.Diag;
     using TestingContext.LimitedInterface.Tokens;
+    using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Nodes;
@@ -12,6 +12,10 @@
 
     internal class Tree
     {
+        private int currentId = 1;
+
+        public int NextId => currentId++;
+
         public TokenStore Store { get; set; }
 
         public RootNode Root { get; set; }
@@ -19,8 +23,6 @@
         public IResolutionContext RootContext { get; set; }
 
         public Dictionary<IToken, INode> Nodes { get; } = new Dictionary<IToken, INode>();
-
-        public List<INode> GroupNodes { get; } = new List<INode>();
 
         public Dictionary<IToken, HashSet<IToken>> Parents { get; } = new Dictionary<IToken, HashSet<IToken>>();
 
@@ -36,5 +38,8 @@
         // filters will be assigned in order of defined priority, 
         // and, in case of equal priority, in order of declaration
         public Dictionary<IFilter, int>  FilterIndex { get; } = new Dictionary<IFilter, int>();
+
+        // used to avoid same dependency increase weight several times
+        public HashSet<IDependency> WeightedDependencies { get; } = new HashSet<IDependency>();
     }
 }

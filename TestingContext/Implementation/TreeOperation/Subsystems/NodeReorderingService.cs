@@ -16,8 +16,8 @@
     {
         public static void ReorderNodes(IDepend depend, Tree tree, IDependency dependency1, IDependency dependency2)
         {
-            var node1 = dependency1.GetDependencyNode(tree);
-            var node2 = dependency2.GetDependencyNode(tree);
+            var node1 = tree.GetDependencyNode(dependency1);
+            var node2 = tree.GetDependencyNode(dependency2);
             if (node1 == node2)
             {
                 return;
@@ -59,7 +59,7 @@
                 sum += chain1[i].Weight;
             }
 
-            return 0;
+            return sum;
         }
 
         private static void ValidateReordering(List<INode> chain1, List<INode> chain2, int closestParentIndex, IDiagInfo diagInfo)

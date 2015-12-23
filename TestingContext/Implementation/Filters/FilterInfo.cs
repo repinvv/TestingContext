@@ -2,7 +2,6 @@
 {
     using TestingContext.LimitedInterface.Diag;
     using TestingContext.LimitedInterface.Tokens;
-    using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.PublicMembers;
 
     internal class FilterInfo
@@ -13,11 +12,11 @@
         public int Priority { get; }
         public int Id { get; }
 
-        public FilterInfo(IDiagInfo diagInfo = null, 
+        public FilterInfo(int id, 
+            IDiagInfo diagInfo = null, 
             IFilterToken token = null,
             IFilterToken groupToken = null, 
-            int priority = TestingContextFactory.DefaultPriority,
-            int id = -1)
+            int priority = TestingContextFactory.DefaultPriority)
         {
             Token = token;
             GroupToken = groupToken;

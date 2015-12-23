@@ -5,13 +5,15 @@
     using TestingContext.LimitedInterface.Tokens;
     using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Providers;
-    using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.TreeOperation;
 
     internal class Node : INode
     {
+        private int id;
+
         public Node(Tree tree, IToken token, IProvider provider, NodeFilterInfo filterInfo)
         {
+            id = tree.NextId;
             Token = token;
             Provider = provider;
             FilterInfo = filterInfo;
@@ -55,11 +57,11 @@
 
         public IProvider Provider { get; }
 
-        public override string ToString() => $"{Token} Id: {Weight}";
+        public override string ToString() => $"{Token} Id: {id}";
 
         public static Node CreateNode(IToken token, IProvider provider, Tree tree)
         {
-            return new Node(tree, token, provider, new NodeFilterInfo(tree.Store.ItemInversions.SafeGet(token)));
+            return new Node(tree, token, provider, new NodeFilterInfo(tree, token));
         }
     }
 }

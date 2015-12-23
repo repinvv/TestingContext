@@ -6,7 +6,6 @@
     using TestingContext.LimitedInterface.Diag;
     using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
-    using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Registrations.FilterRegistrations;
     using TestingContextCore.Implementation.Registrations.Registration1;
     using TestingContextCore.Implementation.Tokens;

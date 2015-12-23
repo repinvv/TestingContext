@@ -1,13 +1,10 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation.Subsystems
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
-    using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
-    using TestingContextCore.Implementation.Registrations;
 
     internal static class GroupFiltersService
     { 
@@ -21,7 +18,7 @@
         public static List<IToken> GetInGroupTokens(IFilterGroup filterGroup, Tree tree)
         {
             var tokens = GetCvTokens(filterGroup, tree).ToList();
-            filterGroup.Filters.ForGroups(grp =>tokens.AddRange(GetCvTokens(grp, tree)));
+            filterGroup.Filters.ForAllGroups(grp => tokens.AddRange(GetCvTokens(grp, tree)));
             return tokens;
         }
 

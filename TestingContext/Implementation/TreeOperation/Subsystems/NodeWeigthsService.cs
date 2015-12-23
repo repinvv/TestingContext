@@ -1,14 +1,10 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation.Subsystems
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Security.Permissions;
     using TestingContext.LimitedInterface.Tokens;
-    using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Nodes;
-    using TestingContextCore.Implementation.Registrations;
 
     internal static class NodeWeigthsService
     {
@@ -23,20 +19,26 @@
             node.Provider.ForDependencies((dep1, dep2) => SetNodeWeights(tree, dep1, dep2));
         }
 
-        private static void SetNodeWeights(Tree tree, IDependency dep1, IDependency dep2)
+        private static void SetNodeWeights(Tree tree, IDependency dependency, IDependency dep2)
         {
-            if (tree.IsParent(dep1.Token, dep2.Token) || tree.IsParent(dep2.Token, dep1.Token))
+            if (tree.IsParent(dependency.Token, dep2.Token) || tree.IsParent(dep2.Token, dependency.Token))
             {
                 return;
             }
 
-            SetNodeWeights(tree, dep1);
+            SetNodeWeights(tree, dependency);
             SetNodeWeights(tree, dep2);
         }
 
-        private static void SetNodeWeights(Tree tree, IDependency dep1)
+        private static void SetNodeWeights(Tree tree, IDependency dependency)
         {
-            GetDependencyNodes(tree, dep1)
+            if (tree.WeightedDependencies.Contains(dependency))
+            {
+                return;
+            }
+
+            tree.WeightedDependencies.Add(dependency);
+            GetDependencyNodes(tree, dependency)
                 .OrderByDescending(x => x.Weight)
                 .First()
                 .Weight++;
@@ -46,7 +48,7 @@
         {
             return dep1.Type == DependencyType.Single 
                 ? new[] { tree.Nodes[dep1.Token] } 
-                : tree.Store.Providers[dep1.Token].Dependencies.SelectMany(x => GetDependencyNodes(tree, x));
+                : tree.Nodes[dep1.Token].Provider.Dependencies.SelectMany(x => GetDependencyNodes(tree, x));
         }
     }
 }

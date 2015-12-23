@@ -31,7 +31,7 @@
 
         public List<INode> Children => null;
 
-        public NodeFilterInfo FilterInfo { get; } = new NodeFilterInfo(null);
+        public NodeFilterInfo FilterInfo { get; } = new NodeFilterInfo(null, null);
 
         public IProvider Provider => null;
 

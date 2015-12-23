@@ -7,12 +7,10 @@
     using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
-    using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Registrations.FilterRegistrations;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.Tokens;
-    using static StoreExtension;
 
     internal class Declarator<T>
     {
@@ -33,7 +31,7 @@
 
         public IHaveToken<T> Exists(IDiagInfo diagInfo)
         {
-            var info = new FilterInfo(diagInfo, new FilterToken(), group?.GroupToken, priority, store.NextId);
+            var info = new FilterInfo(id: store.NextId, diagInfo: diagInfo, token: new FilterToken(), groupToken: @group?.GroupToken, priority: priority);
             var dependency = new CollectionDependency(token);
             var filterReg = new FilterRegistration(() => new ExistsFilter(dependency, info));
             store.RegisterCvFilter(filterReg, group, info.Token);
@@ -55,7 +53,7 @@
             IDiagInfo diagInfo)
         {
             var dependency = new CollectionDependency(token);
-            var info = new FilterInfo(diagInfo, new FilterToken(), group?.GroupToken, priority, store.NextId);
+            var info = new FilterInfo(id: store.NextId, diagInfo: diagInfo, token: new FilterToken(), groupToken: @group?.GroupToken, priority: priority);
             var filterReg = new FilterRegistration(() => new Filter1<IEnumerable<IResolutionContext>>(dependency, filterFunc, info));
             store.RegisterCvFilter(filterReg, group, info.Token);
             provider.IsNegative = true;

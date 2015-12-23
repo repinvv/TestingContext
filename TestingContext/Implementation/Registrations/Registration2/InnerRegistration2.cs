@@ -6,7 +6,6 @@
     using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
-    using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Registrations.FilterRegistrations;
     using TestingContextCore.Implementation.Tokens;
@@ -34,7 +33,7 @@
 
         public IFilterToken IsTrue(IDiagInfo diagInfo, Func<T1, T2, bool> filterFunc)
         {
-            var info = new FilterInfo(diagInfo, new FilterToken(), group?.GroupToken, priority, store.NextId);
+            var info = new FilterInfo(id: store.NextId, diagInfo: diagInfo, token: new FilterToken(), groupToken: @group?.GroupToken, priority: priority);
             var filterReg = new FilterRegistration(() => new Filter2<T1, T2>(dependency1, dependency2, filterFunc, info));
             store.RegisterFilter(filterReg, group);
             return info.Token;
