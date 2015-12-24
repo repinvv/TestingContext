@@ -90,7 +90,6 @@
     <Compile Include="Implementation\TreeOperation\LoopDetection\Vertex.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\AbsorbedFiltersService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\FilterProcessingService.cs" />
-    <Compile Include="Implementation\TreeOperation\Subsystems\GroupFiltersNodeReplacementService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\GroupFiltersService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\GroupNodesService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NodeDependencyService.cs" />

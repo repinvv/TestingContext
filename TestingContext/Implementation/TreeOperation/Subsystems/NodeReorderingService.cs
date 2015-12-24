@@ -82,7 +82,7 @@
                              GetNodeTuple(fixNode1),
                              GetNodeTuple(chain1.Last()),
                              GetNodeTuple(fixNode2),
-                             GetNodeTuple(chain2.Last()),
+                             GetNodeTuple(chain2.Last())
                          };
 
             throw new DetailedRegistrationException(exceptionMessage, tuples, diagInfo);

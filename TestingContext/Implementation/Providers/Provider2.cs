@@ -26,10 +26,10 @@
             IDependency<TSource2> dependency2,
             Func<TSource1, TSource2, IEnumerable<T>> sourceFunc,
             TokenStore store,
-            IFilterToken groupToken,
+            IFilterToken parentGroupToken,
             IDiagInfo diagInfo)
         {
-            GroupToken = groupToken;
+            ParentGroupToken = parentGroupToken;
             DiagInfo = diagInfo;
             this.dependency1 = dependency1;
             this.dependency2 = dependency2;
@@ -38,7 +38,7 @@
             Dependencies = new IDependency[] { dependency1, dependency2 };
         }
 
-        public IFilterToken GroupToken { get; set; }
+        public IFilterToken ParentGroupToken { get; set; }
 
         public IDiagInfo DiagInfo { get; }
 

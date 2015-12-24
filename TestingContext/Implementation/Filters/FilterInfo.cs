@@ -2,24 +2,24 @@
 {
     using TestingContext.LimitedInterface.Diag;
     using TestingContext.LimitedInterface.Tokens;
+    using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.PublicMembers;
 
     internal class FilterInfo
     {
-        public IFilterToken GroupToken { get; set; }
-        public IFilterToken Token { get; }
+        public IFilterToken ParentGroupToken { get; set; }
+        public IFilterToken FilterToken { get; }
         public IDiagInfo DiagInfo { get; }
         public int Priority { get; }
         public int Id { get; }
 
         public FilterInfo(int id, 
-            IDiagInfo diagInfo = null, 
-            IFilterToken token = null,
-            IFilterToken groupToken = null, 
+            IDiagInfo diagInfo = null,
+            IFilterToken parentGroupToken = null, 
             int priority = TestingContextFactory.DefaultPriority)
         {
-            Token = token;
-            GroupToken = groupToken;
+            FilterToken = new FilterToken();
+            ParentGroupToken = parentGroupToken;
             Priority = priority;
             DiagInfo = diagInfo;
             Id = id;

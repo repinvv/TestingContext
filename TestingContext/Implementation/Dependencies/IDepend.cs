@@ -8,7 +8,7 @@
     {
         IEnumerable<IDependency> Dependencies { get; }
 
-        IFilterToken GroupToken { get; }
+        IFilterToken ParentGroupToken { get; }
 
         IDiagInfo DiagInfo { get; }
     }

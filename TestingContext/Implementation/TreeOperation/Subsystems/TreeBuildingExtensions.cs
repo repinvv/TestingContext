@@ -9,28 +9,9 @@
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Nodes;
-    using TestingContextCore.PublicMembers;
 
     internal static class TreeBuildingExtensions
     {
-        public static bool GroupIsSameAsParent(this Tree tree, IFilterGroup group)
-        {
-            return group.IsSameGroup(tree.GetParentGroup(group));
-        }
-
-        public static bool IsSameGroup(this IFilterGroup group, IFilterGroup parent)
-        {
-            return group.NodeToken == parent?.NodeToken;
-        }
-
-        public static IEnumerable<ExistsFilter> CreateExistsFiltersForGroups(this Tree tree, IEnumerable<IFilter> filters)
-        {
-            return filters.OfType<IFilterGroup>()
-                          .Select(tree.GetNode)
-                          .Where(x => x != null)
-                          .Select(x => x.CreateExistsFilter());
-        }
-
         public static ExistsFilter CreateExistsFilter(this INode node)
         {
             var info = new FilterInfo(node.Tree.Store.NextId);
@@ -50,12 +31,12 @@
 
         public static INode GetNode(this Tree tree, IFilterGroup group)
         {
-            return tree.GetNode(group.NodeToken);
+            return tree.GetNode(group?.NodeToken);
         }
 
         public static bool IsCvFilter(this Tree tree, IFilter filter)
         {
-            return tree.Store.CvFilters.Contains(filter.FilterInfo.Token);
+            return tree.Store.CvFilters.Contains(filter.FilterInfo.FilterToken);
         }
 
         // can be used after the tree is built
@@ -131,9 +112,9 @@
 
         public static IFilterGroup GetParentGroup(this Tree tree, IDepend depend)
         {
-            return depend.GroupToken == null
+            return depend.ParentGroupToken == null
                 ? null :
-                tree.FilterGroups[depend.GroupToken];
+                tree.FilterGroups[depend.ParentGroupToken];
         }
 
         public static bool IsParent(this Tree tree, IToken child, IToken parent)

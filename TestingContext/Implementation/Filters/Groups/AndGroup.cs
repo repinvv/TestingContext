@@ -1,14 +1,14 @@
 ﻿namespace TestingContextCore.Implementation.Filters.Groups
 {
     using System.Linq;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
+    using TestingContextCore.Implementation.Tokens;
 
     internal class AndGroup : BaseFilterGroup, IFilterGroup
     {
-        public AndGroup(IToken groupToken = null, IDependency[] dependencies = null, FilterInfo info = null) 
-            : base(groupToken, dependencies ?? new IDependency[0], info) { }
+        public AndGroup(IDependency[] dependencies = null, FilterInfo info = null) 
+            : base(new GroupToken(typeof(AndGroup)), dependencies ?? new IDependency[0], info) { }
 
         public IFilter GetFailingFilter(IResolutionContext context)
         {

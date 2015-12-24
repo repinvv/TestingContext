@@ -33,16 +33,16 @@
 
         public IFilterToken IsTrue(IDiagInfo diagInfo, Func<T1, T2, bool> filterFunc)
         {
-            var info = new FilterInfo(id: store.NextId, diagInfo: diagInfo, token: new FilterToken(), groupToken: group?.GroupToken, priority: priority);
+            var info = new FilterInfo(store.NextId, diagInfo, group?.FilterToken, priority);
             var filterReg = new FilterRegistration(() => new Filter2<T1, T2>(dependency1, dependency2, filterFunc, info));
             store.RegisterFilter(filterReg, group);
-            return info.Token;
+            return info.FilterToken;
         }
 
         public Declarator<T3> Declare<T3>(IDiagInfo diagInfo, Func<T1, T2, IEnumerable<T3>> srcFunc)
         {
             var token = new Token<T3>();
-            var provider = new Provider2<T1, T2, T3>(dependency1, dependency2, srcFunc, store, group?.GroupToken, diagInfo);
+            var provider = new Provider2<T1, T2, T3>(dependency1, dependency2, srcFunc, store, group?.FilterToken, diagInfo);
             return new Declarator<T3>(store, token, provider, group, priority);
         }
     }

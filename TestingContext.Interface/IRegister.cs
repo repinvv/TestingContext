@@ -28,6 +28,10 @@
 
         void Exists<T>(IDiagInfo diagInfo, string name, Func<IEnumerable<T>> srcFunc);
 
+        IFilterToken Group(Action<IRegister> action,
+            [CallerFilePath] string file = "",
+            [CallerLineNumber] int line = 0,
+            [CallerMemberName] string member = "");
 
         IFilterToken Not(Action<IRegister> action,
             [CallerFilePath] string file = "",

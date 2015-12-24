@@ -21,6 +21,11 @@
 
         IHaveToken<T2> Each<T2>(IDiagInfo diagInfo, Func<T1, IEnumerable<T2>> srcFunc);
 
+        IFilterToken Group(Action<ITokenRegister> action,
+            [CallerFilePath] string file = "",
+            [CallerLineNumber] int line = 0,
+            [CallerMemberName] string member = "");
+
         IFilterToken Not(Action<ITokenRegister> action,
             [CallerFilePath] string file = "",
             [CallerLineNumber] int line = 0,

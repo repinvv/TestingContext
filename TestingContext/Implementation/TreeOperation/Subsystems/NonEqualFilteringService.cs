@@ -30,7 +30,7 @@
             var dep1 = new SingleDependency(node1.Token);
             var dep2 = new SingleDependency(node2.Token);
             
-            var info = new FilterInfo(tree.Store.NextId, diagInfo, null, group?.GroupToken);
+            var info = new FilterInfo(tree.Store.NextId, diagInfo, group?.FilterInfo.FilterToken);
             var filter = new Filter2<IResolutionContext, IResolutionContext>(dep1, dep2, (x, y) => !x.Equals(y), info);
             AssignFilter(tree, filter);
         }

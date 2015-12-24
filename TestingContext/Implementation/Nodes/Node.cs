@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContext.LimitedInterface.Tokens;
-    using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.TreeOperation;
 

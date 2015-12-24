@@ -11,8 +11,8 @@
     using TestingContextCore.Implementation.TreeOperation.Subsystems;
     using static Subsystems.TreeBuilder;
     using static Subsystems.FilterAssignmentService;
-    using static TestingContextCore.Implementation.TreeOperation.Subsystems.FilterProcessingService;
-    using static TestingContextCore.Implementation.TreeOperation.Subsystems.NodesCreationService;
+    using static Subsystems.FilterProcessingService;
+    using static Subsystems.NodesCreationService;
 
     internal static class TreeOperationService
     {
@@ -23,14 +23,17 @@
             var tree = new Tree { Store = store };
             tree.Root = new RootNode(tree, store.RootToken);
             tree.Nodes.Add(store.RootToken, tree.Root);
-
             SetupTreeFilters(tree);
             CreateNodes(tree).ForEach(node => tree.Nodes.Add(node.Token, node));
-            ProcessTreeFilters(tree);
+            PreprocessFilters(tree);
             var nodeDependencies = GroupNodes(tree);
             NodeWeigthsService.CalculateNodeWeights(tree, nodeDependencies);
             BuildNodesTree(tree, nodeDependencies);
+            ReorderNodesForFilters(tree);
+            GetFinalFilters(tree);
             AssignFilters(tree);
+            int i = 0;
+            tree.FilterIndex = tree.Filters.ToDictionary(x => x, x => i++);
             tree.RootContext = new ResolutionContext<Root>(Root.Instance, tree.Root, null, store);
             return tree;
         }

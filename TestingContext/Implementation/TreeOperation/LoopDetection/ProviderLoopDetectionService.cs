@@ -33,8 +33,6 @@ namespace TestingContextCore.Implementation.TreeOperation.LoopDetection
         }
 
         public static void DetectRegistrationLoop(TokenStore store, IFilter filter)
-        {
-            return;
-        }
+        { }
     }
 }

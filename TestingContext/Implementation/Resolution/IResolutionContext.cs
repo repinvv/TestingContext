@@ -4,6 +4,7 @@
     using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
+
     internal interface IResolutionContext
     {
         bool MeetsConditions { get; }

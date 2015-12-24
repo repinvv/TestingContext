@@ -6,7 +6,6 @@
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Nodes;
-    using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.TreeOperation;
     using TestingContextCore.Implementation.TreeOperation.Subsystems;
@@ -28,7 +27,7 @@
 
         public IEnumerable<IDependency> Dependencies { get; }
 
-        public IFilterToken GroupToken => tree.GetParentGroup(group)?.FilterInfo.Token;
+        public IFilterToken ParentGroupToken => tree.GetParentGroup(group)?.FilterInfo.FilterToken;
 
         public bool IsNegative { get; set; } = true;
 

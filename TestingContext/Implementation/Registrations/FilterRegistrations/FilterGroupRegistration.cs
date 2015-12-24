@@ -11,13 +11,13 @@
     {
         private readonly Func<IFilterGroup, IFilterGroup> groupConstructor;
 
-        public FilterGroupRegistration(IFilterToken groupToken, Func<IFilterGroup, IFilterGroup> groupConstructor)
+        public FilterGroupRegistration(IFilterToken filterToken, Func<IFilterGroup, IFilterGroup> groupConstructor)
         {
-            GroupToken = groupToken;
+            FilterToken = filterToken;
             this.groupConstructor = groupConstructor;
         }
 
-        public IFilterToken GroupToken { get; }
+        public IFilterToken FilterToken { get; }
 
         public List<IFilterRegistration> FilterRegistrations { get; } = new List<IFilterRegistration>();
         

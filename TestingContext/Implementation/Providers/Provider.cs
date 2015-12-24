@@ -23,10 +23,10 @@
         public Provider(IDependency<TSource> dependency,
             Func<TSource, IEnumerable<T>> sourceFunc,
             TokenStore store,
-            IFilterToken groupToken,
+            IFilterToken parentGroupToken,
             IDiagInfo diagInfo)
         {
-            GroupToken = groupToken;
+            ParentGroupToken = parentGroupToken;
             DiagInfo = diagInfo;
             this.dependency = dependency;
             this.sourceFunc = sourceFunc;
@@ -34,7 +34,7 @@
             Dependencies = new IDependency[] { dependency };
         }
 
-        public IFilterToken GroupToken { get; set; }
+        public IFilterToken ParentGroupToken { get; set; }
 
         public IDiagInfo DiagInfo { get; }
 
