@@ -33,7 +33,7 @@
 
         public IFilterToken IsTrue(IDiagInfo diagInfo, Func<T1, T2, bool> filterFunc)
         {
-            var info = new FilterInfo(id: store.NextId, diagInfo: diagInfo, token: new FilterToken(), groupToken: @group?.GroupToken, priority: priority);
+            var info = new FilterInfo(id: store.NextId, diagInfo: diagInfo, token: new FilterToken(), groupToken: group?.GroupToken, priority: priority);
             var filterReg = new FilterRegistration(() => new Filter2<T1, T2>(dependency1, dependency2, filterFunc, info));
             store.RegisterFilter(filterReg, group);
             return info.Token;

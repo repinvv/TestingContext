@@ -28,7 +28,7 @@
 
         public IFilterToken IsTrue(IDiagInfo diagInfo, Func<T1, bool> filterFunc)
         {
-            var info = new FilterInfo(id: store.NextId, diagInfo: diagInfo, token: new FilterToken(), groupToken: @group?.GroupToken, priority: priority);
+            var info = new FilterInfo(id: store.NextId, diagInfo: diagInfo, token: new FilterToken(), groupToken: group?.GroupToken, priority: priority);
             var filterRegistration = new FilterRegistration(() => new Filter1<T1>(dependency, filterFunc, info));
             store.RegisterFilter(filterRegistration, group);
             return info.Token;

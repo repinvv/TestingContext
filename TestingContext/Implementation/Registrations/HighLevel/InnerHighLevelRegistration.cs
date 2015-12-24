@@ -27,7 +27,7 @@
 
         public IFilterToken Not(IDiagInfo diagInfo, Action<IRegister> action)
         {
-            var info = new FilterInfo(id: store.NextId, diagInfo: diagInfo, token: new FilterToken(), groupToken: @group?.GroupToken, priority: priority);
+            var info = new FilterInfo(id: store.NextId, diagInfo: diagInfo, token: new FilterToken(), groupToken: group?.GroupToken, priority: priority);
             var notGroup = new FilterGroupRegistration(info.Token, grp => new NotGroup(dependencies, info));
             store.RegisterFilter(notGroup, group);
             action(RegistrationFactory.GetRegistration(store, notGroup, priority));
@@ -36,7 +36,7 @@
 
         public IFilterToken Either(IDiagInfo diagInfo, Action<IRegister>[] actions)
         {
-            var info = new FilterInfo(id: store.NextId, diagInfo: diagInfo, token: new FilterToken(), groupToken: @group?.GroupToken, priority: priority);
+            var info = new FilterInfo(id: store.NextId, diagInfo: diagInfo, token: new FilterToken(), groupToken: group?.GroupToken, priority: priority);
             var orGroup = new FilterGroupRegistration(info.Token, grp => new OrGroup(dependencies, info));
             store.RegisterFilter(orGroup, group);
             foreach (var action in actions)
@@ -49,7 +49,7 @@
 
         public IFilterToken Xor(IDiagInfo diagInfo, Action<IRegister> action, Action<IRegister> action2)
         {
-            var info = new FilterInfo(id: store.NextId, diagInfo: diagInfo, token: new FilterToken(), groupToken: @group?.GroupToken, priority: priority);
+            var info = new FilterInfo(id: store.NextId, diagInfo: diagInfo, token: new FilterToken(), groupToken: group?.GroupToken, priority: priority);
             var xorGroup = new FilterGroupRegistration(info.Token, grp => new XorGroup(dependencies, info));
             store.RegisterFilter(xorGroup, group);
             RegisterSubgroup(action, xorGroup, info);

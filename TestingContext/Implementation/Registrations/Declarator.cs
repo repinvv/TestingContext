@@ -31,7 +31,7 @@
 
         public IHaveToken<T> Exists(IDiagInfo diagInfo)
         {
-            var info = new FilterInfo(id: store.NextId, diagInfo: diagInfo, token: new FilterToken(), groupToken: @group?.GroupToken, priority: priority);
+            var info = new FilterInfo(id: store.NextId, diagInfo: diagInfo, token: new FilterToken(), groupToken: group?.GroupToken, priority: priority);
             var dependency = new CollectionDependency(token);
             var filterReg = new FilterRegistration(() => new ExistsFilter(dependency, info));
             store.RegisterCvFilter(filterReg, group, info.Token);
@@ -53,7 +53,7 @@
             IDiagInfo diagInfo)
         {
             var dependency = new CollectionDependency(token);
-            var info = new FilterInfo(id: store.NextId, diagInfo: diagInfo, token: new FilterToken(), groupToken: @group?.GroupToken, priority: priority);
+            var info = new FilterInfo(id: store.NextId, diagInfo: diagInfo, token: new FilterToken(), groupToken: group?.GroupToken, priority: priority);
             var filterReg = new FilterRegistration(() => new Filter1<IEnumerable<IResolutionContext>>(dependency, filterFunc, info));
             store.RegisterCvFilter(filterReg, group, info.Token);
             provider.IsNegative = true;
