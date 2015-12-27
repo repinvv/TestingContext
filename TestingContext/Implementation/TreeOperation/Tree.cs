@@ -12,31 +12,12 @@
 
     internal class Tree
     {
-        private int currentId = 1;
-
-        public int NextId => currentId++;
-
-        public TokenStore Store { get; set; }
-
         public RootNode Root { get; set; }
 
         public IResolutionContext RootContext { get; set; }
 
-        public Dictionary<IToken, INode> Nodes { get; } = new Dictionary<IToken, INode>();
+        public Dictionary<IToken, INode> Nodes { get; set; }
 
-        public Dictionary<IToken, HashSet<IToken>> Parents { get; } = new Dictionary<IToken, HashSet<IToken>>();
-
-
-        public List<IFilter> Filters { get; set; }
-
-        public Dictionary<IFilterToken, IFilterGroup> FilterGroups { get; } = new Dictionary<IFilterToken, IFilterGroup>();
-
-        // used to avoid assignin two or more equal filters to the same pair of nodes
-        public HashSet<Tuple<IToken, IToken>> NonEqualFilters { get; } = new HashSet<Tuple<IToken, IToken>>();
-
-        public Dictionary<IFilter, int>  FilterIndex { get; set; }
-
-        // used to avoid same dependency increase weight several times
-        public HashSet<IDependency> WeightedDependencies { get; } = new HashSet<IDependency>();
+        public Dictionary<IFilter, int> FilterIndex { get; set; }
     }
 }

@@ -21,7 +21,7 @@
         }
 
         #region ITestingContext members
-        public int RegistrationsCount => store.Filters.Count;
+        public int RegistrationsCount => store.FilterRegistrations.Count;
 
         public IMatcher GetMatcher() => new Matcher(TreeOperationService.CreateTree(store).RootContext, store);
 

@@ -34,9 +34,9 @@
             return tree.GetNode(group?.NodeToken);
         }
 
-        public static bool IsCvFilter(this Tree tree, IFilter filter)
+        public static bool IsCvFilter(this TreeContext context, IFilter filter)
         {
-            return tree.Store.CvFilters.Contains(filter.FilterInfo.FilterToken);
+            return context.Store.CvFilters.Contains(filter.FilterInfo.FilterToken);
         }
 
         // can be used after the tree is built
@@ -57,16 +57,7 @@
                 action(group);
             }
         }
-
-        public static void ForAllGroups(this IEnumerable<IFilter> filters, Action<IFilterGroup> action)
-        {
-            foreach (var group in filters.OfType<IFilterGroup>())
-            {
-                group.Filters.ForAllGroups(action);
-                action(group);
-            }
-        }
-
+        
         public static void ForDependencies(this IDepend depend, Action<IDependency, IDependency> action)
         {
             var dependencies = depend.Dependencies.ToArray();

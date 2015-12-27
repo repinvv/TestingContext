@@ -9,20 +9,14 @@
 
     internal static class StoreExtension
     {
-        public static void RegisterFilter(this TokenStore store, IFilterRegistration filter, FilterGroupRegistration group)
+        public static void RegisterFilter(this TokenStore store, FilterRegistration filter)
         {
-            if (group != null)
-            {
-                group.FilterRegistrations.Add(filter);
-                return;
-            }
-
-            store.Filters.Add(filter);
+            store.FilterRegistrations.Add(filter);
         }
 
-        public static void RegisterCvFilter(this TokenStore store, IFilterRegistration filter, FilterGroupRegistration group, IFilterToken token)
+        public static void RegisterCvFilter(this TokenStore store, FilterRegistration filter, IFilterToken token)
         {
-            store.RegisterFilter(filter, group);
+            store.RegisterFilter(filter);
             store.CvFilters.Add(token);
         }
 

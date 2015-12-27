@@ -4,6 +4,7 @@
     using System.Linq;
     using TestingContext.LimitedInterface.Tokens;
     using TestingContext.LimitedInterface.UsefulExtensions;
+    using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
@@ -20,11 +21,12 @@
         {
             ProviderLoopDetectionService.DetectRegistrationsLoop(store);
 
-            var tree = new Tree { Store = store };
+            var tree = new Tree();
             tree.Root = new RootNode(tree, store.RootToken);
+            var context = TreeContextService.CreateTreeContext(store, tree);
+            tree.Nodes = CreateNodes(context).ToDictionary(x => x.Token);
             tree.Nodes.Add(store.RootToken, tree.Root);
-            SetupTreeFilters(tree);
-            CreateNodes(tree).ForEach(node => tree.Nodes.Add(node.Token, node));
+            
             PreprocessFilters(tree);
             var nodeDependencies = GroupNodes(tree);
             NodeWeigthsService.CalculateNodeWeights(tree, nodeDependencies);
@@ -40,9 +42,9 @@
 
         private static Dictionary<IToken, List<INode>> GroupNodes(Tree tree)
         {
-            var nodes = tree.Nodes.Values;
+            var nodes = tree.Nodes.Values.Where(x => x != tree.Root);
             var dict = new Dictionary<IToken, List<INode>>();
-            foreach (var node in nodes.Where(x => x != tree.Root))
+            foreach (var node in nodes)
             {
                 tree.GetDependencies(node).ForEach(dependency => dict.GetList(dependency.Token).Add(node));
             }

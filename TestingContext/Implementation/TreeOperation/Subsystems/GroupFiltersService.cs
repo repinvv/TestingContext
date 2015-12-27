@@ -19,7 +19,7 @@
         public static List<IToken> GetInGroupTokens(IFilterGroup filterGroup, Tree tree)
         {
             var tokens = GetCvTokens(filterGroup, tree).ToList();
-            filterGroup.Filters.ForAllGroups(grp => tokens.AddRange(GetCvTokens(grp, tree)));
+            filterGroup.Filters.ForGroups(grp => tokens.AddRange(GetCvTokens(grp, tree)));
             return tokens;
         }
 

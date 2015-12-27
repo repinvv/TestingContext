@@ -59,8 +59,6 @@
     <Compile Include="Implementation\Filters\Groups\OrGroup.cs" />
     <Compile Include="Implementation\Filters\Groups\XorGroup.cs" />
     <Compile Include="Implementation\Filters\Inverter.cs" />
-    <Compile Include="Implementation\Registrations\FilterRegistrations\FilterGroupRegistration.cs" />
-    <Compile Include="Implementation\Registrations\FilterRegistrations\IFilterRegistration.cs" />
     <Compile Include="Implementation\Matcher.cs" />
     <Compile Include="Implementation\Nodes\Node.cs" />
     <Compile Include="Implementation\Nodes\NodeFilterInfo.cs" />
@@ -84,7 +82,7 @@
     <Compile Include="Implementation\Registrations\RegistrationFactory.cs" />
     <Compile Include="Implementation\Registrations\StoreExtension.cs" />
     <Compile Include="Implementation\Resolution\ResolutionContext.cs" />
-    <Compile Include="Implementation\TreeOperation\GetNodeService.cs" />
+    <Compile Include="Implementation\Nodes\GetNodeService.cs" />
     <Compile Include="Implementation\TreeOperation\LoopDetection\ProviderLoopDetectionService.cs" />
     <Compile Include="Implementation\TreeOperation\LoopDetection\TarjanLoopDetection.cs" />
     <Compile Include="Implementation\TreeOperation\LoopDetection\Vertex.cs" />
@@ -101,7 +99,9 @@
     <Compile Include="Implementation\TreeOperation\Subsystems\NonEqualFilteringService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\TreeBuilder.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\TreeBuildingExtensions.cs" />
+    <Compile Include="Implementation\TreeOperation\Subsystems\TreeContextService.cs" />
     <Compile Include="Implementation\TreeOperation\Tree.cs" />
+    <Compile Include="Implementation\TreeOperation\TreeContext.cs" />
     <Compile Include="Implementation\TreeOperation\TreeOperationService.cs" />
     <Compile Include="PublicMembers\Exceptions\AlgorythmException.cs" />
     <Compile Include="PublicMembers\Exceptions\RegistrationException.cs" />

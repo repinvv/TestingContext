@@ -9,17 +9,18 @@
     using TestingContextCore.Implementation.Registrations.FilterRegistrations;
     using TestingContextCore.Implementation.Registrations.Registration1;
     using TestingContextCore.Implementation.Tokens;
+    using static RegistrationFactory;
 
     internal class InnerRegistration
     {
         private readonly TokenStore store;
-        private readonly FilterGroupRegistration group;
+        private readonly IFilterToken groupToken;
         private readonly int priority;
 
-        public InnerRegistration(TokenStore store, FilterGroupRegistration group, int priority)
+        public InnerRegistration(TokenStore store, IFilterToken groupToken, int priority)
         {
             this.store = store;
-            this.group = group;
+            this.groupToken = groupToken;
             this.priority = priority;
         }
 
@@ -30,7 +31,7 @@
                 throw new ArgumentNullException(nameof(haveToken));
             }
 
-            return RegistrationFactory.GetRegistration1(store, new SingleValueDependency<T>(haveToken), group, priority);
+            return GetRegistration1(store, new SingleValueDependency<T>(haveToken), groupToken, priority);
         }
 
         public IFor<IEnumerable<T>> ForCollection<T>(IHaveToken<T> haveToken)
@@ -40,13 +41,13 @@
                 throw new ArgumentNullException(nameof(haveToken));
             }
 
-            return RegistrationFactory.GetRegistration1(store, new CollectionValueDependency<T>(haveToken), group, priority);
+            return GetRegistration1(store, new CollectionValueDependency<T>(haveToken), groupToken, priority);
         }
 
         public IHaveToken<T> Exists<T>(IDiagInfo diagInfo, Func<IEnumerable<T>> srcFunc)
         {
             var dependency = new SingleValueDependency<Root>(new HaveToken<Root>(store.RootToken));
-            return new InnerRegistration1<Root>(store, dependency, group, priority)
+            return new InnerRegistration1<Root>(store, dependency, groupToken, priority)
                 .Declare(diagInfo, x => srcFunc())
                 .Exists(diagInfo);
         }

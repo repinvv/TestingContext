@@ -8,11 +8,11 @@
 
     internal class Node : INode
     {
-        private int id;
+        private readonly int id;
 
-        public Node(Tree tree, IToken token, IProvider provider, NodeFilterInfo filterInfo)
+        public Node(Tree tree, IToken token, IProvider provider, NodeFilterInfo filterInfo, int id)
         {
-            id = tree.NextId;
+            this.id = id;
             Token = token;
             Provider = provider;
             FilterInfo = filterInfo;
@@ -58,9 +58,9 @@
 
         public override string ToString() => $"{Token} Id: {id}";
 
-        public static Node CreateNode(IToken token, IProvider provider, Tree tree)
+        public static Node CreateNode(IToken token, IProvider provider, TreeContext context)
         {
-            return new Node(tree, token, provider, new NodeFilterInfo(tree, token));
+            return new Node(context.Tree, token, provider, new NodeFilterInfo(context.Store, token), context.NextId);
         }
     }
 }

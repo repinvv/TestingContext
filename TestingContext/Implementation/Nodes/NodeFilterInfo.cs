@@ -5,16 +5,18 @@
     using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
+    using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.TreeOperation;
 
     internal class NodeFilterInfo
     {
-        public NodeFilterInfo(Tree tree, IToken token)
+        public NodeFilterInfo(TokenStore store, IToken token)
         {
             var and = new AndGroup { Filters = new List<IFilter>() };
-            var inversionInfo = tree?.Store.ItemInversions.SafeGet(token);
+            var inversionInfo = store?.ItemInversions.SafeGet(token);
             Group = and;
-            ItemFilter = inversionInfo == null ? (IFilter)and : new Inverter(and, new FilterInfo(tree.Store.NextId, inversionInfo));
+            
+            ItemFilter = inversionInfo == null ? (IFilter)and : new Inverter(and, new FilterInfo(0, inversionInfo));
         }
 
         public IFilter ItemFilter { get; }

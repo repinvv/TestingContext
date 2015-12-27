@@ -11,7 +11,7 @@
 
     internal static class GroupNodesService
     {
-        public static void CreateNodeForFilterGroup(IFilterGroup filterGroup, List<INode> nodes, Tree tree)
+        public static void CreateNodeForFilterGroup(IFilterGroup filterGroup, List<INode> nodes, TreeContext context)
         {
             var inGroupTokens = new HashSet<IToken>(GetInGroupTokens(filterGroup, tree));
             if (!inGroupTokens.Any())

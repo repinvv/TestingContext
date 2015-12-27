@@ -1,7 +1,7 @@
-﻿namespace TestingContextCore.Implementation.TreeOperation
+﻿namespace TestingContextCore.Implementation.Nodes
 {
     using TestingContext.LimitedInterface.Tokens;
-    using TestingContextCore.Implementation.Nodes;
+    using TestingContextCore.Implementation.TreeOperation;
     using TestingContextCore.PublicMembers.Exceptions;
 
     internal static class GetNodeService

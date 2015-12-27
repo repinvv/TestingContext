@@ -2,6 +2,7 @@ namespace TestingContextCore.Implementation.TreeOperation.Subsystems
 {
     using System.Collections.Generic;
     using System.Linq;
+    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
@@ -9,18 +10,9 @@ namespace TestingContextCore.Implementation.TreeOperation.Subsystems
 
     internal static class AbsorbedFiltersService
     {
-        public static void ExtractAbsorbedFilters(this IFilterGroup group, List<IFilter> freeFilters, Tree tree)
+        public static bool FilterIsAbsorbed(TreeContext context, List<IToken> inGroupTokens, IFilter filter)
         {
-            var cvFilters = group.Filters.Where(tree.IsCvFilter).ToList();
-            var absorbedFilters = group.Filters.Where(x => FilterIsAbsorbed(tree, cvFilters, x)).ToList();
-            freeFilters.AddRange(absorbedFilters);
-            group.Filters.ForGroups(grp => grp.ExtractAbsorbedFilters(freeFilters, tree));
-            group.Filters = group.Filters.Except(absorbedFilters).ToList();
-        }
-
-        private static bool FilterIsAbsorbed(Tree tree, List<IFilter> cvFilters, IFilter filter)
-        {
-            return cvFilters.Where(x => x != filter)
+            return inGroupTokens.Where(x => filter. co != filter))
                             .Any(x => FilterIsAbsorbedBy(filter, tree.GetCvFilterNode(x), tree));
         }
 
