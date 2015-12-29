@@ -7,25 +7,25 @@
 
     internal static class FilterAssignmentService
     {
-        public static void AssignFilter(Tree tree, IFilter filter)
-        {
-            if (!filter.Dependencies.Any())
-            {
-                return;
-            }
+        //public static void AssignFilter(TreeContext context, IFilter filter)
+        //{
+        //    if (!filter.Dependencies.Any())
+        //    {
+        //        return;
+        //    }
             
-            var node = tree.GetNode(filter as IFilterGroup) ?? tree.GetAssignmentNode(filter);
-            AssignFilterToNode(filter, node);
-        }
+        //    var node = context.Tree.GetNode(filter as IFilterGroup) ?? context.GetAssignmentNode(filter);
+        //    AssignFilterToNode(filter, node);
+        //}
 
-        public static void AssignFilterToNode(IFilter filter, INode node)
-        {
-            node.FilterInfo.Group.Filters.Add(filter);
-        }
+        //public static void AssignFilterToNode(IFilter filter, INode node)
+        //{
+        //    node.FilterInfo.Group.Filters.Add(filter);
+        //}
 
-        public static void AssignFilters(Tree tree)
-        {
-            tree.Filters.ForEach(x => AssignFilter(tree, x));
-        }
+        //public static void AssignFilters(Tree tree)
+        //{
+        //    // tree.Filters.ForEach(x => AssignFilter(tree, x));
+        //}
     }
 }

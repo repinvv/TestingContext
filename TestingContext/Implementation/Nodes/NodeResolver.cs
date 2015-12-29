@@ -6,7 +6,7 @@
     using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.TreeOperation;
-    using static TreeOperation.Subsystems.NodeClosestParentService;
+    using static NodeClosestParentService;
 
     internal class NodeResolver
     {

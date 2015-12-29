@@ -8,40 +8,40 @@ namespace TestingContextCore.Implementation.TreeOperation.Subsystems
 
     internal static class NodeDependencyService
     {
-        public static List<INode> GetDependencies(this Tree tree, INode node)
-        {
-            List<INode> dependencies = node.Provider.Dependencies
-                                           .Select(x => tree.GetNode(x.Token))
-                                           .ToList();
-            tree.AddGroupDependency(node.Provider, dependencies);
-            return dependencies.Distinct().ToList();
-        }
+        //public static List<INode> GetDependencies(this TreeContext context, INode node)
+        //{
+        //    List<INode> dependencies = node.Provider.Dependencies
+        //                                   .Select(x => context.Tree.GetNode(x.Token))
+        //                                   .ToList();
+        //    context.AddGroupDependency(node.Provider, dependencies);
+        //    return dependencies.Distinct().ToList();
+        //}
 
-        public static List<INode> GetDependencies(this Tree tree, IDepend depend)
-        {
-            List<INode> dependencies = depend.Dependencies.GroupBy(x => new { x.Type, x.Token })
-                                             .Select(x => tree.GetDependencyNode(x.First()))
-                                             .ToList();
-            tree.AddGroupDependency(depend, dependencies);
-            return dependencies;
-        }
+        //public static List<INode> GetDependencies(this TreeContext context, IDepend depend)
+        //{
+        //    List<INode> dependencies = depend.Dependencies.GroupBy(x => new { x.Type, x.Token })
+        //                                     .Select(x => context.Tree.GetDependencyNode(x.First()))
+        //                                     .ToList();
+        //    context.AddGroupDependency(depend, dependencies);
+        //    return dependencies;
+        //}
 
-        private static void AddGroupDependency(this Tree tree, IDepend depend, List<INode> dependencies)
-        {
-            IFilterGroup parentGroup = tree.GetParentGroup(depend);
-            if (parentGroup == null)
-            {
-                return;
-            }
+        //private static void AddGroupDependency(this TreeContext context, IDepend depend, List<INode> dependencies)
+        //{
+        //    IFilterGroup parentGroup = context.GetParentGroup(depend);
+        //    if (parentGroup == null)
+        //    {
+        //        return;
+        //    }
 
-            dependencies.Add(tree.GetNode(parentGroup.NodeToken));
-        }
+        //    dependencies.Add(context.Tree.GetNode(parentGroup.NodeToken));
+        //}
 
-        public static INode GetAssignmentNode(this Tree tree, IDepend depend)
-        {
-            return tree.GetDependencies(depend)
-                       .OrderByDescending(x => x.GetParentalChain().Count)
-                       .First();
-        }
+        //public static INode GetAssignmentNode(this TreeContext context, IDepend depend)
+        //{
+        //    return context.GetDependencies(depend)
+        //               .OrderByDescending(x => x.GetParentalChain().Count)
+        //               .First();
+        //}
     }
 }

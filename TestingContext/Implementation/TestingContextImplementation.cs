@@ -37,7 +37,5 @@
 
         public IStorage Storage { get; } = new Storage();
         #endregion
-
-        
     }
 }

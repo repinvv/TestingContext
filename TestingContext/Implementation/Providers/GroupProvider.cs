@@ -17,12 +17,11 @@
         private readonly TokenStore store;
 
         public GroupProvider(IEnumerable<IDependency> dependencies,
-            IFilterGroup group, IFilterToken parentGroupToken,
+            IFilterGroup group,
             TokenStore store,
             IDiagInfo diagInfo)
         {
             Dependencies = dependencies;
-            ParentGroupToken = parentGroupToken;
             DiagInfo = diagInfo;
             this.group = group;
             this.store = store;
@@ -32,7 +31,7 @@
 
         public IEnumerable<IDependency> Dependencies { get; }
 
-        public IFilterToken ParentGroupToken { get; }
+        public IFilterToken ParentGroupToken => group.ParentGroupToken;
 
         public bool IsNegative { get; set; } = true;
 

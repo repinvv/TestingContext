@@ -27,7 +27,11 @@
 
         public Dictionary<IFilterToken, List<IFilter>> FiltersInGroup { get; set; }
 
+        public Dictionary<IFilterToken, List<IFilter>> AllFiltersInGroup { get; set; }
+
         public Dictionary<IFilterToken, List<IToken>> ProviderTokensInGroup { get; set; }
+
+        public Dictionary<IFilterToken, List<IToken>> AllProviderTokensInGroup { get; set; }
 
 
         // used to avoid assignin two or more equal filters to the same pair of nodes

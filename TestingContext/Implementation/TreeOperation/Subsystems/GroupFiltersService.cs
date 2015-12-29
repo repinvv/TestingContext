@@ -3,67 +3,58 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContext.LimitedInterface.Tokens;
+    using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
 
     internal static class GroupFiltersService
-    { 
-        private static IEnumerable<IToken> GetCvTokens(IFilterGroup group, Tree tree)
+    {
+        public static List<IFilter> GetInGroupFilters(this TreeContext context, IFilterGroup filterGroup)
         {
-            return group.Filters
-                .Where(tree.IsCvFilter)
-                .Select(filter => filter.Dependencies.First().Token);
+            return context.AllFiltersInGroup
+                          .GetOrAdd(filterGroup.FilterInfo.FilterToken,
+                                    () => context.CollectInGroupFilters(filterGroup));
         }
 
-        public static List<IToken> GetInGroupTokens(IFilterGroup filterGroup, Tree tree)
+        private static List<IFilter> CollectInGroupFilters(this TreeContext context, IFilterGroup filterGroup)
         {
-            var tokens = GetCvTokens(filterGroup, tree).ToList();
-            filterGroup.Filters.ForGroups(grp => tokens.AddRange(GetCvTokens(grp, tree)));
+            var filters = context.FiltersInGroup
+                                .SafeGet(filterGroup.FilterInfo.FilterToken, () => new List<IFilter>())
+                                .ToList();
+            filters.ToList().ForGroups(grp => filters.AddRange(context.GetInGroupFilters(grp)));
+            return filters;
+        }
+
+        public static List<IToken> GetInGroupTokens(this TreeContext context, IFilterGroup filterGroup)
+        {
+            return context.AllProviderTokensInGroup
+                          .GetOrAdd(filterGroup.FilterInfo.FilterToken,
+                                    () => context.CollectInGroupTokens(filterGroup));
+        }
+
+        private static List<IToken> CollectInGroupTokens(this TreeContext context, IFilterGroup filterGroup)
+        {
+            var tokens = context.ProviderTokensInGroup
+                                .SafeGet(filterGroup.FilterInfo.FilterToken, () => new List<IToken>())
+                                .ToList();
+            context.FiltersInGroup.SafeGet(filterGroup.FilterInfo.FilterToken, () => new List<IFilter>())
+                   .ForGroups(grp => tokens.AddRange(context.GetInGroupTokens(grp)));
             return tokens;
         }
 
-        public static HashSet<IDependency> GetGroupDependencies(IFilterGroup group, HashSet<IToken> inGroupTokens, Tree tree)
+        public static IEnumerable<IDependency> GetGroupDependencies(TreeContext context, IFilterGroup filterGroup)
         {
-            var dependencies = new HashSet<IDependency>(group.GroupDependencies);
-            foreach (var dependency in inGroupTokens
-                .SelectMany(x => tree.Store.Providers[x].Dependencies)
-                .Concat(group.Dependencies)
-                .Where(dependency => !inGroupTokens.Contains(dependency.Token)))
-            {
-                dependencies.Add(dependency);
-            }
-
-            return dependencies;
-        }
-
-        public static void ReplaceGroupFiltersWithExists(this IFilterGroup group, List<IFilter> freeFilters, Tree tree)
-        {
-            var groupsWithNodes = group.Filters.OfType<IFilterGroup>()
-                                       .Where(grp => tree.GetNode(grp) != null)
-                                       .ToList();
-            freeFilters.AddRange(groupsWithNodes);
-            var existFilters = groupsWithNodes.Select(x => tree.GetNode(x).CreateExistsFilter()).ToList();
-            group.Filters = group.Filters.Except(groupsWithNodes)
-                                 .Concat(existFilters)
-                                 .ToList();
-        }
-
-        public static void ExtractReorderedExistFilters(this IFilterGroup group, List<IFilter> freeFilters, Tree tree)
-        {
-            var reorderedExistsFilters = group.Filters.OfType<ExistsFilter>()
-                                              .Where(x => IsNodeOfExistsFilterReordered(x, group, tree))
-                                              .ToList();
-            freeFilters.AddRange(reorderedExistsFilters);
-            group.Filters = group.Filters.Except(reorderedExistsFilters)
-                                 .ToList();
-        }
-
-        private static bool IsNodeOfExistsFilterReordered(IFilter existsFilter, IFilterGroup group, Tree tree)
-        {
-            var groupNode = tree.GetNode(group);
-            var existFilterNode = tree.GetNode(existsFilter.Dependencies.First().Token);
-            return existFilterNode.Parent != groupNode;
+            var inGroupTokens = context.GetInGroupTokens(filterGroup);
+            var groupDependencies = inGroupTokens
+                .SelectMany(x => context.Store.Providers[x].Dependencies)
+                .Concat(context.GetInGroupFilters(filterGroup).SelectMany(x => x.Dependencies))
+                .Concat(filterGroup.Dependencies)
+                .Where(dependency => !inGroupTokens.Contains(dependency.Token))
+                .GroupBy(dep => new { dep.Token, dep.Type })
+                .Select(x => x.First())
+                .ToList();
+            return groupDependencies;
         }
     }
 }

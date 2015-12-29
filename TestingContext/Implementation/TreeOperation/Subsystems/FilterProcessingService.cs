@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Registrations;
@@ -18,38 +19,29 @@
                 .ToList();
         }
 
-        public static List<ExistsFilter> CreateExistsFiltersForGroups(Tree tree, IEnumerable<IFilter> filters)
-        {
-            return filters.OfType<IFilterGroup>()
-                          .Select(tree.GetNode)
-                          .Where(x => x != null)
-                          .Select(x => x.CreateExistsFilter())
-                          .ToList();
-        }
+        //public static void ReorderNodesForFilters(TreeContext context)
+        //{
+        //    context.Filters.ForEach(x => x.ForDependencies((dep1, dep2) => ReorderNodes(x, context, dep1, dep2)));
+        //}
 
-        public static void ReorderNodesForFilters(TreeContext context)
-        {
-            context.Filters.ForEach(x => x.ForDependencies((dep1, dep2) => ReorderNodes(x, context.Tree, dep1, dep2)));
-        }
+        //public static void GetFinalFilters(TreeContext context)
+        //{
+        //    context.Filters = GetFinalFilters(context, context.Filters);
+        //}
 
-        public static void GetFinalFilters(TreeContext context)
-        {
-            context.Filters = GetFinalFilters(context, context.Filters);
-        }
+        //private static List<IFilter> GetFinalFilters(TreeContext context, IEnumerable<IFilter> filters)
+        //{
+        //    return filters.Where(x => x.Dependencies.Any())
+        //                  .Select(filter => GetFinalFilter(context, filter))
+        //                  .ToList();
+        //}
 
-        private static List<IFilter> GetFinalFilters(Tree tree, IEnumerable<IFilter> filters)
-        {
-            return filters.Where(x => x.Dependencies.Any())
-                          .Select(filter => GetFinalFilter(tree, filter))
-                          .ToList();
-        }
-
-        public static IFilter GetFinalFilter(TreeContext context, IFilter filter )
-        {
-            var inversionDiag = context.IsCvFilter(filter)
-                ? tree.Store.CollectionInversions.SafeGet(filter.Dependencies.First().Token)
-                : tree.Store.FilterInversions.SafeGet(filter.FilterInfo.FilterToken);
-            return inversionDiag != null ? new Inverter(filter, new FilterInfo(tree.Store.NextId, inversionDiag)) : filter;
-        }
+        //public static IFilter GetFinalFilter(TreeContext context, IFilter filter)
+        //{
+        //    var inversionDiag = context.IsCvFilter(filter)
+        //        ? context.Store.CollectionInversions.SafeGet(filter.Dependencies.First().Token)
+        //        : context.Store.FilterInversions.SafeGet(filter.FilterInfo.FilterToken);
+        //    return inversionDiag != null ? new Inverter(filter, new FilterInfo(context.Store.NextId, inversionDiag)) : filter;
+        //}
     }
 }

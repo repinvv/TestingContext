@@ -8,37 +8,37 @@
 
     internal static class NodeWeigthsService
     {
-        public static void CalculateNodeWeights(Tree tree, Dictionary<IToken, List<INode>> nodeDependencies)
+        public static void CalculateNodeWeights(TreeContext context, Dictionary<IToken, List<INode>> nodeDependencies)
         {
-            nodeDependencies.ForNodes(tree, node => SetNodeWeights(tree, node));
-            tree.Filters.ForEach(x => x.ForDependencies((dep1, dep2) => SetNodeWeights(tree, dep1, dep2)));
+            nodeDependencies.ForNodes(context, node => SetNodeWeights(context, node));
+            context.Filters.ForEach(x => x.ForDependencies((dep1, dep2) => SetNodeWeights(context, dep1, dep2)));
         }
 
-        private static void SetNodeWeights(Tree tree, INode node)
+        private static void SetNodeWeights(TreeContext context, INode node)
         {
-            node.Provider.ForDependencies((dep1, dep2) => SetNodeWeights(tree, dep1, dep2));
+            node.Provider.ForDependencies((dep1, dep2) => SetNodeWeights(context, dep1, dep2));
         }
 
-        private static void SetNodeWeights(Tree tree, IDependency dependency, IDependency dep2)
+        private static void SetNodeWeights(TreeContext context, IDependency dependency, IDependency dep2)
         {
-            if (tree.IsParent(dependency.Token, dep2.Token) || tree.IsParent(dep2.Token, dependency.Token))
+            if (context.IsParent(dependency.Token, dep2.Token) || context.IsParent(dep2.Token, dependency.Token))
             {
                 return;
             }
 
-            SetNodeWeights(tree, dependency);
-            SetNodeWeights(tree, dep2);
+            SetNodeWeights(context, dependency);
+            SetNodeWeights(context, dep2);
         }
 
-        private static void SetNodeWeights(Tree tree, IDependency dependency)
+        private static void SetNodeWeights(TreeContext context, IDependency dependency)
         {
-            if (tree.WeightedDependencies.Contains(dependency))
+            if (context.WeightedDependencies.Contains(dependency))
             {
                 return;
             }
 
-            tree.WeightedDependencies.Add(dependency);
-            GetDependencyNodes(tree, dependency)
+            context.WeightedDependencies.Add(dependency);
+            GetDependencyNodes(context.Tree, dependency)
                 .OrderByDescending(x => x.Weight)
                 .First()
                 .Weight++;

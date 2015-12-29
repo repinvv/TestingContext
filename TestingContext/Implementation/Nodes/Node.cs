@@ -10,11 +10,12 @@
     {
         private readonly int id;
 
-        public Node(Tree tree, IToken token, IProvider provider, NodeFilterInfo filterInfo, int id)
+        public Node(Tree tree, IToken token, IProvider provider, bool isNegative, NodeFilterInfo filterInfo, int id)
         {
             this.id = id;
             Token = token;
             Provider = provider;
+            IsNegative = isNegative;
             FilterInfo = filterInfo;
             Tree = tree;
             Resolver = new NodeResolver(this);
@@ -30,7 +31,7 @@
         
         public INode SourceParent { get; set; }
 
-        public bool IsNegative { get; set; }
+        public bool IsNegative { get; }
 
         public bool IsChildOf(INode node) => Parent == node || Parent.IsChildOf(node);
 
@@ -58,9 +59,9 @@
 
         public override string ToString() => $"{Token} Id: {id}";
 
-        public static Node CreateNode(IToken token, IProvider provider, TreeContext context)
+        public static Node CreateNode(IToken token, IProvider provider, bool isNegative, TreeContext context)
         {
-            return new Node(context.Tree, token, provider, new NodeFilterInfo(context.Store, token), context.NextId);
+            return new Node(context.Tree, token, provider, isNegative, new NodeFilterInfo(context.Store, token), context.NextId);
         }
     }
 }

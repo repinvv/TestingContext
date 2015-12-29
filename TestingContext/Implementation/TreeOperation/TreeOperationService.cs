@@ -24,29 +24,26 @@
             var tree = new Tree();
             tree.Root = new RootNode(tree, store.RootToken);
             var context = TreeContextService.CreateTreeContext(store, tree);
-            tree.Nodes = CreateNodes(context).ToDictionary(x => x.Token);
-            tree.Nodes.Add(store.RootToken, tree.Root);
-            
-            PreprocessFilters(tree);
-            var nodeDependencies = GroupNodes(tree);
-            NodeWeigthsService.CalculateNodeWeights(tree, nodeDependencies);
-            BuildNodesTree(tree, nodeDependencies);
-            ReorderNodesForFilters(tree);
-            GetFinalFilters(tree);
+            context.CreateNodes();
+            var nodeDependencies = GroupNodes(context);
+            NodeWeigthsService.CalculateNodeWeights(context, nodeDependencies);
+            BuildNodesTree(context, nodeDependencies);
+            ReorderNodesForFilters(context);
+            GetFinalFilters(context);
             AssignFilters(tree);
             int i = 0;
-            tree.FilterIndex = tree.Filters.ToDictionary(x => x, x => i++);
+            tree.FilterIndex = context.Filters.ToDictionary(x => x, x => i++);
             tree.RootContext = new ResolutionContext<Root>(Root.Instance, tree.Root, null, store);
             return tree;
         }
 
-        private static Dictionary<IToken, List<INode>> GroupNodes(Tree tree)
+        private static Dictionary<IToken, List<INode>> GroupNodes(TreeContext context)
         {
-            var nodes = tree.Nodes.Values.Where(x => x != tree.Root);
+            var nodes = context.Tree.Nodes.Values.Where(x => x != context.Tree.Root);
             var dict = new Dictionary<IToken, List<INode>>();
             foreach (var node in nodes)
             {
-                tree.GetDependencies(node).ForEach(dependency => dict.GetList(dependency.Token).Add(node));
+                context.GetDependencies(node).ForEach(dependency => dict.GetList(dependency.Token).Add(node));
             }
 
             return dict;

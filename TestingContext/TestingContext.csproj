@@ -89,11 +89,10 @@
     <Compile Include="Implementation\TreeOperation\Subsystems\AbsorbedFiltersService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\FilterProcessingService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\GroupFiltersService.cs" />
-    <Compile Include="Implementation\TreeOperation\Subsystems\GroupNodesService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NodeDependencyService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NodesCreationService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\FilterAssignmentService.cs" />
-    <Compile Include="Implementation\TreeOperation\Subsystems\NodeClosestParentService.cs" />
+    <Compile Include="Implementation\Nodes\NodeClosestParentService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NodeReorderingService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NodeWeigthsService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NonEqualFilteringService.cs" />
