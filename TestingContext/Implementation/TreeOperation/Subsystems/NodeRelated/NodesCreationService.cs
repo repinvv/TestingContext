@@ -1,4 +1,4 @@
-﻿namespace TestingContextCore.Implementation.TreeOperation.Subsystems
+﻿namespace TestingContextCore.Implementation.TreeOperation.Subsystems.NodeRelated
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -8,7 +8,6 @@
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Providers;
-    using static GroupFiltersService;
 
     internal static class NodesCreationService
     {
@@ -35,9 +34,9 @@
         {
             foreach (var filterGroup in context.Filters
                 .OfType<IFilterGroup>()
-                .Where(grp => GroupFiltersService.GetInGroupTokens(context, grp).Any()))
+                .Where(grp => context.GetInGroupTokens(grp).Any()))
             {
-                var node = CreateNodeForFilterGroup(filterGroup, context);
+                var node = context.CreateNodeForFilterGroup(filterGroup);
                 context.Tree.Nodes.Add(node.Token, node);
                 context.Filters.Add(CreateExistsFilter(node, filterGroup));
             }
@@ -49,9 +48,9 @@
             return new ExistsFilter(dependency, filterGroup.FilterInfo);
         }
 
-        private static INode CreateNodeForFilterGroup(IFilterGroup filterGroup, TreeContext context)
+        private static INode CreateNodeForFilterGroup(this TreeContext context, IFilterGroup filterGroup)
         {
-            var groupDependencies = GetGroupDependencies(context, filterGroup);
+            var groupDependencies = GroupFiltersService.GetGroupDependencies(context, filterGroup);
             var provider = new GroupProvider(groupDependencies, filterGroup, context.Store, filterGroup.DiagInfo);
             return Node.CreateNode(filterGroup.NodeToken, provider, true, context);
         }

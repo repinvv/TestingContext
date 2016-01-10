@@ -7,7 +7,7 @@
 
     internal static class TreeContextService
     {
-        public static TreeContext CreateTreeContext(TokenStore store, Tree tree)
+        public static TreeContext CreateTreeContext(this TokenStore store, Tree tree)
         {
             var context = new TreeContext
             {

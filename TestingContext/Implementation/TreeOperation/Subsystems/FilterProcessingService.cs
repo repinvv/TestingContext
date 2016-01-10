@@ -6,7 +6,8 @@
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Registrations;
-    using static NodeReorderingService;
+    using TestingContextCore.Implementation.TreeOperation.Subsystems.NodeRelated;
+    using static NodeRelated.NodeReorderingService;
 
     internal static class FilterProcessingService
     {
@@ -19,10 +20,10 @@
                 .ToList();
         }
 
-        //public static void ReorderNodesForFilters(TreeContext context)
-        //{
-        //    context.Filters.ForEach(x => x.ForDependencies((dep1, dep2) => ReorderNodes(x, context, dep1, dep2)));
-        //}
+        public static void ReorderNodesForFilters(TreeContext context)
+        {
+            context.Filters.ForEach(x => x.ForDependencies((dep1, dep2) => context.ReorderNodes(x, dep1, dep2)));
+        }
 
         //public static void GetFinalFilters(TreeContext context)
         //{

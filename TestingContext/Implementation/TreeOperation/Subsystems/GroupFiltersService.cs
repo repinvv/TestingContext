@@ -1,5 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation.Subsystems
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using TestingContext.LimitedInterface.Tokens;
@@ -22,7 +23,7 @@
             var filters = context.FiltersInGroup
                                 .SafeGet(filterGroup.FilterInfo.FilterToken, () => new List<IFilter>())
                                 .ToList();
-            filters.ToList().ForGroups(grp => filters.AddRange(context.GetInGroupFilters(grp)));
+            filters.AddRange(filters.OfType<IFilterGroup>().SelectMany(context.GetInGroupFilters).ToList());
             return filters;
         }
 
@@ -38,8 +39,10 @@
             var tokens = context.ProviderTokensInGroup
                                 .SafeGet(filterGroup.FilterInfo.FilterToken, () => new List<IToken>())
                                 .ToList();
-            context.FiltersInGroup.SafeGet(filterGroup.FilterInfo.FilterToken, () => new List<IFilter>())
-                   .ForGroups(grp => tokens.AddRange(context.GetInGroupTokens(grp)));
+            foreach (var @group in context.FiltersInGroup.SafeGet(filterGroup.FilterInfo.FilterToken, () => new List<IFilter>()).OfType<IFilterGroup>())
+            {
+                ((Action<IFilterGroup>)(grp => tokens.AddRange(context.GetInGroupTokens(grp))))(@group);
+            }
             return tokens;
         }
 
@@ -51,10 +54,15 @@
                 .Concat(context.GetInGroupFilters(filterGroup).SelectMany(x => x.Dependencies))
                 .Concat(filterGroup.Dependencies)
                 .Where(dependency => !inGroupTokens.Contains(dependency.Token))
-                .GroupBy(dep => new { dep.Token, dep.Type })
-                .Select(x => x.First())
+                .DistinctDependencies()
                 .ToList();
             return groupDependencies;
+        }
+
+        public static IEnumerable<IDependency> DistinctDependencies(this IEnumerable<IDependency> input)
+        {
+            return input.GroupBy(dep => new { dep.Token, dep.Type })
+                        .Select(x => x.First());
         }
     }
 }

@@ -23,7 +23,7 @@
         #region ITestingContext members
         public int RegistrationsCount => store.FilterRegistrations.Count;
 
-        public IMatcher GetMatcher() => new Matcher(TreeOperationService.CreateTree(store).RootContext, store);
+        public IMatcher GetMatcher() => new Matcher(store.CreateTree().RootContext, store);
 
         public IRegister Priority(int priority) => RegistrationFactory.GetRegistration(store, null, priority);
 

@@ -10,24 +10,25 @@
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.TreeOperation.LoopDetection;
     using TestingContextCore.Implementation.TreeOperation.Subsystems;
+    using TestingContextCore.Implementation.TreeOperation.Subsystems.NodeRelated;
     using static Subsystems.TreeBuilder;
     using static Subsystems.FilterAssignmentService;
     using static Subsystems.FilterProcessingService;
-    using static Subsystems.NodesCreationService;
+    using static Subsystems.NodeRelated.NodesCreationService;
 
     internal static class TreeOperationService
     {
-        public static Tree CreateTree(TokenStore store)
+        public static Tree CreateTree(this TokenStore store)
         {
             ProviderLoopDetectionService.DetectRegistrationsLoop(store);
 
             var tree = new Tree();
             tree.Root = new RootNode(tree, store.RootToken);
-            var context = TreeContextService.CreateTreeContext(store, tree);
+            var context = store.CreateTreeContext(tree);
             context.CreateNodes();
-            var nodeDependencies = GroupNodes(context);
-            NodeWeigthsService.CalculateNodeWeights(context, nodeDependencies);
-            BuildNodesTree(context, nodeDependencies);
+            var nodeDependencies = context.GroupNodes();
+            context.CalculateNodeWeights(nodeDependencies);
+            context.BuildNodesTree(nodeDependencies);
             ReorderNodesForFilters(context);
             GetFinalFilters(context);
             AssignFilters(tree);
@@ -37,7 +38,7 @@
             return tree;
         }
 
-        private static Dictionary<IToken, List<INode>> GroupNodes(TreeContext context)
+        private static Dictionary<IToken, List<INode>> GroupNodes(this TreeContext context)
         {
             var nodes = context.Tree.Nodes.Values.Where(x => x != context.Tree.Root);
             var dict = new Dictionary<IToken, List<INode>>();

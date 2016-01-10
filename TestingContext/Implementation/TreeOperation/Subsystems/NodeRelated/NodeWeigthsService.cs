@@ -1,4 +1,4 @@
-﻿namespace TestingContextCore.Implementation.TreeOperation.Subsystems
+﻿namespace TestingContextCore.Implementation.TreeOperation.Subsystems.NodeRelated
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -8,7 +8,7 @@
 
     internal static class NodeWeigthsService
     {
-        public static void CalculateNodeWeights(TreeContext context, Dictionary<IToken, List<INode>> nodeDependencies)
+        public static void CalculateNodeWeights(this TreeContext context, Dictionary<IToken, List<INode>> nodeDependencies)
         {
             nodeDependencies.ForNodes(context, node => SetNodeWeights(context, node));
             context.Filters.ForEach(x => x.ForDependencies((dep1, dep2) => SetNodeWeights(context, dep1, dep2)));
@@ -38,17 +38,19 @@
             }
 
             context.WeightedDependencies.Add(dependency);
-            GetDependencyNodes(context.Tree, dependency)
+            context.GetDependencyNodes(dependency)
                 .OrderByDescending(x => x.Weight)
                 .First()
                 .Weight++;
         }
 
-        private static IEnumerable<INode> GetDependencyNodes(Tree tree, IDependency dep1)
+        private static IEnumerable<INode> GetDependencyNodes(this TreeContext context, IDependency dep1)
         {
-            return dep1.Type == DependencyType.Single 
-                ? new[] { tree.Nodes[dep1.Token] } 
-                : tree.Nodes[dep1.Token].Provider.Dependencies.SelectMany(x => GetDependencyNodes(tree, x));
+            return dep1.Type == DependencyType.Single
+                ? new[] { context.Tree.Nodes[dep1.Token] }
+                : context.Tree.GetNode(dep1.Token)
+                         .Provider.Dependencies
+                         .SelectMany(context.GetDependencyNodes);
         }
     }
 }
