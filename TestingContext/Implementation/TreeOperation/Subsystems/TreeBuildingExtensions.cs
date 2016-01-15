@@ -1,6 +1,5 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation.Subsystems
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using TestingContext.LimitedInterface.Tokens;
@@ -40,25 +39,21 @@
             return new HashSet<IToken>(dependencies.SelectMany(context.GetParents).Concat(dependencies));
         }
 
-        //public static INode GetCvFilterNode(this Tree tree, IFilter filter)
-        //{
-        //    return tree.GetNode(filter.Dependencies.First().Token);
-        //}
+        public static INode GetGroupNode(this TreeContext context, IFilterGroup group)
+        {
+            var token = group?.NodeToken;
+            if (token == null)
+            {
+                return null;
+            }
+            INode node;
+            return context.Tree.Nodes.TryGetValue(token, out node) ? node : null;
+        }
 
-        //public static INode GetNode(this Tree tree, IToken token)
-        //{
-        //    return tree.Nodes.SafeGet(token);
-        //}
-
-        //public static INode GetNode(this Tree tree, IFilterGroup group)
-        //{
-        //    return tree.GetNode(group?.NodeToken);
-        //}
-
-        //public static bool IsCvFilter(this TreeContext context, IFilter filter)
-        //{
-        //    return context.Store.CvFilters.Contains(filter.FilterInfo.FilterToken);
-        //}
+        public static bool IsCvFilter(this TreeContext context, IFilter filter)
+        {
+            return context.Store.CvFilters.Contains(filter.FilterInfo.FilterToken);
+        }
 
         // can be used after the tree is built
         public static INode GetDependencyNode(this TreeContext context, IDependency dependency)

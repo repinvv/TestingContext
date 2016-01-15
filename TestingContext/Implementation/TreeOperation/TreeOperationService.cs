@@ -4,17 +4,13 @@
     using System.Linq;
     using TestingContext.LimitedInterface.Tokens;
     using TestingContext.LimitedInterface.UsefulExtensions;
-    using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.TreeOperation.LoopDetection;
     using TestingContextCore.Implementation.TreeOperation.Subsystems;
     using TestingContextCore.Implementation.TreeOperation.Subsystems.NodeRelated;
-    using static Subsystems.TreeBuilder;
     using static Subsystems.FilterAssignmentService;
-    using static Subsystems.FilterProcessingService;
-    using static Subsystems.NodeRelated.NodesCreationService;
 
     internal static class TreeOperationService
     {
@@ -30,7 +26,8 @@
             context.CalculateNodeWeights(nodeDependencies);
             context.BuildNodesTree(nodeDependencies);
             ReorderNodesForFilters(context);
-            context.AssignFilters();
+            context.Filters.ForEach(context.AssignFilter);
+
             int i = 0;
             tree.FilterIndex = context.Filters.ToDictionary(x => x, x => i++);
 

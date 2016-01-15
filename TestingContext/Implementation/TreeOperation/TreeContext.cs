@@ -6,7 +6,6 @@
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
-    using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Registrations;
 
     internal class TreeContext
@@ -27,14 +26,16 @@
 
         public Dictionary<IFilterToken, List<IFilter>> FiltersInGroup { get; set; }
 
-        public Dictionary<IFilterToken, List<IFilter>> AllFiltersInGroup { get; set; }
+        public Dictionary<IFilterToken, List<IFilter>> AllFiltersInGroup { get; } 
+            = new Dictionary<IFilterToken, List<IFilter>>();
 
         public Dictionary<IFilterToken, List<IToken>> ProviderTokensInGroup { get; set; }
 
-        public Dictionary<IFilterToken, List<IToken>> AllProviderTokensInGroup { get; set; }
+        public Dictionary<IFilterToken, List<IToken>> AllProviderTokensInGroup { get; } 
+            = new Dictionary<IFilterToken, List<IToken>>();
 
 
-        // used to avoid assignin two or more equal filters to the same pair of nodes
+        // used to avoid assigning two or more equal filters to the same pair of nodes
         public HashSet<Tuple<IToken, IToken>> NonEqualFilters { get; } = new HashSet<Tuple<IToken, IToken>>();
 
         // used to avoid same dependency increase weight several times

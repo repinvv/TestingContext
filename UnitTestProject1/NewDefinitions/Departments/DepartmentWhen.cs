@@ -56,7 +56,7 @@
         }
 
         [When(@"for company property(?:\s)?(.*) i need department(?:\s)?(.*) to NOT have all three, ""(.*)"" type, ""(.*)"" employee, project budjet (.*) or more")]
-        public void WhenForCompanyPropertyINeedDepartmentToNOTHaveAllThreeTypeEmployeeProjectBudjetOrMore(
+        public void WhenForCompanyPropertyINeedDepartmentToNotHaveAllThreeTypeEmployeeProjectBudjetOrMore(
             string propertyName,
             string departmentName,
             DepartmentType departmentType,

@@ -34,7 +34,8 @@
         {
             foreach (var filterGroup in context.Filters
                 .OfType<IFilterGroup>()
-                .Where(grp => context.GetInGroupTokens(grp).Any()))
+                .Where(grp => context.GetInGroupTokens(grp).Any())
+                .ToList())
             {
                 var node = context.CreateNodeForFilterGroup(filterGroup);
                 context.Tree.Nodes.Add(node.Token, node);

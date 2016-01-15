@@ -5,7 +5,6 @@
     using TestingContext.LimitedInterface.Tokens;
     using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Resolution;
-    using TestingContextCore.Implementation.TreeOperation;
     using static NodeClosestParentService;
 
     internal class NodeResolver

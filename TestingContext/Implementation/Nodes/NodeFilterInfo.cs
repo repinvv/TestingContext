@@ -6,13 +6,12 @@
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Registrations;
-    using TestingContextCore.Implementation.TreeOperation;
 
     internal class NodeFilterInfo
     {
         public NodeFilterInfo(TokenStore store, IToken token)
         {
-            var and = new AndGroup { Filters = new List<IFilter>() };
+            var and = new AndGroup();
             var inversionInfo = store?.ItemInversions.SafeGet(token);
             Group = and;
             

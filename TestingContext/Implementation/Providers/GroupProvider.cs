@@ -8,8 +8,6 @@
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
-    using TestingContextCore.Implementation.TreeOperation;
-    using TestingContextCore.Implementation.TreeOperation.Subsystems;
 
     internal class GroupProvider : IProvider 
     {

@@ -3,7 +3,6 @@
     using TestingContext.Interface;
     using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
-    using TestingContextCore.Implementation.Registrations.FilterRegistrations;
     using TestingContextCore.Implementation.Registrations.HighLevel;
     using TestingContextCore.Implementation.Registrations.Registration0;
     using TestingContextCore.Implementation.Registrations.Registration1;

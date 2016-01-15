@@ -8,7 +8,6 @@
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Resolution;
-    using static FilterAssignmentService;
 
     internal static class NonEqualFilteringService
     {

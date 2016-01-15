@@ -87,7 +87,6 @@
     <Compile Include="Implementation\TreeOperation\LoopDetection\TarjanLoopDetection.cs" />
     <Compile Include="Implementation\TreeOperation\LoopDetection\Vertex.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\AbsorbedFiltersService.cs" />
-    <Compile Include="Implementation\TreeOperation\Subsystems\FilterProcessingService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\GroupFiltersService.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NodeRelated\NodeDependencyIteration.cs" />
     <Compile Include="Implementation\TreeOperation\Subsystems\NodeRelated\NodeDependencyService.cs" />

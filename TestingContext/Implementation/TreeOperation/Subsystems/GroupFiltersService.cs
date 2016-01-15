@@ -52,7 +52,7 @@
             var groupDependencies = inGroupTokens
                 .SelectMany(x => context.Store.Providers[x].Dependencies)
                 .Concat(context.GetInGroupFilters(filterGroup).SelectMany(x => x.Dependencies))
-                .Concat(filterGroup.Dependencies)
+                .Concat(filterGroup.GroupDependencies)
                 .Where(dependency => !inGroupTokens.Contains(dependency.Token))
                 .DistinctDependencies()
                 .ToList();

@@ -1,29 +1,33 @@
 namespace TestingContextCore.Implementation.TreeOperation.Subsystems
 {
-    using System.Collections.Generic;
     using System.Linq;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
+    using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Nodes;
 
     internal static class AbsorbedFiltersService
     {
-        //public static bool FilterIsAbsorbed(TreeContext context, List<IToken> inGroupTokens, IFilter filter)
-        //{
-        //    return false;
-        //                 //   .Any(x => FilterIsAbsorbedBy(filter, tree.GetCvFilterNode(x), tree));
-        //}
+        public static bool IsFilterAbsorbed(this TreeContext context, IFilter filter, IFilterGroup group)
+        {
+            var node = context.GetGroupNode(group);
+            if (node == null)
+            {
+                return false;
+            }
 
-        //private static bool FilterIsAbsorbedBy(IFilter filter, INode cvNode, TreeContext context)
-        //{
-        //    return filter.Dependencies.Any(x => DependencyIsAbsorbed(x, cvNode, context));
-        //}
+            return node.Children.Any(x => context.FilterIsAbsorbedBy(filter, x));
+        }
 
-        //private static bool DependencyIsAbsorbed(IDependency dependency, INode cvNode, TreeContext context)
-        //{
-        //    if (dependency.Type == DependencyType.Single && dependency.Token == cvNode.Token) return true;
-        //    return context.IsParent(dependency.Token, cvNode.Token);
-        //}
+        private static bool FilterIsAbsorbedBy(this TreeContext context, IFilter filter, INode node)
+        {
+            return filter.Dependencies.Any(x => context.DependencyIsAbsorbed(x, node));
+        }
+
+        private static bool DependencyIsAbsorbed(this TreeContext context, IDependency dependency, INode node)
+        {
+            if (dependency.Type == DependencyType.Single && dependency.Token == node.Token) return true;
+            return context.IsParent(dependency.Token, node.Token);
+        }
     }
 }
