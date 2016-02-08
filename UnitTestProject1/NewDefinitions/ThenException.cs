@@ -25,7 +25,7 @@
             foreach (var typeName in typeList)
             {
                 Assert.IsTrue(ex.Message.Contains(typeName));
-                Assert.IsTrue(ex.DetailedDiagnostics.Any(x => x.Item1.Type.Name.Contains(typeName)));
+                Assert.IsTrue(ex.DetailedDiagnostics.Any(x => x.Item1.ToString().Contains(typeName)));
             }
         }
     }

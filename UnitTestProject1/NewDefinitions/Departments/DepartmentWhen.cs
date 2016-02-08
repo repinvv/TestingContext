@@ -1,5 +1,6 @@
 ﻿namespace UnitTestProject1.NewDefinitions.Departments
 {
+    using System.Linq;
     using TechTalk.SpecFlow;
     using TestingContext.Interface;
     using TestingContext.LimitedInterface.Tokens;
@@ -75,5 +76,15 @@
                 });
             context.Storage.Set(employee);
         }
+
+        [When(@"i need department(?:\s)?(.*) to have higher headcount that departments(?:\s)?(.*)")]
+        public void WhenINeedDepartmentToHaveHigherHeadcountThatDepartments(string depKey1, string depKey2)
+        {
+            context
+                .For<Department>(depKey1)
+                .ForCollection<Department>(depKey2)
+                .IsTrue((department, departments) => department.HeadCount > departments.Sum(x => x.HeadCount));
+        }
+
     }
 }

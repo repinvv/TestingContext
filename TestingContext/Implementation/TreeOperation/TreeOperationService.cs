@@ -31,8 +31,9 @@
             int i = 0;
             tree.FilterIndex = context.Filters.ToDictionary(x => x, x => i++);
 
-            // actual resolution starts here
             FiltersLoopDetectionService.DetectFilterDependenciesLoop(tree);
+
+            // actual resolution starts here
             tree.RootContext = new ResolutionContext<Root>(Root.Instance, tree.Root, null, store);
             return tree;
         }

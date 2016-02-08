@@ -5,15 +5,19 @@
 
 @loopDetection
 Scenario: Filter dependency loop detection
-	Given insurance B is taken from insurancesSource
-	  And assignment B has more people than assignments C
-	  And assignment C has more people than assignments D
-	  And for insurance B exists an assignment B
-	  And for insurance B exists an assignment C
-	  And for insurance B exists an assignment D
-	  And assignment D has more people than assignments C
-	When i try resolving insurance B
-	Then i should get an exception with information about Assignment "D"
+   	Given I have companies
+	| Id | Name      |
+    When i need a company
+	 And i need company to have a department B
+	 And i need company to have a department C
+	 And i need company to have a department D
+
+	 And i need department B to have higher headcount that departments C
+	 And i need department C to have higher headcount that departments D
+	 And i need department D to have higher headcount that departments B
+
+    Then i should get a detailed exception trying to search for company
+	 And Detailed exception should mention types "Department "B",Department "C",Department "D""
 
 Scenario: Entity dependency loop detection
    	Given I have companies

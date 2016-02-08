@@ -80,24 +80,31 @@ namespace UnitTestProject1.Features
                         "loopDetection"});
 #line 7
 this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Id",
+                        "Name"});
 #line 8
- testRunner.Given("insurance B is taken from insurancesSource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 9
-   testRunner.And("assignment B has more people than assignments C", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.Given("I have companies", ((string)(null)), table1, "Given ");
 #line 10
-   testRunner.And("assignment C has more people than assignments D", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.When("i need a company", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 11
-   testRunner.And("for insurance B exists an assignment B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("i need company to have a department B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 12
-   testRunner.And("for insurance B exists an assignment C", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("i need company to have a department C", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 13
-   testRunner.And("for insurance B exists an assignment D", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 14
-   testRunner.And("assignment D has more people than assignments C", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("i need company to have a department D", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 15
- testRunner.When("i try resolving insurance B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.And("i need department B to have higher headcount that departments C", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 16
- testRunner.Then("i should get an exception with information about Assignment \"D\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.And("i need department C to have higher headcount that departments D", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 17
+  testRunner.And("i need department D to have higher headcount that departments B", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 19
+    testRunner.Then("i should get a detailed exception trying to search for company", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 20
+  testRunner.And("Detailed exception should mention types \"Department \"B\",Department \"C\",Department" +
+                    " \"D\"\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -108,27 +115,27 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void EntityDependencyLoopDetection()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Entity dependency loop detection", ((string[])(null)));
-#line 18
+#line 22
 this.ScenarioSetup(scenarioInfo);
 #line hidden
-            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "Name"});
-#line 19
-    testRunner.Given("I have companies", ((string)(null)), table1, "Given ");
-#line 21
- testRunner.When("i need a company", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 22
-  testRunner.And("i need company to have a department", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 23
-  testRunner.And("i specify that employee depends on department and project", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 24
-  testRunner.And("i specify that project depends on department and company property", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.Given("I have companies", ((string)(null)), table2, "Given ");
 #line 25
-  testRunner.And("i specify that company property depends on company and employee", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("i need a company", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 26
-    testRunner.Then("i should get a detailed exception trying to search for company", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.And("i need company to have a department", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 27
+  testRunner.And("i specify that employee depends on department and project", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 28
+  testRunner.And("i specify that project depends on department and company property", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 29
+  testRunner.And("i specify that company property depends on company and employee", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 30
+    testRunner.Then("i should get a detailed exception trying to search for company", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 31
   testRunner.And("Detailed exception should mention types \"Employee,WorkProject,CompanyProperty\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

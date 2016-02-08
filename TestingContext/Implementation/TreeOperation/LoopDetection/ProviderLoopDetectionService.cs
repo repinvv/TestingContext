@@ -16,7 +16,7 @@ namespace TestingContextCore.Implementation.TreeOperation.LoopDetection
                                 .ToDictionary(x => x.Token);
             var rootVertex = new ProviderVertex { Token = store.RootToken };
             vertices.Add(store.RootToken, rootVertex);
-            foreach (var vertex in vertices.Values.Where(x=>x.Token != store.RootToken))
+            foreach (var vertex in vertices.Values.Where(x => x.Token != store.RootToken))
             {
                 foreach (var dependency in vertex.Provider.Dependencies)
                 {
@@ -31,8 +31,5 @@ namespace TestingContextCore.Implementation.TreeOperation.LoopDetection
                 throw new DetailedRegistrationException("Following types declare a dependency loop" + types, tuples);
             }
         }
-
-        public static void DetectRegistrationLoop(TokenStore store, IFilter filter)
-        { }
     }
 }

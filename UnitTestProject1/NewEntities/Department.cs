@@ -10,6 +10,8 @@
 
         public string Name { get; set; }
 
+        public int HeadCount { get; set; }
+
         public DepartmentType Type { get; set; }
 
         public List<Employee> Employees { get; set; }

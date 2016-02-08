@@ -10,6 +10,6 @@
 
         public IFilter Filter { get; set; }
 
-        public IDependency Dependency { get; set; }
+        public IToken Dependency { get; set; }
     }
 }
