@@ -21,7 +21,7 @@
 
         public Dictionary<IToken, IProvider> Providers { get; } = new Dictionary<IToken, IProvider>();
 
-        public List<IFilterRegistration> Filters { get; } = new List<IFilterRegistration>();
+        public List<FilterRegistration> FilterRegistrations { get; } = new List<FilterRegistration>();
 
         public HashSet<IFilterToken> CvFilters { get; } = new HashSet<IFilterToken>();
 

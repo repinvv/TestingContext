@@ -31,6 +31,11 @@
         void Each<T2>(IDiagInfo diagInfo, string name, Func<T1, IEnumerable<T2>> srcFunc);
 
 
+        IFilterToken Group(Action<IRegister> action,
+            [CallerFilePath] string file = "",
+            [CallerLineNumber] int line = 0,
+            [CallerMemberName] string member = "");
+
         IFilterToken Not(Action<IRegister> action,
             [CallerFilePath] string file = "",
             [CallerLineNumber] int line = 0,

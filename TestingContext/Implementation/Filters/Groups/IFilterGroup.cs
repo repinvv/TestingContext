@@ -10,6 +10,6 @@
         
         IToken NodeToken { get; }
 
-        List<IFilter> Filters { get; set; }
+        List<IFilter> Filters { get; }
     }
 }

@@ -21,9 +21,9 @@
         }
 
         #region ITestingContext members
-        public int RegistrationsCount => store.Filters.Count;
+        public int RegistrationsCount => store.FilterRegistrations.Count;
 
-        public IMatcher GetMatcher() => new Matcher(TreeOperationService.CreateTree(store).RootContext, store);
+        public IMatcher GetMatcher() => new Matcher(store.CreateTree().RootContext, store);
 
         public IRegister Priority(int priority) => RegistrationFactory.GetRegistration(store, null, priority);
 
@@ -31,13 +31,11 @@
             => store.GetHaveToken<T>(DiagInfo.Create(file, line, member), name);
 
         public void SetToken<T>(string name, IHaveToken<T> haveToken, string file, int line, string member) 
-            => store.SaveToken<T>(DiagInfo.Create(file, line, member), name, haveToken.Token);
+            => store.SaveToken(DiagInfo.Create(file, line, member), name, haveToken.Token);
 
         public IInversion Inversion { get; }
 
         public IStorage Storage { get; } = new Storage();
         #endregion
-
-        
     }
 }

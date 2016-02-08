@@ -18,7 +18,7 @@
 
         public IToken NodeToken { get; }
 
-        public List<IFilter> Filters { get; set; }
+        public List<IFilter> Filters { get; } = new List<IFilter>();
 
         public IEnumerable<IDependency> Dependencies => Filters.SelectMany(x => x.Dependencies);
 

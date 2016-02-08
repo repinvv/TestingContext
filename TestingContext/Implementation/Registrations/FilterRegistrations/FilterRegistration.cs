@@ -2,9 +2,8 @@
 {
     using System;
     using TestingContextCore.Implementation.Filters;
-    using TestingContextCore.Implementation.Filters.Groups;
 
-    internal class FilterRegistration : IFilterRegistration
+    internal class FilterRegistration
     {
         private readonly Func<IFilter> filterConstructor;
 
@@ -13,6 +12,6 @@
             this.filterConstructor = filterConstructor;
         }
 
-        public IFilter GetFilter(IFilterGroup group) => filterConstructor();
+        public IFilter GetFilter() => filterConstructor();
     }
 }

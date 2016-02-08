@@ -12,7 +12,7 @@
 
     public static class Counter
     {
-        public static int Count = 0;
+        public static int Count;
     }
 
     internal class ResolutionContext<T> : IResolutionContext<T>, IResolutionContext

@@ -1,6 +1,5 @@
-﻿namespace TestingContextCore.Implementation.TreeOperation.Subsystems
+namespace TestingContextCore.Implementation.TreeOperation.Subsystems
 {
-    using System.Collections.Generic;
     using System.Linq;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
@@ -9,35 +8,26 @@
 
     internal static class AbsorbedFiltersService
     {
-        public static void ExtractAbsorbedFilters(this IFilterGroup group, List<IFilter> freeFilters, Tree tree)
+        public static bool IsFilterAbsorbed(this TreeContext context, IFilter filter, IFilterGroup group)
         {
-            var cvFilters = group.Filters.Where(tree.IsCvFilter).ToList();
-            var absorbedFilters = group.Filters.Where(x => FilterIsAbsorbed(tree, cvFilters, x)).ToList();
-            freeFilters.AddRange(absorbedFilters);
-            group.Filters.ForGroups(grp => grp.ExtractAbsorbedFilters(freeFilters, tree));
-            group.Filters = group.Filters.Except(absorbedFilters).ToList();
-        }
-
-        private static bool FilterIsAbsorbed(Tree tree, List<IFilter> cvFilters, IFilter filter)
-        {
-            return cvFilters
-                .Where(x => x != filter)
-                .Any(x => FilterIsAbsorbedBy(filter, tree.GetCvFilterNode(x), tree));
-        }
-
-        private static bool FilterIsAbsorbedBy(IFilter filter, INode cvNode, Tree tree)
-        {
-            return filter.Dependencies.Any(x => DependencyIsAbsorbed(x, cvNode, tree));
-        }
-
-        private static bool DependencyIsAbsorbed(IDependency dependency, INode cvNode, Tree tree)
-        {
-            if (dependency.Type == DependencyType.Single && dependency.Token == cvNode.Token)
+            var node = context.GetGroupNode(group);
+            if (node == null)
             {
-                return true;
+                return false;
             }
 
-            return tree.IsParent(dependency.Token, cvNode.Token);
+            return node.Children.Any(x => context.FilterIsAbsorbedBy(filter, x));
+        }
+
+        private static bool FilterIsAbsorbedBy(this TreeContext context, IFilter filter, INode node)
+        {
+            return filter.Dependencies.Any(x => context.DependencyIsAbsorbed(x, node));
+        }
+
+        private static bool DependencyIsAbsorbed(this TreeContext context, IDependency dependency, INode node)
+        {
+            if (dependency.Type == DependencyType.Single && dependency.Token == node.Token) return true;
+            return context.IsParent(dependency.Token, node.Token);
         }
     }
 }

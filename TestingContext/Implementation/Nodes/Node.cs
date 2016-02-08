@@ -3,19 +3,19 @@
     using System.Collections.Generic;
     using System.Linq;
     using TestingContext.LimitedInterface.Tokens;
-    using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.TreeOperation;
 
     internal class Node : INode
     {
-        private int id;
+        private readonly int id;
 
-        public Node(Tree tree, IToken token, IProvider provider, NodeFilterInfo filterInfo)
+        public Node(Tree tree, IToken token, IProvider provider, bool isNegative, NodeFilterInfo filterInfo, int id)
         {
-            id = tree.NextId;
+            this.id = id;
             Token = token;
             Provider = provider;
+            IsNegative = isNegative;
             FilterInfo = filterInfo;
             Tree = tree;
             Resolver = new NodeResolver(this);
@@ -31,7 +31,7 @@
         
         public INode SourceParent { get; set; }
 
-        public bool IsNegative { get; set; }
+        public bool IsNegative { get; }
 
         public bool IsChildOf(INode node) => Parent == node || Parent.IsChildOf(node);
 
@@ -59,9 +59,9 @@
 
         public override string ToString() => $"{Token} Id: {id}";
 
-        public static Node CreateNode(IToken token, IProvider provider, Tree tree)
+        public static Node CreateNode(IToken token, IProvider provider, bool isNegative, TreeContext context)
         {
-            return new Node(tree, token, provider, new NodeFilterInfo(tree, token));
+            return new Node(context.Tree, token, provider, isNegative, new NodeFilterInfo(context.Store, token), context.NextId);
         }
     }
 }

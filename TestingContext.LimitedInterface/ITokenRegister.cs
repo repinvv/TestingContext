@@ -12,6 +12,10 @@
 
         IForToken<IEnumerable<T>> ForCollection<T>(IHaveToken<T> haveToken);
 
+        IFilterToken Group(Action<ITokenRegister> action,
+            [CallerFilePath] string file = "",
+            [CallerLineNumber] int line = 0,
+            [CallerMemberName] string member = "");
 
         IFilterToken Not(Action<ITokenRegister> action,
             [CallerFilePath] string file = "",

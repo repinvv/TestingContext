@@ -8,61 +8,69 @@
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Registrations.FilterRegistrations;
-    using TestingContextCore.Implementation.Tokens;
 
     internal class InnerHighLevelRegistration
     {
         private readonly TokenStore store;
-        private readonly FilterGroupRegistration group;
+        private readonly IFilterToken groupToken;
         private readonly int priority;
         private readonly IDependency[] dependencies;
 
-        public InnerHighLevelRegistration(TokenStore store, FilterGroupRegistration group, int priority, params IDependency[] dependencies)
+        public InnerHighLevelRegistration(TokenStore store, IFilterToken groupToken, int priority, params IDependency[] dependencies)
         {
             this.store = store;
-            this.group = group;
+            this.groupToken = groupToken;
             this.priority = priority;
             this.dependencies = dependencies;
         }
 
         public IFilterToken Not(IDiagInfo diagInfo, Action<IRegister> action)
         {
-            var info = new FilterInfo(id: store.NextId, diagInfo: diagInfo, token: new FilterToken(), groupToken: @group?.GroupToken, priority: priority);
-            var notGroup = new FilterGroupRegistration(info.Token, grp => new NotGroup(dependencies, info));
-            store.RegisterFilter(notGroup, group);
-            action(RegistrationFactory.GetRegistration(store, notGroup, priority));
-            return info.Token;
+            var info = new FilterInfo(store.NextId, diagInfo, groupToken, priority);
+            var notGroup = new FilterRegistration(() => new NotGroup(dependencies, info));
+            store.RegisterFilter(notGroup);
+            action(RegistrationFactory.GetRegistration(store, info.FilterToken, priority));
+            return info.FilterToken;
         }
 
-        public IFilterToken Either(IDiagInfo diagInfo, Action<IRegister>[] actions)
+        public IFilterToken And(IDiagInfo diagInfo, Action<IRegister> action)
         {
-            var info = new FilterInfo(id: store.NextId, diagInfo: diagInfo, token: new FilterToken(), groupToken: @group?.GroupToken, priority: priority);
-            var orGroup = new FilterGroupRegistration(info.Token, grp => new OrGroup(dependencies, info));
-            store.RegisterFilter(orGroup, group);
+            var info = new FilterInfo(store.NextId, diagInfo, groupToken, priority);
+            var notGroup = new FilterRegistration(() => new AndGroup(dependencies, info));
+            store.RegisterFilter(notGroup);
+            action(RegistrationFactory.GetRegistration(store, info.FilterToken, priority));
+            return info.FilterToken;
+        }
+
+        public IFilterToken Or(IDiagInfo diagInfo, Action<IRegister>[] actions)
+        {
+            var info = new FilterInfo(store.NextId, diagInfo, groupToken, priority);
+            var orGroup = new FilterRegistration(() => new OrGroup(dependencies, info));
+            store.RegisterFilter(orGroup);
             foreach (var action in actions)
             {
-                RegisterSubgroup(action, orGroup, info);
+                RegisterSubgroup(action, info);
             }
 
-            return info.Token;
+            return info.FilterToken;
         }
 
         public IFilterToken Xor(IDiagInfo diagInfo, Action<IRegister> action, Action<IRegister> action2)
         {
-            var info = new FilterInfo(id: store.NextId, diagInfo: diagInfo, token: new FilterToken(), groupToken: @group?.GroupToken, priority: priority);
-            var xorGroup = new FilterGroupRegistration(info.Token, grp => new XorGroup(dependencies, info));
-            store.RegisterFilter(xorGroup, group);
-            RegisterSubgroup(action, xorGroup, info);
-            RegisterSubgroup(action2, xorGroup, info);
-            return info.Token;
+            var info = new FilterInfo(store.NextId, diagInfo, groupToken, priority);
+            var xorGroup = new FilterRegistration(() => new XorGroup(dependencies, info));
+            store.RegisterFilter(xorGroup);
+            RegisterSubgroup(action, info);
+            RegisterSubgroup(action2, info);
+            return info.FilterToken;
         }
 
-        private void RegisterSubgroup(Action<IRegister> action, FilterGroupRegistration parentGroup, FilterInfo info)
+        private void RegisterSubgroup(Action<IRegister> action, FilterInfo parentInfo)
         {
-            var andInfo = new FilterInfo (id: store.NextId, diagInfo: info.DiagInfo, token: new FilterToken(), groupToken: info.Token, priority: info.Priority);
-            var andGroup = new FilterGroupRegistration(parentGroup?.GroupToken, grp => new AndGroup(grp.NodeToken, null, andInfo));
-            parentGroup.FilterRegistrations.Add(andGroup);
-            action(RegistrationFactory.GetRegistration(store, andGroup, priority));
+            var andInfo = new FilterInfo (store.NextId, parentInfo.DiagInfo, parentInfo.FilterToken, parentInfo.Priority);
+            var andGroup = new FilterRegistration(() => new AndGroup(null, andInfo));
+            store.RegisterFilter(andGroup);
+            action(RegistrationFactory.GetRegistration(store, andInfo.FilterToken, priority));
         }
     }
 }

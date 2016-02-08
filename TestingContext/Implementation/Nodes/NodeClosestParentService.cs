@@ -1,7 +1,6 @@
-﻿namespace TestingContextCore.Implementation.TreeOperation.Subsystems
+﻿namespace TestingContextCore.Implementation.Nodes
 {
     using System.Collections.Generic;
-    using TestingContextCore.Implementation.Nodes;
 
     internal static class NodeClosestParentService
     {

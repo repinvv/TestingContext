@@ -9,40 +9,41 @@
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.TreeOperation.LoopDetection;
     using TestingContextCore.Implementation.TreeOperation.Subsystems;
-    using static Subsystems.TreeBuilder;
+    using TestingContextCore.Implementation.TreeOperation.Subsystems.NodeRelated;
     using static Subsystems.FilterAssignmentService;
-    using static TestingContextCore.Implementation.TreeOperation.Subsystems.FilterProcessingService;
-    using static TestingContextCore.Implementation.TreeOperation.Subsystems.NodesCreationService;
 
     internal static class TreeOperationService
     {
-        public static Tree CreateTree(TokenStore store)
+        public static Tree CreateTree(this TokenStore store)
         {
             ProviderLoopDetectionService.DetectRegistrationsLoop(store);
 
-            var tree = new Tree { Store = store };
+            var tree = new Tree();
             tree.Root = new RootNode(tree, store.RootToken);
-            tree.Nodes.Add(store.RootToken, tree.Root);
+            var context = store.CreateTreeContext(tree);
+            context.CreateNodes();
+            var nodeDependencies = context.GroupNodes();
+            context.CalculateNodeWeights(nodeDependencies);
+            context.BuildNodesTree(nodeDependencies);
+            ReorderNodesForFilters(context);
+            context.Filters.ForEach(context.AssignFilter);
 
-            SetupTreeFilters(tree);
-            CreateNodes(tree).ForEach(node => tree.Nodes.Add(node.Token, node));
-            ProcessTreeFilters(tree);
-            var nodeDependencies = GroupNodes(tree);
-            NodeWeigthsService.CalculateNodeWeights(tree, nodeDependencies);
-            BuildNodesTree(tree, nodeDependencies);
-            AssignFilters(tree);
+            int i = 0;
+            tree.FilterIndex = context.Filters.ToDictionary(x => x, x => i++);
+
+            // actual resolution starts here
             FiltersLoopDetectionService.DetectFilterDependenciesLoop(tree);
             tree.RootContext = new ResolutionContext<Root>(Root.Instance, tree.Root, null, store);
             return tree;
         }
 
-        private static Dictionary<IToken, List<INode>> GroupNodes(Tree tree)
+        private static Dictionary<IToken, List<INode>> GroupNodes(this TreeContext context)
         {
-            var nodes = tree.Nodes.Values;
+            var nodes = context.Tree.Nodes.Values.Where(x => x != context.Tree.Root);
             var dict = new Dictionary<IToken, List<INode>>();
-            foreach (var node in nodes.Where(x => x != tree.Root))
+            foreach (var node in nodes)
             {
-                tree.GetDependencies(node).ForEach(dependency => dict.GetList(dependency.Token).Add(node));
+                context.GetDependencies(node).ForEach(dependency => dict.GetList(dependency.Token).Add(node));
             }
 
             return dict;

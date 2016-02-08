@@ -14,7 +14,7 @@
 
         public IDiagInfo Diagnostics => FilterInfo.DiagInfo;
 
-        public IFilterToken GroupToken => FilterInfo.GroupToken;
+        public IFilterToken ParentGroupToken => FilterInfo.ParentGroupToken;
 
         public IDiagInfo DiagInfo => FilterInfo.DiagInfo;
 
