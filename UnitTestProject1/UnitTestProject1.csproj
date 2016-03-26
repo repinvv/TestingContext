@@ -59,7 +59,6 @@
     <Compile Include="Definitions\Assignment\AssignmentGiven.cs" />
     <Compile Include="Definitions\Assignment\AssignmentGivenHelper.cs" />
     <Compile Include="Definitions\Assignment\AssignmentThen.cs" />
-    <Compile Include="Definitions\Common\Register.cs" />
     <Compile Include="Definitions\Insurance\InsuranceGiven.cs" />
     <Compile Include="Definitions\Insurance\InsuranceGivenHelper.cs" />
     <Compile Include="Definitions\Insurance\InsuranceThen.cs" />

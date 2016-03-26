@@ -7,6 +7,7 @@
     using TechTalk.SpecFlow;
     using TestingContext.Interface;
     using TestingContext.LimitedInterface;
+    using TestingContextCore.PublicMembers;
 
     [Binding]
     public class PerfTest
@@ -15,7 +16,7 @@
 
         private List<Model> models;
 
-        public PerfTest(ITestingContext context)
+        public PerfTest(TestingContext context)
         {
             this.context = context;
         }

@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using TechTalk.SpecFlow;
     using TestingContext.Interface;
+    using TestingContextCore.PublicMembers;
     using UnitTestProject1.NewEntities;
 
     [Binding]
@@ -10,7 +11,7 @@
     {
         private readonly ITestingContext context;
 
-        public CompanyWhen(ITestingContext context)
+        public CompanyWhen(TestingContext context)
         {
             this.context = context;
         }

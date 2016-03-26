@@ -16,7 +16,7 @@
         public FilterInfo(int id, 
             IDiagInfo diagInfo = null,
             IFilterToken parentGroupToken = null, 
-            int priority = TestingContextFactory.DefaultPriority)
+            int priority = TestingContext.DefaultPriority)
         {
             FilterToken = new FilterToken();
             ParentGroupToken = parentGroupToken;

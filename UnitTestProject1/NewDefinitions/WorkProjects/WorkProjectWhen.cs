@@ -2,6 +2,7 @@
 {
     using TechTalk.SpecFlow;
     using TestingContext.Interface;
+    using TestingContextCore.PublicMembers;
     using UnitTestProject1.NewEntities;
 
     [Binding]
@@ -9,7 +10,7 @@
     {
         private readonly ITestingContext context;
 
-        public WorkProjectWhen(ITestingContext context)
+        public WorkProjectWhen(TestingContext context)
         {
             this.context = context;
         }

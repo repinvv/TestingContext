@@ -127,8 +127,7 @@
     <Compile Include="Implementation\Tokens\TokenGen.cs" />
     <Compile Include="PublicMembers\Storage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Implementation\TestingContextImplementation.cs" />
-    <Compile Include="PublicMembers\TestingContextFactory.cs" />
+    <Compile Include="PublicMembers\TestingContextImplementation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

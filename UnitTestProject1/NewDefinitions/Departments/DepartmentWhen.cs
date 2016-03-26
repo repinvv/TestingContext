@@ -4,6 +4,7 @@
     using TechTalk.SpecFlow;
     using TestingContext.Interface;
     using TestingContext.LimitedInterface.Tokens;
+    using TestingContextCore.PublicMembers;
     using UnitTestProject1.NewEntities;
     using UnitTestProject1.NewDefinitions.Extensions;
 
@@ -12,7 +13,7 @@
     {
         private readonly ITestingContext context;
 
-        public DepartmentWhen(ITestingContext context)
+        public DepartmentWhen(TestingContext context)
         {
             this.context = context;
         }

@@ -3,6 +3,7 @@
     using System.Linq;
     using TechTalk.SpecFlow;
     using TestingContext.Interface;
+    using TestingContextCore.PublicMembers;
     using UnitTestProject1.Entities;
 
     [Binding]
@@ -10,7 +11,7 @@
     {
         private readonly ITestingContext context;
 
-        public TaxGiven(ITestingContext context)
+        public TaxGiven(TestingContext context)
         {
             this.context = context;
         }

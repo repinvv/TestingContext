@@ -6,18 +6,17 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;
     using TestingContext.Interface;
+    using TestingContextCore.PublicMembers;
 
     [Binding]
     internal class LoggerMustProduceInfo
     {
         private readonly ITestingContext context;
-        private IStorage storage;
         private string log;
 
-        public LoggerMustProduceInfo(ITestingContext context)
+        public LoggerMustProduceInfo(TestingContext context)
         {
             this.context = context;
-            storage = context.Storage;
         }
 
         [AfterScenarioBlock]

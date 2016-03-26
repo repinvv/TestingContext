@@ -5,6 +5,7 @@
     using TechTalk.SpecFlow;
     using TechTalk.SpecFlow.Assist;
     using TestingContext.Interface;
+    using TestingContextCore.PublicMembers;
     using UnitTestProject1.NewEntities;
 
     [Binding]
@@ -12,7 +13,7 @@
     {
         private readonly ITestingContext context;
 
-        public CompanyPropertyGiven(ITestingContext context)
+        public CompanyPropertyGiven(TestingContext context)
         {
             this.context = context;
         }

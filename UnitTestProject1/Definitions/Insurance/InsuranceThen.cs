@@ -4,6 +4,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;
     using TestingContext.Interface;
+    using TestingContextCore.PublicMembers;
     using UnitTestProject1.Entities;
 
     [Binding]
@@ -11,7 +12,7 @@
     {
         private readonly ITestingContext context;
 
-        public InsuranceThen(ITestingContext context)
+        public InsuranceThen(TestingContext context)
         {
             this.context = context;
         }

@@ -2,6 +2,7 @@
 {
     using TechTalk.SpecFlow;
     using TestingContext.Interface;
+    using TestingContextCore.PublicMembers;
     using TestingContextCore.PublicMembers.Exceptions;
     using UnitTestProject1.Entities;
 
@@ -10,7 +11,7 @@
     {
         private readonly ITestingContext context;
 
-        public InsuranceWhen(ITestingContext context)
+        public InsuranceWhen(TestingContext context)
         {
             this.context = context;
         }

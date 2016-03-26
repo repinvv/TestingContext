@@ -4,6 +4,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;
     using TestingContext.Interface;
+    using TestingContextCore.PublicMembers;
     using TestingContextCore.PublicMembers.Exceptions;
 
     [Binding]
@@ -11,7 +12,7 @@
     {
         private readonly ITestingContext context;
 
-        public ThenException(ITestingContext context)
+        public ThenException(TestingContext context)
         {
             this.context = context;
         }

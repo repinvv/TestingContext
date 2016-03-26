@@ -38,7 +38,8 @@
         public override string ToString()
         {
             return $"File: {File}, line: {Line}{Environment.NewLine}" +
-                   $"Member: {Member}, Additional info: {AdditionalInfo}";
+                   $"Member: {Member},{Environment.NewLine} Additional info:" +
+                   $"{Environment.NewLine} {AdditionalInfo}";
         }
     }
 }

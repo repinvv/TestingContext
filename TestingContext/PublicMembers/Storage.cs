@@ -1,7 +1,7 @@
 ﻿namespace TestingContextCore.PublicMembers
 {
     using System.Collections.Generic;
-    using TestingContext.Interface;
+    using global::TestingContext.Interface;
     using TestingContextCore.Implementation;
 
     public class Storage : IStorage
