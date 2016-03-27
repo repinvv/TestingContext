@@ -18,6 +18,7 @@ Background:
 	 | 3  | 3         | Or1  | Supplementary |
 	 | 4  | 4         | Ka1  | Supplementary |
 	 | 5  | 5         | Me1  | Business      |
+	 | 6  | 4         | Ka2  | Venture       |
 	And I have empleyees in departments
 	| Id | DepartmentId | Name    | EmploymentType |
 	| 1  | 5            | Peter   | PartTime       |
@@ -37,6 +38,12 @@ Scenario: use OrGroup to find company with department with either employees, pro
 	 And i need company to have a department
 	 And i need department to either be "Business" type or have "PartTime" employee or have project with budjet 100 or more 	 
 	Then companies "Adobe, Oracle, Kaspersky, MeraRu" should be found for company requirements
+
+Scenario: use OrGroup without child declarations
+	When i need a company
+	 And i need company to have a department
+	 And i need department to either be "Business" or "Venture" type
+	Then companies "Adobe, Kaspersky, MeraRu" should be found for company requirements
 
 Scenario: use NotGroup to find company with department that is not qualified to have all three conditions
 	When i need a company

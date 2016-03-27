@@ -11,11 +11,20 @@
         public IFilterToken FilterToken { get; }
         public IDiagInfo DiagInfo { get; }
         public int Priority { get; }
-        public int Id { get; }
+        public int Id { get; set; }
 
-        public FilterInfo(int id, 
-            IDiagInfo diagInfo = null,
-            IFilterToken parentGroupToken = null, 
+        public FilterInfo(IDiagInfo diagInfo = null,
+            IFilterToken parentGroupToken = null,
+            int priority = TestingContext.DefaultPriority)
+        {
+            FilterToken = new FilterToken();
+            ParentGroupToken = parentGroupToken;
+            Priority = priority;
+            DiagInfo = diagInfo;
+        }
+
+        public FilterInfo(int id, IDiagInfo diagInfo = null,
+            IFilterToken parentGroupToken = null,
             int priority = TestingContext.DefaultPriority)
         {
             FilterToken = new FilterToken();

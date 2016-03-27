@@ -26,7 +26,6 @@
             context.CalculateNodeWeights(nodeDependencies);
             context.BuildNodesTree(nodeDependencies);
             ReorderNodesForFilters(context);
-            context.Filters.Reverse();
             context.Filters.ForEach(context.AssignFilter);
 
             int i = 0;

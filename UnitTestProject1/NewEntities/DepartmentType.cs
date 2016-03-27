@@ -3,6 +3,7 @@
     public enum DepartmentType
     {
         Business,
-        Supplementary
+        Supplementary,
+        Venture
     }
 }

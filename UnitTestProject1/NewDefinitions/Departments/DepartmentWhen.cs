@@ -39,6 +39,13 @@
             context.Storage.Set(employee);
         }
 
+        [When(@"i need department(?:\s)?(.*) to either be ""(.*)"" or ""(.*)"" type")]
+        public void WhenINeedDepartmentToEitherBeOrType(string key, DepartmentType type1, DepartmentType type2)
+        {
+            var department = context.GetToken<Department>(key);
+            context.Either(x => x.DepartmentHasType(department, type1),
+                           x => x.DepartmentHasType(department, type2));
+        }
 
         [When(@"i need department(?:\s)?(.*) to NOT have all three, ""(.*)"" type, ""(.*)"" employee, project budjet (.*) or more")]
         public void WhenINeedDepartmentToNOTHaveAllThreeTypeEmployeeProjectBudjetOrMore(string departmentName,
