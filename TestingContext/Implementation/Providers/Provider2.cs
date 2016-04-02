@@ -3,15 +3,15 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContext.LimitedInterface.Diag;
-    using TestingContext.LimitedInterface.Tokens;
-    using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.PublicMembers.Exceptions;
+    using TestingContextLimitedInterface.Diag;
+    using TestingContextLimitedInterface.Tokens;
+    using TestingContextLimitedInterface.UsefulExtensions;
 
     internal class Provider2<TSource1, TSource2, T> : IProvider
     {

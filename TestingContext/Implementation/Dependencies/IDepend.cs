@@ -1,8 +1,8 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
     using System.Collections.Generic;
-    using TestingContext.LimitedInterface.Diag;
-    using TestingContext.LimitedInterface.Tokens;
+    using TestingContextLimitedInterface.Diag;
+    using TestingContextLimitedInterface.Tokens;
 
     internal interface IDepend
     {

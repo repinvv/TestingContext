@@ -1,8 +1,8 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation.LoopDetection
 {
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
+    using TestingContextLimitedInterface.Tokens;
 
     internal class FilterVertex : Vertex<FilterVertex>
     {

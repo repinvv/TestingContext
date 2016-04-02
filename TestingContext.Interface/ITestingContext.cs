@@ -1,8 +1,7 @@
-﻿namespace TestingContext.Interface
+﻿namespace TestingContextInterface
 {
     using System.Runtime.CompilerServices;
-    using TestingContext.LimitedInterface.Diag;
-    using TestingContext.LimitedInterface.Tokens;
+    using TestingContextLimitedInterface.Tokens;
 
     public interface ITestingContext : IRegister
     {

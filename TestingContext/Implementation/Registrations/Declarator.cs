@@ -3,14 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContext.LimitedInterface.Diag;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Registrations.FilterRegistrations;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.Tokens;
+    using TestingContextLimitedInterface.Diag;
+    using TestingContextLimitedInterface.Tokens;
 
     internal class Declarator<T>
     {

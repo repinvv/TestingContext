@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using global::TestingContext.LimitedInterface.Diag;
-    using global::TestingContext.LimitedInterface.Tokens;
+    using TestingContextLimitedInterface.Diag;
+    using TestingContextLimitedInterface.Tokens;
 
     public class DetailedRegistrationException : RegistrationException
     {

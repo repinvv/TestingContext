@@ -1,9 +1,9 @@
 ﻿namespace TestingContextCore.Implementation.Tokens
 {
     using System;
-    using TestingContext.LimitedInterface.Diag;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.PublicMembers.Exceptions;
+    using TestingContextLimitedInterface.Diag;
+    using TestingContextLimitedInterface.Tokens;
 
     internal class LazyHaveToken<T> : IHaveToken<T>
     {

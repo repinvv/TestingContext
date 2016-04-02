@@ -1,8 +1,8 @@
 ﻿namespace TestingContextCore.Implementation.Nodes
 {
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.TreeOperation;
     using TestingContextCore.PublicMembers.Exceptions;
+    using TestingContextLimitedInterface.Tokens;
 
     internal static class GetNodeService
     {

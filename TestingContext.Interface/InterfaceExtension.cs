@@ -1,11 +1,9 @@
-﻿namespace TestingContext.Interface
+﻿namespace TestingContextInterface
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Runtime.CompilerServices;
-    using TestingContext.LimitedInterface.Diag;
-    using TestingContext.LimitedInterface.Tokens;
+    using TestingContextLimitedInterface.Tokens;
 
     public static class InterfaceExtension
     {

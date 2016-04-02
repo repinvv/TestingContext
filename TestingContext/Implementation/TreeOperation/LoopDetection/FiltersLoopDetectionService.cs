@@ -4,12 +4,12 @@
     using System.Collections.Generic;
     using System.Linq;
     using Filters;
-    using TestingContext.LimitedInterface.Diag;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.PublicMembers.Exceptions;
+    using TestingContextLimitedInterface.Diag;
+    using TestingContextLimitedInterface.Tokens;
 
     internal static class FiltersLoopDetectionService
     {

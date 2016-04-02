@@ -1,9 +1,9 @@
 ﻿namespace TestingContextCore.Implementation.Resolution
 {
     using System.Collections.Generic;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
+    using TestingContextLimitedInterface.Tokens;
 
     internal interface IResolutionContext
     {

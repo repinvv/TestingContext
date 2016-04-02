@@ -1,8 +1,8 @@
 ﻿namespace TestingContextCore.Implementation.Filters.Groups
 {
     using System.Collections.Generic;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
+    using TestingContextLimitedInterface.Tokens;
 
     internal interface  IFilterGroup : IFilter
     {

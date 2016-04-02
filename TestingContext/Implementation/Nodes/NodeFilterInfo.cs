@@ -1,11 +1,11 @@
 ﻿namespace TestingContextCore.Implementation.Nodes
 {
     using System.Collections.Generic;
-    using TestingContext.LimitedInterface.Tokens;
-    using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Registrations;
+    using TestingContextLimitedInterface.Tokens;
+    using TestingContextLimitedInterface.UsefulExtensions;
 
     internal class NodeFilterInfo
     {

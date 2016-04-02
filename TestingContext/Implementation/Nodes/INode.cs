@@ -1,9 +1,9 @@
 ﻿namespace TestingContextCore.Implementation.Nodes
 {
     using System.Collections.Generic;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.TreeOperation;
+    using TestingContextLimitedInterface.Tokens;
 
     internal interface INode
     {

@@ -1,11 +1,11 @@
-﻿namespace TestingContext.LimitedInterface
+﻿namespace TestingContextLimitedInterface
 {
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
     using System.Runtime.CompilerServices;
-    using TestingContext.LimitedInterface.Tokens;
-    using static Diag.DiagInfoExpressionFactory;
+    using TestingContextLimitedInterface.Diag;
+    using TestingContextLimitedInterface.Tokens;
 
     public static class ExpressionalInterfaceExtension
     {
@@ -17,7 +17,7 @@
             [CallerLineNumber] int line = 0,
             [CallerMemberName] string member = "")
         {
-            var diag = CreateDiag(file, line, member, filter);
+            var diag = DiagInfoExpressionFactory.CreateDiag(file, line, member, filter);
             return ifor.IsTrue(diag, filter.Compile());
         }
 
@@ -27,7 +27,7 @@
             [CallerLineNumber] int line = 0,
             [CallerMemberName] string member = "")
         {
-            var diag = CreateDiag(file, line, member, srcFunc);
+            var diag = DiagInfoExpressionFactory.CreateDiag(file, line, member, srcFunc);
             return ifor.Exists(diag, srcFunc.Compile());
         }
 
@@ -37,7 +37,7 @@
             [CallerLineNumber] int line = 0,
             [CallerMemberName] string member = "")
         {
-            var diag = CreateDiag(file, line, member, srcFunc);
+            var diag = DiagInfoExpressionFactory.CreateDiag(file, line, member, srcFunc);
             return ifor.DoesNotExist(diag, srcFunc.Compile());
         }
 
@@ -47,7 +47,7 @@
             [CallerLineNumber] int line = 0,
             [CallerMemberName] string member = "")
         {
-            var diag = CreateDiag(file, line, member, srcFunc);
+            var diag = DiagInfoExpressionFactory.CreateDiag(file, line, member, srcFunc);
             return ifor.Each(diag, srcFunc.Compile());
         }
 
@@ -57,7 +57,7 @@
             [CallerLineNumber] int line = 0,
             [CallerMemberName] string member = "")
         {
-            var diag = CreateDiag(file, line, member, srcFunc);
+            var diag = DiagInfoExpressionFactory.CreateDiag(file, line, member, srcFunc);
             return ifor.Exists(diag, SingleFunc(srcFunc));
         }
 
@@ -67,7 +67,7 @@
             [CallerLineNumber] int line = 0,
             [CallerMemberName] string member = "")
         {
-            var diag = CreateDiag(file, line, member, srcFunc);
+            var diag = DiagInfoExpressionFactory.CreateDiag(file, line, member, srcFunc);
             return ifor.DoesNotExist(diag, SingleFunc(srcFunc));
         }
 
@@ -87,7 +87,7 @@
             [CallerLineNumber] int line = 0,
             [CallerMemberName] string member = "")
         {
-            var diag = CreateDiag(file, line, member, filter);
+            var diag = DiagInfoExpressionFactory.CreateDiag(file, line, member, filter);
             return ifor.IsTrue(diag, filter.Compile());
         }
 
@@ -97,7 +97,7 @@
             [CallerLineNumber] int line = 0,
             [CallerMemberName] string member = "")
         {
-            var diag = CreateDiag(file, line, member, srcFunc);
+            var diag = DiagInfoExpressionFactory.CreateDiag(file, line, member, srcFunc);
             return ifor.Exists(diag, srcFunc.Compile());
         }
 
@@ -107,7 +107,7 @@
             [CallerLineNumber] int line = 0,
             [CallerMemberName] string member = "")
         {
-            var diag = CreateDiag(file, line, member, srcFunc);
+            var diag = DiagInfoExpressionFactory.CreateDiag(file, line, member, srcFunc);
             return ifor.DoesNotExist(diag, srcFunc.Compile());
         }
 
@@ -117,7 +117,7 @@
             [CallerLineNumber] int line = 0,
             [CallerMemberName] string member = "")
         {
-            var diag = CreateDiag(file, line, member, srcFunc);
+            var diag = DiagInfoExpressionFactory.CreateDiag(file, line, member, srcFunc);
             return ifor.Each(diag, srcFunc.Compile());
         }
 
@@ -127,7 +127,7 @@
             [CallerLineNumber] int line = 0,
             [CallerMemberName] string member = "")
         {
-            var diag = CreateDiag(file, line, member, srcFunc);
+            var diag = DiagInfoExpressionFactory.CreateDiag(file, line, member, srcFunc);
             return ifor.Exists(diag, SingleFunc(srcFunc));
         }
 
@@ -137,7 +137,7 @@
             [CallerLineNumber] int line = 0,
             [CallerMemberName] string member = "")
         {
-            var diag = CreateDiag(file, line, member, srcFunc);
+            var diag = DiagInfoExpressionFactory.CreateDiag(file, line, member, srcFunc);
             return ifor.DoesNotExist(diag, SingleFunc(srcFunc));
         }
 

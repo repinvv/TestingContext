@@ -1,8 +1,8 @@
 ﻿namespace UnitTestProject1.Definitions.Assignment
 {
     using System.Linq;
-    using TestingContext.LimitedInterface;
-    using TestingContext.LimitedInterface.Tokens;
+    using TestingContextLimitedInterface;
+    using TestingContextLimitedInterface.Tokens;
     using UnitTestProject1.Entities;
 
     internal static class AssignmentGivenHelper

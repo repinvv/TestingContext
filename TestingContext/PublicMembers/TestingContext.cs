@@ -2,15 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
-    using global::TestingContext.Interface;
-    using global::TestingContext.LimitedInterface;
-    using global::TestingContext.LimitedInterface.Diag;
-    using global::TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Registrations.HighLevel;
     using TestingContextCore.Implementation.Registrations.Registration0;
     using TestingContextCore.Implementation.TreeOperation;
+    using TestingContextInterface;
+    using TestingContextLimitedInterface;
+    using TestingContextLimitedInterface.Diag;
+    using TestingContextLimitedInterface.Tokens;
 
     public class TestingContext : ITestingContext
     {

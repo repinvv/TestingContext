@@ -1,4 +1,4 @@
-﻿namespace TestingContext.LimitedInterface
+﻿namespace TestingContextLimitedInterface
 {
     using System;
     using System.Linq;

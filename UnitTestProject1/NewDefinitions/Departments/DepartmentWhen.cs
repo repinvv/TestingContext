@@ -2,9 +2,9 @@
 {
     using System.Linq;
     using TechTalk.SpecFlow;
-    using TestingContext.Interface;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.PublicMembers;
+    using TestingContextInterface;
+    using TestingContextLimitedInterface.Tokens;
     using UnitTestProject1.NewEntities;
     using UnitTestProject1.NewDefinitions.Extensions;
 

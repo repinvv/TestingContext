@@ -1,7 +1,7 @@
-﻿namespace TestingContext.Interface
+﻿namespace TestingContextInterface
 {
     using System.Collections.Generic;
-    using TestingContext.LimitedInterface.Tokens;
+    using TestingContextLimitedInterface.Tokens;
 
     public interface IResolutionContext<T>
     {

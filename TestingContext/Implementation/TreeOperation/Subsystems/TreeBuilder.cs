@@ -2,10 +2,10 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.TreeOperation.Subsystems.NodeRelated;
     using TestingContextCore.PublicMembers.Exceptions;
+    using TestingContextLimitedInterface.Tokens;
 
     internal static class TreeBuilder
     {

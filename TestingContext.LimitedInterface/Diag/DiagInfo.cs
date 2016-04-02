@@ -1,4 +1,4 @@
-﻿namespace TestingContext.LimitedInterface.Diag
+﻿namespace TestingContextLimitedInterface.Diag
 {
     using System;
     using System.Runtime.CompilerServices;

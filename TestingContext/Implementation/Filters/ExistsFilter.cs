@@ -2,10 +2,10 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContext.LimitedInterface.Tokens;
-    using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
+    using TestingContextLimitedInterface.Tokens;
+    using TestingContextLimitedInterface.UsefulExtensions;
 
     internal class ExistsFilter : BaseFilter, IFilter
     {

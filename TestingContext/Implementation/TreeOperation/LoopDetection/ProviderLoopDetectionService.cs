@@ -2,11 +2,11 @@ namespace TestingContextCore.Implementation.TreeOperation.LoopDetection
 {
     using System;
     using System.Linq;
-    using TestingContext.LimitedInterface.Diag;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.PublicMembers.Exceptions;
+    using TestingContextLimitedInterface.Diag;
+    using TestingContextLimitedInterface.Tokens;
 
     internal static class ProviderLoopDetectionService
     {

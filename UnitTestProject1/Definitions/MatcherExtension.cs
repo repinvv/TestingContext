@@ -1,6 +1,6 @@
 ﻿namespace UnitTestProject1.Definitions
 {
-    using TestingContext.Interface;
+    using TestingContextInterface;
 
     internal static class MatcherExtension
     {

@@ -1,4 +1,4 @@
-﻿namespace TestingContext.LimitedInterface.UsefulExtensions
+﻿namespace TestingContextLimitedInterface.UsefulExtensions
 {
     using System.Collections.Generic;
 

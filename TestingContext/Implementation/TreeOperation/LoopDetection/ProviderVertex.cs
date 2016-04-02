@@ -1,7 +1,7 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation.LoopDetection
 {
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Providers;
+    using TestingContextLimitedInterface.Tokens;
 
     internal class ProviderVertex : Vertex<ProviderVertex>
     {

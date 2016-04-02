@@ -1,9 +1,9 @@
 ﻿namespace UnitTestProject1.NewDefinitions.Employees
 {
     using TechTalk.SpecFlow;
-    using TestingContext.Interface;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.PublicMembers;
+    using TestingContextInterface;
+    using TestingContextLimitedInterface.Tokens;
     using UnitTestProject1.NewEntities;
 
     [Binding]

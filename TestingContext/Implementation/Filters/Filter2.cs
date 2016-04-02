@@ -3,10 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.PublicMembers.Exceptions;
+    using TestingContextLimitedInterface.Tokens;
 
     internal class Filter2<T1, T2> : BaseFilter, IFilter
     {

@@ -1,11 +1,11 @@
 ﻿namespace TestingContextCore.Implementation.Registrations
 {
-    using TestingContext.LimitedInterface.Diag;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Registrations.FilterRegistrations;
     using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.PublicMembers.Exceptions;
+    using TestingContextLimitedInterface.Diag;
+    using TestingContextLimitedInterface.Tokens;
 
     internal static class StoreExtension
     {

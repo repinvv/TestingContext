@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
-    using TestingContext.Interface;
-    using TestingContext.LimitedInterface.Diag;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Registrations.HighLevel;
+    using TestingContextInterface;
+    using TestingContextLimitedInterface.Diag;
+    using TestingContextLimitedInterface.Tokens;
 
     internal class Registration2<T1, T2> : HighLevelRegistrations, IFor<T1, T2>
     {

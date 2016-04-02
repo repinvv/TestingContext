@@ -1,8 +1,8 @@
 ﻿namespace TestingContextCore.Implementation.Registrations
 {
-    using TestingContext.Interface;
-    using TestingContext.LimitedInterface.Diag;
-    using TestingContext.LimitedInterface.Tokens;
+    using TestingContextInterface;
+    using TestingContextLimitedInterface.Diag;
+    using TestingContextLimitedInterface.Tokens;
 
     internal class Inversion : IInversion
     {

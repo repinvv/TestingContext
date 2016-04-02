@@ -1,9 +1,9 @@
 ﻿namespace UnitTestProject1.Definitions.Insurance
 {
     using TechTalk.SpecFlow;
-    using TestingContext.Interface;
     using TestingContextCore.PublicMembers;
     using TestingContextCore.PublicMembers.Exceptions;
+    using TestingContextInterface;
     using UnitTestProject1.Entities;
 
     [Binding]

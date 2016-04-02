@@ -1,10 +1,10 @@
 ﻿namespace TestingContextCore.Implementation.TreeOperation
 {
     using System.Collections.Generic;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Resolution;
+    using TestingContextLimitedInterface.Tokens;
 
     internal class Tree
     {

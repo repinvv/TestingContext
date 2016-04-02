@@ -1,4 +1,4 @@
-﻿namespace TestingContext.Interface
+﻿namespace TestingContextInterface
 {
     public interface IStorage
     {

@@ -1,8 +1,8 @@
 ﻿namespace UnitTestProject1.NewDefinitions.WorkProjects
 {
     using TechTalk.SpecFlow;
-    using TestingContext.Interface;
     using TestingContextCore.PublicMembers;
+    using TestingContextInterface;
     using UnitTestProject1.NewEntities;
 
     [Binding]

@@ -1,4 +1,4 @@
-﻿namespace TestingContext.LimitedInterface.Tokens
+﻿namespace TestingContextLimitedInterface.Tokens
 {
     using System;
 

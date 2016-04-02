@@ -3,12 +3,12 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Runtime.CompilerServices;
-    using TestingContext.Interface;
-    using TestingContext.LimitedInterface.Tokens;
-    using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
+    using TestingContextInterface;
+    using TestingContextLimitedInterface.Tokens;
+    using TestingContextLimitedInterface.UsefulExtensions;
 
     public static class Counter
     {

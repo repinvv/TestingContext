@@ -1,8 +1,8 @@
-﻿namespace TestingContext.Interface
+﻿namespace TestingContextInterface
 {
     using System;
     using System.Collections.Generic;
-    using TestingContext.LimitedInterface.Tokens;
+    using TestingContextLimitedInterface.Tokens;
 
     public interface IMatcher
     {

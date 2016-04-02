@@ -1,6 +1,6 @@
 ﻿namespace TestingContextCore.Implementation.Tokens
 {
-    using TestingContext.LimitedInterface.Tokens;
+    using TestingContextLimitedInterface.Tokens;
 
     internal class HaveToken<T> : IHaveToken<T>
     {

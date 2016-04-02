@@ -2,10 +2,10 @@
 {
     using System;
     using System.Linq;
-    using TestingContext.Interface;
-    using TestingContext.LimitedInterface;
-    using TestingContext.LimitedInterface.Diag;
-    using TestingContext.LimitedInterface.Tokens;
+    using TestingContextInterface;
+    using TestingContextLimitedInterface;
+    using TestingContextLimitedInterface.Diag;
+    using TestingContextLimitedInterface.Tokens;
 
     internal class HighLevelRegistrations
     {

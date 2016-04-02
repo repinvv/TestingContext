@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContext.LimitedInterface.Tokens;
-    using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Resolution;
+    using TestingContextLimitedInterface.Tokens;
+    using TestingContextLimitedInterface.UsefulExtensions;
     using static NodeClosestParentService;
 
     internal class NodeResolver

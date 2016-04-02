@@ -3,8 +3,8 @@
     using System.Linq;
     using TechTalk.SpecFlow;
     using TechTalk.SpecFlow.Assist;
-    using TestingContext.Interface;
     using TestingContextCore.PublicMembers;
+    using TestingContextInterface;
     using UnitTestProject1.NewEntities;
 
     [Binding]

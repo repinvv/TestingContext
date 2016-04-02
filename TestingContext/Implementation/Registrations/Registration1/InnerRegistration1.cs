@@ -2,14 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
-    using TestingContext.Interface;
-    using TestingContext.LimitedInterface.Diag;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Registrations.FilterRegistrations;
     using TestingContextCore.Implementation.Tokens;
+    using TestingContextInterface;
+    using TestingContextLimitedInterface.Diag;
+    using TestingContextLimitedInterface.Tokens;
     using static RegistrationFactory;
 
     internal class InnerRegistration1<T1>

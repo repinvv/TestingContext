@@ -1,7 +1,7 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
-    using TestingContext.LimitedInterface.Diag;
-    using TestingContext.LimitedInterface.Tokens;
+    using TestingContextLimitedInterface.Diag;
+    using TestingContextLimitedInterface.Tokens;
 
     internal abstract class BaseFilter
     {

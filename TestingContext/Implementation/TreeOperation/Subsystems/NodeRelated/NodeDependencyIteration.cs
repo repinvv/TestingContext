@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Nodes;
+    using TestingContextLimitedInterface.Tokens;
 
     internal static class NodeDependencyIteration
     {

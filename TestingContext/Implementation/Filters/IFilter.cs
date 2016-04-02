@@ -1,8 +1,8 @@
 ﻿namespace TestingContextCore.Implementation.Filters
 {
-    using TestingContext.Interface;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Resolution;
+    using TestingContextInterface;
 
     internal interface IFilter : IDepend, IFailure
     {

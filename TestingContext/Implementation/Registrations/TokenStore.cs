@@ -1,13 +1,13 @@
 ﻿namespace TestingContextCore.Implementation.Registrations
 {
     using System.Collections.Generic;
-    using TestingContext.Interface;
-    using TestingContext.LimitedInterface.Diag;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Providers;
     using TestingContextCore.Implementation.Registrations.FilterRegistrations;
     using TestingContextCore.Implementation.Tokens;
     using TestingContextCore.PublicMembers;
+    using TestingContextInterface;
+    using TestingContextLimitedInterface.Diag;
+    using TestingContextLimitedInterface.Tokens;
 
     internal class TokenStore
     {

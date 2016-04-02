@@ -5,8 +5,8 @@
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;
-    using TestingContext.Interface;
     using TestingContextCore.PublicMembers;
+    using TestingContextInterface;
 
     [Binding]
     internal class LoggerMustProduceInfo

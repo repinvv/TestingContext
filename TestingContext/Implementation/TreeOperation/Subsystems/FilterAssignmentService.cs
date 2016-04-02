@@ -2,12 +2,13 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.TreeOperation.Subsystems.NodeRelated;
+    using TestingContextLimitedInterface.Tokens;
+    using TestingContextLimitedInterface.UsefulExtensions;
 
     internal static class FilterAssignmentService
     {
@@ -37,11 +38,39 @@
             node.FilterInfo.Group.Filters.Add(filter);
         }
 
+        private class GroupOrder
+        {
+            private readonly Dictionary<IFilterToken, IFilter> groupTokens;
+            private readonly Dictionary<IFilter, int> groupOrder;
+
+            public GroupOrder(IEnumerable<IFilter> filters)
+            {
+                groupTokens = filters
+                    .ToDictionary(x => x.FilterInfo.FilterToken);
+                groupOrder = new Dictionary<IFilter, int>();
+            }
+
+            public int GetGroupOrder(IFilter filter)
+            {
+                return groupOrder.GetOrAdd(filter, () =>
+                {
+                    if (filter.ParentGroupToken == null)
+                    {
+                        return 0;
+                    }
+                    return GetGroupOrder(groupTokens[filter.ParentGroupToken]) + 1;
+                });
+            }
+        }
+
         public static List<IFilter> GetTreeFilters(this TokenStore store)
         {
-            return store.FilterRegistrations
-                .Select(x => x.GetFilter())
+            var filters = store.FilterRegistrations
+                               .Select(x => x.GetFilter()).ToList();
+            var groupOrder = new GroupOrder(filters);
+            return filters
                 .OrderByDescending(x => x.FilterInfo.Priority)
+                .ThenByDescending(x => groupOrder.GetGroupOrder(x))
                 .ThenBy(x => x.FilterInfo.Id)
                 .ToList();
         }

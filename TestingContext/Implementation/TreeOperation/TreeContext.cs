@@ -2,11 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Filters;
     using TestingContextCore.Implementation.Filters.Groups;
     using TestingContextCore.Implementation.Registrations;
+    using TestingContextLimitedInterface.Tokens;
 
     internal class TreeContext
     {

@@ -2,14 +2,14 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using TestingContext.LimitedInterface.Tokens;
-    using TestingContext.LimitedInterface.UsefulExtensions;
     using TestingContextCore.Implementation.Nodes;
     using TestingContextCore.Implementation.Registrations;
     using TestingContextCore.Implementation.Resolution;
     using TestingContextCore.Implementation.TreeOperation.LoopDetection;
     using TestingContextCore.Implementation.TreeOperation.Subsystems;
     using TestingContextCore.Implementation.TreeOperation.Subsystems.NodeRelated;
+    using TestingContextLimitedInterface.Tokens;
+    using TestingContextLimitedInterface.UsefulExtensions;
     using static Subsystems.FilterAssignmentService;
 
     internal static class TreeOperationService

@@ -1,8 +1,8 @@
 ﻿namespace TestingContextCore.Implementation.Dependencies
 {
     using System;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Resolution;
+    using TestingContextLimitedInterface.Tokens;
 
     internal interface IDependency
     {

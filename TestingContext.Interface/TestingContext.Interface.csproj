@@ -7,7 +7,7 @@
     <ProjectGuid>{3F8E40CA-A8C8-4CF1-AF15-52128AC726EC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestingContext.Interface</RootNamespace>
+    <RootNamespace>TestingContextInterface</RootNamespace>
     <AssemblyName>TestingContext.Interface</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

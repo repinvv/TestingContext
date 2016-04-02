@@ -1,11 +1,11 @@
-﻿namespace TestingContext.Interface
+﻿namespace TestingContextInterface
 {
     using System;
     using System.Collections.Generic;
     using System.Runtime.CompilerServices;
-    using TestingContext.LimitedInterface;
-    using TestingContext.LimitedInterface.Diag;
-    using TestingContext.LimitedInterface.Tokens;
+    using TestingContextLimitedInterface;
+    using TestingContextLimitedInterface.Diag;
+    using TestingContextLimitedInterface.Tokens;
 
     public interface IFor<T1, T2> : IForToken<T1, T2>
     {

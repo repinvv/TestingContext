@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Resolution;
+    using TestingContextLimitedInterface.Tokens;
 
     internal class CollectionDependency : IDependency<IEnumerable<IResolutionContext>>
     {

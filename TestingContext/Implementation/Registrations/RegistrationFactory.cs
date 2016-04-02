@@ -1,12 +1,12 @@
 ﻿namespace TestingContextCore.Implementation.Registrations
 {
-    using TestingContext.Interface;
-    using TestingContext.LimitedInterface.Tokens;
     using TestingContextCore.Implementation.Dependencies;
     using TestingContextCore.Implementation.Registrations.HighLevel;
     using TestingContextCore.Implementation.Registrations.Registration0;
     using TestingContextCore.Implementation.Registrations.Registration1;
     using TestingContextCore.Implementation.Registrations.Registration2;
+    using TestingContextInterface;
+    using TestingContextLimitedInterface.Tokens;
 
     internal static class RegistrationFactory
     {
