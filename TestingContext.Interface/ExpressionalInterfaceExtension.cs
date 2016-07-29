@@ -12,6 +12,16 @@
         #region IRegister
 
         public static void Exists<T1>(this IRegister register,
+            Expression<Func<IEnumerable<T1>>> srcFunc,
+            [CallerFilePath] string file = "",
+            [CallerLineNumber] int line = 0,
+            [CallerMemberName] string member = "")
+        {
+            var diag = DiagInfoExpressionFactory.CreateDiag(file, line, member, srcFunc);
+            register.Exists(diag, srcFunc.Compile());
+        }
+
+        public static void Exists<T1>(this IRegister register,
             string name,
             Expression<Func<IEnumerable<T1>>> srcFunc,
             [CallerFilePath] string file = "",
